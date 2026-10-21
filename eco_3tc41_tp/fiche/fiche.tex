@@ -4,7 +4,7 @@
 \input{preamble-cheatsheet}
 \input{letterfonts}
 
-\newcommand{\mytitle}{CSC\_3TCXX\_TP Titre}
+\newcommand{\mytitle}{ECO\_3TC41\_TP Introduction à l'économie}
 \newcommand{\myauthor}{github/omgeta}
 \newcommand{\mydate}{AU 26-27 S1}
 
@@ -22,7 +22,1129 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      Begin                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Section 1}
+\section{Introduction}
+
+L'économie étudie les choix des agents économiques, l'allocation des ressources et le fonctionnement des marchés. Grandes questions:
+\begin{enumerate}[\roman*.]
+  \item IA et Transition Numérique: croissance, innovation, compétences, inégalités, protection de la vie privée 
+  \item Climat: pollution, coordination internationale
+  \item Inflation: pouvoir de marché et concurrence, bulles financières, pouvoir d’achat, impôts, politiques monétaires
+\end{enumerate}
+
+Circuit économique:
+\begin{enumerate}[\roman*.]
+  \item Ménages: consomment les biens et services, fournissent les facteurs de production
+  \item Entreprises: produires les biens et services, utilisent les facteurs de production
+\end{enumerate}
+
+Complexités:
+\begin{enumerate}[\roman*.]
+  \item Tout est interconnecté: equilibre général (e.g. 2008)
+  \item Futur détermine le présent: anticipations, arbitrage intertemporel
+  \item Asymétries d'information
+\end{enumerate}
+
+\textbf{Ex. Café en gare/aéroport (prix élevé)}:
+\begin{enumerate}[\roman*.]
+  \item Marge (markup): prix $-$ coût marginal
+  \item Monopole local: absence de concurrents, demande captive
+  \item Choix endogènes: emplacement stratégique, contrats d'exclusivité
+  \item Marché contestable: faibles coûts fixes d'entrée, mais accès limité aux emplacements
+  \item Extraction du surplus: propriétaire des locaux capte les profits des kiosques via les loyers
+\end{enumerate}
+Conclusion: prix élevé principalement dû à la rareté des espaces commerciaux et au pouvoir du propriétaire, plutôt qu'à la seule demande.
+
+\colbreak
+\section{Transactions}
+
+\subsection{Comment organiser les transactions ?}
+
+Approches pour déterminer les prix:
+\begin{enumerate}[\roman*.]
+  \item Décentralisée: négociations bi/multilatérales (selon client et pouvoir de négociation) ou automatisées (énergie P2P, prêts P2P)
+  \item Centralisée: planification (Marx) ou marché (concurrence parfaite)
+\end{enumerate}
+
+Négociations bilatérales:
+\begin{itemize}[$-$]
+  \item Coûts de transaction (Coase): rechercher, négocier et contrôler chaque échange est coûteux ; les entreprises internalisent les transactions si coûte moins cher, expliquant leur taille 
+  \item Contrats incomplets: ne prévoient pas toutes les situations avec risques informationnels 
+    \begin{itemize}[topsep=0.5em]
+      \item Sélection adverse: information cachée avant
+      \item Aléas moral: comportement caché après 
+    \end{itemize}
+  \item N'exploitent pas les économies d'échelle (coût moyen diminue quand production augmente)
+\end{itemize}
+
+\subsection{Marx vs Hayek}
+
+Coordination économique:
+\begin{enumerate}[\roman*.]
+  \item Marx: centralisée ; une autorité organise production, allocation et distribution des ressources
+  \item Hayek: décentralisée par le marché ; prix transmettent et agrègent l'information dispersée entre agents, sans planificateur central
+\end{enumerate}
+
+Marchés et limites de la planification:
+\begin{enumerate}[\roman*.]
+  \item École de Chicago: importance des marchés, des prix et des incitations individuelles
+  \item Valeur attribuée à un bien $\neq$ Prix d'échange
+  \item IA et planification: même avec une forte capacité de calcul, problèmes d'informations privées et de critères de redistribution
+\end{enumerate}
+
+\colbreak
+\section{Marché Concurrentiel}
+
+\subsection{La demande et l'offre}
+
+\textbf{Demande individuelle}: quantité qu'un consommateur souhaite et peut acheter à chaque prix.
+
+\textbf{Courbes d'indifférence}: ensembles de paniers $(x,y)$ procurant la même utilité $U(x,y)$.
+\begin{enumerate}[\roman*.]
+  \item Plus éloignées de l'origine $\Rightarrow$ utilité supérieure
+  \item Ne se croisent pas
+  \item Décroissantes et convexes (TMS décroissant)
+\end{enumerate}
+
+\textbf{Taux Marginal de Substitution (TMS)}: quantité de $y$ sacrifiée pour une unité supplémentaire de $x$ à utilité constante.
+\[
+TMS_{x,y}=-\left.\frac{dy}{dx}\right|_{U=\bar U}
+=\frac{U'_x}{U'_y}
+\]
+\begin{enumerate}[\roman*.]
+  \item Décroissant: plus on possède de $x$, moins on accepte de sacrifier de $y$ pour en obtenir davantage.
+\end{enumerate}
+
+\textbf{Optimum du consommateur}: maximiser l'utilité sous contrainte budgétaire:
+\[
+P_xx+P_yy\leq R,\qquad
+\boxed{TMS_{x,y}=\frac{P_x}{P_y}}
+\]
+\begin{enumerate}[\roman*.]
+  \item À l'optimum intérieur: tangence entre courbe d'indifférence et droite budgétaire (pente $-P_x/P_y$).
+\end{enumerate}
+
+\textbf{Effets sur la consommation}:
+\begin{enumerate}[\roman*.]
+  \item Effet de revenu: variation du pouvoir d'achat ; bien normal ($R\uparrow\Rightarrow Q_d\uparrow$), bien inférieur ($R\uparrow\Rightarrow Q_d\downarrow$)
+  \item Effet de substitution: variation des prix relatifs ; consommation du bien devenu moins cher $\uparrow$
+\end{enumerate}
+
+\textbf{Courbe de demande}: obtenue à partir des paniers optimaux pour différents prix ; généralement décroissante.
+
+\textbf{Demande agrégée}: somme horizontale des demandes individuelles au même prix:
+\[
+Q_D(P)=\sum_{i=1}^{n}Q_{d,i}(P)
+\]
+
+\colbreak
+
+\textbf{Offre individuelle}: quantité qu'un producteur souhaite vendre à chaque prix. 
+
+\textbf{Courbe d'offre}: généralement croissante ; prix plus élevé incite à produire davantage.
+
+\textbf{Offre agrégée}: somme horizontale des offres individuelles au même prix:
+\[
+Q_S(P)=\sum_{i=1}^{n}Q_{s,i}(P)
+\]
+
+\textbf{Élasticité-prix}: sensibilité relative des quantités demandées/offertes à une variation du prix.
+\[
+\boxed{\varepsilon_d=-\frac{\%\Delta Q_d}{\%\Delta P}
+=-\frac{P}{Q_d}\frac{dQ_d}{dP},\quad \varepsilon_s=\frac{\%\Delta Q_s}{\%\Delta P}
+=\frac{P}{Q_s}\frac{dQ_s}{dP}}
+\]
+\begin{enumerate}[\roman*.]
+  \item $\varepsilon=0$: parfaitement inélastique (verticale)
+  \item $0<\varepsilon<1$: inélastique
+  \item $\varepsilon=1$: unitaire
+  \item $\varepsilon>1$: élastique
+  \item $\varepsilon\to\infty$: parfaitement élastique (horizontale)
+\end{enumerate}
+
+\textbf{Déplacement de la demande}:
+\begin{enumerate}[\roman*.]
+  \item Variation du prix propre: mouvement le long de la courbe
+  \item Autres facteurs: revenu, goûts, anticipations, nombre d'acheteurs, prix des biens liés
+  \item Biens substituts: $P_y\uparrow\Rightarrow D_x\uparrow$
+  \item Biens complémentaires: $P_y\uparrow\Rightarrow D_x\downarrow$
+\end{enumerate}
+Demande $\uparrow$: courbe vers la droite ; demande $\downarrow$: vers la gauche.
+
+\textbf{Déplacement de l'offre}:
+\begin{enumerate}[\roman*.]
+  \item Variation du prix propre: mouvement le long de la courbe
+  \item Coûts des inputs $\uparrow\Rightarrow$ offre $\downarrow$
+  \item Progrès technologique $\Rightarrow$ offre $\uparrow$
+  \item Anticipations des prix futurs
+  \item Nombre de vendeurs $\uparrow\Rightarrow$ offre de marché $\uparrow$
+\end{enumerate}
+Offre $\uparrow$: courbe vers la droite ; offre $\downarrow$: vers la gauche.
+
+\subsection{L'équilibre concurrentiel}
+
+\textbf{Équilibre de marché}: intersection de l'offre et de la demande à prix d'équilibre $P^*$:
+\[
+\boxed{Q_D(P^*)=Q_S(P^*)=Q^*}
+\]
+\begin{enumerate}[\roman*.]
+  \item Excédent: $Q_S>Q_D$ $\Rightarrow$ pression à la baisse sur $P$
+  \item Pénurie: $Q_D>Q_S$ $\Rightarrow$ pression à la hausse sur $P$
+\end{enumerate}
+
+\textbf{Déplacements de l'équilibre}:
+\begin{enumerate}[\roman*.]
+  \item Demande $\uparrow$: $P^*\uparrow$, $Q^*\uparrow$
+  \item Demande $\downarrow$: $P^*\downarrow$, $Q^*\downarrow$
+  \item Offre $\uparrow$: $P^*\downarrow$, $Q^*\uparrow$
+  \item Offre $\downarrow$: $P^*\uparrow$, $Q^*\downarrow$
+\end{enumerate}
+
+\textbf{Contrôle des prix}:
+\begin{enumerate}[\roman*.]
+  \item Prix plafond: prix maximal légal
+    \begin{itemize}[topsep=0.5em]
+      \item si $P_{\max}<P^*$ $\Rightarrow$ pénurie ($Q_D>Q_S$) 
+    \end{itemize}
+  \item Prix plancher: prix minimal légal
+    \begin{itemize}[topsep=.5em]
+      \item si $P_{\min}>P^*$ $\Rightarrow$ excédent ($Q_S>Q_D$)
+    \end{itemize}
+  \item Contrôle des loyers: pénurie potentiellement accrue à long terme, lorsque offre et demande deviennent plus sensibles au prix
+  \item Salaire minimum: dans le modèle concurrentiel, salaire au-dessus de l'équilibre $\Rightarrow$ excès d'offre de travail (chômage)
+  \item Rationnement: répartition non tarifaire des biens en situation de pénurie
+\end{enumerate}
+
+\textbf{Taxes unitaires}: taxe fixe $t$ sur chaque unité vendue ; augmente le prix payé par l'acheteur et diminue le prix reçu par le vendeur:
+\[
+\boxed{P_a-P_v=t}
+\]
+\begin{enumerate}[\roman*.]
+  \item Taxe sur vendeurs: augmente le coût de vente $\Rightarrow$ offre se décale vers le haut
+  \item Taxe sur acheteurs: réduit leur disposition à payer hors taxe $\Rightarrow$ demande se décale vers le bas
+  \item Dans les deux cas: $P_a\uparrow$, $P_v\downarrow$, $Q^*\downarrow$ ; même résultat quel que soit celui qui verse la taxe à l'État
+\end{enumerate}
+
+\textbf{Incidence fiscale}: partage réel de la taxe entre acheteurs et vendeurs, selon leur sensibilité au prix (élasticité).
+\begin{enumerate}[\roman*.]
+  \item Demande peu élastique: acheteurs continuent d'acheter malgré hausse du prix $\Rightarrow$ supportent davantage la taxe
+  \item Offre peu élastique: vendeurs réduisent peu leur production malgré baisse du prix reçu $\Rightarrow$ supportent davantage la taxe
+\end{enumerate}
+Règle: côté le moins élastique supporte la plus grande part de la taxe.
+
+\textbf{Limites de la fiscalité}:
+\begin{enumerate}[\roman*.]
+  \item Nozick (Wilt Chamberlain): même après redistribution égalitaire, échanges volontaires peuvent recréer des inégalités ; question du droit de taxer pour redistribuer
+  \item Vote par les pieds: individus peuvent déménager vers des territoires aux impôts/services publics plus avantageux
+  \item Courbe de Laffer: recettes $=$ taux d'impôt $\times$ base imposable ; si taux trop élevé, activité imposable peut diminuer suffisamment pour réduire les recettes
+\end{enumerate}
+
+\colbreak
+\section{Bien-être}
+
+\subsection{Surplus du consommateur}
+
+\textbf{Disponibilité à payer (DAP)}: prix maximal qu'un acheteur accepte de payer pour un bien ; représente la valeur qu'il lui attribue.
+
+\textbf{Surplus du consommateur (SC)}: gain obtenu en payant moins que sa DAP.
+\[
+\boxed{SC=DAP-P}
+\]
+\textbf{Courbe de demande}: sa hauteur représente la DAP marginale. Le SC total est l'aire sous la demande et au-dessus du prix, jusqu'à la quantité achetée.
+\[
+SC=\frac12(P_{\max}-P)Q
+\]
+(pour une demande linéaire)
+
+Prix $\downarrow\Rightarrow SC\uparrow$: acheteurs existants paient moins et de nouveaux acheteurs entrent sur le marché.
+
+\subsection{Surplus du producteur}
+
+\textbf{Disponibilité à vendre}: prix minimal qu'un producteur accepte, déterminé par son coût de production.
+
+\textbf{Surplus du producteur (SP)}: gain obtenu en vendant à un prix supérieur au coût.
+\[
+\boxed{SP=P-C}
+\]
+\textbf{Courbe d'offre}: sa hauteur représente le coût marginal. Le SP total est l'aire au-dessus de l'offre et sous le prix, jusqu'à la quantité vendue.
+\[
+SP=\frac12(P-P_{\min})Q
+\]
+(pour une offre linéaire)
+
+Prix $\uparrow\Rightarrow SP\uparrow$: producteurs existants gagnent davantage et de nouveaux producteurs peuvent entrer.
+
+\subsection{Surplus total}
+
+\textbf{Surplus total (ST)}: somme des gains des consommateurs et des producteurs:
+\[
+\boxed{ST=SC+SP=DAP_{\text{totale}}-C_{\text{total}}}
+\]
+
+\textbf{Efficacité du marché}: l'équilibre concurrentiel maximise le surplus total (en absence de défaillances de marché).
+\begin{enumerate}[\roman*.]
+  \item $Q<Q^*$: DAP marginale $>$ coût marginal $\Rightarrow$ échange supplémentaire augmente le surplus
+  \item $Q>Q^*$: coût marginal $>$ DAP marginale $\Rightarrow$ échange supplémentaire réduit le surplus
+  \item $Q=Q^*$: DAP marginale $=$ coût marginal $\Rightarrow ST$ maximal
+\end{enumerate}
+
+\incimg{surplus}
+\colbreak
+\subsection{Efficacité de Pareto}
+
+\textbf{Amélioration de Pareto}: améliore le bien-être d'au moins un agent sans détériorer celui des autres.
+\textbf{Optimum de Pareto}: allocation où aucune amélioration de Pareto supplémentaire n'est possible
+
+\textbf{Boîte d'Edgeworth}: répartition de deux biens entre deux agents. À l'optimum intérieur, leurs courbes d'indifférence sont tangentes:
+\[
+\boxed{TMS_A=TMS_B}
+\]
+\begin{center}\vspace{-1em}
+  \incimg[0.7]{edgeworth}
+\end{center}\vspace{-1em}
+\textbf{Courbe des contrats}: ensemble des allocations Pareto optimales ; échanges depuis l'allocation initiale vers une allocation avantageuse pour les deux agents.
+
+\textbf{Product Mix}: combinaison efficace des biens produits ; le TMT mesure la quantité d'un bien sacrifiée pour produire davantage de l'autre.
+\[
+\boxed{TMS=TMT}
+\]
+Préférences des consommateurs = possibilités de production.
+
+\textbf{Théorèmes du bien-être}:
+\begin{enumerate}[\arabic*.]
+  \item équilibre concurrentiel $\Rightarrow$ optimum de Pareto (main invisible)
+  \item optimum de Pareto $\Rightarrow$ équilibre concurrentiel possible après redistribution initiale
+\end{enumerate}
+Sous certaines hypothèses: concurrence, absence de défaillances de marché. Redistribution par impôt forfaitaire pour éviter de modifier les incitations.
+
+\textbf{Efficacité statique}: allocation optimal à instant donné ; \textbf{efficacité dynamique}: prise en compte de l'innovation et des investissements futurs.
+\vspace{-1em}
+\colbreak
+\subsection{Critiques du critère de Pareto}
+
+\textbf{Limite principale}: efficacité $\neq$ équité ; une allocation très inégalitaire peut être Pareto optimale.
+
+\textbf{Amartya Sen}: bien-être ne se limite pas à l'utilité/consommation ; inclut libertés individuelles, droits politiques, environnement et participation sociale.
+
+\subsection{L'approche de John Rawls}
+
+\textbf{Voile de l'ignorance}: choisir les règles d'une société sans connaître sa future position sociale, richesse, religion ou génération.
+
+\textbf{Principes de justice}:
+\begin{enumerate}[\roman*.]
+  \item Libertés fondamentales égales pour tous
+  \item Égalité équitable des chances
+  \item Principe de différence: inégalités acceptables si elles bénéficient aux plus défavorisés
+\end{enumerate}
+
+\textbf{Critère max-min}: privilégier l'amélioration de la situation des individus les moins favorisés.
+
+\textbf{Critiques}: redistribution fiscale peut réduire les incitations au travail/investissement/innovation ; justice distributive et efficacité économique pas nécessairement compatibles.
+
+\textbf{Équité algorithmique}: critères de justice indépendants de l'identité des personnes ; robustesse aux permutations des individus.
+
+\colbreak
+\section{Long terme}
+
+\textbf{Court terme}: certains facteurs de production sont fixes ; \textbf{long terme}: tous les facteurs peuvent être ajustés, entreprises peuvent entrer/sortir du marché.
+
+\textbf{Coûts économiques}:
+\begin{enumerate}[\roman*.]
+  \item Coûts explicites: dépenses directes\\(ex. salaires, loyers, matières premières)
+  \item Coûts implicites: valeur des ressources utilisées sans paiement direct
+  \item Coût d'opportunité: valeur de la meilleure alternative abandonnée\\(ex. études: salaire non perçu)
+\end{enumerate}
+
+\textbf{Profits}:
+\begin{enumerate}[\roman*.]
+  \item Comptable: recettes $-$ coûts explicites
+  \item Économique: recettes $-$ coûts explicites $-$ coûts implicites
+\end{enumerate}
+
+\textbf{Coût total ($CT$)} = Coût fixe + Coût variable 
+\begin{enumerate}[\roman*.]
+  \item Coût fixe ($CF$): indépendant de la quantité
+  \item Coût variable ($CV$): varie avec la production
+\end{enumerate}
+
+\textbf{Coûts moyens}: coût de production par unité
+\[
+\boxed{
+CFM=\frac{CF}{Q},\quad
+CVM=\frac{CV}{Q},\quad
+CTM=\frac{CT}{Q}}
+\]
+
+\textbf{Coût marginal ($Cm$)}: coût d'une unité supplémentaire
+\[
+\boxed{Cm=\frac{\Delta CT}{\Delta Q}}
+\]
+
+\textbf{Relations entre les courbes}:
+\begin{enumerate}[\roman*.]
+  \item $CFM$ décroissant (coûts fixes répartis sur davantage d'unités)
+  \item $CVM$ et $CTM$ généralement en U
+  \item $Cm<CTM\Rightarrow CTM\downarrow$
+  \item $Cm>CTM\Rightarrow CTM\uparrow$
+  \item $Cm=CTM\Rightarrow CTM$ minimal (courbe en U)
+\end{enumerate}
+
+\textbf{Rendements d'échelle}: variation de production lorsque tous les facteurs augmentent dans la même proportion.
+\begin{enumerate}[\roman*.]
+  \item Croissants: facteurs $\times2\Rightarrow$ production $> \times2$
+  \item Constants: facteurs $\times2\Rightarrow$ production $\times2$
+  \item Décroissants: facteurs $\times2\Rightarrow$ production $< \times2$
+\end{enumerate}
+
+\textbf{Économies d'échelle}: coût moyen de long terme diminue quand la production augmente ; \textbf{déséconomies}: coût moyen augmente (ex. difficultés de coordination).
+
+{\centering\incimg[0.7]{rendements}\par}
+\vspace{-1em}
+\subsection{Équilibre de long terme}
+
+\textbf{Concurrence parfaite}: entreprise preneuse de prix ; maximise son profit en produisant jusqu'à $P=Cm$.
+
+\textbf{Entrée et sortie}:
+\begin{enumerate}[\roman*.]
+  \item $P>CTM$: profit économique positif \\$\Rightarrow$ entrée de concurrents, offre $\uparrow$, prix $\downarrow$
+  \item $P<CTM$: pertes \\$\Rightarrow$ sortie d'entreprises, offre $\downarrow$, prix $\uparrow$
+  \item $P=CTM$: profit économique nul \\$\Rightarrow$ équilibre de long terme
+\end{enumerate}
+{\centering\incimg[0.7]{equilibre}\par}
+\vspace{-1em}
+\colbreak
+\section{Défaillances}
+
+\textbf{Défaillance de marché}: situation où le marché n'alloue pas efficacement les ressources, entraînant une perte de bien-être collectif.
+
+\subsection{Monopole}
+
+\textbf{Monopole}: un seul vendeur, sans substitut proche ; dispose d'un pouvoir sur le prix grâce aux barrières à l'entrée:
+\begin{enumerate}[\roman*.]
+  \item Monopolisation d'un input clé 
+  \item Régulation accordant une exclusivité
+  \item Monopole naturel: économies d'échelle
+  \item Propriété intellectuelle
+\end{enumerate}
+
+\textbf{Maximisation du profit}: monopole choisit la quantité maximisant recettes moins coûts:
+\[
+\Pi(Q)=RT(Q)-CT(Q),\qquad \boxed{Rm=Cm}
+\]
+
+\begin{center}
+  \incimg[0.8]{monopole}
+\end{center}
+
+\textbf{Perte sèche}: surplus collectif perdu car le monopole produit moins et vend plus cher qu'en concurrence.
+\begin{enumerate}[\roman*.]
+  \item Monopole: $Rm=Cm$, quantité $Q_M$
+  \item Optimum social: $P=Cm$, quantité $Q^*$
+  \item $Q_M<Q^*$ et $P_M>P^*$ $\Rightarrow$ échanges mutuellement avantageux non réalisés
+\end{enumerate}
+
+\colbreak
+
+\subsection{Externalités}
+
+\textbf{Externalité}: effet d'une activité sur des tiers, non pris en compte dans les prix du marché
+
+\textbf{Externalité négative} (ex. aluminium): producteurs ignorent le coût de la pollution imposé à la société.
+\[
+\boxed{CMS=CMP+CME}
+\]
+\begin{enumerate}[\roman*.]
+  \item Coût marginal social = privé + externe ;\\ $Q_{\text{marché}}>Q_{\text{optimal}}$ $\Rightarrow$ surproduction.
+\end{enumerate}
+
+\textbf{Externalité positive} (ex. éducation): consommateurs ignorent une partie des bénéfices apportés à la société.
+\[
+\boxed{BMS=BMP+BME}
+\]
+\begin{enumerate}[\roman*.]
+  \item Bénéfice marginal social = privé + externe ;\\ $Q_{\text{marché}}<Q_{\text{optimal}}$ $\Rightarrow$ sous-consommation.
+\end{enumerate}
+
+\textbf{Solutions aux externalités}:
+\begin{enumerate}[\roman*.]
+  \item Coase: négociation entre agents si droits de propriété définis et coûts de transaction faibles ; internalisation de l'externalité
+  \item Réglementation: interdictions/limites directes
+  \item Taxe pigouvienne: pollueur paie le dommage 
+  \item Cap and trade: plafond total d'émissions et quotas échangeables (ex. EU ETS)
+\end{enumerate}
+
+\textbf{Limites de la taxe pigouvienne}:
+\begin{enumerate}[\roman*.]
+  \item Effets redistributifs: ménages modestes davantage affectés (ex. Gilets jaunes)
+  \item Pollution et dommages difficiles à mesurer
+  \item Difficulté d'estimer la disponibilité à payer pour l'environnement
+\end{enumerate}
+
+\textbf{Taxe vs quotas}:
+\begin{enumerate}[\roman*.]
+  \item Taxe: fixe le prix de la pollution ; quantité s'ajuste
+  \item Quotas: fixe la quantité de pollution ; prix s'ajuste
+\end{enumerate}
+
+\textbf{Limites des quotas}: droit de polluer légitimé, fraude, manipulation/collusion, délocalisation vers pays moins réglementés (forum shopping), incitations insuffisantes à l'innovation.
+
+\subsection{Les biens publics}
+
+\textbf{Typologie des biens}:
+\begin{enumerate}[\roman*.]
+  \item Bien privé: rival, excluable (ex. glace)
+  \item Bien de club: non rival, excluable\\(ex. autoroute non congestionnée à péage)
+  \item Bien commun: rival, non excluable (ex. poissons)
+  \item Bien public pur: non rival, non excluable\\(ex. défense nationale)
+\end{enumerate}
+
+\textbf{Biens publics impurs}: variables selon l'utilisation.
+\begin{enumerate}[\roman*.]
+  \item Congestion: bien devient rival si trop utilisé\\(ex. hôpitaux pendant COVID)
+  \item Coût d'exclusion: coût pour empêcher l'accès aux non-payeurs (ex. péage)
+\end{enumerate}
+
+\textbf{Passager clandestin}: agent profite d'un bien sans contribuer à son financement ; entreprises ne récupèrent pas tous les bénéfices $\Rightarrow$ sous-investissement privé\\(ex. recherche fondamentale).
+
+\subsection{Les biens communs}
+
+\textbf{Tragédie des communs}: ressource collective surexploitée car chaque agent privilégie son gain individuel sans supporter tous les coûts (ex. surpêche, surpâturage). Solutions:
+\begin{enumerate}[\roman*.]
+  \item Ostrom: règles collectives, surveillance
+  \item Tragédie des anti-communs: trop de droits d'exclusion empêchent l'utilisation efficace d'une ressource $\Rightarrow$ sous-exploitation 
+\end{enumerate}
+
+\subsection{Les problèmes informationnels}
+
+\textbf{Ex. Akerlof (lemons)}: 50\% plums, 50\% lemons
+\begin{enumerate}[\roman*.]
+  \item Vendeurs: minimum \$2000 (plum), \$1000 (lemon)
+  \item Acheteurs: DAP \$2400 (plum), \$1200 (lemon)
+  \item Qualité inconnue $\Rightarrow$ DAP moyenne $=0.5(2400)+0.5(1200)=\$1800$
+  \item Vendeurs de plums exigent \$2000 $\Rightarrow$ quittent
+  \item Restent uniquement les lemons $\Rightarrow$ DAP tombe à \$1200 ; disparition du marché des bonnes voitures
+\end{enumerate}
+\vspace{-1em}
+\colbreak
+\section{Rationalité}
+
+\textbf{Rationalité économique}: choix cohérents avec les préférences de l'agent ; représentés par fonction $u(x)$
+
+\textbf{Relations de préférence}:
+\begin{enumerate}[\roman*.]
+  \item $x\succ y$: $x$ strictement préféré à $y$
+  \item $x\sim y$: indifférence entre $x$ et $y$
+  \item $x\succeq y$: $x$ au moins aussi bon que $y$
+\end{enumerate}
+
+\textbf{Axiomes de rationalité}:
+\begin{enumerate}[\roman*.]
+  \item Complétude: tous comparables $x\succeq y$ ou $y\succeq x$
+  \item Réflexivité: 
+  $x\succeq x$
+  \item Transitivité: 
+  $x\succeq y,\ y\succeq z\Rightarrow x\succeq z$
+\end{enumerate}
+
+\textbf{Indépendance of Irrelevant Alternatives (IIA)}: ajouter une option ne devrait pas modifier la préférence entre deux options existantes
+
+\textbf{Biais cognitifs}: décisions influencées par le contexte, incohérentes avec rationalité théorique (ex. dark patterns)
+
+
+\subsection{Préférences révélées}
+
+\textbf{Préférences révélées}: déduire les préférences à partir des choix observés, plutôt que des déclarations.
+
+\textbf{Contrainte budgétaire}:
+\[
+p_1x_1+p_2x_2\leq m
+\]
+Si $x$ est choisi alors que $y$ est abordable, $x$ est révélé préféré à $y$.
+
+\textbf{WARP (axiome faible)}: cohérence des choix entre différents budgets.
+\begin{enumerate}[\roman*.]
+  \item Vérifié: $x$ choisi quand $y$ abordable ; si $y$ choisi ensuite, $x$ n'est plus abordable
+  \item Violé: $x$ choisi quand $y$ abordable, puis $y$ choisi quand $x$ est encore abordable (choix distincts)
+\end{enumerate}
+WARP permet de tester la rationalité à partir des comportements observés.
+
+\colbreak
+\subsection{Théorie des jeux}
+
+\textbf{Jeu stratégique}: situation où le gain d'un joueur dépend de ses décisions et de celles des autres.
+\begin{enumerate}[\roman*.]
+  \item Joueurs: agents prenant les décisions
+  \item Stratégies: actions disponibles
+  \item Gains (payoffs): utilités des résultats
+  \item Actions successives et simultanées 
+\end{enumerate}
+
+\textbf{Dilemme du prisonnier}: chaque joueur a intérêt à trahir, quelle que soit l'action de l'autre ; les deux trahissent, alors que coopérer ensemble leur serait plus avantageux. Rationalité individuelle $\neq$ optimum collectif.
+
+\textbf{Équilibre de Nash}: aucun joueur ne peut améliorer son gain en changeant seul de stratégie, connaissant celles des autres.
+\[
+\boxed{u_i(a_i^*,a_{-i}^*)\geq
+u_i(a_i,a_{-i}^*)}
+\]
+Pour tout joueur $i$ et toute stratégie alternative $a_i$.
+
+\textbf{Connaissance commune}: chacun sait que les autres savent une information, et ainsi de suite.
+
+\textbf{Bach ou Stravinsky}: jeu de coordination ; les joueurs préfèrent être ensemble mais pas le même concert $\Rightarrow$ plusieurs équilibres de Nash possibles.
+
+\textbf{Stratégies}:
+\begin{enumerate}[\roman*.]
+  \item Dominante: meilleure quelle que soit la décision des autres
+  \item Dominée: toujours moins avantageuse qu'une autre stratégie
+\end{enumerate}
+
+\textbf{Trouver un équilibre de Nash}:
+\begin{enumerate}[\roman*.]
+  \item Identifier les meilleures réponses de chaque joueur aux stratégies adverses
+  \item Éliminer les stratégies strictement dominées si possible
+  \item Équilibre: chaque joueur joue une meilleure réponse aux autres
+\end{enumerate}
+
+\colbreak
+\colbreak
+\section{Concepts macroéconomiques}
+
+\subsection{l'État et ses aggregats}
+
+\textbf{État-gendarme}: limité aux fonctions régaliennes (loi, justice, police, défense, monnaie), financées par les impôts.\\
+\textbf{État-providence}: intervention économique et sociale au-delà du régalien (ex. éducation, santé).
+
+Fonctions socio-économiques:
+\begin{enumerate}[\roman*.]
+  \item Allocation: corriger les défaillances du marché par réglementation, services publics, concurrence
+  \item Redistribution: réduire les inégalités via impôts, cotisations et prestations sociales
+  \item Stabilisation: réduire les déséquilibres économiques par politiques budgétaire et monétaire
+\end{enumerate}
+
+\textbf{Produit Intérieur Brut (PIB)}: valeur des finaux produits par les unités résidentes pendant une période: 
+\begin{enumerate}[\roman*.]
+  \item Production: somme des valeurs ajoutées (VA)
+    \begin{itemize}[topsep=.5em, leftmargin=*]
+      \item VA: production $-$ consommations intermédiaires 
+    \end{itemize}
+  \item Revenus: rémunérations du travail + excédent d'exploitation + impôts nets sur la production
+  \item Demande: consommation + investissement + dépenses publiques + exportations nettes
+\end{enumerate}
+\[
+\boxed{PIB=C+I+EX-IM}
+\]
+\textbf{Revenue National Brut (RNB)}: revenus primaires reçus par les résidents, y compris depuis l'étranger:
+\[
+\boxed{RNB=PIB+R_{\text{reçus RDM}}-R_{\text{versés RDM}}}
+\]
+\textbf{Enchaînement des agrégats}:
+\begin{enumerate}[\roman*.]
+  \item Revenu national disponible brut\\$=$ RNB $+$ transferts de richesse $-$ impôts 
+  \item Épargne brute\\$=$ Revenu disponible $-$ consommation finale
+  \item Besoin/capacité de financement national\\$=$ Eparge brute $-$ investissement 
+\end{enumerate}
+
+\colbreak
+\subsection{Finances publiques}
+
+\textbf{Budget de l'État}: recettes et dépenses des administrations centrales\\
+\begin{itemize}[leftmargin=*]
+  \item Solde budgétaire = Recettes $-$ Dépenses de l'État
+\end{itemize}
+\textbf{Budget public}: recettes des administrations APU (ex. état, sécurité sociale, regions) 
+\begin{itemize}[leftmargin=*]
+  \item Solde public = Recettes $-$ Dépenses publiques totales
+\end{itemize}
+
+\textbf{Recettes publiques}:
+\begin{enumerate}[\roman*.]
+  \item Fiscales: impôts sur le revenu, sociétés, TVA, TICPE, etc.
+  \item Non fiscales: revenus du patrimoine public, amendes, privatisations
+\end{enumerate}
+
+\textbf{Prélèvements obligatoires (PO)}: tout versement par les particuliers/entreprises aux APU.
+\begin{enumerate}[\roman*.]
+  \item Directs: proportionnels au revenu\\(ex. le revenu des personnes, sociétés, les fortune) 
+  \item Indirects: indépendants du revenu\\(ex. TVA, TIPP, taxe carbone) 
+\end{enumerate}
+\[
+\boxed{Taux_{PO}=\frac{PO}{PIB}\times100}
+\]
+\textbf{Dépenses publiques}: fonctionnement (salaires, services), investissement (infrastructures), prestations sociales, subventions, défense, intérêts de la dette.
+
+\textbf{Déficit vs dette}:
+\begin{enumerate}[\roman*.]
+  \item Déficit: dépenses $>$ recettes pendant une période 
+  \item Dette publique: des emprunts non remboursés
+  \item Déficits successifs $\Rightarrow$ dette généralement $\uparrow$ ; ratio dette/PIB peut néanmoins diminuer si PIB croît assez vite
+\end{enumerate}
+
+\textbf{Critères de Maastricht}: déficit public de référence $<3\%$ du PIB ; dette publique de référence $<60\%$ du PIB (avec exceptions et trajectoires d'ajustement).
+
+\textbf{Financement du déficit}: emprunt, utilisation d'actifs, augmentation des recettes ou réduction des dépenses.
+
+\subsection{Indicateurs économiques}
+
+\textbf{Inflation}: hausse généralisée et durable des prix, mesurée par l'IPC/IPCH.
+\[
+\boxed{\pi_t=\frac{IPC_t-IPC_{t-1}}{IPC_{t-1}}\times100}
+\]
+\begin{enumerate}[\roman*.]
+  \item Inflation: prix $\uparrow$ ; pouvoir d'achat de la monnaie $\downarrow$
+  \item Désinflation: inflation ralentit mais prix continuent d'augmenter
+  \item Déflation: baisse générale des prix ($\pi<0$)
+\end{enumerate}
+
+\textbf{Croissance économique}: augmentation du PIB réel
+\[
+\boxed{g_t=\frac{PIB_t-PIB_{t-1}}{PIB_{t-1}}\times100}
+\]
+\begin{enumerate}[\roman*.]
+  \item PIB nominal: mesuré aux prix courants 
+  \item PIB réel: mesuré à prix constants ; élimine l'effet des variations de prix
+  \item Croissance réelle $\approx$ croissance nominale $-$ inflation
+\end{enumerate}
+\[
+\boxed{1+g_{\text{réel}}=\frac{1+g_{\text{nominal}}}{1+\pi}}
+\]
+
+\textbf{Récession}: recul de l'activité économique ; souvent identifiée par 2 trimestres consécutifs de baisse du PIB réel
+
+\colbreak
+
+\textbf{Chômage (BIT)}: personne sans emploi, disponible sous deux semaines et recherchant activement un travail (ou emploi commençant prochainement).
+
+\[
+\boxed{Taux_{\text{chômage}}=
+\frac{\text{Chômeurs BIT}}{\text{Population active}}\times100}
+\]
+
+\textbf{Population active}: personnes en emploi + chômeurs.
+
+\textbf{Indicateurs du marché du travail}:
+\[
+\boxed{
+\begin{aligned}
+T_{\text{activité}}&=\frac{\text{Actifs}}{\text{Pop. en âge}}\\
+T_{\text{emploi}}&=\frac{\text{Actifs occupés}}{\text{Pop. en âge}}
+\end{aligned}}
+\]
+\begin{enumerate}[\roman*.]
+  \item Conjoncturel: dû au ralentissement économique
+  \item Structurel: inadéquation compétences/emplois
+  \item Frictionnel: temps nécessaire pour trouver un nouvel emploi
+  \item Halo du chômage: personnes souhaitant travailler mais ne satisfaisant pas tous les critères BIT
+\end{enumerate}
+\textbf{Plein emploi}: chômage non nul car chômage frictionnel (et éventuellement structurel) persiste.
+
+\textbf{Balance commerciale (B\&S)}:
+\[
+\boxed{BC=EX-IM}
+\]
+\begin{enumerate}[\roman*.]
+  \item Balance courante: inclut aussi revenus primaires et transferts courants avec le RDM
+\end{enumerate}
+
+\textbf{Taux de change}: valeur d'une monnaie exprimée dans une autre (ex. 1.25\$/€).
+\begin{enumerate}[\roman*.]
+  \item Appréciation de l'euro: € vaut plus de \$ $\Rightarrow$\\ exports désfavorisées, imports moins chères
+  \item Dépréciation de l'euro: € vaut moins de \$ $\Rightarrow$\\ exports favorisées, imports plus chères
+\end{enumerate}
+
+\colbreak
+\subsection{Stabilisateurs automatiques}
+
+\textbf{Stabilisateurs automatiques}: mécanismes fiscaux et sociaux réduisant les fluctuations économiques sans décision politique nouvelle (contracyclique).
+
+\begin{enumerate}[\roman*.]
+  \item Expansion: recettes $\uparrow$ $\Rightarrow$ dépenses sociales $\downarrow$ $\Rightarrow$ solde public s'améliore $\Rightarrow$ demande modérée 
+  \item Récession: recettes $\downarrow$ $\Rightarrow$ dépenses sociales $\uparrow$ $\Rightarrow$ solde public se dégrade $\Rightarrow$ demande soutenue 
+\end{enumerate}
+
+\subsection{Politiques conjoncturelles}
+
+\textbf{Politiques discrétionnaires}: interventions volontaires de l'État pour réguler la conjoncture: 
+\begin{enumerate}[\roman*.]
+  \item Expansionniste (relance): stimuler activité et emploi en période de récession
+  \item Restrictive (rigueur): freiner demande et inflation ou réduire les déficits
+\end{enumerate}
+
+\textbf{Politique budgétaire}: modification des dépenses (budget public) et des recettes (impôts):
+\begin{enumerate}[\roman*.]
+  \item Politique de demande (Keynes): dépenses public $\uparrow$ ou impôts ménages $\downarrow$ $\Rightarrow$ consommation $\uparrow$ $\Rightarrow$ production et emploi $\uparrow$
+  \item Politique d'offre: impôts/coûts des entreprises $\downarrow$, subventions $\uparrow$ $\Rightarrow$ investissement et production $\uparrow$ 
+\end{enumerate}
+
+\textbf{Demande effective (Keynes)}: demande anticipée par les entreprises ; si débouchés prévus $\uparrow$, production, investissement et emploi peuvent augmenter.
+
+\textbf{Multiplicateur keynésien}: hausse des dépenses publiques engendre une valeur de production supérieure 
+\[
+\boxed{\Delta Y=k\Delta G,\qquad k=\frac{1}{1-c}}
+\]
+$c$: propension marginale à consommer 
+
+\textbf{Effet d'éviction}: dépenses publiques financées par emprunt $\uparrow$ $\Rightarrow$ demande de financement $\uparrow$ $\Rightarrow$ taux d'intérêt $\uparrow$ $\Rightarrow$ investissement privé $\downarrow$ ; réduit l'effet multiplicateur.
+
+\colbreak
+\textbf{Politique monétaire (BCE)}: assurer la stabilité des prix (inflation IPCH proche de 2\%/an) en contrôlant la masse monétaire via les taux d'intérêt.
+
+\textbf{Politique conventionnelle}:
+\begin{enumerate}[\roman*.]
+  \item Expansionniste: taux directeurs $\downarrow$ $\Rightarrow$ offre de monnaie et crédits $\uparrow$ $\Rightarrow$ consommation/investissement $\uparrow$ $\Rightarrow$ croissance $\uparrow$
+  \item Restrictive: taux directeurs $\uparrow$ $\Rightarrow$ crédits $\downarrow$ $\Rightarrow$ demande $\downarrow$ $\Rightarrow$ inflation freinée
+\end{enumerate}
+
+\textbf{3 canaux d'intervention de la BCE}:
+\begin{enumerate}[\roman*.]
+  \item Marché monétaire/interbancaire: BCE $\leftrightarrow$ banques commerciales ; modulation des 3 taux directeurs (refinancement, dépôt, prêt marginal) pour influencer les crédits
+  \item Banque centrale $\leftrightarrow$ Trésor public: marché des titres de dette publique (bons du Trésor)
+  \item Marché des changes: BCE $\leftrightarrow$ reste du monde ; interventions visant la stabilité du taux de change de l'euro
+\end{enumerate}
+
+\textbf{Policy mix}: combinaison des politiques budgétaire et monétaire ; une politique monétaire accommodante peut renforcer une relance budgétaire en limitant l'effet d'éviction.
+
+
+
+\colbreak
+\section{Politiques conjoncturelles}
+
+\subsection{Relance (1970--1982)}
+
+\textbf{Contexte international}:
+\begin{enumerate}[\roman*.]
+  \item Fin de Bretton Woods (1971): fin de la convertibilité du dollar en or $\Rightarrow$ changes flexibles dès 1973
+  \item Serpent monétaire européen (1972--1979): fluctuations limitées à $\pm2,25\%$ autour des parités pivots ; banques centrales interviennent pour défendre les monnaies
+  \item Chocs pétroliers (1973, 1979): prix du pétrole importé $\uparrow$ $\Rightarrow$ coûts de production $\uparrow$, inflation $\uparrow$, croissance et emploi $\downarrow$
+\end{enumerate}
+
+\textbf{Stagflation}: stagnation de la croissance + inflation élevée + chômage persistant.
+\begin{enumerate}[\roman*.]
+  \item Choc pétrolier $\Rightarrow$ coûts des entreprises $\uparrow$ $\Rightarrow$ prix $\uparrow$ et licenciements
+  \item Salaires indexés sur les prix $\Rightarrow$ salaires $\uparrow$ $\Rightarrow$ coûts $\uparrow$ $\Rightarrow$ nouvelle inflation (spirale prix-salaires)
+  \item France: inflation $>10\%$ dès 1974, croissance fortement ralentie
+\end{enumerate}
+
+\textbf{Alternance relance/rigueur}:
+\begin{enumerate}[\roman*.]
+  \item 1974 -- Rigueur: encadrement du crédit, taux d'intérêt $\uparrow$, impôts $\uparrow$ $\Rightarrow$ récession et chômage
+  \item 1975 -- Relance Chirac: investissements et dépenses publiques $\uparrow$ $\Rightarrow$ reprise temporaire, mais inflation et chômage persistants
+  \item 1976--1979 -- Austérité Barre: gel des prix/salaires, prélèvements obligatoires $\uparrow$, crédit limité $\Rightarrow$ inflation encore élevée, investissement faible
+  \item 1981 -- Relance Mauroy: SMIC, prestations sociales et emplois publics $\uparrow$ $\Rightarrow$ consommation $\uparrow$ ; croissance en 1982 mais surtout importations et services favorisés
+\end{enumerate}
+
+\colbreak
+
+\textbf{Échec des relances keynésiennes}: en situation d'inflation galopante et de dépendance aux importations:
+\begin{enumerate}[\roman*.]
+  \item Relance budgétaire \\$\Rightarrow$ demande globale $\uparrow$ \\$\Rightarrow$ importations et prix $\uparrow$ \\(déficits jumeaux: public et extérieur)
+  \item Inflation française $>$ partenaires \\$\Rightarrow$ compétitivité $\downarrow$ \\$\Rightarrow$ déficit commercial $\uparrow$
+  \item Déficit commercial et fuite des capitaux \\$\Rightarrow$ demande de francs $\downarrow$ \\$\Rightarrow$ pression à la dévaluation
+  \item Dévaluation \\$\Rightarrow$ importations et pétrole plus chers \\$\Rightarrow$ inflation importée $\uparrow$
+\end{enumerate}
+Cercle: relance $\to$ inflation $\to$ dévaluation $\to$ inflation.
+
+\textbf{Dévaluation}: baisse officielle de la parité d'une monnaie en changes fixes ; exportations moins chères, mais importations renchéries.
+
+\textbf{Attaques spéculatives}: anticipation d'une dévaluation $\Rightarrow$ vente massive de francs \\$\Rightarrow$ Banque de France vend des devises pour racheter francs \\$\Rightarrow$ réserves de change $\downarrow$ ; si insuffisantes, dévaluation
+
+\textbf{Taux d'intérêt réel}:
+\[
+\boxed{r_{\text{réel}}\approx r_{\text{nominal}}-\pi}
+\]
+Inflation élevée $\Rightarrow$ taux réels parfois négatifs malgré des taux nominaux élevés ; politique monétaire peu restrictive.
+
+\textbf{Triangle d'incompatibilité de Mundell-Fleming}: impossible de maintenir simultanément:
+\begin{enumerate}[\roman*.]
+  \item Fixité des taux de change
+  \item Mobilité parfaite des capitaux
+  \item Autonomie de la politique monétaire
+\end{enumerate}
+Avec changes fixes et capitaux libres, un pays ne peut mener durablement une politique monétaire indépendante.
+
+\colbreak
+\textbf{France vs Allemagne}:
+\begin{enumerate}[\roman*.]
+  \item France: inflation élevée, politiques alternées, dévaluations et attaques spéculatives
+  \item Allemagne: prioritise stabilité des prix, taux réels positifs, mark fort et crédibilité monétaire
+\end{enumerate}
+
+\textbf{Effet d'éviction}: dépenses publiques financées par emprunt $\Rightarrow$ demande de financement $\uparrow$ $\Rightarrow$ taux d'intérêt $\uparrow$ $\Rightarrow$ investissement privé $\downarrow$ 
+
+\subsection{Rigueur (1983--1998)}
+
+\textbf{Tournant de la rigueur (1983)}: abandon de la relance au profit de la désinflation et de la stabilité monétaire pour rester dans le SME (plan Delors).
+
+\textbf{Politique du franc fort / désinflation compétitive}:
+\begin{enumerate}[\roman*.]
+  \item Rigueur budgétaire: dépenses publiques maîtrisées, impôts $\uparrow$ $\Rightarrow$ déficits et demande limités
+  \item Rigueur monétaire: taux d'intérêt élevés pour défendre le franc et lutter contre l'inflation
+  \item Désindexation de salaires: rompt spirale prix-salaire
+  \item Franc fort: importations moins chères $\Rightarrow$ désinflation importée ; maîtrise des prix/coûts pour retrouver de la compétitivité
+  \item Contre-choc pétrolier (1986): pétrole moins cher $\Rightarrow$ désinflation renforcée
+\end{enumerate}
+
+\textbf{Crise du SME (1992--1993)}:
+\begin{enumerate}[\roman*.]
+  \item Réunification allemande (1990) $\Rightarrow$ dépenses publiques et inflation $\uparrow$ $\Rightarrow$ Bundesbank augmente ses taux
+  \item Capitaux attirés vers le mark $\Rightarrow$ autres monnaies sous pression ; pays du SME doivent relever leurs taux pour maintenir les parités
+  \item Taux élevés $\Rightarrow$ investissement/croissance $\downarrow$ ; attaques spéculatives contre les monnaies européennes
+  \item 1993: défense du franc par la BdF ; élargissement des marges du SME de $\pm2,25\%$ à $\pm15\%$
+\end{enumerate}
+Bilan: changes fixes entre monnaies nationales difficiles à maintenir $\Rightarrow$ motivation pour une monnaie unique.
+
+\textbf{Traité de Maastricht (1992)}: convergence vers l'Union économique et monétaire (UEM).
+\begin{enumerate}[\roman*.]
+  \item Stabilité des prix, des changes et des taux d'intérêt à long terme
+  \item Déficit public de référence $<3\%$ du PIB et dette publique $<60\%$ du PIB
+  \item Art. 123: interdiction du financement direct des États par les banques centrales
+  \item Coordination et surveillance des politiques économiques nationales
+\end{enumerate}
+
+\textbf{Pacte de stabilité et de croissance (PSC, 1997)}:
+\begin{enumerate}[\roman*.]
+  \item Volet préventif: surveillance des trajectoires budgétaires et des dépenses publiques
+  \item Volet correctif: procédure de déficit excessif (PDE), recommandations et sanctions possibles
+  \item Révisions: prise en compte du déficit structurel et des circonstances économiques
+\end{enumerate}
+
+\textbf{Bilan de la désinflation compétitive}:
+\begin{enumerate}[\roman*.]
+  \item Succès: inflation de $13,6\%$ (1980) à $0,7\%$ (1998), crédibilité du franc, déficit public ramené à $2,9\%$ du PIB
+  \item Limites: chômage élevé, taux d'intérêt contraignants, perte de compétitivité industrielle et inégalités
+  \item UEM: taux de change fixes remplacés par monnaie unique ; perte d'autonomie monétaire nationale
+\end{enumerate}
+
+\colbreak
+\subsection{Relance (1997--2001)}
+
+\textbf{Nouveau policy mix en zone euro}:
+\begin{enumerate}[\roman*.]
+  \item Politique monétaire: commune, conduite par la BCE ; priorité à la stabilité des prix
+  \item Politique budgétaire: nationale, mais encadrée par les critères de Maastricht et le PSC
+\end{enumerate}
+
+\textbf{Tournant expansionniste (Jospin)}:
+\begin{enumerate}[\roman*.]
+  \item Relance budgétaire: dépenses publiques $\uparrow$, impôts des ménages modestes $\downarrow$, politique de l'emploi (35 heures)
+  \item Assouplissement monétaire: taux d'intérêt $\downarrow$ $\Rightarrow$ crédits et investissement favorisés
+  \item Complémentarité du policy mix: relance budgétaire + monétaire $\Rightarrow$ multiplicateur renforcé, effet d'éviction limité
+\end{enumerate}
+
+\subsection{Crises (2007--2026)}
+
+\textbf{Succession de chocs économiques}:
+\begin{enumerate}[\roman*.]
+  \item 2007--2008: crise des subprimes (bulle immobilière américaine) $\Rightarrow$ faillites bancaires, crise financière mondiale et récession
+  \item 2008--2012: crise des dettes souveraines européennes $\Rightarrow$ défiance des créanciers et taux d'emprunt élevés
+  \item 2015--2020: risque de déflation $\Rightarrow$ politique monétaire ultra-accommodante
+  \item 2020: crise Covid $\Rightarrow$ arrêt partiel de l'activité, aides publiques massives
+  \item 2022: guerre en Ukraine et choc énergétique $\Rightarrow$ inflation $\uparrow$, taux directeurs ensuite relevés
+\end{enumerate}
+
+\textbf{Crise des dettes souveraines}: déficits et dettes $\uparrow$ après 2008 $\Rightarrow$ défiance des marchés $\Rightarrow$ taux souverains $\uparrow$ $\Rightarrow$ charge d'intérêts $\uparrow$.
+\begin{enumerate}[\roman*.]
+  \item Ex. Grèce: financement devenu trop coûteux $\Rightarrow$ plans d'aide conditionnés à des mesures de rigueur
+  \item FESF puis MES: mécanismes européens de soutien aux États en difficulté pour éviter la contagion
+\end{enumerate}
+
+\colbreak
+\textbf{Risque de déflation (2015--2020)}:
+\begin{enumerate}[\roman*.]
+  \item Canal interbancaire bloqué: banques refusent de se prêter malgré des taux bas
+  \item Canal du crédit bloqué: banques conservent les liquidités plutôt que de prêter
+  \item Faible demande, salaires peu dynamiques, prix de l'énergie bas $\Rightarrow$ inflation sous la cible BCE de $2\%$
+\end{enumerate}
+
+\textbf{Politique monétaire non conventionnelle (QE)}: rachats massifs et programmés d'obligations publiques/privées par la BCE sur les marchés.
+\begin{enumerate}[\roman*.]
+  \item Achats de titres $\uparrow$ $\Rightarrow$ prix des obligations $\uparrow$ \\$\Rightarrow$ rendements/taux longs $\downarrow$
+  \item Financement moins coûteux $\Rightarrow$ investissement et croissance soutenus ; dette publique facilitée
+  \item APP (2015--2022), PEPP (2020--2022): programmes d'achats d'actifs
+  \item Risques: inflation, bulles financières, endettement excessif ; sortie du QE $\Rightarrow$ taux et charge de la dette $\uparrow$
+\end{enumerate}
+
+\textbf{Mesures de relance et de soutien (2007--2025)}:
+\begin{enumerate}[\roman*.]
+  \item Court: sauvetage bancaire (2008), aides Covid, boucliers tarifaires (2022--2023), allègements fiscaux
+  \item Moyen/long: Grand Emprunt (2010), France Relance (2021--2022), France 2030 (innovation, numérique, transition écologique)
+\end{enumerate}
+
+\textbf{Retour à la rigueur}:
+\begin{enumerate}[\roman*.]
+  \item Réduction des dépenses: gel des budgets, réformes des retraites (2010, 2023) et de l'assurance-chômage (2019)
+  \item Hausse des recettes: impôts sur revenus/capital, réduction des niches fiscales, lutte contre la fraude
+  \item Bilan: déficits persistants et dette publique croissante malgré les ajustements
+\end{enumerate}
+
+\textbf{Bilan 2026}: France sous procédure de déficit excessif depuis 2024 ; objectif de retour sous les $3\%$ du PIB d'ici 2029. Crédibilité des politiques budgétaires et monétaires essentielle pour conserver la confiance des investisseurs.
+
+\colbreak
+\section{Dette publique}
+
+\subsection{Soutenabilité}
+
+\textbf{Solvabilité}: capacité financière d'un État à rembourser sa dette (notion statique). L'État a une durée de vie illimitée, peut lever des impôts et faire rouler sa dette (réemprunter pour rembourser les échéances).
+
+\textbf{Insolvabilité / défaut}: incapacité à honorer la dette $\Rightarrow$ confiance des créanciers $\downarrow$ $\Rightarrow$ taux d'emprunt $\uparrow$ $\Rightarrow$ risque de cercle vicieux.
+\begin{enumerate}[\roman*.]
+  \item Restructuration: renégocier les échéances, taux ou montants dus
+  \item Conséquences: accès aux marchés limité, primes de risque élevées, perte de crédibilité
+\end{enumerate}
+
+\textbf{Soutenabilité}: capacité d'un pays à assurer le service de sa dette sans compromettre sa croissance à long terme (notion dynamique). Dépend de la trajectoire dette/PIB et des conditions de financement.
+
+\textbf{Contrainte budgétaire publique}:
+\[
+\boxed{D_{t+1}=D_t(1+r)-SP_{t+1}}
+\]
+$D_t$: stock de dette ; $r$: taux d'intérêt nominal apparent (moyen sur la dette) ; $SP$: solde primaire (recettes $-$ dépenses hors intérêts).
+
+\textbf{Ratio dette/PIB}: avec $g$ le taux de croissance nominal du PIB:
+\[
+\boxed{d_{t+1}=d_t\frac{1+r}{1+g}-sp_{t+1}}
+\]
+$d=D/PIB$ ; $sp=SP/PIB$.
+
+\textbf{Variation du ratio} (approximation):
+\[
+\boxed{\Delta d\simeq d_t(r-g)-sp_{t+1}}
+\]
+\begin{enumerate}[\roman*.]
+  \item $r>g$: effet boule de neige ; dette augmente plus vite que le PIB, même si $sp=0$
+  \item $g>r$: croissance réduit le poids relatif de la dette ; déficit primaire modéré parfois soutenable
+  \item $sp>0$: excédent primaire réduit le ratio ; $sp<0$: déficit primaire l'augmente
+\end{enumerate}
+
+\textbf{Solde primaire stabilisant (SPS)}: solde nécessaire pour maintenir le ratio dette/PIB constant ($\Delta d=0$).
+\[
+\boxed{SPS\simeq d_t(r-g)}
+\]
+\begin{enumerate}[\roman*.]
+  \item $sp>SPS$: endettement/PIB $\downarrow$
+  \item $sp=SPS$: ratio stable
+  \item $sp<SPS$: endettement/PIB $\uparrow$
+\end{enumerate}
+
+\textbf{Limite}: stabiliser une dette ne signifie pas qu'elle soit soutenable ; l'excédent nécessaire peut être économiquement ou politiquement impossible.
+
+\subsection{Stabilisation}
+
+\textbf{Cadre juridique européen}:
+\begin{enumerate}[\roman*.]
+  \item Maastricht: déficit de référence $3\%$ du PIB, dette $60\%$ du PIB
+  \item TSCG (2012): règle d'or limitant le déficit structurel à $0,5\%$ du PIB en principe
+  \item France: lois de programmation des finances publiques (LPFP), contrôle par le Haut Conseil des finances publiques (HCFP)
+  \item Procédure de déficit excessif (PDE): trajectoire imposée pour réduire déficits et dette, sanctions possibles
+\end{enumerate}
+
+\textbf{Situation française}: endettement parmi les plus élevés de la zone euro ; PDE depuis juillet 2024, objectif de déficit inférieur à $3\%$ du PIB en 2029.
+
+\textbf{Dette intergénérationnelle}:
+\begin{enumerate}[\roman*.]
+  \item Fardeau si dette finance des dépenses courantes non productives ou des déficits structurels
+  \item Pas nécessairement un fardeau si elle finance des investissements productifs (éducation, santé, infrastructures, recherche) qui soutiennent la croissance future
+\end{enumerate}
+
+\colbreak
+\textbf{Risques d'une dette élevée}:
+\begin{enumerate}[\roman*.]
+  \item Effet boule de neige si $r>g$: poids de la dette $\uparrow$
+  \item Debt overhang: dette élevée limite la capacité à intervenir lors d'une nouvelle crise
+  \item Perte de confiance: prime de risque et coût d'emprunt $\uparrow$
+  \item Perte de souveraineté: aides internationales (ex. FMI) conditionnées à des mesures d'austérité
+  \item Consolidation trop brutale: croissance $\downarrow$ $\Rightarrow$ réduction du ratio dette/PIB plus difficile
+\end{enumerate}
+
+\textbf{Difficultés d'un excédent primaire}: recettes volatiles, dépenses rigides (santé, retraites), vieillissement, contraintes politiques et électorales.
+
+\subsection{Réduction du déficit}
+
+\textbf{Annuler la dette détenue par l'Eurosystème ?}: la BCE/BdF détient des obligations souveraines achetées sur le marché secondaire (QE). Annulation $\Rightarrow$ baisse comptable du stock de dette.
+\begin{enumerate}[\roman*.]
+  \item Limite juridique: art. 123 interdit le financement monétaire direct des États
+  \item Risque de contagion: autres pays demandent aussi l'annulation $\Rightarrow$ crédibilité de la BCE et de l'euro menacée
+  \item Confiance des créanciers $\downarrow$ $\Rightarrow$ taux exigés pour financer l'État $\uparrow$
+  \item Dette renouvelée régulièrement: annulation ne résout pas les déficits structurels futurs
+\end{enumerate}
+
+\textbf{Consolidation budgétaire}: construire une trajectoire crédible de réduction du déficit sans freiner excessivement croissance et emploi.
+
+\textbf{Étude CAE (octobre 2025)}: scénario central de consolidation sur 6 ans ; effort total estimé à 112 Md€, dont 27 Md€ la première année.
+\begin{enumerate}[\roman*.]
+  \item Leviers identifiés: économies sur dépenses (108 Md€), recettes supplémentaires (111 Md€), réformes structurelles (45 Md€)
+  \item Plusieurs combinaisons possibles ; arbitrages économiques et sociaux
+\end{enumerate}
+
+\textbf{Déficit structurel vs conjoncturel}:
+\begin{enumerate}[\roman*.]
+  \item Conjoncturel: lié aux cycles économiques ; recettes fiscales $\downarrow$ et prestations $\uparrow$ en récession
+  \item Structurel: persiste indépendamment de la conjoncture ; déséquilibre durable entre recettes et dépenses
+\end{enumerate}
+France: environ 85--90\% du déficit primaire attribué au structurel (estimation du cours).
+
+\textbf{Augmenter les recettes}:
+\begin{enumerate}[\roman*.]
+  \item Impôts sur revenus et patrimoines, réduction des niches fiscales (dépenses fiscales)
+  \item Taxe Zucman: proposition d'impôt plancher de $2\%$ sur patrimoines $>100$ M€ ; rendement incertain car réactions des contribuables
+\end{enumerate}
+
+\textbf{Effets d'une variation d'impôt}:
+\begin{enumerate}[\roman*.]
+  \item Effet mécanique: recettes à assiette fiscale constante
+  \item Effet comportemental: optimisation, évasion, modification des investissements ou exil fiscal $\Rightarrow$ assiette réduite
+\end{enumerate}
+Recettes réelles dépendent donc du taux d'imposition et des réactions des contribuables.
+
+\textbf{Réduire les dépenses}:
+\begin{enumerate}[\roman*.]
+  \item Dépenses de fonctionnement, subventions et aides dont les effets sont faibles
+  \item Santé: meilleure coordination des soins, réduction des actes inutiles et des inefficacités
+  \item Retraites: vieillissement $\Rightarrow$ dépenses $\uparrow$ ; agir sur âge de départ, emploi des seniors et financement
+  \item Préserver les investissements productifs qui soutiennent la croissance potentielle
+\end{enumerate}
+
+\textbf{Efficacité des dépenses}: objectif de meilleurs résultats à budget comparable, plutôt qu'une baisse uniforme des dépenses publiques.
+
+\textbf{Fraudes fiscales et sociales}: renforcer les contrôles et le recouvrement ; utilisation de l'IA/data mining pour identifier les irrégularités et améliorer le solde public.
+
+\subsection{Réformes structurelles}
+
+\textbf{Leviers structurels}: améliorer durablement les recettes et réduire la vulnérabilité aux chocs, sans nécessairement produire d'économies budgétaires immédiates.
+
+\textbf{Croissance potentielle}: croissance maximale soutenable avec les capacités de production disponibles, sans tensions inflationnistes.
+\begin{enumerate}[\roman*.]
+  \item Travail: taux d'emploi $\uparrow$, formation et niveau d'éducation
+  \item Capital: investissements, équipements modernes, R\&D
+  \item Productivité: progrès technique et meilleure organisation de la production
+\end{enumerate}
+
+\textbf{Productivité}:
+\begin{enumerate}[\roman*.]
+  \item Productivité apparente du travail: valeur ajoutée par heure travaillée
+  \item Productivité globale des facteurs (PGF): part de croissance liée à l'efficacité de la combinaison capital/travail (innovation, organisation)
+\end{enumerate}
+\[
+\boxed{P_{\text{travail}}=\frac{VA}{\text{Heures travaillées}}}
+\]
+
+\textbf{Gains de productivité}:
+\begin{enumerate}[\roman*.]
+  \item Coûts de production $\downarrow$ $\Rightarrow$ compétitivité et pouvoir d'achat $\uparrow$
+  \item Salaires/production $\uparrow$ $\Rightarrow$ consommation, PIB et recettes fiscales potentiellement $\uparrow$
+  \item Destruction de certains emplois à court terme, créations possibles dans d'autres secteurs à long terme (théorie du déversement)
+\end{enumerate}
+
+\textbf{Croissance et chômage (loi d'Okun)}: le chômage diminue si la croissance effective dépasse suffisamment la croissance potentielle.
+\[
+\boxed{g_Y>g_{\text{productivité}}+g_{\text{actifs}}}
+\]
+Ex.: productivité $+1,3\%$, population active $+1,7\%$ $\Rightarrow$ croissance d'environ $3\%$ pour stabiliser le taux de chômage ; au-delà, chômage peut baisser.
+
+\textbf{Réindustrialisation}: renforcer la production nationale et la souveraineté ; modernisation industrielle, innovation et investissements dans les secteurs stratégiques.
+
+\textbf{Décarbonation}: limiter les émissions et la dépendance aux importations énergétiques ; mécanisme d'ajustement carbone aux frontières (MACF), transition des industries.
+
+\textbf{Bilan}: stabiliser la dette implique maîtrise des dépenses, recettes suffisantes et croissance potentielle renforcée ; nécessité de solidarité, crédibilité et stabilité des politiques économiques.
+
 \end{multicols*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       End                          %
