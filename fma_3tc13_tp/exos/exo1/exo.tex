@@ -1,0 +1,143 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 1}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=1.\arabic*., start=15]
+  \item  
+    \begin{enumerate}[\arabic*.]
+      \item $\exists x \in \RR,\; f(x) > 1$ 
+      \item $\exists x > x', \; f(x) < f(x')$
+      \item $(\exists x > x',\; f(x) < f(x')) \lor (\exists x,\; f(x) < 0)$
+      \item $\forall x \in \RR_{\geq 0}, \; f(x) > 0$
+    \end{enumerate}
+
+  \item  
+    \begin{enumerate}[\arabic*.]
+      \item $f_1$ est injective\\ 
+        $f_1^{-1}(\{0\}) = \{0\}$\\ 
+        $f_1^{-1}(\{0, 1\}) = \{0\}$\\ 
+        $f_1^{-1}(\NN) = \NN$\\ 
+        $f_1(\ZZ) = 2\ZZ$ 
+
+      \item $f_2$ est surjective\\ 
+        $f_2^{-1}(\{0\}) = \{0\}$\\ 
+        $f_2^{-1}(\{0, 1\}) = \{-1, 0, 1\}$\\ 
+        $f_2^{-1}(\NN) = -\NN$\\ 
+        $f_2(\ZZ) = \ZZ$ 
+
+      \item $f_3$ n'est ni injective ni surjective\\ 
+        $f_3^{-1}(\{0\}) = \{0\}$\\ 
+        $f_3^{-1}(\{0, 1\}) = \{-1, 0, 1\}$\\ 
+        $f_3^{-1}(\NN) = \{\pm \sqrt n\;:\; n \in \NN\}$\\ 
+        $f_3(\RR) = \RR_{\geq 0}$ 
+
+      \item $f_4$ est surjective\\ 
+        $f_4^{-1}(\{0\}) = \{0\}$\\ 
+        $f_4^{-1}(\{0, 1\}) = \{-1, 0, 1\}$\\ 
+        $f_4^{-1}(\NN) = \{\pm \sqrt n\;:\; n \in \NN\}$\\ 
+        $f_4(\RR) = \RR_{\geq 0}$ 
+
+      \item $f_5$ est surjective\\ 
+        $f_5^{-1}(\{0\}) = \{0\}$\\ 
+        $f_5^{-1}(\{0, 1\}) = \{-1, 0, 1\}$\\ 
+        $f_5^{-1}(\NN) = \{\pm \sqrt n\;:\; n \in \NN\}$\\ 
+        $f_5(\RR) = \CC$ 
+    \end{enumerate}
+  
+    \pagebreak
+  \item \begin{enumerate}[\arabic*.]
+      \item Si $g \circ f$ est injective, alors $f$ est injective 
+        \begin{enumproof}
+        \item Supposons $f(x) = f(x')$, $x, x' \in A$
+        \item  $g\circ f(x) = g\circ f(x')$\hfill(Par la définition d'une function)
+        \item $x = x'$\hfill(Par l'injectivité de $g\circ f$)
+        \item $\therefore f$ est injective
+        \end{enumproof}
+
+      \item Si $g \circ f$ est surjective, alors $g$ est surjective 
+        \begin{enumproof}
+        \item Supposons $z \in C$
+        \item  $\exists x \in A,\;g\circ f(x) = z$\hfill(Par la surjectivité de $g\circ f$)
+        \item  $\exists x \in A,\;g(f(x)) = z$\hfill(Par la definition de composition)
+        \item Soit $y = f(x) \in B$, $g(y) = z$
+        \item $\therefore g$ est surjective
+        \end{enumproof}
+
+      \item Si $g \circ f$ et $h \circ g$ sont bijectives, alors $f, g, h$ sont bijectives 
+        \begin{enumproof}
+        \item $g$ est injective\hfill(Par partie 1)
+        \item $g$ est surjective\hfill(Par partie 2)
+        \item Alors $g$ est bijective et $g^{-1}$ existe\hfill(Definition de bijective)
+        \item $f = g^{-1} \circ (g \circ f)$ alors $f$ est bijective\hfill(Definition de bijective)
+        \item $h = (h \circ g) \circ g^{-1}$ alors $h$ est bijective\hfill(Definition de bijective)
+        \item $\therefore f, g, h$ sont bijectives
+        \end{enumproof}
+    \end{enumerate}
+
+  \item \begin{enumerate}[\arabic*.]
+      \item Montrer que $f$ est injective si et seulement si $\hat{f}$ est injective 
+        \begin{enumproof}
+        \item ($\Rightarrow$) Si $f$ est injective
+          \begin{enumproof}
+          \item Supposons $\hat{f}(A) = \hat{f}(A')$, $A, A' \subseteq X$
+          \item $f(A) = f(A')$\hfill(Definition de $\hat{f}$)
+          \item $f(x) \in f(A')$, $x \in A$\hfill(Definition de $f$)
+          \item $\exists x' \in A',\; f(x) = f(x')$
+          \item $x = x'$(Injectivité de $f$)
+          \item $\therefore \hat{f}$ est injective
+          \end{enumproof}
+        \item ($\Leftarrow$) Si $\hat{f}$ est injective
+          \begin{enumproof}
+          \item Supposons $f(x) = f(x')$, $x, x' \in X$ 
+          \item $\hat{f}({x}) = \hat{f}(x')$\hfill(Definition de $\hat{f}$)
+          \item $x = x'$(Injectivité de $\hat{f}$)
+          \item $\therefore f$ est injective
+          \end{enumproof}
+        \end{enumproof}
+
+      \item Montrer que $f$ est surjective si et seulement si $\check{f}$ est injective 
+        \begin{enumproof}
+        \item ($\Rightarrow$) Si $f$ est surjective
+          \begin{enumproof}
+          \item Supposons $\check f(B) = \check f(B')$, $B, B' \subseteq Y$
+          \item $f^{-1}(B) = f^{-1}(B')$\hfill(Definition de $\check f$)
+          \item $\exists x \in X,\; f(x) = y$, $y \in Y$\hfill(Surjectivité de $f$)
+          \item $x = f^{-1}(y) \in f^{-1}(B)$\hfill(Definition de surjectivité)
+          \item $x \in f^{-1}(B')$(Par étape 2)
+          \item WLOG, $B = B'$
+          \item $\therefore \check f$ est injective
+          \end{enumproof}
+        \item ($\Leftarrow$) Si $\check f$ est injective
+          \begin{enumproof}
+          \item Supposons la négation, i.e. $\exists y \in Y\not\exists x \in X, f(x) = y$ 
+          \item $f^{-1}(\{y\}) = \varnothing = f^{-1}(\varnothing)$\hfill(Par la supposition)
+          \item $\check f(\{y\}) = \check f(\varnothing)$\hfill(Definition de $\check f$)
+          \item $\{y\} = \varnothing$\hfill(Injectivité de $\check f$)
+          \item $\therefore f$ est surjective par contradiction
+          \end{enumproof}
+        \end{enumproof}
+    \end{enumerate}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

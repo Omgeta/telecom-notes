@@ -1,0 +1,173 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Colle 2}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\Com}{\operatorname{Com}}
+\newcommand{\Sp}{\operatorname{Sp}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+  \item RREF:
+    \begin{align*}
+      \mathbf{A} = \left(\begin{array}{cccc} 1 & 2 & 1 & 0\\ 2 & 2 & 2 & 0\\ 0 & -1 & 1 & 1\\ 0 & 1 & 2 & 2 \end{array}\right) \rightarrow \left(\begin{array}{cccc} 1 & 0 & 0 & -1\\ 0 & 1 & 0 & 0\\ 0 & 0 & 1 & 1\\ 0 & 0 & 0 & 0 \end{array}\right)
+    \end{align*}
+    Donc,
+    \begin{align*}
+      \im \mathbf{A} &= \left\langle \left( \begin{array}{c} 1\\2\\0\\0\end{array} \right), \left(\begin{array}{c} 2\\2\\-1\\1\end{array} \right), \left(\begin{array}{c} 0\\0\\1\\2\end{array} \right) \right\rangle \\
+      \ker \mathbf{A} &= \left\langle \left(\begin{array}{c} 1\\0\\-1\\1 \end{array}\right) \right\rangle 
+    \end{align*}
+    mais $\left\langle \left(\begin{array}{c} 1\\2\\0\\0\end{array}\right) , \left(\begin{array}{c} 2\\2\\-1\\1\end{array}\right), \left(\begin{array}{c} 0\\0\\1\\2\end{array} \right), \left(\begin{array}{c} 1\\0\\-1\\1\end{array} \right) \right\rangle$ n'est pas libre car $\left(\begin{array}{c} 1\\0\\-1\\1\end{array} \right) = \left(\begin{array}{c} 2\\2\\-1\\1\end{array} \right) - \left(\begin{array}{c} 1\\2\\0\\0\end{array}\right)$
+ 
+  \item Soit $(v_1, \dots, v_r)$ une base de $f$ puis decompose $f(x) = \sum^r_{i=1} \lambda(x)v_i$ et $\lambda(x)$ est linéaire car $f$ est linéaire
+
+    Soit $f_i(x) = \lambda(x)v_i \implies \im f_i = \langle v_i \rangle$ et $\dim f_i = 1$ 
+
+    Alors on a $f = \sum^r_{i=1} f_i$
+
+  \item Par Gram-Schmidt:
+    \begin{align*}
+      w_1 &= \left(\begin{array}{c} 2\\1\\-2\\4\end{array} \right)\\
+      v_1 &= \frac{w_1}{\norm{w_1}} = \frac{1}{5} \left(\begin{array}{c} 2\\1\\-2\\4\end{array}\right)\\
+      w_2 &= u_2 - \frac{\langle u_2, u_1 \rangle}{\norm{u_1}^2} u_1 \\
+          &= u_2 - 2u_1\\
+          &= 3(2, 2, 1, -1)\\
+      v_2 &= \frac{w_2}{\norm{w_2}} = \frac{1}{\sqrt 10} \left(\begin{array}{c} 2\\2\\1\\-1\end{array}\right)
+    \end{align*}
+    Alors on a base $\mcB = \left(  \frac{1}{5}\left(\begin{array}{c} 2\\1\\-2\\4\end{array}\right), \frac{1}{\sqrt 10}\left( \begin{array}{c} 2\\2\\1\\-1\end{array}\right) \right)$
+
+  \item Soit $P=a+bX+cX^2 \in \RR[X]_{\le 2}$.
+    La forme est symétrique et bilinéaire par linéarité
+    des évaluations et de la dérivation.
+
+    \begin{align*}
+      \langle P,P\rangle
+      &=P(0)^2+P'(0)^2+P(1)^2\\
+      &=a^2+b^2+(a+b+c)^2\ge 0
+    \end{align*}
+    et $\langle P,P\rangle=0 \implies a=b=c=0
+    \implies P=0$.
+
+    Donc $\langle\cdot,\cdot\rangle$ est un produit scalaire.
+
+    Pour la distance, soit $Q=a+bX\in\RR[X]_{\le1}$.
+    On minimise :
+    \begin{align*}
+      \norm{X^2-Q}^2
+      &=a^2+b^2+(1-a-b)^2.
+    \end{align*}
+    En annulant les dérivées partielles :
+    \begin{align*}
+      \begin{cases}
+        2a+b=1\\
+        a+2b=1
+      \end{cases}
+      \implies a=b=\frac13.
+    \end{align*}
+    Donc :
+    \begin{align*}
+      d(X^2,\RR[X]_{\le1})
+      &=\sqrt{\frac19+\frac19+\frac19}\\
+      &=\boxed{\frac1{\sqrt3}}.
+    \end{align*}
+
+  \item Au sens des moindres carrés, on résout
+    $A^\top Ax=A^\top b$ avec :
+    \begin{align*}
+      A&=\begin{pmatrix}
+        2&3\\3&2\\1&-5
+      \end{pmatrix},
+      &b&=\begin{pmatrix}0\\5\\13\end{pmatrix}.
+    \end{align*}
+    Ainsi :
+    \begin{align*}
+      A^\top A&=\begin{pmatrix}
+        14&7\\7&38
+      \end{pmatrix},&
+      A^\top b&=\begin{pmatrix}28\\-55\end{pmatrix}.
+    \end{align*}
+    On obtient :
+    \begin{align*}
+      \begin{cases}
+        14x_1+7x_2=28\\
+        7x_1+38x_2=-55
+      \end{cases}
+      \implies
+      \boxed{x=\begin{pmatrix}3\\-2\end{pmatrix}}.
+    \end{align*}
+    Comme $Ax=b$, l'erreur est nulle :
+    \begin{align*}
+      \norm{Ax-b}^2=0.
+    \end{align*}
+    La solution est unique car $\rg A=2$.
+
+    \pagebreak
+  \item On a $M=xy^\top$, avec
+    $m_{i,j}=x_i y_j$.
+
+    \begin{enumerate}
+      \item Toutes les colonnes de $M$ sont
+      proportionnelles à $x$, donc :
+      \begin{align*}
+        \rg M&\le1,\\
+        \dim\ker M&\ge n-1.
+      \end{align*}
+      Ainsi, $0$ est valeur propre de multiplicité
+      algébrique au moins $n-1$.
+
+      Or, la somme des valeurs propres
+      (avec multiplicités) vaut la trace :
+      \begin{align*}
+        \tr M=\sum_{i=1}^n m_{i,i}
+        =\sum_{i=1}^n x_i y_i.
+      \end{align*}
+      La valeur propre restante vaut donc
+      $\lambda=\sum_{i=1}^n x_i y_i$.
+
+      D'où :
+      \begin{align*}
+        \boxed{
+          \chi_M(t)=t^{n-1}
+          \left(t-\sum_{i=1}^n x_i y_i\right)
+        }.
+      \end{align*}
+
+      \item Par définition du polynôme
+      caractéristique :
+      \begin{align*}
+        \det(I_n+M)
+        &=(-1)^n\chi_M(-1)\\
+        &=(-1)^n(-1)^{n-1}
+          \left(-1-\sum_{i=1}^n x_i y_i\right)\\
+        &=\boxed{1+\sum_{i=1}^n x_i y_i}.
+      \end{align*}
+    \end{enumerate}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

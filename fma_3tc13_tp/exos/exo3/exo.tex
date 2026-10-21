@@ -1,0 +1,172 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 3}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=3.\arabic*., start=25]
+  \item  
+    \begin{enumerate}[\arabic*.]
+      \item $A = \left(\begin{array}{ccc} 2 & 1 & -3\\ 3 & 2 & 1\\ 7 & 4 & -5 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccc} 1 & 0 & -7\\ 0 & 1 & 11\\ 0 & 0 & 0 \end{array}\right)$
+
+      \item $B = \left(\begin{array}{cccc} 1 & 1 & -1 & 1\\ 2 & -2 & 1 & -3\\ -1 & 1 & 1 & -2 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{cccc} 1 & 0 & 0 & -\frac{5}{6}\\ 0 & 1 & 0 & -\frac{1}{2}\\ 0 & 0 & 1 & -\frac{7}{3} \end{array}\right)$
+
+      \item $C = \left(\begin{array}{cccc} 1 & 2 & -1 & 1\\ 1 & 3 & 1 & 1\\ -1 & 1 & 7 & 2\\ 2 & 1 & -8 & 1 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{cccc} 1 & 0 & -5 & 0\\ 0 & 1 & 2 & 0\\ 0 & 0 & 0 & 1\\ 0 & 0 & 0 & 0 \end{array}\right)$
+    \end{enumerate}
+
+  \item \begin{enumerate}[\arabic*.]
+      \item $\left(\begin{array}{cccc} 1 & 1 & 2 & 5\\ 1 & -1 & -1 & 1\\ 1 & 0 & 1 & 3 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{cccc} 1 & 0 & 0 & 3\\ 0 & 1 & 0 & 2\\ 0 & 0 & 1 & 0 \end{array}\right)$
+        
+        $\therefore (x, y, z) = (3, 2, 0)$ 
+
+      \item $\left(\begin{array}{cccc} 1 & -3 & 1 & 1\\ 2 & 1 & 1 & -1\\ 1 & 11 & -1 & 5 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{cccc} 1 & 0 & \frac{4}{7} & 0\\ 0 & 1 & -\frac{1}{7} & 0\\ 0 & 0 & 0 & 1 \end{array}\right)$
+        
+        $\therefore$ ce systeme n'admet pas de solution 
+
+      \item $\left(\begin{array}{ccccc} 2 & 3 & 4 & 1 & 3\\ 6 & 6 & 8 & 2 & 7\\ 10 & 9 & 12 & 3 & 0 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & 0 & 0\\ 0 & 1 & \frac{4}{3} & \frac{1}{3} & 0\\ 0 & 0 & 0 & 0 & 1 \end{array}\right)$
+        
+        $\therefore$ ce systeme n'admet pas de solution 
+
+      \item $\left(\begin{array}{ccccc} 2 & 2 & -3 & 6 & 5\\ 1 & 0 & 1 & -2 & 1\\ -3 & 0 & 0 & 1 & 2 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & -\frac{1}{3} & -\frac{2}{3}\\ 0 & 1 & 0 & \frac{5}{6} & \frac{17}{3}\\ 0 & 0 & 1 & -\frac{5}{3} & \frac{5}{3} \end{array}\right)$
+
+        $\therefore (t, x, y, z) = (-\frac{2}{3} + \frac{1}{3}\lambda, \frac{17}{3} - \frac{5}{6}\lambda, \frac{5}{3} + \frac{5}{3}\lambda, \lambda)$ où $\lambda \in \RR$
+
+      \item $\left(\begin{array}{ccccc} 1 & 1 & 1 & -1 & 2\\ -2 & 2 & -2 & 1 & 1\\ -2 & -1 & 1 & 1 & -2 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & -\frac{1}{2} & \frac{1}{2}\\ 0 & 1 & 0 & -\frac{1}{4} & \frac{5}{4}\\ 0 & 0 & 1 & -\frac{1}{4} & \frac{1}{4} \end{array}\right)$
+
+        $\therefore (t, x, y, z) = (\frac{1}{2}, \frac{5}{4}, \frac{1}{4}, 0) + \lambda (\frac{1}{2}, \frac{1}{4}, \frac{1}{4}, 1)$ où $\lambda \in \RR$ 
+
+      \item $\left(\begin{array}{ccccc} 1 & 1 & -2 & 1 & 1\\ 0 & 2 & 1 & -1 & 2\\ 1 & 3 & -1 & 0 & 3\\ 2 & 4 & -3 & 1 & 4 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & -\frac{5}{2} & \frac{3}{2} & 0\\ 0 & 1 & \frac{1}{2} & -\frac{1}{2} & 1\\ 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 \end{array}\right)$
+
+        $\therefore (t, x, y, z) = (\frac{5}{2}\lambda - \frac{3}{2}\mu, 1 - \frac{1}{2}\lambda + \frac{1}{2}\mu, \lambda, \mu)$ où $\lambda, \mu \in \RR$
+    \end{enumerate}
+    \pagebreak
+
+  \item \begin{enumerate}[\arabic*.]
+      \item $\left(\begin{array}{cccc} 1 & -3 & 7 & a\\ 1 & 2 & -3 & b\\ 7 & 4 & -1 & c \end{array}\right) \xrightarrow{REF} \left(\begin{array}{cccc} 1 & 0 & 1 & \frac{2\,a}{5}+\frac{3\,b}{5}\\ 0 & 1 & -2 & \frac{b}{5}-\frac{a}{5}\\ 0 & 0 & 0 & c-5\,b-2\,a \end{array}\right)$
+
+        Si $c \neq 5b - 2a$, ce systeme n'admet pas de solution.
+
+        Si $c = 5b - 2a$, $(x, y, z) = (\frac{2a + 3b}{5} - \lambda, \frac{b-a}{5} + 2\lambda, \lambda)$, où $\lambda \in \RR$ 
+
+      \item $\left(\begin{array}{cccc} -(m-1) & 2 & -3 & 0\\ -2 & -(m+3) & 3 & 0\\ 1 & 1 & -(m+2) & 0 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{cccc} 1 & 1 & -(m+2) & 0\\ 0 & -(m+1) & -(2\,m+1) & 0\\ 0 & 0 & -(m+1)(m+2) & 0 \end{array}\right)$
+
+        Si $m \neq -1, -2$, $(x, y, z) = (0, 0, 0)$
+
+        Si $m = -1$, $(x, y, z) = (- \lambda, \lambda, 0)$ où $\lambda \in \RR$
+
+        Si $m = -2$, $(x, y, z) = (3\lambda, -3\lambda, \lambda)$ où $\lambda \in \RR$
+
+      \item $\left(\begin{array}{ccc} 4-m & 2 & -4\\ -1 & 1-m & m \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccc} 1 & m-1 & -m\\ 0 & \left(m-2\right)\left(m-3\right) & -{\left(m-2\right)}^2 \end{array}\right)$
+
+        Si $m \neq 2, 3$, $(x, y) = (\frac{2}{m-3}, -\frac{m-2}{m-3})$
+
+        Si $m = 2$, $(x, y) = (-2, 0) + \lambda(-1, 1)$ où $\lambda \in \RR$
+
+        Si $m = 3$, ce systeme n'admet pas de solution
+    \end{enumerate}
+
+    \pagebreak
+  \item
+    \[
+    \left(
+    \begin{array}{cccccc|c}
+    2 & 1 & 1 & \cdots & 1 & 1 & 1\\
+    1 & 2 & 1 & \cdots & 1 & 1 & 2\\
+    1 & 1 & 2 & \cdots & 1 & 1 & 3\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+    1 & 1 & 1 & \cdots & 2 & 1 & n-1\\
+    1 & 1 & 1 & \cdots & 1 & 2 & n
+    \end{array}
+    \right)
+    \]
+
+    On effectue
+    \[
+    R_1 \leftarrow R_1 + R_2 + \cdots + R_n
+        R_1 \leftarrow \frac{1}{n+1}R_1
+    \]
+    \[
+    \left(
+    \begin{array}{cccccc|c}
+    1 & 1 & 1 & \cdots & 1 & 1 & \frac{n}{2}\\
+    1 & 2 & 1 & \cdots & 1 & 1 & 2\\
+    1 & 1 & 2 & \cdots & 1 & 1 & 3\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+    1 & 1 & 1 & \cdots & 2 & 1 & n-1\\
+    1 & 1 & 1 & \cdots & 1 & 2 & n
+    \end{array}
+    \right)
+    \]
+
+    Pour tout $k \in \{2,\ldots,n\}$, on effectue
+    \[
+    R_k \leftarrow R_k - R_1
+    \]
+
+    \[
+    \left(
+    \begin{array}{cccccc|c}
+    1 & 1 & 1 & \cdots & 1 & 1 & \frac{n}{2}\\
+    0 & 1 & 0 & \cdots & 0 & 0 & 2-\frac{n}{2}\\
+    0 & 0 & 1 & \cdots & 0 & 0 & 3-\frac{n}{2}\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 & 0 & n-1-\frac{n}{2}\\
+    0 & 0 & 0 & \cdots & 0 & 1 & n-\frac{n}{2}
+    \end{array}
+    \right)
+    \]
+
+    Enfin,
+    \[
+    R_1 \leftarrow R_1 - R_2 - \cdots - R_n
+    \]
+
+    \[
+    \xrightarrow{RREF}
+    \left(
+    \begin{array}{cccccc|c}
+    1 & 0 & 0 & \cdots & 0 & 0 & 1-\frac{n}{2}\\
+    0 & 1 & 0 & \cdots & 0 & 0 & 2-\frac{n}{2}\\
+    0 & 0 & 1 & \cdots & 0 & 0 & 3-\frac{n}{2}\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 & 0 & n-1-\frac{n}{2}\\
+    0 & 0 & 0 & \cdots & 0 & 1 & n-\frac{n}{2}
+    \end{array}
+    \right)
+    \]
+
+    $\therefore x_i = i-\frac{n}{2}$ pour tout $i \in \{1,\ldots,n\}$.
+
+    \pagebreak
+
+  \item $\vec{AB} = B - A = (2, -8, -2)$ et $\vec{AC} = C - A = (3, 0, 1)$
+
+    Alors $(x, y, z) = (-1, 2, 1) + s(2, -8, -2) + t(3, 0, 1)$ pour $s, t \in \RR$
+
+    Puis, on obtient le normal $\vec{AB} \times \vec{AC} = (1, 1, -3)$ donc le plan a l'equation $x + y - 3z + d = 0$. Substitutons $A = (1, 1, -3)$ afin d'obtenir $d = 2$
+
+    $\therefore x + y - 3z + 2 = 0$
+
+  \item Par reduction, $(x, y, z) = (-\frac{25}{2}, \frac{13}{2}, 0) + s(9, -3, 2)$ pour $s \in \RR$
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

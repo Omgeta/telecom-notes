@@ -1,0 +1,266 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Colle 1}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+  \item $A = \left(\begin{array}{ccccc} 1 & 1 & 2 & 1 & 1\\ 2 & 1 & 1 & 1 & 1\\ 1 & 1 & 1 & 2 & 1\\ 2 & 1 & 1 & 1 & 1\\ 1 & 1 & 1 & 1 & 2 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & 0 & -1\\ 0 & 1 & 0 & 0 & 5\\ 0 & 0 & 1 & 0 & -1\\ 0 & 0 & 0 & 1 & -1\\ 0 & 0 & 0 & 0 & 0 \end{array}\right)$
+
+    Alors avec 4 pivots, on a $\boxed{rg(A) = 4}$
+
+    Par la réduction, on a la base échelonnée reduite de l'espace des lignes:
+    \[
+    \boxed{
+    \left\{
+    (1,0,0,0,-1),\,
+    (0,1,0,0,5),\,
+    (0,0,1,0,-1),\,
+    (0,0,0,1,-1)
+    \right\}.
+    }
+    \]
+
+    Puis, par l'observation, on a la base échelonnée réduite de l'espace des colonnes:
+    \[
+    \boxed{
+    \left\{
+    \left(\begin{array}{c}1\\0\\0\\0\\0\end{array}\right),
+    \left(\begin{array}{c}0\\1\\0\\1\\0\end{array}\right),
+    \left(\begin{array}{c}0\\0\\1\\0\\0\end{array}\right),
+    \left(\begin{array}{c}0\\0\\0\\0\\1\end{array}\right)
+    \right\}.
+    }
+    \]
+    \pagebreak
+  \item 
+    On peut écrire
+    \[
+    B=AC
+    \]
+    avec
+    \[
+    C=
+    \left(\begin{array}{ccccc}
+    0&1&1&\cdots&1\\
+    1&0&1&\cdots&1\\
+    1&1&0&\cdots&1\\
+    \vdots&\vdots&\vdots&\ddots&\vdots\\
+    1&1&1&\cdots&0
+    \end{array}\right).
+    \]
+
+    Donc, par multiplicativité du déterminant,
+    \[
+    \det(B)=\det(A)\det(C).
+    \]
+
+    Calculons $\det(C)$. On effectue
+    \[
+    C_1\leftarrow C_1+C_2+\cdots+C_n.
+    \]
+    La première colonne devient
+    \[
+    (n-1)
+    \left(\begin{array}{c}
+    1\\
+    1\\
+    \vdots\\
+    1
+    \end{array}\right).
+    \]
+
+    On factorise $(n-1)$ puis, pour $j=2,\ldots,n$, on effectue
+    \[
+    C_j\leftarrow C_j-C_1.
+    \]
+
+    On obtient alors
+    \[
+    \det(C)
+    =
+    (n-1)
+    \left|
+    \begin{array}{ccccc}
+    1&0&0&\cdots&0\\
+    1&-1&0&\cdots&0\\
+    1&0&-1&\cdots&0\\
+    \vdots&\vdots&\vdots&\ddots&\vdots\\
+    1&0&0&\cdots&-1
+    \end{array}
+    \right|.
+    \]
+
+    La matrice est triangulaire, donc
+    \[
+    \det(C)=(n-1)(-1)^{n-1}.
+    \]
+
+    Ainsi
+    \[
+    \boxed{\det(B)=(-1)^{n-1}(n-1)\det(A).}
+    \]
+
+    \pagebreak 
+
+  \item 
+    En développant par rapport à la première ligne, puis à la première colonne du
+mineur obtenu, on trouve la relation de récurrence
+    \[
+    \boxed{D_n(x)=2\cos x\,D_{n-1}(x)-D_{n-2}(x)}.
+    \]
+
+    De plus,
+    \[
+    D_0(x)=1,
+    \qquad
+    D_1(x)=2\cos x.
+    \]
+
+    Pour $\sin x\neq 0$, on utilise l'identité
+    \[
+    \sin((n+1)x)
+    =
+    2\cos x\,\sin(nx)-\sin((n-1)x).
+    \]
+
+    La suite
+    \[
+    u_n=\frac{\sin((n+1)x)}{\sin x}
+    \]
+    vérifie donc la même relation de récurrence :
+    \[
+    u_n=2\cos x\,u_{n-1}-u_{n-2}.
+    \]
+
+    De plus,
+    \[
+    u_0=1=D_0,
+    \qquad
+    u_1=\frac{\sin(2x)}{\sin x}=2\cos x=D_1.
+    \]
+
+    Par récurrence,
+    \[
+    \boxed{
+    D_n(x)=\frac{\sin((n+1)x)}{\sin x}
+    }
+    \qquad \text{si } \sin x\neq 0.
+    \]
+
+    Si $x=k\pi$, alors $\cos x=(-1)^k$ et la relation de récurrence donne
+    \[
+    \boxed{D_n(k\pi)=(-1)^{kn}(n+1)}.
+    \]
+
+    Ainsi,
+    \[
+    \boxed{
+    D_n(x)=
+    \begin{cases}
+    \dfrac{\sin((n+1)x)}{\sin x},
+    & x\notin \pi\mathbb Z,\\[6pt]
+    (-1)^{kn}(n+1),
+    & x=k\pi.
+    \end{cases}
+    }
+    \]
+  \pagebreak 
+
+\item 
+  \begin{enumerate}[\arabic*.]
+    \item 
+      \begin{enumproof}
+      \item ($\Rightarrow$) 
+        \begin{enumproof}
+        \item Si $F \subseteq G$, $F \cup G = G$ qui est déjà sous-espace de $E$
+        \item Si $G \subseteq F$, $F \cup G = F$ qui est déjà sous-espace de $E$
+        \item $\therefore F \cup G$ est un sous-espace vectoriel de $E$
+        \end{enumproof}
+      \item ($\Leftarrow$) 
+        \begin{enumproof}
+        \item Supposons la converse, $F\cup G$ est un sous-espace mais $F\not\subseteq G$ et $G\not\subseteq F$
+        \item $\exists x \in F \setminus G,\; y \in G\setminus F$
+        \item $(x+y)\in F\cup G$\hfill(Definition de sous-espace)
+        \item Si $(x+y)\in F$, $(x+y)-x= y \in F$
+        \item Si $(x+y)\in G$, $(x+y)-y= x \in G$
+        \item $\therefore$ par contradiction, $F\subseteq G \lor G \subseteq F$
+        \end{enumproof}
+      \end{enumproof}
+
+    \item \begin{enumproof}
+      \item ($\subseteq$)
+        \begin{enumproof}
+          \item Soit $x\in F\cap(G+H)$
+          \item Alors $x\in F$ et $\exists g\in G,\; h\in H$ tels que $x=g+h$
+          \item Comme $G\subseteq F$, $g\in F$
+          \item Donc $h=x-g\in F$, ainsi $h\in F\cap H$
+          \item $\therefore x\in G+(F\cap H)$
+        \end{enumproof}
+
+      \item ($\supseteq$)
+        \begin{enumproof}
+          \item Soit $x\in G+(F\cap H)$
+          \item Alors $\exists g\in G,\; h\in F\cap H$ tels que $x=g+h$
+          \item Comme $G\subseteq F$, $g\in F$, et $h\in F$
+          \item Donc $x\in F$
+          \item De plus, $g\in G$ et $h\in H$, donc $x\in G+H$
+          \item $\therefore x\in F\cap(G+H)$
+        \end{enumproof}
+
+      \item $\therefore F\cap(G+H)=G+(F\cap H)$
+    \end{enumproof}
+  \end{enumerate}
+
+  \item Posons $\left(\begin{array}{ccccc} 1 & 1 & 3 & 10 & 1\\ 1 & 2 & 1 & 4 & 7\\ 1 & 3 & 4 & 13 & 8\\ 1 & 4 & 2 & 7 & 14 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & 1 & 0\\ 0 & 1 & 0 & 0 & 4\\ 0 & 0 & 1 & 3 & -1\\ 0 & 0 & 0 & 0 & 0 \end{array}\right)$ 
+
+    Donc, $(v_1, v_2, v_3)$ est une base de $F$ avec $dim(F) = 3$
+
+    Puis, réduire le système homogène $\left(\begin{array}{ccccc} 1 & 1 & 1 & 1 & 0\\ 1 & 2 & 3 & 4 & 0\\ 3 & 1 & 4 & 2 & 0 \end{array}\right) \xrightarrow{RREF} \left(\begin{array}{ccccc} 1 & 0 & 0 & -1 & 0\\ 0 & 1 & 0 & 1 & 0\\ 0 & 0 & 1 & 1 & 0 \end{array}\right)$
+
+    Ce qui donne la solution $(a, b, c, d) = t(1, -1, -1, 1)$ et si on prend $t=1$, on obtient $\boxed{x_1 - x_2 - x_3 + x_4 = 0}$
+
+    \pagebreak
+  \item On développe :
+    \[
+    P_0=1-\frac32X+\frac12X^2,\qquad
+    P_1=-\frac12X+\frac12X^2,
+    \]
+    \[
+    P_2=-4X+2X^2,\qquad
+    P_3=1-\frac43X+\frac13X^2.
+    \]
+    \begin{enumerate}[\arabic*.]
+      \item $\left(\begin{array}{ccc} 1 & 0 & 0\\ -\frac{3}{2} & -\frac{1}{2} & -4\\ \frac{1}{2} & \frac{1}{2} & 2 \end{array}\right) \xrightarrow{RREF} I_3$ alors chaque colonne est indép. donc $\mcB$ est une base de $E$
+
+      \item $P_{\mcC, \mcB} = \left(\begin{array}{ccc} 1 & 0 & 0\\ -\frac{3}{2} & -\frac{1}{2} & -4\\ \frac{1}{2} & \frac{1}{2} & 2 \end{array}\right)$ alors $P_{\mcB, \mcC} = P_{\mcC, \mcB}^{-1} = \left(\begin{array}{ccc} 1 & 0 & 0\\ 1 & 2 & 4\\ -\frac{1}{2} & -\frac{1}{2} & -\frac{1}{2} \end{array}\right)$
+
+      \item $P_0, P_1$ sont indép, donc $dim F = 2$\\ 
+        $P_2, P_3$ ne sont pas proportional donc $dim G = 2$\\
+        $(P_0, P_1, P_2)$ est une base de $E$ avec $dim E = 3$ alors $dim F+G = 3$\\
+        Notons $P_3 = P_0 - \frac{1}{3}P_1$ pour montrer que $P_3 \in F$ et $P_3 \in G$ alors $dim F \cap G = 1$
+
+      \item Verifions avec les valeurs trouvé dans la partie 3
+    \end{enumerate}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

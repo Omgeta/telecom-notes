@@ -1,0 +1,33 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 4}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=3.\arabic*., start=60]
+  \item Soit $\left(\begin{array}{ccccccc} 1 & 2 & -1 & 3 & 1 & 2 & 4\\ 0 & 1 & 2 & -1 & 3 & 1 & 2\\ 0 & 0 & 1 & 2 & -1 & 3 & 1\\ 0 & 0 & 0 & 1 & 2 & -1 & 3\\ 0 & 0 & 0 & 0 & 1 & 2 & -1\\ 0 & 0 & 0 & 0 & 0 & 1 & 2\\ 0 & 0 & 0 & 0 & 0 & 0 & 1 \end{array}\right)$, reduction de $[P \; I]$ donne $[I \; P^{-1}]$ ou $P^{-1} = \left(\begin{array}{ccccccc} 1 & -2 & 5 & -15 & 40 & -110 & 300\\ 0 & 1 & -2 & 5 & -15 & 40 & -110\\ 0 & 0 & 1 & -2 & 5 & -15 & 40\\ 0 & 0 & 0 & 1 & -2 & 5 & -15\\ 0 & 0 & 0 & 0 & 1 & -2 & 5\\ 0 & 0 & 0 & 0 & 0 & 1 & -2\\ 0 & 0 & 0 & 0 & 0 & 0 & 1 \end{array}\right)$ 
+
+  \item Non; effectuer des opérations sur les colonnes simultanément sur \[A\] et \[B\] produit $A'$ avec la derniere colonne nulle mais la derniere colonne de $B'$ non-nulle
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

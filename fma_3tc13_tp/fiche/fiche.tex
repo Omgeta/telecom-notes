@@ -4,9 +4,19 @@
 \input{preamble-cheatsheet}
 \input{letterfonts}
 
-\newcommand{\mytitle}{CSC\_3TCXX\_TP Titre}
+\newcommand{\mytitle}{FMA\_3TC13\_Algèbre linéaire}
 \newcommand{\myauthor}{github/omgeta}
 \newcommand{\mydate}{AU 26-27 S1}
+
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\Com}{\operatorname{Com}}
+\newcommand{\Sp}{\operatorname{Sp}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 
 \begin{document}
 \raggedright
@@ -22,7 +32,578 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      Begin                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Section 1}
+\section{Notions élémentaires}
+\subsection{Relations et applications}
+Une relation binaire entre $X$ et $Y$ est une partie de $X\times Y$. Une \textbf{application} $f:X\to Y$ associe à chaque $x\in X$ exactement un $f(x)\in Y$ 
+\begin{align*}
+\im f&=\{f(x):x\in X\}\subseteq Y,\\
+f^{-1}(B)&=\{x\in X:f(x)\in B\},\quad B\subseteq Y
+\end{align*}
+\begin{enumerate}
+\item Injective : $f(x)=f(x')\Rightarrow x=x'$
+  \begin{itemize}
+    \item Théorème: si $g\circ f$ est injective, $f$ l'est 
+  \end{itemize}
+\item Surjective : $\forall y\in Y,\ \exists x\in X,\ f(x)=y$
+  \begin{itemize}
+    \item Théorème: si $g\circ f$ est surjective, $g$ l'est 
+  \end{itemize}
+\item Bijective : injective et surjective\\\hspace{4.25em}$\iff f^{-1}:Y\to X$ existe
+\end{enumerate}
+
+\subsection{Relations d'ordre et d'équivalence}
+Relation d'ordre : \textbf{réflexive}, \textbf{antisymétrique} et \textbf{transitive}. Relation d'équivalence $\sim$ : \textbf{réflexive}, \textbf{symétrique} et \textbf{transitive}.
+\begin{align*}
+[x]&=\{y\in X:x\sim y\},\\
+X/{\sim}&=\{[x]:x\in X\}
+\end{align*}
+Les classes d'équivalence partitionnent $X$.
+
+\section{Corps}
+Un \textbf{corps} $\KK$ admet $+,$ produit, opposés et inverses multiplicatifs des éléments non nuls (ex. $\QQ,\RR,\CC$).
+\begin{align*}
+a\equiv b\pmod p\iff p\mid(a-b)
+\end{align*}
+$\ZZ/p\ZZ$ est un corps $\iff p$ premier ; $a$ inversible modulo $p$ $\iff\operatorname{pgcd}(a,p)=1$.\\
+
+\colbreak
+\section{Systèmes linéaires}
+Pour $A\in\KK^{m\times n}$, $x\in\KK^n$, $b\in\KK^m$, un système s'écrit $Ax=b$ ; sa \textbf{matrice augmentée} est $[A\mid b]$.
+
+Opérations élémentaires:
+\begin{enumerate}
+\item $L_i\leftarrow L_i+\lambda L_j$, $i\ne j$
+\item $L_i\leftarrow\lambda L_i$, $\lambda\ne0$
+\item $L_i\leftrightarrow L_j$
+\end{enumerate}
+Ces opérations conservent les solutions. Deux matrices reliées par celles-ci sont \textbf{équivalentes par lignes}.
+
+\subsection{Matrice échelonnée (réduite)}
+Forme \textbf{échelonnée}:
+\begin{enumerate}
+\item chaque première entrée non nulle d'une ligne vaut $1$ (\emph{$1$ directeur}) ;
+\item lignes nulles en bas ;
+\item $1$ directeurs décalés vers la droite
+\end{enumerate}
+Forme \textbf{réduite} : 
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item chaque colonne avec un $1$ directeur est nulle ailleurs
+\end{enumerate}
+\begin{align*}
+[A\mid b]&\xrightarrow{\text{Gauss}}\text{échelonnée}\xrightarrow{}\text{réduite}
+\end{align*}
+
+Note:
+\begin{enumerate}
+  \item Résolution : $[0\ \cdots\ 0\mid1]\Rightarrow$ incompatible
+  \item sinon chaque colonne sans pivot représente une \textbf{variable libre}
+\end{enumerate}
+
+\subsection{Systèmes homogènes}
+$Ax=0$ admet toujours $x=0$. Sur un corps infini, si $\rg A<n$, il admet une infinité de solutions :
+\begin{align*}
+\ker A&=\{x\in\KK^n:Ax=0\},\\
+\dim\ker A&=n-\rg A
+\end{align*}
+Pour un système à paramètres, éviter toute division par une expression susceptible de s'annuler ; étudier les valeurs exceptionnelles.
+
+\colbreak
+
+\section{Matrices}
+Pour $A=(a_{i,j})\in\KK^{m\times n}$ et $B=(b_1\ \cdots\ b_p)\in\KK^{n\times p}$ :
+\begin{align*}
+(AB)_{i,k}&=\sum_{j=1}^n a_{i,j}b_{j,k},\\
+AB&=(Ab_1\ \cdots\ Ab_p)
+\end{align*}
+\begin{enumerate}
+  \item $AB \neq BA$, en général 
+  \item $A,B\ne0$ peut donner $AB=0$ 
+  \item $A(BC)=(AB)C$
+  \item $A(B+C)=AB+AC$ 
+\end{enumerate}
+
+\subsection{Transposée}
+\begin{align*}
+(A^\top)_{i,j}&=a_{j,i}
+\end{align*}
+\begin{enumerate}
+  \item $(AB)^\top=B^\top A^\top$
+  \item $(A+B)^\top=A^\top+B^\top$ 
+  \item $A$ symétrique $\iff A^\top=A$ 
+  \item $A$ antisymétrique $\iff A^\top = -A$
+\end{enumerate}
+
+\subsection{Inversion}
+$A\in GL_n(\KK)$ si $AA^{-1}=A^{-1}A=I_n$. Pour $A=\begin{psmallmatrix}a&b\\c&d\end{psmallmatrix}$ :
+\begin{align*}
+A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}
+\end{align*}
+Par \textbf{Gauss--Jordan} :
+\begin{align*}
+[A\mid I_n]\xrightarrow{\text{réduction}}[I_n\mid A^{-1}]
+\end{align*}
+\begin{enumerate}
+\item $(A^{-1})^{-1}=A$
+\item $(AB)^{-1}=B^{-1}A^{-1}$
+\item $(A^\top)^{-1}=(A^{-1})^\top$
+\item $A$ inversible $\iff\ker A=\{0\}\iff\rg A=n$
+\item $A$ inversible $\iff A\sim I_n\iff\det A\ne0$
+\end{enumerate}
+
+\colbreak
+\subsection{Matrices triangulaires}
+Pour $A=(a_{i,j})\in\KK^{n\times n}$ :
+\begin{align*}
+A\text{ sup.}&\iff a_{i,j}=0\quad(i>j),\\
+A\text{ inf.}&\iff a_{i,j}=0\quad(i<j)
+\end{align*}
+\begin{enumerate}
+\item Le produit de matrices triangulaires de même type est triangulaire
+\item $A$ inversible $\iff\forall i,\ a_{i,i}\ne0$ ; son inverse est triangulaire du même type
+\item $\det A=\prod_{i=1}^n a_{i,i}$ 
+\item $Ax=b$ : substitution de bas en haut (sup.) ou de haut en bas (inf.), si $A$ inversible
+\end{enumerate}
+
+\subsection{Puissances}
+\begin{align*}
+A^0&=I_n,\\
+A^k&=\underbrace{A\cdots A}_{k\text{ facteurs}},\\
+A^{-k}&=(A^{-1})^k\quad(A\text{ inversible}),\\
+N\text{ nilpotente}&\iff\exists r\ge1,\ N^r=0
+\end{align*}
+\begin{enumerate}
+\item $A^pA^q=A^{p+q}$ et $(A^p)^q=A^{pq}$
+\item Si $AB=BA$, $(AB)^k=A^kB^k$ et formule du binôme :
+\begin{align*}
+(A+B)^k&=\sum_{j=0}^k\binom{k}{j}A^{k-j}B^j
+\end{align*}
+\item Si $A=PDP^{-1}$, $A^k=PD^kP^{-1}$ 
+\item Si $A=aI_n+N$ et $N^r=0$ :
+\begin{align*}
+A^k&=\sum_{j=0}^{\min(k,r-1)}
+\binom{k}{j}a^{k-j}N^j
+\end{align*}
+\end{enumerate}
+
+\colbreak
+
+\subsection{Trace}
+Pour $A=(a_{i,j})\in\KK^{n\times n}$ :
+\begin{align*}
+\tr A&=\sum_{i=1}^n a_{i,i}
+\end{align*}
+\begin{enumerate}
+\item $\tr(A+B)=\tr A+\tr B$
+\item $\tr(\lambda A)=\lambda\tr A$
+\item $\tr(AB)=\tr(BA)$
+\item $\tr(A^\top)=\tr A$
+\end{enumerate}
+
+
+\subsection{Décomposition LU}
+Sous les hypothèses des pivots principaux non nuls :
+\begin{align*}
+A&=LU,\quad L\text{ triang. inférieure},\\
+&\hphantom{=LU,} U\text{ triang. supérieure}
+\end{align*}
+où $U$ s'obtient par Gauss sans échanges et $L$ conserve les multiplicateurs.
+\begin{align*}
+Ax=b\iff Ly=b,\quad Ux=y
+\end{align*}
+\begin{enumerate}
+\item Résoudre $Ly=b$ de haut en bas
+\item Résoudre $Ux=y$ de bas en haut
+\end{enumerate}
+
+\subsection{Chaînes de Markov}
+$T=(p_{i,j})$ : matrice de transition ($p_{i,j}\ge0$, $\sum_i p_{i,j}=1$ pour chaque colonne)
+\begin{align*}
+x_{k+1}&=Tx_k, &x_k&=T^k x_0
+\end{align*}
+Si une distribution stationnaire existe :
+\begin{align*}
+Tx_\infty&=x_\infty,&\sum_i(x_\infty)_i&=1
+\end{align*}
+
+\colbreak
+\section{Déterminants}
+Pour $A\in\KK^{n\times n}$, le déterminant est noté $\det A$ ou $|A|$ :
+\begin{align*}
+\det A&=\sum_{\sigma\in\mathfrak S_n}\varepsilon(\sigma)
+\prod_{i=1}^n a_{i,\sigma(i)}\\
+      &= \sum_{j=1}^n a_{i,j}c_{i,j} =\sum_{i=1}^n a_{i,j}c_{i,j}\\
+\det\begin{pmatrix}a&b\\c&d\end{pmatrix}&=ad-bc
+\end{align*}
+\begin{enumerate}
+\item $\det(A^\top)=\det A$
+\item $\det(AB)=\det A\det B$
+\item $\det(\lambda A)=\lambda^n\det A$
+\item $\det(A^{-1})=(\det A)^{-1}$ si inversible
+\item $\det A=0\iff$ colonnes liées
+\end{enumerate}
+
+Effét des opérations linéaires sur le déterminant:
+\begin{enumerate}
+\item $L_i\leftarrow L_i+\lambda L_j$ : inchangé
+\item $L_i\leftarrow\lambda L_i$ : multiplié par $\lambda$
+\item $L_i\leftrightarrow L_j$ : change de signe
+\end{enumerate}
+Deux lignes ou colonnes égales $\Rightarrow\det A=0$
+
+\subsection{Cofacteurs et comatrice}
+\vspace{-2em}
+\begin{align*}
+\Com(A)&=(c_{i,j})_{i,j},\\
+A\Com(A)^\top&=(\det A)I_n,\\
+A^{-1}&=\frac{\Com(A)^\top}{\det A},\\
+\det\Com(A)&=(\det A)^{n-1}
+\end{align*}
+où mineur $M_{i,j}$ efface la ligne $i$ et la colonne $j$, et  cofacteur $c_{i,j}=(-1)^{i+j}\det M_{i,j}$ 
+
+\subsubsection{Règle de Cramer}
+Si $\det A\ne0$, l'unique solution de $Ax=b$ :
+\begin{align*}
+x_j=\frac{\det A_j(b)}{\det A},
+\end{align*}
+avec $A_j(b)$ obtenu en remplaçant la colonne $j$ de $A$ par $b$.
+
+\colbreak
+\section{Espaces vectoriels}
+Un espace vectoriel $V$ sur $\KK$ est stable par addition et multiplication scalaire et possède notamment un vecteur nul $0_V$ et des opposés.
+
+\subsection{Sous-espace vectoriel}
+$F\subseteq V$ est un sous-espace si :
+\begin{enumerate}
+\item $0_V\in F$ ;
+\item $u,v\in F\Rightarrow u+v\in F$ ;
+\item $u\in F,\lambda\in\KK\Rightarrow\lambda u\in F$
+\end{enumerate}
+Somme et somme directe de sous-espaces :
+\begin{align*}
+F+G&=\{f+g:f\in F,g\in G\},\\
+V=F\oplus G&\iff\begin{cases}V=F+G,\\F\cap G=\{0\}\end{cases}
+\end{align*}
+$F\cap G$ et $F+G$ sont des sous-espaces.
+
+\subsection{Combinaison linéaire / engendré}
+Pour $u_1,\ldots,u_p\in V$ :
+\begin{align*}
+v&=\sum_{i=1}^p\lambda_i u_i,\\
+\langle u_1,\ldots,u_p\rangle
+&=\left\{\sum_{i=1}^p\lambda_i u_i:\lambda_i\in\KK\right\}
+\end{align*}
+Définitions d'une famille $(u_1,\ldots,u_p)$ :
+\begin{align*}
+\text{Génératrice}&\iff\langle u_1,\ldots,u_p\rangle=V,\\
+\text{Libre}&\iff\Bigl[\sum_i\lambda_i u_i=0 \Rightarrow\forall i,\lambda_i=0\Bigr],\\
+\text{Liée}&\iff\text{non libre}
+\end{align*}
+\begin{enumerate}
+\item Si $0$ appartient à la famille, elle est liée
+\item Si $p>\dim V$, elle est liée
+\end{enumerate}
+
+\colbreak
+\subsection{Bases et dimension}
+Une \textbf{base} est libre et génératrice ; tout vecteur s'y écrit de façon unique :
+\begin{align*}
+\mcB=(u_1,\ldots,u_n),\quad
+v&=\sum_i\lambda_i u_i,\\
+[v]_{\mcB}&=(\lambda_1,\ldots,\lambda_n)^\top
+\end{align*}
+\begin{enumerate}
+\item $\dim V=n$ : nombre de vecteurs d'une base
+\item Une famille libre se complète en une base
+\item $\dim(F+G)=\dim F+\dim G-\dim(F\cap G)$\\\hfill(Grassmann)
+\end{enumerate}
+
+\subsection{Rang et noyau d'une matrice}
+Pour $A=(a_1\ \cdots\ a_n)\in\KK^{m\times n}$ :
+\begin{align*}
+\im A&=\langle a_1,\ldots,a_n\rangle,\\
+\ker A&=\{x\in\KK^n:Ax=0\},\\
+\rg A&=\dim\im A
+\end{align*}
+\begin{enumerate}
+\item $\rg A=$ nombre de pivots
+\item $\rg A=\rg(A^\top)$
+\item $\rg A+\dim\ker A=n$
+\item $\rg(AB)\le\min(\rg A,\rg B)$
+\end{enumerate}
+
+\subsection{Changement de bases}
+Pour $\mcB=(u_1,\ldots,u_n)$ et $\mcB'=(u'_1,\ldots,u'_n)$, la \textbf{matrice de passage} de $\mcB'$ vers $\mcB$ est :
+\begin{align*}
+P_{\mcB,\mcB'}=\bigl([u'_1]_{\mcB}\ \cdots\ [u'_n]_{\mcB}\bigr)
+\end{align*}
+\begin{enumerate}
+\item $[v]_{\mcB}=P_{\mcB,\mcB'}[v]_{\mcB'}$
+\item $P_{\mcB',\mcB}=P_{\mcB,\mcB'}^{-1}$
+\item Base canonique $\mcC$ : $P_{\mcC,\mcB}=(u_1\ \cdots\ u_n)$ (coordonnées canoniques)
+\end{enumerate}
+
+\colbreak
+\section{Applications linéaires}
+$f:V\to W$ est \textbf{linéaire / homomorphisme} si :
+\begin{align*}
+f(u+v)&=f(u)+f(v),\\
+f(\lambda u)&=\lambda f(u)
+\end{align*}
+Terminologie :
+\begin{align*}
+\text{Endomorphisme}&:\ V=W,\\
+\text{Isomorphisme}&:\ f\text{ bijective},\\
+\text{Automorphisme}&:\ V=W,\ f\text{ bijective}
+\end{align*}
+
+\subsection{Noyau, image, rang}
+\begin{align*}
+\ker f&=\{v\in V:f(v)=0_W\},\\
+\im f&=\{f(v):v\in V\},\\
+\rg f&=\dim\im f,\\
+\dim V&=\dim\ker f+\rg f
+\end{align*}
+\begin{enumerate}
+\item $f$ injective $\iff\ker f=\{0\}$
+\item $f$ surjective $\iff\im f=W$
+\item Si $\dim V=\dim W<\infty$, injective $\iff$ surjective $\iff$ bijective
+\end{enumerate}
+
+\subsection{Matrice d'une application}
+Pour $\mcB=(u_i)$ base de $V$, $\mcD=(w_j)$ base de $W$ :
+\begin{align*}
+[f]_{\mcD,\mcB}
+&=\bigl([f(u_1)]_{\mcD}\ \cdots\ [f(u_n)]_{\mcD}\bigr),\\
+[f(v)]_{\mcD}&=[f]_{\mcD,\mcB}[v]_{\mcB},\\
+[g\circ f]_{\mcE,\mcB}&=[g]_{\mcE,\mcD}[f]_{\mcD,\mcB}
+\end{align*}
+Pour un endomorphisme, $P=P_{\mcB,\mcB'}$ :
+\begin{align*}
+\boxed{[f]_{\mcB'}=P^{-1}[f]_{\mcB}P}
+\end{align*}
+
+\colbreak
+
+\section{Espaces euclidiens}
+Dans $\RR^n$, produit scalaire canonique et norme :
+\begin{align*}
+\langle u,v\rangle&=u^\top v=\sum_i u_iv_i,\\
+\norm{v}&=\sqrt{\langle v,v\rangle},\\
+\langle u,v\rangle&=\norm{u}\norm{v}\cos\theta,\\
+\norm{u+v}^2&=\norm u^2+\norm v^2+2\langle u,v\rangle
+\end{align*}
+\begin{enumerate}
+\item $|\langle u,v\rangle|\le\norm u\norm v$ \hfill(Cauchy-Schwarz)
+\end{enumerate}
+
+\subsection{Orthogonal et orthonormal}
+Définitions d'orthogonalité pour $(u_i)$ :
+\begin{align*}
+\text{Orthogonale}&\iff\langle u_i,u_j\rangle=0\ (i\ne j),\\
+\text{Orthonormée}&\iff\langle u_i,u_j\rangle=\delta_{ij},\\
+F^\perp&=\{v:v\perp u,\ \forall u\in F\}
+\end{align*}
+\begin{enumerate}
+\item Toute famille orthogonale de vecteurs est libre
+\item $V=F\oplus F^\perp$ et $\dim F^\perp=\dim V-\dim F$
+\end{enumerate}
+
+\subsection{Gram--Schmidt}
+D'une famille libre $(v_1,\ldots,v_p)$ :
+\begin{align*}
+w_1&=v_1,\\
+w_k&=v_k-\sum_{i=1}^{k-1}
+\frac{\langle v_k,w_i\rangle}{\norm{w_i}^2}w_i,\\
+e_k&=\frac{w_k}{\norm{w_k}}
+\end{align*}
+$(e_1,\ldots,e_p)$ est orthonormée et engendre le même espace.
+
+\subsection{Décomposition QR}
+Pour $A$ à colonnes libres :
+\begin{align*}
+A&=QR, &Q^\top Q&=I,\\
+R&=Q^\top A\quad\text{(triang. sup.)}
+\end{align*}
+Les colonnes de $Q$ viennent de Gram--Schmidt.
+
+\colbreak
+\subsection{Projection orthogonale}
+Si $(e_1,\ldots,e_p)$ est une base orthonormée de $F$ :
+\begin{align*}
+\proj_F(v)&=\sum_{i=1}^p\langle v,e_i\rangle e_i,\\
+v&=\proj_F(v)+\proj_{F^\perp}(v)
+\end{align*}
+Avec $Q=(e_1\ \cdots\ e_p)$ :
+\begin{align*}
+\proj_F(v)&=QQ^\top v,\\
+P_F&=QQ^\top,\quad P_F^2=P_F=P_F^\top
+\end{align*}
+Avec $A$ à colonnes libres engendrant $F$ :
+\begin{align*}
+P_F=A(A^\top A)^{-1}A^\top
+\end{align*}
+
+\subsection{Moindres carrés}
+Si $Ax=b$ est incompatible, minimiser $\norm{Ax-b}$ :
+\begin{align*}
+A^\top(Ax_0-b)&=0,\\
+\boxed{A^\top Ax_0=A^\top b}
+\end{align*}
+Si les colonnes de $A$ sont libres :
+\begin{align*}
+x_0=(A^\top A)^{-1}A^\top b
+\end{align*}
+Si $A=QR$ et $R$ est inversible : $x_0=R^{-1}Q^\top b$
+
+\subsection{Matrices orthogonales}
+\vspace{-2em}
+\begin{align*}
+Q\in O_n(\RR)&\iff Q^\top Q=I_n
+\end{align*}
+\begin{enumerate}
+\item $Q^{-1}=Q^\top$
+\item $\det Q=\pm1$
+\item $\norm{Qv}=\norm v$ et $\langle Qu,Qv\rangle=\langle u,v\rangle$
+\end{enumerate}
+Rotation de $\RR^2$ :
+\begin{align*}
+R_\theta=\begin{pmatrix}\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta\end{pmatrix}
+\end{align*}
+Dans $\RR^3$, $u\times v$ est orthogonal à $u,v$ et $\norm{u\times v}=\norm u\norm v|\sin\theta|$.
+
+\colbreak
+\section{Diagonalisation}
+\subsection{Valeurs et vecteurs propres}
+Pour $A\in\KK^{n\times n}$, $v\ne0$ :
+\begin{align*}
+Av=\lambda v&\iff(A-\lambda I)v=0,\\
+E_\lambda&=\ker(A-\lambda I),\\
+\chi_A(X)&=\det(XI_n-A),\\
+\Sp_\KK(A)&=\{\lambda\in\KK:\chi_A(\lambda)=0\}
+\end{align*}
+Multiplicités : \textbf{algébrique} = ordre de la racine $\lambda$ de $\chi_A$ ; \textbf{géométrique} = $\dim E_\lambda$
+\begin{enumerate}
+\item Multiplicité géométrique $\le$ multiplicité algébrique
+\end{enumerate}
+Avec les valeurs propres comptées avec multiplicités (dans un corps de décomposition) :
+\begin{align*}
+\tr A=\sum_i\lambda_i,\qquad\det A=\prod_i\lambda_i
+\end{align*}
+
+\subsection{Critère de diagonalisation}
+\begin{enumerate}
+\item $A$ diagonalisable $\iff$ il existe une base de vecteurs propres
+\item Critère équivalent : $\displaystyle\sum_{\lambda\in\Sp_\KK(A)}\dim E_\lambda=n$
+\item Des valeurs propres distinctes donnent des vecteurs propres libres
+\item $\chi_A$ scindé à racines simples $\Rightarrow A$ diagonalisable
+\end{enumerate}
+Si $A$ est diagonalisable :
+\begin{align*}
+A&=PDP^{-1},\quad P=(v_1\ \cdots\ v_n),\\
+D&=\operatorname{diag}(\lambda_1,\ldots,\lambda_n),\\
+A^k&=PD^kP^{-1}
+\end{align*}
+\colbreak
+
+\subsection{Polynômes d'endomorphismes}
+Pour un polynôme $p$ :
+\begin{align*}
+p(X)&=\sum_{j=0}^r a_jX^j, &p(A)&=\sum_{j=0}^r a_jA^j
+\end{align*}
+\begin{enumerate}
+\item $\chi_A(A)=0$ \hfill(Cayley-Hamilton)
+\item Polynôme minimal $\mu_A$ : unitaire de plus petit degré annulant $A$
+\item $\mu_A\mid\chi_A$ et divise tout polynôme annulateur
+\item $A$ diagonalisable $\iff\mu_A$ scindé à racines simples
+\end{enumerate}
+
+\subsection{Réduction de Jordan}
+Sur $\CC$ (ou si $\chi_A$ est scindé), $A=PJP^{-1}$ avec $J$ diagonale par blocs :
+\begin{align*}
+J_r(\lambda)=\begin{pmatrix}
+\lambda&1&0&\cdots&0\\
+0&\lambda&1&\ddots&\vdots\\
+\vdots&&\ddots&\ddots&0\\
+0&\cdots&0&\lambda&1\\
+0&\cdots&\cdots&0&\lambda
+\end{pmatrix}
+\end{align*}
+\begin{enumerate}
+\item $A$ diagonalisable $\iff$ tous les blocs ont taille $1$
+\item Un bloc de taille $r$ associé à $\lambda$ apporte le facteur $(X-\lambda)^r$ au polynôme minimal
+\end{enumerate}
+
+\subsection{Théorème spectral}
+Toute matrice \textbf{symétrique réelle} $A=A^\top$ est orthogonalement diagonalisable :
+\begin{align*}
+A&=QDQ^\top,\quad Q^\top Q=I_n,\\
+A&=\sum_{i=1}^n\lambda_i q_iq_i^\top
+\end{align*}
+\begin{enumerate}
+\item Ses valeurs propres sont réelles
+\item Des espaces propres associés à des valeurs propres distinctes sont orthogonaux
+\end{enumerate}
+
+\subsection{Valeurs singulières (SVD)}
+Pour $A\in\RR^{m\times n}$ de rang $r$ :
+\begin{align*}
+\boxed{A=U\Sigma V^\top},\\
+U^\top U=I_m,\quad V^\top V=I_n
+\end{align*}
+Définition des valeurs singulières non nulles (ordre décroissant) :
+\begin{align*}
+\sigma_i&=\sqrt{\lambda_i(A^\top A)}>0,\\
+A^\top Av_i&=\sigma_i^2v_i,\\
+u_i&=\frac{Av_i}{\sigma_i}\quad(i\le r),\\
+A&=\sum_{i=1}^r\sigma_i u_iv_i^\top
+\end{align*}
+Compléter les vecteurs singuliers en bases orthonormées pour obtenir $U$ et $V$ carrées.
+
+\colbreak
+\section*{Commandes SageMath}
+\subsection{Objets et calculs}
+{\scriptsize\begin{tabular}{@{}l@{\hspace{2pt}}l@{}}
+\texttt{QQ}, \texttt{RR}, \texttt{CC}, \texttt{SR} & corps / symboles\\
+\texttt{var('a')} & variable symbolique\\
+\texttt{vector(QQ,[1,2])} & vecteur exact\\
+\texttt{matrix(QQ,L)} & matrice ($L$ : listes)\\
+\texttt{identity\_matrix(n)} & $I_n$\\
+\texttt{zero\_matrix(m,n)} & matrice nulle\\
+\texttt{A.augment(b)} & matrice $[A\mid b]$\\
+\texttt{e.expand()}, \texttt{e.factor()} & dév. / fact.\\
+\end{tabular}}
+
+\subsection{Matrices et systèmes}
+{\scriptsize\begin{tabular}{@{}l@{\hspace{2pt}}l@{}}
+\texttt{A*B}, \texttt{A\^{}k} & produit / puissance\\
+\texttt{A.transpose()} & transposée\\
+\texttt{A.inverse()} & inverse\\
+\texttt{A.echelon\_form()} & échelonnée réduite\\
+\texttt{A.solve\_right(b)} & résoudre $Ax=b$\\
+\texttt{A.rank()} & rang\\
+\texttt{A.determinant()} & déterminant\\
+\texttt{A.trace()} & trace\\
+\texttt{A.charpoly()} & polynôme car.\\
+\texttt{A.minpoly()} & polynôme min.\\
+\texttt{A.right\_kernel()} & noyau\\
+\texttt{A.column\_space()} & image (colonnes)\\
+\texttt{A.row\_space()} & espace des lignes\\
+\end{tabular}}
+
+\subsection{Réductions / espaces}
+{\scriptsize\begin{tabular}{@{}l@{\hspace{2pt}}l@{}}
+\texttt{A.eigenvectors\_right()} & vecteurs propres\\
+\texttt{A.right\_eigenmatrix()} & $D,P$ propres\\
+\texttt{A.jordan\_form()} & forme de Jordan\\
+\texttt{span([u,v])} & espace engendré\\
+\texttt{F.intersection(G)} & intersection\\
+\texttt{F+G}, \texttt{F.dimension()} & somme / dimension\\
+\texttt{u.cross\_product(v)} & produit vectoriel\\
+\end{tabular}}
+
+\textit{Pour les calculs exacts, préférer \texttt{QQ} aux flottants ; utiliser \texttt{SR} pour les paramètres symboliques.}
 \end{multicols*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       End                          %
