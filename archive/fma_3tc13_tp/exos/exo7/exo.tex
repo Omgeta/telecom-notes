@@ -1,0 +1,501 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 7}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=7.\arabic*., start=68]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Justifier le critère de la remarque 7.2 : $f$ est linéaire si et seulement si $f(x+\lambda y)=f(x)+\lambda f(y)$ pour tous $x,y$ et $\lambda\in K$.
+\par\smallskip
+\textbf{Réponse.} La linéarité implique $f(x+\lambda y)=f(x)+\lambda f(y)$ par additivité puis homogénéité.
+    Réciproquement, cette identité donne $f(0)=0$ en prenant $x=y=0$, $\lambda=1$.
+    Prendre $\lambda=1$ donne l'additivité, puis $x=0$ donne l'homogénéité.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Chaque application est-elle linéaire ? Si oui, donner une matrice dans des bases au choix et dire si c’est un isomorphisme.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $f_1:\RR^2\to\RR^2$, $(x,y)\mapsto(2x+y,x-y)$.
+\par\smallskip
+\textbf{Réponse.} Linéaire, de matrice $\begin{pmatrix}2&1\\1&-1\end{pmatrix}$ dans les bases canoniques.
+        Son déterminant est $-3\neq0$ : c'est un isomorphisme.
+
+  \item \textbf{Question.} $f_2:\RR^3\to\RR^3$, $(x,y,z)\mapsto(xy,x,y)$.
+\par\smallskip
+\textbf{Réponse.} Non linéaire : $f_2(2,2,0)=(4,2,2)\neq2f_2(1,1,0)$.
+
+  \item \textbf{Question.} $f_3:\RR{}[X]_{\leq3}\to\RR^3$, $P\mapsto(P(-1),P(0),P(1))$.
+\par\smallskip
+\textbf{Réponse.} Linéaire, de matrice $\begin{pmatrix}1&-1&1&-1\\1&0&0&0\\1&1&1&1\end{pmatrix}$ dans les bases canoniques.
+        Son rang vaut $3$, son noyau est $\RR(X^3-X)$.
+        Elle est surjective, mais n'est pas un isomorphisme.
+
+  \item \textbf{Question.} $f_4:C^0(\RR,\RR)\to\RR$, $h\mapsto\int_0^1h(x)^2dx$.
+\par\smallskip
+\textbf{Réponse.} Non linéaire : pour la fonction constante $1$, $f_4(2)=4\neq2f_4(1)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in\RR^{2\times2}$. Montrer que $\psi:M\mapsto AM-MA$ est linéaire et donner sa matrice dans la base $(E_{11},E_{12},E_{21},E_{22})$.
+\par\smallskip
+\textbf{Réponse.} $\psi(\lambda M+N)=\lambda(AM-MA)+(AN-NA)$, donc $\psi$ est linéaire.
+    Pour $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$, sa matrice dans $(E_{11},E_{12},E_{21},E_{22})$ est
+    \[
+      \begin{pmatrix}0&-c&b&0\\-b&a-d&0&b\\c&0&d-a&-c\\0&c&-b&0\end{pmatrix}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\dim E=n$, $\varphi^n=0$, $\varphi^{n-1}\neq0$ et $x$ tel que $\varphi^{n-1}(x)\neq0$. Donner un exemple et montrer que $(x,\varphi(x),\ldots,\varphi^{n-1}(x))$ est une base de $E$.
+\par\smallskip
+\textbf{Réponse.} Exemple : $\varphi(e_i)=e_{i+1}$ pour $i<n$, $\varphi(e_n)=0$, et $x=e_1$.
+    Pour montrer la liberté en général, supposons $\sum_{k=0}^{n-1}\lambda_k\varphi^k(x)=0$.
+    Si $r$ est le plus petit indice de coefficient non nul, appliquer $\varphi^{n-1-r}$ donne
+    $\lambda_r\varphi^{n-1}(x)=0$, contradiction.
+    $\therefore$ la famille est libre de cardinal $n$, donc c'est une base.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $E_1,E_2$ deux sous-espaces de dimension finie de $E$ et $f:E_1\times E_2\to E$, $(x_1,x_2)\mapsto x_1+x_2$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $f$ est linéaire.
+\par\smallskip
+\textbf{Réponse.} $f(\lambda(x_1,x_2)+(y_1,y_2))=\lambda(x_1+x_2)+y_1+y_2$, donc $f$ est linéaire.
+
+  \item \textbf{Question.} Déterminer son noyau et son image.
+\par\smallskip
+\textbf{Réponse.} $\ker f=\{(x,-x):x\in E_1\cap E_2\}$ et $\operatorname{im}f=E_1+E_2$.
+
+  \item \textbf{Question.} Que donne le théorème du rang ?
+\par\smallskip
+\textbf{Réponse.} Le théorème du rang donne $\dim E_1+\dim E_2=\dim(E_1\cap E_2)+\dim(E_1+E_2)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $E=F_1\oplus\cdots\oplus F_n$ de dimension finie. On note $L(E,E)$ l’espace des endomorphismes.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Pour $\mathcal F_i=\{u:\operatorname{im}u\subseteq F_i\}$, montrer que $L(E,E)=\mathcal F_1\oplus\cdots\oplus\mathcal F_n$.
+\par\smallskip
+\textbf{Réponse.} Soient $p_i$ les projections associées à $E=\bigoplus_iF_i$.
+
+Tout $u$ s'écrit $u=\sum_i p_i u$, avec $\operatorname{im}(p_i u)\subseteq F_i$.
+        L'unicité vient de celle de la décomposition de chaque $u(x)$ dans les $F_i$.
+        $\therefore L(E,E)=\bigoplus_i\mathcal F_i$.
+
+  \item \textbf{Question.} Pour $\mathcal G_i=\{u:F_i\subseteq\ker u\}$, montrer que $L(E,E)=\mathcal G_1\oplus\cdots\oplus\mathcal G_n$ (énoncé imprimé).
+\par\smallskip
+\textbf{Réponse.} L'énoncé imprimé est faux en général pour $n\geq3$.
+        Dans $E=K^3$, $F_i=Ke_i$, une application non nulle sur $e_3$ et nulle sur $e_1,e_2$ appartient à $\mathcal G_1\cap\mathcal G_2$.
+
+        La version correcte est $\widetilde{\mathcal G}_i=\{u:\bigoplus_{j\neq i}F_j\subseteq\ker u\}$.
+        Alors $u=\sum_i up_i$ est l'unique décomposition, donc $L(E,E)=\bigoplus_i\widetilde{\mathcal G}_i$.
+        Pour $n=2$, la formule imprimée est vraie, les deux indices étant échangés. Pour $n=1$ et $E\neq0$, elle est fausse car $\mathcal G_1=\{0\}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f\in L(E,E)$ avec $\dim E=n$. Montrer que $\ker f=\operatorname{im}f$ équivaut à $f^2=0$ et $n=2\operatorname{rg}f$.
+\par\smallskip
+\textbf{Réponse.} Si $\ker f=\operatorname{im}f$, alors $f^2=0$ et le théorème du rang donne $n=2\operatorname{rg}f$.
+    Réciproquement, $f^2=0$ donne $\operatorname{im}f\subseteq\ker f$.
+    Si $n=2\operatorname{rg}f$, les deux espaces ont la même dimension et sont donc égaux.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $f:E\to F$ et $g:F\to G$ linéaires.
+
+\begin{enumerate}[\arabic*.]
+        \item \begin{enumerate}[a.]
+            \item \textbf{Question.} Exprimer $g\circ f=0$ en termes de noyau et d’image.
+\par\smallskip
+\textbf{Réponse.} $g\circ f=0\iff\operatorname{im}f\subseteq\ker g$.
+
+  \item \textbf{Question.} En dimension finie, quelle relation en déduire entre $\operatorname{rg}f$ et $\operatorname{rg}g$ ?
+\par\smallskip
+\textbf{Réponse.} Donc $\operatorname{rg}f\leq\dim\ker g=\dim F-\operatorname{rg}g$, soit $\operatorname{rg}f+\operatorname{rg}g\leq\dim F$.
+
+\end{enumerate}
+
+  \item \textbf{Question.} Montrer que $f(\ker(g\circ f))=\ker g\cap\operatorname{im}f$.
+\par\smallskip
+\textbf{Réponse.} $y\in f(\ker(gf))\iff\exists x,\ y=f(x),\ g(f(x))=0
+        \iff y\in\operatorname{im}f\cap\ker g$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $u,v:E\to F$ linéaires, avec $E,F$ de dimension finie.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\operatorname{rg}(u+v)\leq\operatorname{rg}u+\operatorname{rg}v$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{im}(u+v)\subseteq\operatorname{im}u+\operatorname{im}v$, donc $\operatorname{rg}(u+v)\leq\operatorname{rg}u+\operatorname{rg}v$.
+
+  \item \textbf{Question.} En déduire $|\operatorname{rg}u-\operatorname{rg}v|\leq\operatorname{rg}(u+v)$.
+\par\smallskip
+\textbf{Réponse.} Appliquer la question 1 à $u=(u+v)-v$ donne $\operatorname{rg}u-\operatorname{rg}v\leq\operatorname{rg}(u+v)$.
+        Échanger $u,v$ donne l'autre inégalité.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Dans $V=\RR^3$, soient $u=(4,-2,1)$, $w_1=(6,-5,1)$, $w_2=(-5,8,0)$, $U=\RR u$ et $W=\operatorname{Vect}(w_1,w_2)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier que $V=U\oplus W$.
+\par\smallskip
+\textbf{Réponse.} Pour $P=(u\ w_1\ w_2)$, $\det P=1\neq0$.
+        $\therefore V=U\oplus W$.
+
+  \item \textbf{Question.} Donner dans la base canonique la matrice de la projection sur $W$ parallèlement à $U$.
+\par\smallskip
+\textbf{Réponse.} $p_{W,U}=P\operatorname{diag}(0,1,1)P^{-1}$, donc
+        \[
+          [p_{W,U}]=\begin{pmatrix}33&20&-92\\-16&-9&46\\8&5&-22\end{pmatrix}
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $\RR^3$, soient $u_1=(1,-1,0)$, $u_2=(-1,0,-1)$, $w=(4,3,6)$, $U=\operatorname{Vect}(u_1,u_2)$ et $W=\RR w$. Donner la matrice canonique de la symétrie par rapport à $W$ selon $U$.
+\par\smallskip
+\textbf{Réponse.} Pour $P=(u_1\ u_2\ w)$, la matrice cherchée est
+    \[
+      S=P\operatorname{diag}(-1,-1,1)P^{-1}
+       =\begin{pmatrix}7&8&-8\\6&5&-6\\12&12&-13\end{pmatrix}
+    \]
+    On vérifie $Su_i=-u_i$ et $Sw=w$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $E$ un espace vectoriel. Montrer que $f:E\to E$ est une homothétie si et seulement si $(x,f(x))$ est liée pour tout $x\in E$ (la linéarité de $f$ est implicite).
+\par\smallskip
+\textbf{Réponse.} Il faut supposer $f$ linéaire : sinon $f(x)=x^2$ sur $\RR$ donne un contre-exemple.
+    Sous cette hypothèse, si $f=\lambda\operatorname{id}$, $(x,f(x))$ est liée pour tout $x$.
+    Réciproquement, pour $x\neq0$, écrivons $f(x)=\lambda_xx$.
+    Si $x,y$ sont indépendants, comparer $f(x+y)$ à $f(x)+f(y)$ donne
+    $\lambda_x=\lambda_y=\lambda_{x+y}$.
+    Si $x,y$ sont colinéaires non nuls, la linéarité donne aussi $\lambda_x=\lambda_y$.
+    $\therefore f$ est une homothétie.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $\dim E=3$ sur $\RR$ ou $\CC$, et $f\in L(E,E)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $f\neq0$ et $f^2=0$, montrer qu’il existe une base où $[f]=\begin{pmatrix}0&0&0\\1&0&0\\0&0&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{im}f\subseteq\ker f$ donne $\operatorname{rg}f\leq1$.
+        Comme $f\neq0$, le rang est $1$ et $\dim\ker f=2$.
+        Choisir $x$ avec $f(x)\neq0$, puis $z\in\ker f\setminus Kf(x)$.
+        Dans $(x,f(x),z)$, la matrice est $\begin{pmatrix}0&0&0\\1&0&0\\0&0&0\end{pmatrix}$.
+
+  \item \textbf{Question.} Si $f^2\neq0$ et $f^3=0$, montrer qu’il existe une base où $[f]=\begin{pmatrix}0&0&0\\1&0&0\\0&1&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Choisir $x$ avec $f^2(x)\neq0$.
+        D'après 7.71, $(x,f(x),f^2(x))$ est une base.
+        La matrice est $\begin{pmatrix}0&0&0\\1&0&0\\0&1&0\end{pmatrix}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\dim E=3$ sur $\RR$ ou $\CC$, $f^2\neq0$, $f^3=0$, et $g$ commutant avec $f$. Montrer que $g$ est une combinaison linéaire de $I,f,f^2$.
+\par\smallskip
+\textbf{Réponse.} Choisir $x$ tel que $(x,f(x),f^2(x))$ soit une base.
+    Écrire $g(x)=ax+bf(x)+cf^2(x)$.
+    Comme $gf=fg$, on a aussi $g(f(x))=(aI+bf+cf^2)f(x)$ et de même sur $f^2(x)$.
+    Les deux applications coïncident sur une base.
+    $\therefore g=aI+bf+cf^2$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On travaille sur $K=\RR$ ou $\CC$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $fg-gf=I$, montrer que $f^ng-gf^n=nf^{n-1}$ pour tout $n\geq1$.
+\par\smallskip
+\textbf{Réponse.} Pour $n=1$, c'est l'hypothèse. Si $f^ng-gf^n=nf^{n-1}$,
+        \[
+          f^{n+1}g-gf^{n+1}=f(f^ng-gf^n)+(fg-gf)f^n=(n+1)f^n
+        \]
+
+  \item \textbf{Question.} Montrer qu’une telle paire est impossible si $E$ est de dimension finie non nulle.
+\par\smallskip
+\textbf{Réponse.} En dimension finie non nulle, $\operatorname{tr}(fg-gf)=0$, alors que $\operatorname{tr}I=\dim E\neq0$ sur $\RR$ ou $\CC$.
+        Contradiction.
+
+  \item \textbf{Question.} Dans $K[X]$, examiner $f:P\mapsto P^{\prime}$ et $g:P\mapsto XP$.
+\par\smallskip
+\textbf{Réponse.} Sur $K[X]$, $f(g(P))-g(f(P))=(XP)'-XP'=P$.
+        C'est bien un exemple en dimension infinie.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer le déterminant de la conjugaison complexe $\chi:z\mapsto\overline z$, considérée comme endomorphisme du $\RR$-espace vectoriel $\CC$.
+\par\smallskip
+\textbf{Réponse.} Dans la base réelle $(1,i)$ de $\CC$, $[\chi]=\operatorname{diag}(1,-1)$.
+    $\therefore\det\chi=-1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $E$ réel de dimension $n\geq2$ et $u\in L(E,E)$ tel que $u^2=-I$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $n$ est pair.
+\par\smallskip
+\textbf{Réponse.} $(\det u)^2=\det(-I)=(-1)^n$.
+        Le membre de gauche est strictement positif, donc $n$ est pair.
+
+  \item \textbf{Question.} Montrer que $u$ ne laisse stable aucun hyperplan de $E$.
+\par\smallskip
+\textbf{Réponse.} Si un hyperplan $H$ était stable, $u$ induirait sur $E/H$ un endomorphisme $\lambda I$ vérifiant $\lambda^2=-1$.
+        Impossible sur $\RR$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $a$ l’endomorphisme de $\RR^4$ de matrice canonique $\displaystyle A=\begin{pmatrix}1&1&1&1\\1&0&0&1\\1&0&0&1\\1&1&1&1\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Donner une base de $\operatorname{im}a$ et de $\ker a$.
+\par\smallskip
+\textbf{Réponse.} Posons $r=(1,1,1,1)^\top$, $s=(1,0,0,1)^\top$,
+    $k_1=(1,0,0,-1)^\top$, $k_2=(0,1,-1,0)^\top$.
+
+$\operatorname{im}a=\operatorname{Vect}(r,s)$ et $\ker a=\operatorname{Vect}(k_1,k_2)$.
+
+  \item \textbf{Question.} Montrer que $\operatorname{im}a$ est stable par $a$.
+\par\smallskip
+\textbf{Réponse.} L'image de tout endomorphisme est stable : $a(a(x))\in\operatorname{im}a$.
+
+  \item \textbf{Question.} Donner la matrice de $\varphi=a|_{\operatorname{im}a}$ dans une base de l’image.
+\par\smallskip
+\textbf{Réponse.} Dans $(r,s)$, $a(r)=2r+2s$ et $a(s)=2r$, donc $[\varphi]=\begin{pmatrix}2&2\\2&0\end{pmatrix}$.
+
+  \item \textbf{Question.} Montrer que $A$ est semblable à $\operatorname{diag}\left(0_2,\begin{pmatrix}2&2\\2&0\end{pmatrix}\right)$.
+\par\smallskip
+\textbf{Réponse.} $(k_1,k_2,r,s)$ est une base (l'intersection noyau-image est nulle).
+        La matrice dans cette base est exactement $B$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $p$ un projecteur et $u$ un endomorphisme de $E$. Montrer que $pu=up$ si et seulement si $\ker p$ et $\operatorname{im}p$ sont stables par $u$.
+\par\smallskip
+\textbf{Réponse.} Si $pu=up$, $p(x)=0\Rightarrow p(u(x))=0$, et $x=p(y)\Rightarrow u(x)=p(u(y))$.
+    Ainsi noyau et image sont stables.
+    Réciproquement, écrire $x=y+z$ avec $y\in\operatorname{im}p$, $z\in\ker p$.
+    La stabilité donne $pu(x)=u(y)=up(x)$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\lambda\neq0$, $\mu\in K$ et $P_{n+1}=\lambda P_n+\mu P_n^{\prime}$ dans $K[X]_{\leq2}$. Pour $n_0\in\NN$ et $Q\in K[X]_{\leq2}$, existe-t-il $P_0$ tel que $P_{n_0}=Q$ ?
+\par\smallskip
+\textbf{Réponse.} Sur $K[X]_{\leq2}$, $T=\lambda I+\mu D$ est triangulaire de diagonale $\lambda\neq0$, donc inversible.
+    Comme $D^3=0$,
+    $T^{-1}=\lambda^{-1}(I-(\mu/\lambda)D+(\mu/\lambda)^2D^2)$.
+    $\therefore$ il existe un unique $P_0=T^{-n_0}Q$ (pour $n_0\in\NN$).
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f$ un endomorphisme d’un espace $V$ de dimension finie. Montrer l’équivalence de $V=\operatorname{im}f\oplus\ker f$, $\operatorname{im}f=\operatorname{im}f^2$, et $\ker f=\ker f^2$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{im}f^2\subseteq\operatorname{im}f$ et $\ker f\subseteq\ker f^2$.
+    En dimension finie, leurs égalités sont équivalentes par le théorème du rang.
+    De plus,
+    \[
+      \ker f^2=\ker f\iff\operatorname{im}f\cap\ker f=\{0\}
+    \]
+    En effet, $f(x)\in\ker f$ implique $x\in\ker f^2$ ; la réciproque suit de la même observation.
+    Les dimensions de l'image et du noyau ont pour somme $\dim V$, donc les trois assertions sont équivalentes.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A,B\in\CC^{n\times n}$ avec $A^2B=A$ et $\operatorname{rg}A=\operatorname{rg}B$. Montrer que $B^2A=B$.
+\par\smallskip
+\textbf{Réponse.} $A^2B=A$ donne $\ker B\subseteq\ker A$, donc $\ker B=\ker A$ par égalité des rangs.
+    Elle donne aussi $\operatorname{im}A^2=\operatorname{im}A$, donc $\CC^n=\operatorname{im}A\oplus\ker A$.
+    Dans une base adaptée,
+    \[
+      A=\begin{pmatrix}C&0\\0&0\end{pmatrix},\quad
+      B=\begin{pmatrix}C^{-1}&0\\D&0\end{pmatrix},\quad C\text{ inversible}
+    \]
+    Un produit direct donne $B^2A=B$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f\in L(V,V)$ en dimension finie avec $V=\operatorname{im}f\oplus\ker f$. Posons $m=\dim\operatorname{im}f$, $m^{\prime}=\dim\ker f$. Montrer qu’une base donne $[f]=\operatorname{diag}(0_{m^{\prime}},A)$ avec $A\in\operatorname{GL}_m(K)$.
+\par\smallskip
+\textbf{Réponse.} Prendre une base du noyau, puis une base de l'image.
+    La restriction de $f$ à son image est injective, car $\operatorname{im}f\cap\ker f=0$.
+    Elle est donc inversible en dimension finie.
+    Dans la base réunie, $[f]=\operatorname{diag}(0_{m'},A)$ avec $A$ inversible.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Sur $E=K[X]_{\leq n}$, on définit $f(P)=P(X+1)+P(X-1)-2P(X)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $f$ est un endomorphisme.
+\par\smallskip
+\textbf{Réponse.} Sur un corps de caractéristique $0$ (ou strictement supérieure à $n$) :
+
+Translations et soustraction étant linéaires, $f$ est un endomorphisme.
+
+  \item \textbf{Question.} Calculer $f(X^p)$ pour $0\leq p\leq n$ et son degré ; en déduire noyau, image et rang.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle f(X^p)=2\sum_{j=1}^{\lfloor p/2\rfloor}\binom p{2j}X^{p-2j}$.
+        Pour $p\geq2$, son degré est $p-2$, de coefficient dominant $p(p-1)$.
+        Donc $\ker f=K[X]_{\leq1}$, $\operatorname{im}f=K[X]_{\leq n-2}$, $\operatorname{rg}f=n-1$ pour $n\geq2$.
+        Pour $n\leq1$, $f=0$.
+
+  \item \textbf{Question.} Pour $Q\in\operatorname{im}f$, montrer qu’il existe un unique $P\in E$ tel que $f(P)=Q$ et $P(0)=P^{\prime}(0)=0$.
+\par\smallskip
+\textbf{Réponse.} Si $P_1$ est un antécédent de $Q$, poser $P=P_1-P_1(0)-P_1'(0)X$.
+        Il vérifie les deux conditions et $f(P)=Q$.
+        La différence de deux solutions appartient au noyau et a ses deux premiers coefficients nuls : elle est nulle.
+
+En caractéristique $p\leq n$, la question 3 est fausse : $X^p$ est dans le noyau et vérifie $P(0)=P'(0)=0$.
+    Pour préciser le noyau et le rang, poser $H=X^p-X$ et $d_q=\min(p,n-pq+1)$, $0\leq q\leq\lfloor n/p\rfloor$.
+    Les blocs $H^q\operatorname{Vect}(1,X,\ldots,X^{d_q-1})$ sont stables.
+    Si $p>2$, le noyau a pour base les $H^q$, ainsi que les $XH^q$ lorsque $d_q\geq2$ ; l'image a pour base les $X^rH^q$ avec $0\leq r\leq d_q-3$.
+    Donc $\operatorname{rg}f=\sum_q\max(d_q-2,0)$.
+    Si $p=2$, $f=0$ car $X+1=X-1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $u:E\to F$, $v:F\to G$ linéaires, montrer que $\ker(v\circ u)=u^{-1}(\ker v)$.
+\par\smallskip
+\textbf{Réponse.} $x\in\ker(vu)\iff v(u(x))=0\iff u(x)\in\ker v\iff x\in u^{-1}(\ker v)$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $u,v\in L(E,E)$ avec $u^2=u$ et $vu=0$. Montrer que $\operatorname{im}(u+v)=\operatorname{im}u+\operatorname{im}v$.
+\par\smallskip
+\textbf{Réponse.} $(u+v)u=u^2+vu=u$, donc $\operatorname{im}u\subseteq\operatorname{im}(u+v)$.
+    Puis $v(x)=(u+v)(x)-u(x)$ donne $\operatorname{im}v\subseteq\operatorname{im}(u+v)$.
+    L'autre inclusion est immédiate.
+    $\therefore\operatorname{im}(u+v)=\operatorname{im}u+\operatorname{im}v$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f$ un endomorphisme d’un espace de dimension finie. Montrer qu’il existe deux isomorphismes $u,v$ tels que $f=u-v$.
+\par\smallskip
+\textbf{Réponse.} Sur un corps infini (en particulier $\RR$ ou $\CC$), choisir $t\neq0$ tel que $\det(f+tI)\neq0$ : il n'y a qu'un nombre fini de valeurs exclues.
+    Alors $f=(f+tI)-tI$ est une différence d'isomorphismes.
+    Sans hypothèse sur le corps, l'énoncé est faux : sur $\ZZ/2\ZZ$ en dimension $1$, l'identité n'est pas une différence de deux automorphismes.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} À quelle condition $K[X]_{\leq m}$ est-il un hyperplan de $K[X]_{\leq n}$ ?
+\par\smallskip
+\textbf{Réponse.} $K[X]_{\leq m}$ est inclus dans $K[X]_{\leq n}$ si et seulement si $m\leq n$.
+    La codimension est alors $(n+1)-(m+1)=n-m$.
+    $\therefore$ c'est un hyperplan si et seulement si $m=n-1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $f,g$ deux formes linéaires de même noyau. Montrer qu’il existe $\alpha\neq0$ tel que $g=\alpha f$.
+\par\smallskip
+\textbf{Réponse.} Si $f=0$, alors $g=0$ et $\alpha=1$ convient.
+    Sinon choisir $x_0$ tel que $f(x_0)=1$.
+    Pour tout $x$, $x-f(x)x_0\in\ker f=\ker g$, donc $g(x)=g(x_0)f(x)$.
+    Comme $x_0\notin\ker g$, $\alpha=g(x_0)\neq0$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $n\geq2$ et $H$ un hyperplan de $K^{n\times n}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer qu’il existe $A\neq0$ telle que $H=\{M:\operatorname{tr}(AM)=0\}$.
+\par\smallskip
+\textbf{Réponse.} $H=\ker\ell$ pour une forme linéaire non nulle.
+        Poser $a_{i,j}=\ell(E_{j,i})$ donne $\ell(M)=\operatorname{tr}(AM)$ et $A\neq0$.
+
+  \item \textbf{Question.} En déduire que $H$ contient une matrice inversible.
+\par\smallskip
+\textbf{Réponse.} Il existe $U,V$ inversibles tels que $UAV=\operatorname{diag}(I_r,0)$.
+        Prendre la matrice $P$ de la permutation cyclique de $\{1,\ldots,n\}$, sans point fixe.
+        Elle est inversible et sa diagonale est nulle.
+        Alors $M=VPU$ est inversible et
+        $\operatorname{tr}(AM)=\operatorname{tr}(UAVP)=0$.
+        $\therefore M\in H$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour $n\geq2$, on définit $\varphi:K[X]_{\leq n}\to K[X]_{\leq n}$ par $\varphi(P)=X^nP(1/X)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier la linéarité de $\varphi$.
+\par\smallskip
+\textbf{Réponse.} $\varphi(\sum_{k=0}^na_kX^k)=\sum_{k=0}^na_kX^{n-k}$ : les coefficients sont renversés linéairement.
+
+  \item \textbf{Question.} Calculer $\varphi\circ\varphi$.
+\par\smallskip
+\textbf{Réponse.} Renverser deux fois donne $\varphi^2=I$.
+
+  \item \textbf{Question.} Reconnaître géométriquement $\varphi$.
+\par\smallskip
+\textbf{Réponse.} Si $\operatorname{car}K\neq2$, c'est la symétrie par rapport aux polynômes à coefficients symétriques ($a_k=a_{n-k}$), selon ceux à coefficients antisymétriques ($a_k=-a_{n-k}$).
+        En caractéristique $2$, c'est toujours une involution, mais la décomposition en ces deux espaces ne s'applique pas.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A,B$ réelles avec $A^2=B^2=0_{2n}$ et $\operatorname{rg}A,\operatorname{rg}B\geq n$. Montrer qu’elles sont semblables. Le poly affiche $n\times n$, mais les identités imposent ici la taille $2n\times2n$.
+\par\smallskip
+\textbf{Réponse.} La taille cohérente est $2n\times2n$, puisque $A^2=B^2=0_{2n}$.
+    $\operatorname{im}A\subseteq\ker A$ donne $\operatorname{rg}A\leq n$, donc $\operatorname{rg}A=n$.
+    Choisir $u_1,\ldots,u_n$ tels que les $Au_i$ forment une base de l'image.
+    Appliquer $A$ à une relation montre que $(u_1,\ldots,u_n,Au_1,\ldots,Au_n)$ est libre, donc une base.
+    Dans cette base, $[A]=\begin{pmatrix}0&0\\I_n&0\end{pmatrix}$.
+    Le même raisonnement vaut pour $B$.
+    $\therefore A$ et $B$ sont semblables.
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

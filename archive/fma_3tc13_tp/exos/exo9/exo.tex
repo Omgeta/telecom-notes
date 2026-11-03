@@ -1,0 +1,1069 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 9}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=9.\arabic*., start=94]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour chaque matrice, calculer les valeurs propres, étudier la diagonalisabilité, donner une matrice de passage vers la base canonique si possible, puis le polynôme minimal.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $\displaystyle A=\begin{pmatrix}0&2&-1\\3&-2&0\\-2&2&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\chi_A=(X+4)(X-1)(X-2)$ : trois valeurs propres distinctes, donc $A$ est diagonalisable.
+        Pour $P_A=\begin{pmatrix}2&1&-4\\-3&1&-3\\2&1&2\end{pmatrix}$,
+        $P_A^{-1}AP_A=\operatorname{diag}(-4,1,2)$.
+        $\mu_A=(X+4)(X-1)(X-2)$.
+
+  \item \textbf{Question.} $\displaystyle B=\begin{pmatrix}0&3&2\\-2&5&2\\2&-2&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\chi_B=X(X-2)(X-3)$, donc $B$ est diagonalisable.
+        Pour $P_B=\begin{pmatrix}-2&1&1\\-2&0&1\\3&1&0\end{pmatrix}$,
+        $P_B^{-1}BP_B=\operatorname{diag}(0,2,3)$.
+        $\mu_B=X(X-2)(X-3)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $a,b,c\in\RR$, étudier la diagonalisabilité sur $\RR$, puis sur $\CC$, de $A=\begin{pmatrix}0&a&c\\b&0&c\\b&-a&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Posons $d=ab-ac+bc$. On calcule $\chi_A=X(X^2-d)$.
+    Si $d\neq0$, les trois racines sont distinctes sur $\CC$ ; elles sont réelles si et seulement si $d>0$.
+    Si $d=0$, $A$ est nilpotente, donc diagonalisable seulement si $A=0$.
+
+    $\therefore$ sur $\RR$, $A$ est diagonalisable si $d>0$ ou $a=b=c=0$.
+    Sur $\CC$, elle l'est si $d\neq0$ ou $a=b=c=0$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Tracer le lieu des $(a,b)\in\RR^2$ tels que $M^n\to0$, où $\displaystyle M=\begin{pmatrix}a^2&ab&ab&b^2\\ab&a^2&b^2&ab\\ab&b^2&a^2&ab\\b^2&ab&ab&a^2\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Les vecteurs $(1,1,1,1)$, $(1,-1,-1,1)$, $(1,1,-1,-1)$, $(1,-1,1,-1)$ forment une base propre.
+    Les valeurs propres sont $(a+b)^2$, $(a-b)^2$, $a^2-b^2$, $a^2-b^2$.
+    Toutes leurs puissances tendent vers $0$ si et seulement si
+    $|a+b|<1$ et $|a-b|<1$.
+    $\therefore$ le lieu est le losange ouvert $|a|+|b|<1$, de sommets $(\pm1,0),(0,\pm1)$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} La matrice $\displaystyle A=\begin{pmatrix}-2&-1&1&2\\1&-4&1&2\\0&0&-5&4\\0&0&-1&-1\end{pmatrix}$ est-elle diagonalisable ? Donner sa forme de Jordan et son polynôme minimal.
+\par\smallskip
+\textbf{Réponse.} Posons $N=A+3I_4$. On calcule $N^3=0$, $N^2\neq0$ et $\dim\ker N=2$.
+    Donc $A$ n'est pas diagonalisable et $\mu_A=(X+3)^3$.
+    Avec
+    \[
+      P=\begin{pmatrix}-4&1&0&-4\\-4&1&0&0\\0&-2&1&2\\0&-1&0&1\end{pmatrix},\qquad
+      P^{-1}AP=\begin{pmatrix}-3&1&0&0\\0&-3&1&0\\0&0&-3&0\\0&0&0&-3\end{pmatrix}
+    \]
+    on obtient la forme de Jordan $J_3(-3)\oplus(-3)$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $A=\begin{pmatrix}2&-1\\-1&2\end{pmatrix}$, calculer les valeurs propres et vecteurs propres de $A,A^2,A^{-1},A+I_2$. Vérifier les relations entre valeurs propres, trace et déterminant.
+\par\smallskip
+\textbf{Réponse.} Les vecteurs $v=(1,1)$ et $w=(1,-1)$ sont propres pour $A$, de valeurs $1$ et $3$.
+    Ils restent propres pour les quatre matrices :
+    \[
+      \begin{array}{c|cc|cc}
+        &\lambda_v&\lambda_w&\operatorname{tr}&\det\\\hline
+        A&1&3&4&3\\ A^2&1&9&10&9\\ A^{-1}&1&1/3&4/3&1/3\\ A+I_2&2&4&6&8
+      \end{array}
+    \]
+    Chaque espace propre est la droite correspondante. Les traces sont les sommes et les déterminants les produits.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $a\in\RR$, $A=\begin{pmatrix}0&1\\-a&1+a\end{pmatrix}$ et $u_{n+2}=(1+a)u_{n+1}-au_n$, avec $u_0,u_1$ donnés.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Pour quelles valeurs de $a$ la matrice $A$ est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} $\chi_A=(X-1)(X-a)$. Si $a\neq1$, les deux valeurs sont distinctes.
+        Si $a=1$, $A\neq I_2$ et n'est pas diagonalisable.
+
+  \item \textbf{Question.} Lorsqu’elle l’est, calculer $A^n$.
+\par\smallskip
+\textbf{Réponse.} Pour $a\neq1$, $P=\begin{pmatrix}1&1\\1&a\end{pmatrix}$ donne $A=P\operatorname{diag}(1,a)P^{-1}$, donc
+        \[
+          A^n=\frac1{a-1}\begin{pmatrix}a-a^n&a^n-1\\a-a^{n+1}&a^{n+1}-1\end{pmatrix}
+        \]
+
+  \item \textbf{Question.} Pour $\boldsymbol u_n=(u_n,u_{n+1})^\top$, exprimer $\boldsymbol u_{n+1}$ en fonction de $\boldsymbol u_n$, puis $\boldsymbol u_n$ en fonction de $\boldsymbol u_0$.
+\par\smallskip
+\textbf{Réponse.} $\boldsymbol u_{n+1}=A\boldsymbol u_n$, donc $\boldsymbol u_n=A^n(u_0,u_1)^\top$.
+        En particulier $u_n=((a-a^n)u_0+(a^n-1)u_1)/(a-1)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $M=\begin{pmatrix}0&1&0\\-4&4&0\\-2&1&2\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $M$ est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} $\chi_M=(X-2)^3$ et $M\neq2I_3$ : $M$ n'est pas diagonalisable.
+
+  \item \textbf{Question.} Calculer $(M-2I_3)^2$, puis $(M-2I_3)^n$ et en déduire $M^n$.
+\par\smallskip
+\textbf{Réponse.} Pour $N=M-2I_3$, $N^2=0$.
+        Donc $N^0=I_3$, $N^1=N$, $N^n=0$ si $n\geq2$.
+        $\therefore M^0=I_3$ et $M^n=2^nI_3+n2^{n-1}N$ pour $n\geq1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Peut-on diagonaliser sur $\CC$ la matrice $C=\begin{pmatrix}1&-1&2&-2\\0&0&1&-1\\1&-1&1&0\\1&-1&1&0\end{pmatrix}$ ?
+\par\smallskip
+\textbf{Réponse.} $\chi_C=X^2(X-1)^2$ et les espaces propres sont
+    $E_0=\CC(1,1,0,0)$, $E_1=\CC(0,0,1,1)$.
+    Leur somme a dimension $2<4$.
+    $\therefore C$ n'est pas diagonalisable.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} La matrice $M\in\RR^{6\times6}$ dont chaque ligne $i$ est constante égale à $i$ est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} $M=v\boldsymbol1^\top$, avec $v=(1,2,3,4,5,6)^\top$.
+        $M^2=21M$. Le polynôme $X(X-21)$ est scindé à racines simples.
+        Donc $M$ est diagonalisable, de valeurs propres $0$ et $21$.
+
+  \item \textbf{Question.} À quelle condition une matrice $n\times n$ de rang $1$ est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} Pour une matrice de rang $1$, $M=uv^\top$ et $M^2=(v^\top u)M=(\operatorname{tr}M)M$.
+        Elle est diagonalisable si et seulement si $\operatorname{tr}M\neq0$ ; sinon c'est une matrice nilpotente non nulle.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Montrer que $(A^n)$ converge et calculer sa limite, pour $A=\frac13\begin{pmatrix}4&-1&-2\\2&1&-2\\1&-1&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Les valeurs propres sont $1/3$, $2/3$, $1$, associées à $(1,1,1)$, $(1,0,1)$, $(1,1,0)$.
+    Dans cette base, les puissances convergent vers $\operatorname{diag}(0,0,1)$.
+    La limite est le projecteur spectral
+    \[
+      \therefore\lim_{n\to\infty}A^n=\frac92(A-I_3/3)(A-2I_3/3)=\begin{pmatrix}1&0&-1\\1&0&-1\\0&0&0\end{pmatrix}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $\alpha,\beta\in\RR$ et $\displaystyle A=\begin{pmatrix}1&-\alpha&-\alpha&1\\1-\beta&\alpha&\alpha-1&-\beta\\\beta&-\alpha&1-\alpha&\beta+1\\0&\alpha&\alpha&0\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} À quelle condition sur $\alpha,\beta$ la matrice est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} $\chi_A=X^2(X-1)^2$. La matrice est diagonalisable si et seulement si $A^2=A$.
+        Le calcul de $A^2-A$ impose $\alpha=0$, puis $\beta=0$, et ces conditions suffisent.
+
+  \item \textbf{Question.} Pour $\alpha=\beta=0$, calculer $A(A-I_4)$ ; en déduire $A^n$ et $(I_4+A)^{-1}$.
+\par\smallskip
+\textbf{Réponse.} Pour $\alpha=\beta=0$, $A(A-I_4)=0$.
+        Ainsi $A^0=I_4$, $A^n=A$ pour $n\geq1$ et $(I_4+A)^{-1}=I_4-A/2$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in K^{n\times n}$ inversible. Montrer que $A$ est triangulaire supérieure si et seulement si toutes les puissances $A^k$, $k\geq2$, le sont.
+\par\smallskip
+\textbf{Réponse.} Le sens direct suit de la stabilité des matrices triangulaires par produit.
+    Réciproquement, $A^2$ et $A^3$ sont triangulaires supérieures, et $(A^2)^{-1}$ aussi.
+    Alors $A=A^3(A^2)^{-1}$ est triangulaire supérieure.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $r,s$ dans un espace euclidien $E$, et $f(x)=x+\langle r,x\rangle s$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier que $f$ est linéaire.
+\par\smallskip
+\textbf{Réponse.} Posons $N(x)=\langle r,x\rangle s$ et $c=\langle r,s\rangle$, donc $f=I+N$.
+
+$x\mapsto\langle r,x\rangle$ est linéaire, donc $N$ et $f$ aussi.
+
+  \item \textbf{Question.} Calculer $f^2$, donner un polynôme annulateur et les valeurs propres possibles.
+\par\smallskip
+\textbf{Réponse.} $N^2=cN$, donc $f^2-(2+c)f+(1+c)I=0$.
+        Les valeurs propres possibles sont $1$ et $1+c$.
+
+  \item \textbf{Question.} Appliquer Gram-Schmidt à $(r,s)$ et compléter en une base orthonormée ; y donner la matrice de $f$.
+\par\smallskip
+\textbf{Réponse.} Si $r,s$ sont indépendants, écrire $r=\|r\|e_1$, $s=ae_1+be_2$ dans la base de Gram-Schmidt.
+        Alors $[f]=\begin{pmatrix}1+c&0\\\|r\|b&1\end{pmatrix}\oplus I_{n-2}$.
+        Si $r,s$ sont colinéaires non nuls, la matrice vaut $\operatorname{diag}(1+c,1,\ldots,1)$.
+        Si l'un est nul, $f=I$.
+
+  \item \textbf{Question.} Peut-on diagonaliser $f$ ?
+\par\smallskip
+\textbf{Réponse.} Si $c\neq0$, le polynôme annulateur a des racines simples : $f$ est diagonalisable.
+        Si $c=0$, elle l'est exactement si $N=0$, donc si $r=0$ ou $s=0$.
+
+  \item \textbf{Question.} Quand $f$ est-il inversible ?
+\par\smallskip
+\textbf{Réponse.} $f$ est inversible si et seulement si $1+c\neq0$.
+        Dans ce cas, $f^{-1}=I-N/(1+c)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $a=(a_1,\ldots,a_n)\in\RR^n\setminus\{0\}$ et $K=(a_ia_j)_{1\leq i,j\leq n}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Déterminer $\ker K$ et $\operatorname{im}K$.
+\par\smallskip
+\textbf{Réponse.} $K=aa^\top$ et $a\neq0$.
+
+$\operatorname{im}K=\RR a$ et $\ker K=a^\perp$.
+
+  \item \textbf{Question.} Étudier la diagonalisabilité, les valeurs propres et les sous-espaces propres de $K$.
+\par\smallskip
+\textbf{Réponse.} Ces espaces sont orthogonaux supplémentaires.
+        Les valeurs propres sont $\|a\|^2$ sur $\RR a$ et $0$ sur $a^\perp$ : $K$ est diagonalisable.
+
+  \item \textbf{Question.} Donner son polynôme caractéristique.
+\par\smallskip
+\textbf{Réponse.} $\chi_K=X^{n-1}(X-\|a\|^2)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Sur $K[X]_{\leq2}$, on pose $u(P)=(2X+1)P-(X^2-1)P^{\prime}$. Montrer que $u$ est bien défini, déterminer ses valeurs propres et le diagonaliser si possible.
+\par\smallskip
+\textbf{Réponse.} Pour $P=a+bX+cX^2$, on calcule
+    $u(P)=(a+b)+(2a+b+2c)X+(b+c)X^2$.
+    Donc $u$ est bien un endomorphisme, de matrice
+    $\begin{pmatrix}1&1&0\\2&1&2\\0&1&1\end{pmatrix}$.
+    Les polynômes $(X-1)^2$, $X^2-1$, $(X+1)^2$ sont propres de valeurs $-1,1,3$.
+    Ils forment une base si $\operatorname{car}K\neq2$.
+    En caractéristique $2$, $u=I+N$ avec $N\neq0$, $N^2=0$ : $u$ n'est pas diagonalisable.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\alpha,\beta,\gamma\in K$ distincts et $Q=(X-\alpha)(X-\beta)(X-\gamma)$. Sur $K[X]_{\leq2}$, $\varphi(P)$ est le reste de $X^3P$ modulo $Q$. Déterminer ses valeurs propres et vecteurs propres.
+\par\smallskip
+\textbf{Réponse.} Dans la base des polynômes de Lagrange $L_\alpha,L_\beta,L_\gamma$, on a
+    $\varphi(L_t)=t^3L_t$ car l'égalité est vraie aux trois points d'interpolation.
+    $\therefore\varphi$ est diagonale de valeurs $\alpha^3,\beta^3,\gamma^3$.
+    Pour chaque valeur $\lambda$, l'espace propre est
+    $\operatorname{Vect}(L_t:t\in\{\alpha,\beta,\gamma\},\ t^3=\lambda)$ ; cela traite aussi les coïncidences entre cubes.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Trouver les valeurs propres et vecteurs propres de $\varphi:K[X]\to K[X]$, $P\mapsto P(X+1)-P^{\prime}(X)$.
+\par\smallskip
+\textbf{Réponse.} Sur un corps de caractéristique $0$, le coefficient dominant est conservé par $\varphi$, donc la seule valeur propre possible est $1$.
+    Pour $\deg P=d\geq2$, le terme dominant de $\varphi(P)-P$ a degré $d-2$, de coefficient $d(d-1)/2$ fois celui de $P$ ; il n'est pas nul.
+    $\therefore E_1=\operatorname{Vect}(1,X)$.
+    En caractéristique $p>0$, on a encore pour seule valeur propre $1$ : si $T(P)=P(X+1)$ et $D(P)=P'$, alors $T^p=I$, $D^p=0$ et $TD=DT$, donc $(T-D)^p=I$.
+    Les vecteurs propres sont exactement les polynômes non nuls $P=\sum_{j=0}^da_jX^j$ tels que
+    $\sum_{j=k+2}^d\binom jk a_j=0$ pour tout $0\leq k\leq d-2$, avec les coefficients calculés dans $K$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A\in K^{m\times n}$, $B\in K^{n\times m}$, $C=I_m-AB$ et $D=I_n-BA$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que si $C$ est inversible, alors $D$ l’est.
+\par\smallskip
+\textbf{Réponse.} Comme $(I_n-BA)B=B(I_m-AB)$, multiplier par $C^{-1}A$ donne un inverse à droite de $D$.
+        Les matrices étant carrées, $D$ est inversible.
+
+  \item \textbf{Question.} Exprimer $D^{-1}$ à l’aide de $A,B,C^{-1}$.
+\par\smallskip
+\textbf{Réponse.} $D^{-1}=I_n+BC^{-1}A$.
+
+  \item \textbf{Question.} En déduire que $AB$ et $BA$ ont les mêmes valeurs propres non nulles.
+\par\smallskip
+\textbf{Réponse.} Pour $\lambda\neq0$, appliquer le résultat à $A/\lambda$ et $B$ donne
+        $\det(\lambda I_m-AB)=0\iff\det(\lambda I_n-BA)=0$.
+        Donc les valeurs propres non nulles sont les mêmes.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $\displaystyle A=\begin{pmatrix}1&1&1&1\\-1&1&-1&1\\-1&1&1&-1\\-1&-1&1&1\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Calculer $\det A$.
+\par\smallskip
+\textbf{Réponse.} Par élimination, $\det A=16$.
+
+  \item \textbf{Question.} Calculer $(A-xI_4)(A^\top-xI_4)$.
+\par\smallskip
+\textbf{Réponse.} $AA^\top=4I_4$ et $A+A^\top=2I_4$, donc $(A-xI_4)(A^\top-xI_4)=(x^2-2x+4)I_4$.
+
+  \item \textbf{Question.} En déduire $\chi_A(x)$.
+\par\smallskip
+\textbf{Réponse.} En prenant les déterminants, puis en choisissant le polynôme unitaire,
+        $\chi_A(x)=(x^2-2x+4)^2$.
+
+  \item \textbf{Question.} Montrer que $A$ est diagonalisable sur $\CC$.
+\par\smallskip
+\textbf{Réponse.} Comme $A^\top=2I_4-A$, l'identité de la question 2 donne $A^2-2A+4I_4=0$.
+        Ce polynôme a deux racines complexes distinctes $1\pm i\sqrt3$.
+        $\therefore A$ est diagonalisable sur $\CC$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Trouver toutes les matrices $M\in\CC^{3\times3}$ telles que $M^2=A$, où $A=\begin{pmatrix}3&0&0\\-5&2&0\\4&0&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $M^2=A$ implique $MA=AM$, donc $M$ préserve les trois droites propres de $A$, de valeurs $3,2,1$.
+    Avec $P=\begin{pmatrix}1&0&0\\-5&1&0\\2&0&1\end{pmatrix}$, $P^{-1}AP=\operatorname{diag}(3,2,1)$.
+    \[
+      \therefore M=P\operatorname{diag}(\varepsilon_1\sqrt3,\varepsilon_2\sqrt2,\varepsilon_3)P^{-1},
+      \quad\varepsilon_i\in\{-1,1\}
+    \]
+    Les huit choix conviennent.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $A=\begin{pmatrix}-5&3\\6&-2\end{pmatrix}$, trouver $B\in\RR^{2\times2}$ telle que $B^3=A$.
+\par\smallskip
+\textbf{Réponse.} $\chi_A=(X-1)(X+8)$ et $B=(A+2I_2)/3=\begin{pmatrix}-1&1\\2&0\end{pmatrix}$.
+    Sur les espaces propres de $A$, $B$ agit par $1$ et $-2$, dont les cubes valent $1$ et $-8$.
+    $\therefore B^3=A$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $R\in\CC^{n\times n}$ de diagonale nulle et de coefficients hors diagonale égaux à $1$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Exprimer $R^2$ en fonction de $I_n,R$.
+\par\smallskip
+\textbf{Réponse.} Pour $R=J-I_n$, $J^2=nJ$, donc $R^2=(n-2)R+(n-1)I_n$.
+
+  \item \textbf{Question.} Trouver $S$ telle que $S^2=R$.
+\par\smallskip
+\textbf{Réponse.} Posons $P=J/n$ : c'est un projecteur.
+        $R=(n-1)P-(I_n-P)$, donc
+        $S=\sqrt{n-1}\,P+i(I_n-P)$ vérifie $S^2=R$.
+        Pour $n=1$, cette formule donne $S=0$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} En dimension finie sur $\CC$, montrer que $f$ est diagonalisable si et seulement si $\operatorname{rg}(f-\lambda I)=\operatorname{rg}(f-\lambda I)^2$ pour tout $\lambda\in\CC$.
+\par\smallskip
+\textbf{Réponse.} Sur $\CC$, la forme de Jordan de $f$ contient un bloc non trivial pour $\lambda$ si et seulement si
+    $\dim\ker(f-\lambda I)^2>\dim\ker(f-\lambda I)$.
+    Ainsi l'égalité des rangs pour tout $\lambda$ signifie exactement que tous les blocs de Jordan ont taille $1$.
+    $\therefore$ elle équivaut à la diagonalisabilité.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Une suite réelle vérifie $u_{n+3}=6u_{n+2}-11u_{n+1}+6u_n$. On pose $x_n=(u_n,u_{n+1},u_{n+2})^\top$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Trouver $A\in\RR^{3\times3}$ telle que $x_{n+1}=Ax_n$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle A=\begin{pmatrix}0&1&0\\0&0&1\\6&-11&6\end{pmatrix}$ donne $x_{n+1}=Ax_n$.
+
+  \item \textbf{Question.} Diagonaliser $A$.
+\par\smallskip
+\textbf{Réponse.} Les valeurs propres sont $1,2,3$, de vecteurs $(1,1,1)$, $(1,2,4)$, $(1,3,9)$.
+        Pour la matrice $P$ de ces colonnes, $A=P\operatorname{diag}(1,2,3)P^{-1}$.
+
+  \item \textbf{Question.} Exprimer $u_n$ en fonction de $u_0,u_1,u_2,n$.
+\par\smallskip
+\textbf{Réponse.} $u_n=c_1+c_2\,2^n+c_3\,3^n$, avec
+        \[
+          c_1=\frac{u_2-5u_1+6u_0}{2},\quad
+          c_2=-u_2+4u_1-3u_0,\quad c_3=\frac{u_2-3u_1+2u_0}{2}
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Résoudre les systèmes différentiels avec leurs conditions initiales.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $u_1^{\prime}=4u_1+3u_2$, $u_2^{\prime}=u_2$, $u_1(0)=5$, $u_2(0)=-2$.
+\par\smallskip
+\textbf{Réponse.} $u_2(t)=-2e^t$, puis $u_1'-4u_1=-6e^t$ donne
+        $u_1(t)=3e^{4t}+2e^t$.
+
+  \item \textbf{Question.} $u_1^{\prime}=-2u_1+3u_2$, $u_2^{\prime}=2u_1-3u_2$, $u_1(0)=4$, $u_2(0)=1$.
+\par\smallskip
+\textbf{Réponse.} $u_1+u_2=5$, donc $u_1'=15-5u_1$.
+        $\therefore u_1(t)=3+e^{-5t}$, $u_2(t)=2-e^{-5t}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $\displaystyle Z=\begin{pmatrix}4&-8&0&-3\\0&4&0&0\\6&-8&-2&-3\\0&-8&0&-2\end{pmatrix}\in K^{4\times4}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Calculer $\chi_Z$.
+\par\smallskip
+\textbf{Réponse.} Sur $\RR$ ou $\CC$ (plus généralement si $\operatorname{car}K\notin\{2,3\}$) :
+
+$\chi_Z=(X+2)^2(X-4)^2$.
+
+  \item \textbf{Question.} Montrer que $Z$ n’est pas diagonalisable.
+\par\smallskip
+\textbf{Réponse.} $\dim\ker(Z-4I)=1<2$, donc $Z$ n'est pas diagonalisable.
+
+  \item \textbf{Question.} Donner une forme de Jordan avec sa base et sa matrice de passage.
+\par\smallskip
+\textbf{Réponse.} Pour
+        \[
+          P=\begin{pmatrix}0&1&12&0\\0&0&0&-3\\1&0&12&0\\0&2&0&4\end{pmatrix},\quad
+          P^{-1}ZP=J=\begin{pmatrix}-2&0&0&0\\0&-2&0&0\\0&0&4&1\\0&0&0&4\end{pmatrix}
+        \]
+        les colonnes de $P$ donnent la base de Jordan.
+
+  \item \textbf{Question.} Calculer $\mu_Z$.
+\par\smallskip
+\textbf{Réponse.} $\mu_Z=(X+2)(X-4)^2=X^3-6X^2+32$.
+
+  \item \textbf{Question.} En déduire $Z^{-1}$ et $Z^m$ pour $m\in\NN$.
+\par\smallskip
+\textbf{Réponse.} $Z^{-1}=(6Z-Z^2)/32$.
+        Pour $m\geq1$,
+        \[
+          Z^m=P\begin{pmatrix}(-2)^m&0&0&0\\0&(-2)^m&0&0\\0&0&4^m&m4^{m-1}\\0&0&0&4^m\end{pmatrix}P^{-1}
+        \]
+        et $Z^0=I_4$.
+
+En caractéristique $2$, $Z^2=0\neq Z$ : $\chi_Z=X^4$, $\mu_Z=X^2$, il n'y a pas d'inverse, et la base $(e_1+e_3,e_4,e_2,e_3)$ donne $J_2(0)\oplus0\oplus0$.
+    En caractéristique $3$, $N=Z-I$ vérifie $N^2=0\neq N$ : $\chi_Z=(X-1)^4$, $\mu_Z=(X-1)^2$, $Z^{-1}=I-N$ et $Z^m=I+mN$.
+    La base $(e_1+e_3+e_4,e_2,e_3,e_4)$ donne $J_2(1)\oplus1\oplus1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $S=(p_{i,j})\in\RR^{n\times n}$ avec $p_{i,j}\geq0$ et $\sum_jp_{i,j}=1$ pour toute ligne $i$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $1$ est valeur propre.
+\par\smallskip
+\textbf{Réponse.} $S\boldsymbol1=\boldsymbol1$ car les sommes des lignes valent $1$.
+
+  \item \textbf{Question.} Montrer que toute valeur propre $\lambda$ vérifie $|\lambda|\leq1$.
+\par\smallskip
+\textbf{Réponse.} Si $Sv=\lambda v$, choisir $i$ tel que $|v_i|=\max_j|v_j|>0$.
+        Alors $|\lambda||v_i|\leq\sum_j p_{i,j}|v_j|\leq|v_i|\sum_jp_{i,j}=|v_i|$.
+        $\therefore|\lambda|\leq1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $u,v$ deux endomorphismes commutant sur un espace complexe de dimension finie non nulle. Montrer qu’ils ont un vecteur propre commun.
+\par\smallskip
+\textbf{Réponse.} Si $E\neq\{0\}$, choisir une valeur propre $\lambda$ de $u$.
+    Comme $uv=vu$, l'espace $F=\ker(u-\lambda I)$ est non nul et stable par $v$.
+    Sur $\CC$, la restriction $v|_F$ possède un vecteur propre non nul $x$.
+    Ce vecteur vérifie aussi $u(x)=\lambda x$ : il est propre pour les deux applications.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $0<\theta<2\pi$, $A\in\CC^{n\times n}$ tridiagonale de diagonale nulle et de deux diagonales adjacentes égales à $1$, et $B=2\cos\theta\,I_n+A$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\det B=\sin((n+1)\theta)/\sin\theta$.
+\par\smallskip
+\textbf{Réponse.} Les déterminants vérifient $D_n=2\cos\theta\,D_{n-1}-D_{n-2}$, $D_0=1$, $D_1=2\cos\theta$.
+        Donc $D_n=\sin((n+1)\theta)/\sin\theta$ si $\sin\theta\neq0$.
+        En $\theta=\pi$, la valeur prolongée est $(-1)^n(n+1)$.
+
+  \item \textbf{Question.} Montrer que $\det B$ s’annule pour $n$ valeurs distinctes de $\theta$ dans $]0,2\pi[$ (énoncé imprimé).
+\par\smallskip
+\textbf{Réponse.} Sur $]0,\pi[$, les $n$ zéros sont $k\pi/(n+1)$, $1\leq k\leq n$.
+        Sur $]0,2\pi[$, il y en a $2n$, car les mêmes valeurs de cosinus se répètent : le nombre $n$ imprimé pour cet intervalle est une coquille.
+
+  \item \textbf{Question.} Calculer $\chi_A(-2\cos\theta)$ et en déduire les valeurs propres de $A$.
+\par\smallskip
+\textbf{Réponse.} $\chi_A(-2\cos\theta)=(-1)^nD_n$.
+        Ainsi les valeurs propres distinctes de $A$ sont
+        $\lambda_k=2\cos(k\pi/(n+1))$, $1\leq k\leq n$.
+
+  \item \textbf{Question.} Montrer que $2I_n-A$ et $2I_n+A$ ont des valeurs propres strictement positives.
+\par\smallskip
+\textbf{Réponse.} $-2<\lambda_k<2$, donc les valeurs propres $2\pm\lambda_k$ de $2I_n\pm A$ sont strictement positives.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $A\in\RR^{n\times n}$ telle que $A^3-A^2+A-I_n=0$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Donner un exemple avec $n\geq2$ et $A\neq I_n$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{diag}\left(\begin{pmatrix}0&-1\\1&0\end{pmatrix},I_{n-2}\right)$ est un exemple pour $n\geq2$.
+
+  \item \textbf{Question.} Montrer que $\det A=1$.
+\par\smallskip
+\textbf{Réponse.} $A$ est annulée par $(X-1)(X^2+1)$.
+        Les valeurs propres complexes sont $1,i,-i$ ; les multiplicités de $i$ et $-i$ sont égales car $A$ est réelle.
+        Leur produit par paire vaut $1$.
+        $\therefore\det A=1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $f:E\to E$ un endomorphisme réel. Que peut-on dire dans les cas suivants ?
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Tout multiple $P$ de $X^2-X$ vérifie $P(f)=0$.
+\par\smallskip
+\textbf{Réponse.} Prendre $P=X^2-X$ donne $f^2=f$ : $f$ est un projecteur.
+        Réciproquement, un projecteur est annulé par tous les multiples de $X^2-X$.
+
+  \item \textbf{Question.} Il existe un multiple $P$ de $X^2-X$ tel que $P(f)=0$.
+\par\smallskip
+\textbf{Réponse.} Tel qu'écrit, aucune restriction : le polynôme nul convient toujours.
+        Si $P$ doit être non nul et $E$ est de dimension finie, tout $f$ convient encore avec $P=(X^2-X)\chi_f$.
+        En dimension infinie, cela impose seulement l'existence d'un polynôme annulateur non nul.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $u$ de rang $1$ en dimension finie. Montrer que $u$ n’est pas diagonalisable si et seulement si $\operatorname{im}u\subseteq\ker u$.
+\par\smallskip
+\textbf{Réponse.} Si $\operatorname{im}u\subseteq\ker u$, alors $u^2=0$ et $u\neq0$, donc $u$ n'est pas diagonalisable.
+    Sinon, comme l'image est une droite, $\operatorname{im}u\cap\ker u=0$.
+    Une base du noyau complétée par un vecteur de l'image est une base propre.
+    $\therefore u$ est diagonalisable dans ce second cas.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $u$ diagonalisable en dimension finie et $F$ stable par $u$. Montrer que $u|_F$ est diagonalisable.
+\par\smallskip
+\textbf{Réponse.} Le polynôme minimal de $u$ est scindé à racines simples.
+    Il annule aussi $u|_F$, donc le polynôme minimal de la restriction en est un diviseur.
+    Il est encore scindé à racines simples.
+    $\therefore u|_F$ est diagonalisable.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $u$ inversible en dimension finie sur $\CC$, avec $u^2$ diagonalisable.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $u$ est diagonalisable.
+\par\smallskip
+\textbf{Réponse.} Si $u^2$ est diagonalisable et inversible, son polynôme minimal est $Q=\prod_i(X-\lambda_i)$ avec $\lambda_i\neq0$ distincts.
+        Alors $Q(X^2)$ annule $u$ et a des racines complexes simples.
+        Donc $u$ est diagonalisable.
+
+  \item \textbf{Question.} Montrer le même résultat si $u^p$ est diagonalisable pour un entier $p\geq2$.
+\par\smallskip
+\textbf{Réponse.} Même preuve avec $Q(X^p)$ : les racines sont simples car les $\lambda_i$ sont non nuls et le corps est $\CC$.
+
+  \item \textbf{Question.} Montrer que l’inversibilité est nécessaire.
+\par\smallskip
+\textbf{Réponse.} $u=\begin{pmatrix}0&1\\0&0\end{pmatrix}$ n'est pas diagonalisable mais $u^2=0$ l'est.
+
+  \item \textbf{Question.} Montrer que le résultat peut être faux sur $\RR$.
+\par\smallskip
+\textbf{Réponse.} Sur $\RR$, une rotation d'angle $\pi/2$ n'est pas diagonalisable, alors que son carré $-I_2$ l'est.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f$ sur un espace de dimension $3$, avec $f^4=f^2$, et admettant $1$ et $-1$ comme valeurs propres. Est-il toujours diagonalisable ? Donner un contre-exemple si possible.
+\par\smallskip
+\textbf{Réponse.} Sur $\RR$ ou $\CC$, oui. Le polynôme minimal divise $X^2(X-1)(X+1)$ et a degré au plus $3$.
+    Les facteurs $X-1$ et $X+1$ sont présents.
+    Le facteur $X^2$ ferait monter le degré à $4$, impossible.
+    Donc le polynôme minimal est scindé à racines simples et $f$ est diagonalisable.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $A\in\CC^{3\times3}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $A$ est semblable à $-A$, montrer que $\operatorname{tr}A=\det A=0$.
+\par\smallskip
+\textbf{Réponse.} Si $A$ est semblable à $-A$, $\operatorname{tr}A=-\operatorname{tr}A$ et $\det A=-\det A$.
+        $\therefore\operatorname{tr}A=\det A=0$.
+
+  \item \textbf{Question.} Supposons désormais $\operatorname{tr}A=\det A=0$.
+\begin{enumerate}[a.]
+            \item \textbf{Question.} Si $A$ possède une valeur propre non nulle, montrer qu’elle est diagonalisable puis semblable à $-A$.
+\par\smallskip
+\textbf{Réponse.} Les valeurs propres sont $0,\lambda,-\lambda$ avec $\lambda\neq0$ : elles sont distinctes.
+            Donc $A$ et $-A$ sont diagonalisables avec les mêmes valeurs propres, et sont semblables.
+
+  \item \textbf{Question.} Si toutes ses valeurs propres sont nulles, montrer qu’elle est nilpotente puis semblable à $-A$.
+\par\smallskip
+\textbf{Réponse.} Sinon $\chi_A=X^3$, donc $A^3=0$.
+            Chaque bloc nilpotent de Jordan est semblable à son opposé, en changeant alternativement les signes des vecteurs de sa chaîne.
+            $\therefore A$ est semblable à $-A$.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\alpha,\beta\in K$ et $u,v,f\in L(E,E)$ en dimension finie tels que $f=\alpha u+\beta v$, $f^2=\alpha^2u+\beta^2v$, $f^3=\alpha^3u+\beta^3v$. Montrer que $f$ est diagonalisable.
+\par\smallskip
+\textbf{Réponse.} Si $\alpha,\beta$ sont distincts et non nuls,
+    $f^3-(\alpha+\beta)f^2+\alpha\beta f=0$.
+    Le polynôme $X(X-\alpha)(X-\beta)$ est scindé à racines simples.
+    Si $\alpha=\beta\neq0$, les deux premières relations donnent $f^2=\alpha f$.
+    Si un seul des deux scalaires est non nul, elles donnent encore $f^2=\lambda f$.
+    Si les deux sont nuls, $f=0$.
+    $\therefore f$ est diagonalisable dans tous les cas.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Trouver toutes les matrices $M\in\CC^{2\times2}$ telles que $M^2=\begin{pmatrix}0&1\\0&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Si $M^2=\begin{pmatrix}0&1\\0&0\end{pmatrix}$, alors $M^4=0$ et $M$ est nilpotente.
+    En dimension $2$, toute matrice nilpotente vérifie $M^2=0$, contradiction.
+    $\therefore$ aucune solution.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Justifier la diagonalisabilité de $A=\begin{pmatrix}1&-2&-2\\-2&1&-2\\-2&-2&1\end{pmatrix}$ et trouver $P\in O_3(\RR)$ telle que $P^\top AP$ soit diagonale.
+\par\smallskip
+\textbf{Réponse.} $A=3I_3-2J_3$ est symétrique réelle, donc orthogonalement diagonalisable.
+    Le vecteur $(1,1,1)$ a pour valeur propre $-3$, et son orthogonal a pour valeur propre $3$.
+    Avec
+    \[
+      P=\begin{pmatrix}1/\sqrt3&1/\sqrt2&1/\sqrt6\\1/\sqrt3&-1/\sqrt2&1/\sqrt6\\1/\sqrt3&0&-2/\sqrt6\end{pmatrix}
+    \]
+    on a $P^\top P=I_3$ et $P^\top AP=\operatorname{diag}(-3,3,3)$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A,B\in\RR^{n\times n}$ symétriques définies positives.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Trouver $P$ inversible et $D$ diagonale telles que $A=P^\top P$, $B=P^\top DP$.
+\par\smallskip
+\textbf{Réponse.} Soit $C=A^{1/2}$, symétrique définie positive.
+        La matrice $C^{-1}BC^{-1}$ est symétrique définie positive, donc $C^{-1}BC^{-1}=QDQ^\top$ avec $Q$ orthogonale et $D$ diagonale positive.
+        Poser $P=Q^\top C$ donne $A=P^\top P$ et $B=P^\top DP$.
+
+  \item \textbf{Question.} Montrer pour $0<t<1$ que $(\det A)^t(\det B)^{1-t}\leq\det(tA+(1-t)B)$.
+\par\smallskip
+\textbf{Réponse.} $\det(tA+(1-t)B)=\det A\prod_i(t+(1-t)d_i)$ et $\det B=\det A\prod_i d_i$.
+        Par l'inégalité arithmético-géométrique pondérée, $t+(1-t)d_i\geq d_i^{1-t}$.
+        Multiplier donne l'inégalité demandée.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Une suite de matrices réelles diagonalisables converge vers $M$. La limite $M$ est-elle nécessairement diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} Non. $M_n=\begin{pmatrix}0&1\\0&1/n\end{pmatrix}$ possède deux valeurs propres distinctes, donc est diagonalisable.
+    Sa limite $\begin{pmatrix}0&1\\0&0\end{pmatrix}$ est nilpotente non nulle, donc non diagonalisable.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Si $S\in\RR^{n\times n}$ est symétrique, $I_n+iS\in\CC^{n\times n}$ est-elle inversible ?
+\par\smallskip
+\textbf{Réponse.} Oui. Les valeurs propres de $S$ sont réelles, donc celles de $I_n+iS$ sont $1+i\lambda$, toutes non nulles.
+    $\therefore I_n+iS$ est inversible.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Déterminer les matrices symétriques réelles $S$ telles que $S^4=3S^3-5S^2$.
+\par\smallskip
+\textbf{Réponse.} Les valeurs propres réelles vérifient $\lambda^2(\lambda^2-3\lambda+5)=0$.
+    Le discriminant du second facteur vaut $-11<0$, donc toutes les valeurs propres sont nulles.
+    Comme $S$ est symétrique, elle est diagonalisable.
+    $\therefore S=0$ est l'unique solution.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Déterminer les matrices $M\in\RR^{n\times n}$ telles que $MM^\top M=I_n$.
+\par\smallskip
+\textbf{Réponse.} L'équation $MM^\top M=I_n$ impose que $M$ soit inversible.
+    Alors $M^\top M=M^{-1}$ ; le membre de gauche est symétrique défini positif, donc $M$ aussi.
+    Comme $M=M^\top$, l'équation devient $M^3=I_n$ et ses valeurs propres positives vérifient $\lambda^3=1$.
+    $\therefore M=I_n$ est l'unique solution.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $A\in\RR^{n\times n}$ normale, c’est-à-dire $A^\top A=AA^\top$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $A$ et $A^\top$ ont les mêmes sous-espaces propres réels.
+\par\smallskip
+\textbf{Réponse.} Pour $\lambda\in\RR$, la normalité donne
+        $\|(A-\lambda I)x\|^2=\|(A^\top-\lambda I)x\|^2$.
+        Donc $\ker(A-\lambda I)=\ker(A^\top-\lambda I)$ : mêmes sous-espaces propres réels.
+
+  \item \textbf{Question.} Montrer que les sous-espaces propres de valeurs propres distinctes sont orthogonaux.
+\par\smallskip
+\textbf{Réponse.} Si $Ax=\lambda x$, $Ay=\mu y$ et $\lambda\neq\mu$ sont réels,
+        $\lambda\langle x,y\rangle=\langle A^\top x,y\rangle=\langle x,Ay\rangle=\mu\langle x,y\rangle$.
+        $\therefore x\perp y$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $S$ réelle symétrique et $a\leq b$. Montrer que toutes ses valeurs propres sont dans $[a,b]$ si et seulement si $\langle Sx-ax,Sx-bx\rangle\leq0$ pour tout $x\in\RR^n$.
+\par\smallskip
+\textbf{Réponse.} Dans une base orthonormale propre de $S$, écrire $x=\sum_i x_ie_i$.
+    Alors
+    \[
+      \langle Sx-ax,Sx-bx\rangle=\sum_i(\lambda_i-a)(\lambda_i-b)x_i^2
+    \]
+    Si $\lambda_i\in[a,b]$, chaque terme est non positif.
+    Réciproquement, appliquer l'inégalité à $x=e_i$ donne $(\lambda_i-a)(\lambda_i-b)\leq0$, donc $\lambda_i\in[a,b]$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $a\in\RR$, étudier la diagonalisabilité de $\Delta:\RR{}[X]\to\RR{}[X]$, $\Delta(P)=2(P(X)-P(a))-(X-a)(P^{\prime}(X)-P^{\prime}(a))$.
+\par\smallskip
+\textbf{Réponse.} Dans la base $((X-a)^k)_{k\geq0}$,
+    $\Delta(1)=0$, $\Delta(X-a)=2(X-a)$ et
+    $\Delta((X-a)^k)=(2-k)(X-a)^k$ pour $k\geq2$.
+    Cette base est entièrement formée de vecteurs propres.
+    $\therefore\Delta$ est diagonalisable sur $\RR{}[X]$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Sur $E=\RR{}[X]_{\leq n}$, on pose $\langle P,Q\rangle=\int_0^\infty P(t)Q(t)e^{-t}dt$ et $\varphi(P)=XP^{\prime\prime}+(1-X)P^{\prime}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier que la forme définit un produit scalaire.
+\par\smallskip
+\textbf{Réponse.} Les intégrales convergent car une exponentielle décroissante domine tout polynôme.
+        La forme est symétrique bilinéaire, et l'intégrale de $P(t)^2e^{-t}$ est strictement positive si $P\neq0$.
+
+  \item \textbf{Question.} Montrer qu’il existe une base propre $(P_k)_{0\leq k\leq n}$ de $\varphi$.
+\par\smallskip
+\textbf{Réponse.} $\varphi(X^k)=-kX^k+k^2X^{k-1}$.
+        Sa matrice est triangulaire, de valeurs propres distinctes $0,-1,\ldots,-n$.
+        On peut choisir
+        $\displaystyle P_k(t)=\sum_{j=0}^k(-1)^j\binom kj\frac{t^j}{j!}$, qui vérifie $\varphi(P_k)=-kP_k$.
+
+  \item \textbf{Question.} Calculer $\int_0^\infty P_i(t)P_j(t)e^{-t}dt$ pour $0\leq i,j\leq n$, en précisant la normalisation choisie.
+\par\smallskip
+\textbf{Réponse.} Par intégration par parties,
+        $\langle\varphi(P),Q\rangle=-\int_0^\infty tP'(t)Q'(t)e^{-t}dt=\langle P,\varphi(Q)\rangle$.
+        Des vecteurs propres de valeurs distinctes sont donc orthogonaux.
+        Pour la normalisation précédente (polynômes de Laguerre),
+        \[
+          \int_0^\infty P_i(t)P_j(t)e^{-t}dt=\delta_{i,j}
+        \]
+        La norme $1$ se vérifie par $k$ intégrations par parties dans la formule
+        $P_k=e^t\frac1{k!}\frac{d^k}{dt^k}(e^{-t}t^k)$.
+        Pour une autre normalisation, le résultat diagonal est multiplié par les carrés des facteurs choisis.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $a\in\RR$, étudier le lieu des points $(x,y)$ tels que $x^2+2axy+y^2-2x-2ay+1-a^2=0$.
+\par\smallskip
+\textbf{Réponse.} En posant $U=(x-1+y)/\sqrt2$, $V=(x-1-y)/\sqrt2$, l'équation devient
+    \[
+      (1+a)U^2+(1-a)V^2=a^2
+    \]
+    Si $a=0$, c'est le point $(1,0)$.
+    Si $0<|a|<1$, c'est une ellipse de centre $(1,0)$, de demi-axes $|a|/\sqrt{1+a}$ et $|a|/\sqrt{1-a}$.
+    Si $|a|>1$, c'est une hyperbole de même centre.
+    Si $a=1$, ce sont les deux droites $x+y=0$ et $x+y=2$.
+    Si $a=-1$, ce sont les deux droites $x-y=0$ et $x-y=2$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer une décomposition en valeurs singulières de $\displaystyle M=\begin{pmatrix}\sqrt{3/2}&-\sqrt{3/2}\\\sqrt{3/2}-1&-\sqrt{3/2}-1\\\sqrt{3/2}+1&-\sqrt{3/2}+1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $M^\top M=\frac12\begin{pmatrix}13&-5\\-5&13\end{pmatrix}$, de valeurs propres $9$ et $4$.
+    Prendre $v_1=(1,-1)/\sqrt2$, $v_2=(1,1)/\sqrt2$.
+    Alors $u_1=Mv_1/3=(1,1,1)/\sqrt3$, $u_2=Mv_2/2=(0,-1,1)/\sqrt2$.
+    \[
+      \therefore M=U\Sigma V^\top,\quad U=(u_1\ u_2),\quad\Sigma=\operatorname{diag}(3,2),\quad V=(v_1\ v_2)
+    \]
+    Pour la SVD complète, compléter $U$ par $(2,-1,-1)/\sqrt6$ et ajouter une ligne nulle à $\Sigma$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A=\begin{pmatrix}-2&11\\5&10\\14&-2\end{pmatrix}$ et $b=(1,-2,3)^\top$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Écrire et résoudre les équations normales associées à $Ax=b$.
+\par\smallskip
+\textbf{Réponse.} $A^\top A=225I_2$ et $A^\top b=(30,-15)^\top$.
+        $\therefore\widehat x=(2/15,-1/15)^\top$.
+
+  \item \textbf{Question.} Calculer une décomposition en valeurs singulières de $A$.
+\par\smallskip
+\textbf{Réponse.} Une SVD réduite est $A=U\Sigma V^\top$, avec $U=A/15$, $\Sigma=15I_2$, $V=I_2$.
+        Les colonnes de $U$ sont orthonormées.
+        Pour la SVD complète, ajouter à $U$ le vecteur $(-2,2,-1)/3$ et une ligne nulle à $\Sigma$.
+
+  \item \textbf{Question.} Retrouver la solution des moindres carrés à partir de cette décomposition.
+\par\smallskip
+\textbf{Réponse.} $\widehat x=V\Sigma^{-1}U^\top b=A^\top b/225=(2/15,-1/15)^\top$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour les points $\mathcal P=\{(4,-2),(2,-1),(-1,0),(0,1),(0,2)\}$, chercher une droite $n_1x+n_2y=c$ avec $n_1^2+n_2^2=1$ minimisant la somme des distances orthogonales au carré. Le poly imprime le résidu $c-n_1x+n_2y$.
+\par\smallskip
+\textbf{Réponse.} Pour une distance orthogonale à $n_1x+n_2y=c$, le résidu correct est $c-n_1x-n_2y$.
+    Le résidu imprimé $c-n_1x+n_2y$ décrit plutôt la droite $n_1x-n_2y=c$ ; il revient à changer le signe du second coefficient de la normale.
+    Les points ont pour centre $g=(1,0)$.
+    Pour $n$ fixé, le minimum en $c$ est atteint en $c=n\cdot g=n_1$.
+    La somme des carrés vaut alors
+    \[
+      n^\top\begin{pmatrix}16&-10\\-10&10\end{pmatrix}n
+    \]
+    Les valeurs propres sont $13\pm\sqrt{109}$.
+    La normale minimisante est proportionnelle à $(10,3+\sqrt{109})$ ; on la normalise pour avoir $\|n\|=1$.
+    $\therefore$ la droite est $10(x-1)+(3+\sqrt{109})y=0$, et le minimum vaut $13-\sqrt{109}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Deux machines identiques, indépendantes, tombent en panne dans une journée avec probabilité $q\in]0,1[$. $X_m$ est le nombre de machines en panne au début du jour $m$, avec $X_0=0$. Étudier sa loi pour $m$ grand.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Une machine en panne est réparée la nuit suivante, à raison d’au plus une réparation par nuit.
+\par\smallskip
+\textbf{Réponse.} On utilise des probabilités en colonnes ; les lois limites sont des distributions stationnaires, pas des limites presque sûres de $X_m$.
+
+Les états sont $0,1$ et
+        $\displaystyle T=\begin{pmatrix}1-q^2&1-q\\q^2&q\end{pmatrix}$.
+        Résoudre $T\pi=\pi$ et $\sum_i\pi_i=1$ donne
+        $\displaystyle\pi=\frac1{1-q+q^2}(1-q,q^2)^\top$.
+
+  \item \textbf{Question.} Une machine en panne est réparée le lendemain soir, à raison d’au plus une réparation par journée.
+\par\smallskip
+\textbf{Réponse.} Les états sont $0,1,2$ et
+        $\displaystyle T=\begin{pmatrix}(1-q)^2&1-q&0\\2q(1-q)&q&1\\q^2&0&0\end{pmatrix}$.
+        $\displaystyle\pi=\frac1{1+q-q^3}(1-q,2q-q^2,q^2-q^3)^\top$.
+
+  \item \textbf{Question.} La réparation commence le jour de la panne et finit le lendemain soir ; une seule machine peut être réparée à la fois.
+\par\smallskip
+\textbf{Réponse.} Il faut distinguer le début et la fin des réparations : états $(0,1,1',2,2')$, où le prime indique qu'une réparation finit ce soir.
+        \[
+          T=\begin{pmatrix}(1-q)^2&0&1-q&0&0\\2q(1-q)&0&q&0&1\\0&1-q&0&0&0\\q^2&0&0&0&0\\0&q&0&1&0\end{pmatrix}
+        \]
+        Pour $D=2q^4-4q^3+q^2+2q+1$, la loi stationnaire est
+        \[
+          \pi=\frac1D\begin{pmatrix}(1-q)^2\\q(2-q)\\q(1-q)(2-q)\\q^2(1-q)^2\\q^2(q^2-3q+3)\end{pmatrix}
+        \]
+        La loi limite de $X_m$ s'obtient en regroupant les états $1,1'$ et $2,2'$.
+
+Dans les trois cas, la chaîne est finie, irréductible et apériodique pour $0<q<1$, donc les lois convergent vers ces distributions.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour $A\in\CC^{n\times n}$, on définit $L_A(X)=AX-XA$ sur $\CC^{n\times n}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier que $L_A$ est un endomorphisme.
+\par\smallskip
+\textbf{Réponse.} $L_A(\lambda X+Y)=\lambda L_A(X)+L_A(Y)$, donc c'est un endomorphisme.
+
+  \item \textbf{Question.} Montrer que $A$ est diagonalisable si et seulement si $A^\top$ l’est.
+\par\smallskip
+\textbf{Réponse.} Si $A=PDP^{-1}$, $A^\top=(P^{-1})^\top DP^\top$ est diagonalisable ; la réciproque suit en transposant à nouveau.
+
+  \item \textbf{Question.} Montrer que si $A$ est diagonalisable, alors $L_A$ l’est.
+\par\smallskip
+\textbf{Réponse.} Dans une base où $A=\operatorname{diag}(\lambda_i)$, $L_A(E_{i,j})=(\lambda_i-\lambda_j)E_{i,j}$.
+        Les matrices élémentaires donnent une base propre de $L_A$.
+
+  \item \textbf{Question.} Étudier la réciproque, à l’aide de la décomposition de Dunford.
+\par\smallskip
+\textbf{Réponse.} Écrire $A=S+N$ selon Dunford.
+        Alors $L_A=L_S+L_N$, avec $L_S$ diagonalisable, $L_N$ nilpotent, et les deux commutent.
+        Si $L_A$ est diagonalisable, l'unicité de Dunford impose $L_N=0$.
+        Donc $N$ commute avec toutes les matrices, et est scalaire.
+        Comme elle est nilpotente, $N=0$.
+        $\therefore A$ est diagonalisable : la réciproque est vraie.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $E$ de dimension finie sur $K$ et $\varphi_u:L(E,E)\to L(E,E)$, $v\mapsto uvu$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que si $u$ est diagonalisable, alors $\varphi_u$ l’est.
+\par\smallskip
+\textbf{Réponse.} Dans une base propre de $u$, $\varphi_u(E_{i,j})=\lambda_i\lambda_j E_{i,j}$.
+        Donc $\varphi_u$ est diagonalisable.
+
+  \item \textbf{Question.} Étudier la réciproque sur $\RR$.
+\par\smallskip
+\textbf{Réponse.} Sur $\RR$, la réciproque est fausse : pour $u=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, $u$ n'est pas diagonalisable mais $\varphi_u^2=I$, donc $\varphi_u$ l'est.
+
+  \item \textbf{Question.} Étudier la réciproque sur $\CC$.
+\par\smallskip
+\textbf{Réponse.} Sur $\CC$, écrire $u=S+N$ selon Dunford.
+        Alors $\varphi_u=\varphi_S+\nu$, où $\nu(v)=NvN+SvN+NvS$ est nilpotente et commute avec $\varphi_S$.
+        Si $\varphi_u$ est diagonalisable, $\nu=0$.
+
+        Si $N\neq0$, choisir dans un espace propre de $S$ un vecteur $x$ tel que $y=Nx\neq0$, $Ny=0$, et $Sx=\lambda x$.
+        Prendre $v(y)=x$, $v(x)=0$ (et compléter sur une base).
+        Alors $\nu(v)(x)=y+\lambda x\neq0$, contradiction.
+        $\therefore N=0$ et $u$ est diagonalisable.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $p,q$ deux projecteurs orthogonaux d’un espace euclidien $E$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} À l’aide de la symétrie de $p+q$, trouver une droite ou un plan stable par $p,q$.
+\par\smallskip
+\textbf{Réponse.} Choisir $x\neq0$ tel que $(p+q)x=\lambda x$ et poser $V=\operatorname{Vect}(x,px)$, de dimension $1$ ou $2$.
+        $q x=\lambda x-px$, $p^2x=px$, et $qpx=(\lambda-1)qx$.
+        Donc $V$ est stable par $p,q$.
+
+  \item \textbf{Question.} Montrer que $E$ est somme directe de droites et de plans stables par $p,q$.
+\par\smallskip
+\textbf{Réponse.} Comme $p,q$ sont symétriques, $V^\perp$ est aussi stable.
+        Une récurrence sur la dimension donne une somme orthogonale de droites et de plans stables.
+
+  \item \textbf{Question.} Montrer que $p\circ q$ est diagonalisable.
+\par\smallskip
+\textbf{Réponse.} Sur une droite, le produit vaut $0$ ou $I$.
+        Sur un plan, si l'un des projecteurs vaut $0$ ou $I$, le produit est diagonalisable.
+        Sinon les deux ont rang $1$, et dans une base orthonormale adaptée,
+        $[pq]=\begin{pmatrix}\cos^2\theta&\sin\theta\cos\theta\\0&0\end{pmatrix}$.
+        Si $\cos\theta\neq0$, les deux valeurs propres sont distinctes ; sinon le produit est nul.
+        Donc $pq$ est diagonalisable sur chaque bloc, puis sur $E$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $S\in\RR^{n\times n}$ symétrique de trace nulle. Montrer qu’il existe $Q$ orthogonale telle que $Q^\top SQ$ ait une diagonale nulle.
+\par\smallskip
+\textbf{Réponse.} Par récurrence sur $n$. Si $S=0$, tout $Q$ convient.
+    Sinon, la somme des valeurs propres étant nulle, il y en a une positive et une négative.
+    Par continuité sur le cercle engendré par leurs vecteurs propres, il existe un vecteur unitaire $x$ tel que $x^\top Sx=0$.
+    Compléter $x$ en une base orthonormale donne un premier coefficient diagonal nul.
+    La compression de $S$ à $x^\perp$ est symétrique et de trace nulle.
+    Appliquer l'hypothèse de récurrence à ce bloc donne tous les autres coefficients diagonaux nuls.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Une matrice est trigonalisable si elle est semblable à une matrice triangulaire supérieure.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer qu’une matrice est trigonalisable si et seulement si son polynôme caractéristique est scindé dans le corps de base.
+\par\smallskip
+\textbf{Réponse.} Pour les matrices réelles de l'énoncé :
+
+Une matrice triangulaire a son polynôme caractéristique scindé.
+        Réciproquement, choisir un vecteur propre, puis appliquer par récurrence le résultat à l'endomorphisme induit sur le quotient par sa droite propre.
+        Une base adaptée donne une matrice triangulaire.
+
+  \item \textbf{Question.} Soit $A\in\RR^{n\times n}$ et $M=\begin{pmatrix}3A&-2A\\2A&-A\end{pmatrix}$.
+\begin{enumerate}[a.]
+            \item \textbf{Question.} Calculer $\chi_M$ en fonction de $\chi_A$.
+\par\smallskip
+\textbf{Réponse.} $\chi_M=\chi_A^2$.
+
+  \item \textbf{Question.} En déduire que $M$ est trigonalisable si et seulement si $A$ l’est.
+\par\smallskip
+\textbf{Réponse.} $\chi_M$ est scindé si et seulement si $\chi_A$ l'est : même condition de trigonalisabilité.
+
+  \item \textbf{Question.} Montrer que $M$ est semblable à $\begin{pmatrix}A&A\\0&A\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Avec $P=\begin{pmatrix}2I_n&I_n\\2I_n&0\end{pmatrix}$, un produit donne
+            $P^{-1}MP=\begin{pmatrix}A&A\\0&A\end{pmatrix}$.
+
+  \item \textbf{Question.} En déduire que $M$ est diagonalisable si et seulement si $A=0$.
+\par\smallskip
+\textbf{Réponse.} Si $M$ est diagonalisable, sa restriction au premier bloc montre que $A$ l'est aussi.
+            Pour chaque valeur propre $\lambda$ de $A$, le bloc $\begin{pmatrix}\lambda&\lambda\\0&\lambda\end{pmatrix}$ doit être diagonalisable, donc $\lambda=0$.
+            Ainsi $A=0$. Réciproquement, $A=0$ donne $M=0$. En caractéristique $2$, cette dernière conclusion ne s'applique pas : $M=\operatorname{diag}(A,A)$, et $M$ est diagonalisable exactement quand $A$ l'est.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour $\alpha\in\RR$, soit $A=(a_{i,j})\in\RR^{n\times n}$ avec $a_{i,j}=\alpha$ si $i+j=n+1$, et $1$ sinon. $J$ désigne la matrice pleine de $1$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Exprimer $A^2,A^4$ en fonction de $I_n,J$.
+\par\smallskip
+\textbf{Réponse.} Posons $\beta=\alpha-1$ et $R$ la matrice qui renverse les coordonnées.
+    Alors $A=J+\beta R$, $R^2=I_n$, $RJ=JR=J$, $J^2=nJ$.
+
+$A^2=\beta^2I_n+(n+2\beta)J$ et
+        \[
+          A^4=\beta^4I_n+(n+2\beta)(n^2+2n\beta+2\beta^2)J
+        \]
+
+  \item \textbf{Question.} $A$ est-elle diagonalisable ?
+\par\smallskip
+\textbf{Réponse.} $A$ est symétrique réelle, donc toujours diagonalisable orthogonalement.
+        Sur $\RR\boldsymbol1$, la valeur propre est $n+\beta$ ; sur $\boldsymbol1^\perp$, $A=\beta R$ et les valeurs propres possibles sont $\pm\beta$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in\RR^{5\times5}$ telle que $A^3-3A^2+10A-8I_5=0$. Peut-on calculer $\operatorname{tr}A$ ?
+\par\smallskip
+\textbf{Réponse.} $X^3-3X^2+10X-8=(X-1)((X-1)^2+7)$.
+    Les valeurs propres complexes sont parmi $1,1+i\sqrt7,1-i\sqrt7$.
+    Les deux dernières ont la même multiplicité, car $A$ est réelle.
+    Chacune a une partie réelle égale à $1$, donc la somme des cinq valeurs propres vaut $5$.
+    $\therefore\operatorname{tr}A=5$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Trouver toutes les matrices symétriques réelles $A$ pour lesquelles il existe $p\geq1$ tel que $A^{p+1}=0$ mais $A^p\neq0$.
+\par\smallskip
+\textbf{Réponse.} Une matrice symétrique réelle est diagonalisable.
+    Si $A^{p+1}=0$, toutes ses valeurs propres sont nulles, donc $A=0$.
+    Alors $A^p=0$ pour tout $p\geq1$, contradiction.
+    $\therefore$ aucune matrice ne satisfait les deux conditions.
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

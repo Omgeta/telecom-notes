@@ -1,0 +1,383 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 5}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=5.\arabic*., start=54]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Calculer les déterminants suivants.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $\displaystyle\det\begin{pmatrix}0&6&10&180\\6&14&12&215\\-9&-18&-14&-250\\3&0&-5&-90\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Par élimination de Gauss (en tenant compte des échanges de lignes),
+
+$\det A=30$.
+
+  \item \textbf{Question.} $\displaystyle\det\begin{pmatrix}2&0&0&2\\1&1&-1&-3\\-1&0&1&4\\0&-1&0&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} En développant suivant la première ligne, $\det B=2\cdot2-2\cdot0=4$.
+
+  \item \textbf{Question.} $\displaystyle\det\begin{pmatrix}-1&1&0&1\\-4&-1&-1&-2\\1&0&-1&-3\\-1&2&-3&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\det C=-44$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $n=p+q$, $A\in K^{p\times p}$, $B\in K^{p\times q}$, $C\in K^{q\times q}$. Montrer que $\det\begin{pmatrix}A&B\\0&C\end{pmatrix}=\det A\det C$.
+\par\smallskip
+\textbf{Réponse.} Dans le développement du déterminant par permutations, un terme non nul doit associer les $q$ dernières lignes aux $q$ dernières colonnes, car le bloc inférieur gauche est nul.
+    Les $p$ premières lignes sont donc associées aux $p$ premières colonnes.
+    Les permutations et leurs signatures se séparent en deux blocs.
+
+    $\therefore \det Z=\det A\det C$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $j=e^{2i\pi/3}$. Calculer $\displaystyle\det\begin{pmatrix}1&j&j^2\\j&1&j^2\\j^2&j&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $1+j+j^2=0$. La somme des trois colonnes est nulle, donc les colonnes sont liées.
+    $\therefore D=0$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour quelles valeurs de $a\in\RR$ la matrice $\displaystyle A=\begin{pmatrix}a&-2&2\\1&-a&3\\5&-8&12a\end{pmatrix}$ est-elle inversible ?
+\par\smallskip
+\textbf{Réponse.} En développant,
+    \[
+      \det A=-2(a-1)(6a^2+6a-23)
+    \]
+    $\therefore A$ est inversible si et seulement si
+    $\displaystyle a\notin\left\{1,\frac{-3-7\sqrt3}{6},\frac{-3+7\sqrt3}{6}\right\}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $a_1,\ldots,a_n\in\RR$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Calculer le déterminant de Vandermonde $V_n=(a_j^{i-1})_{1\leq i,j\leq n}$.
+\par\smallskip
+\textbf{Réponse.} Comme polynôme en $a_n$, le déterminant s'annule en $a_1,\ldots,a_{n-1}$ et son coefficient dominant vaut $\det V_{n-1}$.
+        Par récurrence,
+        \[
+          \therefore\det V_n=\prod_{1\leq i<j\leq n}(a_j-a_i)
+        \]
+        Si deux paramètres coïncident, les deux membres sont nuls.
+
+  \item \textbf{Question.} En déduire $\displaystyle\det\begin{pmatrix}1&2a+3&3a^2+4a&4a^3+5a\\1&2b+3&3b^2+4b&4b^3+5b\\1&2c+3&3c^2+4c&4c^3+5c\\1&2d+3&3d^2+4d&4d^3+5d\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Les colonnes sont des polynômes de degrés $0,1,2,3$, de coefficients dominants $1,2,3,4$.
+        En retranchant les termes de degrés inférieurs,
+        \[
+          \therefore D=24(b-a)(c-a)(d-a)(c-b)(d-b)(d-c)
+        \]
+
+  \item \textbf{Question.} Calculer $\displaystyle\det\begin{pmatrix}b+c&a+c&a+b\\b^2+c^2&a^2+c^2&a^2+b^2\\b^3+c^3&a^3+c^3&a^3+b^3\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} La matrice s'écrit
+        $\displaystyle\begin{pmatrix}a&b&c\\a^2&b^2&c^2\\a^3&b^3&c^3\end{pmatrix}
+          \begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix}$.
+        $\therefore D=2abc(b-a)(c-a)(c-b)$.
+
+  \item \textbf{Question.} Calculer $D=\det(\cos(j\theta_i))_{0\leq i,j\leq n}$, où la colonne $j=0$ est constante égale à $1$.
+\par\smallskip
+\textbf{Réponse.} $\cos(k\theta)=T_k(\cos\theta)$, où $T_0=1$, $T_1=X$ et $T_{k+1}=2XT_k-T_{k-1}$.
+        Le coefficient dominant de $T_k$ est $2^{k-1}$ pour $k\geq1$.
+        \[
+          \therefore D=2^{n(n-1)/2}\prod_{0\leq i<j\leq n}(\cos\theta_j-\cos\theta_i)
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A,B\in\RR^{n\times n}$ et $P\in\operatorname{GL}_n(\CC)$ telles que $B=P^{-1}AP$. On écrit $P=R+iS$ avec $R,S$ réelles.
+
+\begin{enumerate}[\arabic*.]
+        \item \begin{enumerate}[a.]
+            \item \textbf{Question.} Vérifier $RB=AR$ et $SB=AS$.
+\par\smallskip
+\textbf{Réponse.} $PB=AP$ donne $(R+iS)B=AR+iAS$.
+            En identifiant parties réelle et imaginaire, $RB=AR$ et $SB=AS$.
+
+  \item \textbf{Question.} En déduire $(R+xS)B=A(R+xS)$ pour tout $x\in\CC$.
+\par\smallskip
+\textbf{Réponse.} Par combinaison linéaire, $(R+xS)B=A(R+xS)$ pour tout $x\in\CC$.
+
+\end{enumerate}
+
+  \item \textbf{Question.} Prouver qu’il existe $x_0\in\RR$ tel que $R+x_0S$ soit inversible.
+\par\smallskip
+\textbf{Réponse.} $p(X)=\det(R+XS)$ est un polynôme réel non nul, car $p(i)=\det P\neq0$.
+        Il n'a qu'un nombre fini de racines, donc il existe $x_0\in\RR$ tel que $p(x_0)\neq0$.
+
+  \item \textbf{Question.} Conclure que $A,B$ sont semblables sur $\RR$.
+\par\smallskip
+\textbf{Réponse.} Pour $Q=R+x_0S\in\operatorname{GL}_n(\RR)$, $QB=AQ$.
+        $\therefore B=Q^{-1}AQ$ : $A$ et $B$ sont semblables sur $\RR$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $n\geq2$. On note $\operatorname{Com}(X)$ la comatrice de $X\in K^{n\times n}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\det(\operatorname{Com}(X))=(\det X)^{n-1}$.
+\par\smallskip
+\textbf{Réponse.} Si $X$ est inversible, $\operatorname{Com}(X)=\det(X)X^{-\top}$, d'où
+        \[
+          \det(\operatorname{Com}(X))=(\det X)^n/\det X=(\det X)^{n-1}
+        \]
+        L'identité reste vraie pour $X$ singulière : appliquer le calcul à $X+tI_n$ sur $K(t)$, puis évaluer l'identité polynomiale en $t=0$.
+
+  \item \textbf{Question.} Pour $M\in\operatorname{GL}_n(K)$, résoudre $M=\operatorname{Com}(X)$.
+\par\smallskip
+\textbf{Réponse.} Si $M=\operatorname{Com}(X)$ est inversible, alors $t=\det X\neq0$ vérifie $t^{n-1}=\det M$ et $X=tM^{-\top}$.
+        Réciproquement, chaque tel $t\in K$ fournit une solution.
+        \[
+          \therefore\mathcal S=\{tM^{-\top}:t\in K,\ t^{n-1}=\det M\}
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $j=-1/2+i\sqrt3/2$, $a,b,c\in\CC$, $\displaystyle A=\begin{pmatrix}a&b&c\\c&a&b\\b&c&a\end{pmatrix}$ et $\displaystyle J=\begin{pmatrix}1&1&1\\1&j&j^2\\1&j^2&j\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Calculer $JA$.
+\par\smallskip
+\textbf{Réponse.} Posons $s=a+b+c$, $p=a+jc+j^2b$ et $q=a+j^2c+jb$.
+
+$\displaystyle JA=\begin{pmatrix}s&s&s\\p&jp&j^2p\\q&j^2q&jq\end{pmatrix}$.
+
+  \item \textbf{Question.} Trouver une matrice diagonale $\Delta$ telle que $JA=\Delta J$.
+\par\smallskip
+\textbf{Réponse.} $JA=\Delta J$, avec $\Delta=\operatorname{diag}(s,p,q)$.
+
+  \item \textbf{Question.} Donner une forme factorisée de $\det A$.
+\par\smallskip
+\textbf{Réponse.} $J$ est inversible (Vandermonde), donc
+        \[
+          \det A=spq=(a+b+c)(a+jb+j^2c)(a+j^2b+jc)
+          =a^3+b^3+c^3-3abc
+        \]
+
+  \item \textbf{Question.} Pour $a,b,c\in\RR$, discuter et résoudre $ax+by+cz=1$, $cx+ay+bz=1$, $bx+cy+az=1$.
+\par\smallskip
+\textbf{Réponse.} Pour $a,b,c\in\RR$, $pq=a^2+b^2+c^2-ab-ac-bc
+        =\big((a-b)^2+(a-c)^2+(b-c)^2\big)/2$.
+
+        Si $s=0$, sommer les équations donne $0=3$, donc aucune solution.
+        Si $s\neq0$ et $(a,b,c)$ ne sont pas tous égaux, l'unique solution est $(1/s,1/s,1/s)$.
+        Si $a=b=c\neq0$, les solutions sont tous les triplets tels que $x+y+z=1/a$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a_0,\ldots,a_{n-1}\in K$. Calculer le déterminant de $xI_n-C$, où $C$ a des $1$ sur la sous-diagonale, la dernière colonne $(-a_0,\ldots,-a_{n-1})^\top$, et des $0$ ailleurs (matrice compagnon).
+\par\smallskip
+\textbf{Réponse.} En développant suivant la dernière colonne, le cofacteur de $a_k$ vaut $x^k$ : les signes des $-1$ et du cofacteur se compensent.
+    Le terme diagonal supplémentaire donne $x^n$.
+    \[
+      \therefore\Delta_n=x^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $A=(a_{i,j})\in\RR^{n\times n}$ telle que $\sum_{i=1}^n|a_{i,j}|\leq1$ pour chaque colonne $j$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $|\det A|\leq1$.
+\par\smallskip
+\textbf{Réponse.} En notant $c_j$ les colonnes et en développant par multilinéarité,
+        \[
+          |\det A|\leq\sum_{\sigma\in S_n}\prod_j|a_{\sigma(j),j}|
+          \leq\prod_{j=1}^n\left(\sum_i|a_{i,j}|\right)\leq1
+        \]
+
+  \item \textbf{Question.} Étudier le cas d’égalité.
+\par\smallskip
+\textbf{Réponse.} Si $|\det A|=1$, chaque colonne a une somme de valeurs absolues égale à $1$.
+        Deux colonnes ne peuvent avoir un coefficient non nul sur une même ligne : sinon le produit des sommes contiendrait un terme strictement positif à indices répétés, absent du déterminant, et l'inégalité serait stricte.
+        Les $n$ supports sont donc disjoints et non vides parmi $n$ lignes : chacun est un singleton.
+
+        $\therefore A$ est une matrice de permutation dont les $1$ sont éventuellement remplacés par $-1$.
+        Réciproquement, ces matrices ont un déterminant $\pm1$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $a,b,c\in K$, calculer $\displaystyle D=\det\begin{pmatrix}0&1&1&1\\1&0&c^2&b^2\\1&c^2&0&a^2\\1&b^2&a^2&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Après $C_3\leftarrow C_3-C_2$, $C_4\leftarrow C_4-C_2$, puis développement suivant la première ligne,
+    \[
+      D=(a^2-b^2-c^2)^2-4b^2c^2
+       =(a-b-c)(a+b+c)(a-b+c)(a+b-c)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $\theta\in\RR$ et $n\geq2$, calculer $\Delta=\det(\cos((i+j)\theta))_{0\leq i,j\leq n}$.
+\par\smallskip
+\textbf{Réponse.} Les trois premières colonnes vérifient $C_1+C_3=2\cos\theta\,C_2$.
+    Elles sont liées. $\therefore\Delta=0$ pour $n\geq2$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $a,b,c,d\in K$, $\displaystyle J=\begin{pmatrix}1&1&1&1\\1&1&-1&-1\\1&-1&-1&1\\1&-1&1&-1\end{pmatrix}$ et $\displaystyle A=\begin{pmatrix}a&b&c&d\\b&a&d&c\\c&d&a&b\\d&c&b&a\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Calculer $\det J$.
+\par\smallskip
+\textbf{Réponse.} Posons $s_1=a+b+c+d$, $s_2=a+b-c-d$, $s_3=a-b-c+d$, $s_4=a-b+c-d$.
+
+Par élimination, $\det J=16$.
+
+  \item \textbf{Question.} Calculer $AJ$.
+\par\smallskip
+\textbf{Réponse.} $AJ=J\operatorname{diag}(s_1,s_2,s_3,s_4)$.
+
+  \item \textbf{Question.} En déduire $\det A$.
+\par\smallskip
+\textbf{Réponse.} $\det A=s_1s_2s_3s_4$.
+        Si $\operatorname{car}K\neq2$, on prend les déterminants et on simplifie par $16$.
+        En caractéristique $2$, le même résultat suit de l'identité polynomiale à coefficients entiers.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a_i,b_i\in K$ avec $\prod_i a_i\neq0$. Calculer le déterminant de la matrice de coefficients $m_{i,j}=a_i\delta_{i,j}+b_i$.
+\par\smallskip
+\textbf{Réponse.} La $j$-ième colonne est $a_je_j+b$, où $b=(b_1,\ldots,b_n)^\top$.
+    Par multilinéarité, les termes contenant deux colonnes $b$ s'annulent.
+    Il reste le produit diagonal et les $n$ termes contenant une seule colonne $b$ :
+    \[
+      \therefore D=\prod_i a_i+\sum_i b_i\prod_{j\neq i}a_j
+      =A\left(1+\sum_i\frac{b_i}{a_i}\right)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $p,q\in K$, calculer $D_n=\det M$, où $m_{i,i}=p+q$, $m_{i,j}=p$ si $i<j$, $m_{i,j}=q$ si $i>j$.
+\par\smallskip
+\textbf{Réponse.} En effectuant $C_j\leftarrow C_j-C_{j-1}$ de droite à gauche, puis en développant, on obtient
+    $D_n=(p+q)D_{n-1}-pqD_{n-2}$, avec $D_0=1$, $D_1=p+q$.
+    Par récurrence,
+    \[
+      \therefore D_n=\sum_{k=0}^n p^{n-k}q^k
+      =\begin{cases}(p^{n+1}-q^{n+1})/(p-q)&p\neq q,\\(n+1)p^n&p=q.\end{cases}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a_1,\ldots,a_n\in K$. Calculer le déterminant de la matrice $(n+1)\times(n+1)$ dont la ligne $i\leq n$ a $-a_i$ en colonne $i$, $a_i$ en colonne $i+1$, $0$ ailleurs, et dont la dernière ligne vaut $(1,\ldots,1)$.
+\par\smallskip
+\textbf{Réponse.} Effectuons $C_{j+1}\leftarrow C_{j+1}+C_j$ pour $j=1,\ldots,n$, dans cet ordre.
+    La dernière colonne devient $(0,\ldots,0,n+1)^\top$ et les $n$ premiers coefficients diagonaux restent $-a_1,\ldots,-a_n$.
+    \[
+      \therefore D_n=(-1)^n(n+1)\prod_{i=1}^n a_i
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a_1,\ldots,a_n\in K$. Calculer $D_n(x)=\det M(x)$ pour la matrice $(n+1)\times(n+1)$ de diagonale $x$ et de coefficients hors diagonale $m_{i,j}=a_j$ si $i>j$ et $m_{i,j}=a_{j-1}$ si $i<j$ (indices $1,\ldots,n+1$).
+\par\smallskip
+\textbf{Réponse.} Posons $s=x+\sum_i a_i$. On effectue $C_1\leftarrow\sum_j C_j$ : la première colonne est $s\boldsymbol{1}$.
+    Par multilinéarité, on sort le facteur $s$, puis on retranche $a_jC_1$ à $C_{j+1}$.
+    La matrice obtenue est triangulaire inférieure, de diagonale $1,x-a_1,\ldots,x-a_n$.
+    \[
+      \therefore D_n(x)=\left(x+\sum_{i=1}^n a_i\right)\prod_{i=1}^n(x-a_i)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer le déterminant de la matrice $n\times n$ de diagonale $(x_1,\ldots,x_n)$, de coefficients $a$ au-dessus de la diagonale et $b$ au-dessous. Indication : ajouter $t$ à chaque coefficient et interpoler le déterminant, affine en $t$.
+\par\smallskip
+\textbf{Réponse.} Ajouter $t$ à chaque coefficient donne un déterminant affine $F(t)=D_n+ct$, car les termes contenant deux colonnes constantes sont nuls.
+    Les matrices pour $t=-a$ et $t=-b$ sont triangulaires, donc
+    $F(-a)=\prod_i(x_i-a)$ et $F(-b)=\prod_i(x_i-b)$.
+    \[
+      \therefore D_n=\frac{b\prod_i(x_i-a)-a\prod_i(x_i-b)}{b-a}\quad(a\neq b)
+    \]
+    Pour $a=b$, la matrice est diagonale plus une matrice de rang $1$ ; la multilinéarité donne
+    \[
+      D_n=\prod_i(x_i-a)+a\sum_{k=1}^n\prod_{i\neq k}(x_i-a)
+    \]
+    Cette formule reste valable lorsque certains $x_i=a$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in\ZZ^{n\times n}$ avec $n$ pair, une diagonale nulle et des coefficients hors diagonale égaux à $\pm1$. Montrer que $A$ est inversible.
+\par\smallskip
+\textbf{Réponse.} Modulo $2$, $A\equiv J_n-I_n$. Si $(J_n-I_n)x=0$ sur $\ZZ/2\ZZ$, alors
+    $x=(\sum_i x_i)\boldsymbol{1}$.
+    Comme $n$ est pair, la somme des coordonnées de ce vecteur vaut $0$, donc $x=0$.
+    Ainsi $\det A\equiv1\pmod2$.
+
+    $\therefore\det A\neq0$ et $A$ est inversible sur $\QQ$ (donc sur $\RR$).
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Montrer que $A\in\ZZ^{n\times n}$ a un inverse à coefficients entiers si et seulement si $\det A=\pm1$.
+\par\smallskip
+\textbf{Réponse.} Si $A^{-1}$ est entière, $\det A$ et $\det(A^{-1})$ sont des entiers de produit $1$, donc $\det A=\pm1$.
+    Réciproquement, si $\det A=\pm1$, la formule
+    $A^{-1}=\operatorname{Com}(A)^\top/\det A$ donne une matrice entière.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A,B,C,D\in K^{n\times n}$ avec $AC=CA$. Montrer que $\det\begin{pmatrix}A&B\\C&D\end{pmatrix}=\det(AD-CB)$. Indication : commencer par $A$ inversible.
+\par\smallskip
+\textbf{Réponse.} Si $A$ est inversible, l'élimination par blocs donne
+    \[
+      \det\begin{pmatrix}A&B\\C&D\end{pmatrix}
+      =\det A\det(D-CA^{-1}B)=\det(AD-CB)
+    \]
+    La dernière égalité utilise $AC=CA$.
+    Dans le cas général, on remplace $A$ par $A+tI_n$, inversible sur $K(t)$ et commutant encore avec $C$.
+    L'égalité est une identité polynomiale en $t$ ; en évaluant en $0$, on obtient le résultat sur tout corps $K$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in K^{2\times2}$ et $M\in K^{m\times m}$. Calculer $\det(A\otimes M)$ en fonction de $\det A,\det M$, où $A\otimes M=\begin{pmatrix}aM&bM\\cM&dM\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Les blocs $aM$ et $cM$ commutent. D'après la question précédente,
+    \[
+      \det(A\otimes M)=\det(adM^2-cbM^2)
+      =(ad-bc)^m\det(M)^2
+      =\det(A)^m\det(M)^2
+    \]
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

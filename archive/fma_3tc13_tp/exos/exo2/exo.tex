@@ -1,0 +1,401 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 2}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=2.\arabic*., start=17]
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Le sous-ensemble $K=\{r+is:r,s\in\QQ\}\subseteq\CC$ est-il un corps pour l'addition et la multiplication usuelles ?
+\par\smallskip
+\textbf{Réponse.} $K$ est un corps pour les lois usuelles
+    \begin{enumproof}
+      \item Soient $z_1 = r_1 + is_1$ et $z_2 = r_2 + is_2$ dans $K$, où $r_1, s_1, r_2, s_2 \in \QQ$
+      \item $z_1 + z_2 = (r_1 + r_2) + i(s_1 + s_2) \in K$\hfill(Stabilité par addition)
+      \item $z_1z_2 = (r_1r_2 - s_1s_2) + i(r_1s_2 + s_1r_2) \in K$\hfill(Stabilité par multiplication)
+      \item $0, 1 \in K$ et $-z_1 = -r_1 - is_1 \in K$
+      \item Si $z_1 \neq 0$, $\displaystyle z_1^{-1} = \frac{r_1}{r_1^2 + s_1^2} - i\frac{s_1}{r_1^2 + s_1^2} \in K$
+      \item Les autres propriétés sont héritées de $\CC$
+      \item $\therefore K$ est un corps
+    \end{enumproof}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $n\in\NN$. Établir les divisibilités suivantes.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $6\mid5n^3+n$.
+\par\smallskip
+\textbf{Réponse.} $5n^3 + n \equiv -n^3 + n = -n(n-1)(n+1) \pmod 6$
+
+        Parmi trois entiers consécutifs, l'un est divisible par $3$ et l'un est pair.
+        $\therefore 6 \mid 5n^3 + n$
+
+  \item \textbf{Question.} $5\mid2^{2n+1}+3^{2n+1}$.
+\par\smallskip
+\textbf{Réponse.} $2^{2n+1} + 3^{2n+1} \equiv 2^{2n+1} + (-2)^{2n+1} = 0 \pmod 5$
+
+        $\therefore 5 \mid 2^{2n+1} + 3^{2n+1}$
+
+  \item \textbf{Question.} $11\mid2^{123}+3^{121}$.
+\par\smallskip
+\textbf{Réponse.} $2^{10} \equiv 1 \pmod{11}$ et $3^5 \equiv 1 \pmod{11}$, donc
+        \[
+          2^{123} + 3^{121} \equiv (2^{10})^{12}2^3 + (3^5)^{24}3
+          \equiv 8 + 3 \equiv 0 \pmod{11}
+        \]
+        $\therefore 11 \mid 2^{123} + 3^{121}$
+
+  \item \textbf{Question.} $9\mid4^n+6n-1$.
+\par\smallskip
+\textbf{Réponse.} Par le binôme de Newton, $4^n = (1+3)^n \equiv 1 + 3n \pmod 9$, car les termes de degré au moins $2$ en $3$ sont divisibles par $9$.
+
+        Alors $4^n + 6n - 1 \equiv 1 + 3n + 6n - 1 = 9n \equiv 0 \pmod 9$
+
+        $\therefore 9 \mid 4^n + 6n - 1$
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Résoudre dans $\ZZ^2$ les équations suivantes.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $xy=3x+2y$.
+\par\smallskip
+\textbf{Réponse.} $xy = 3x + 2y \iff (x-2)(y-3) = 6$
+
+        On pose $x-2 = d$ et $y-3 = 6/d$, où $d \in \{\pm 1, \pm 2, \pm 3, \pm 6\}$.
+
+        $\therefore (x, y) \in \{(3,9), (4,6), (5,5), (8,4), (1,-3), (0,0), (-1,1), (-4,2)\}$
+
+  \item \textbf{Question.} $\displaystyle\frac1x+\frac1y=\frac15$.
+\par\smallskip
+\textbf{Réponse.} Pour $x, y \neq 0$, $\displaystyle \frac{1}{x} + \frac{1}{y} = \frac{1}{5} \iff (x-5)(y-5) = 25$
+
+        On pose $x-5 = d$ et $y-5 = 25/d$, où $d \in \{\pm 1, \pm 5, \pm 25\}$.
+        Le cas $d = -5$ donne $(0,0)$, qui est exclu.
+
+        $\therefore (x, y) \in \{(6,30), (10,10), (30,6), (4,-20), (-20,4)\}$
+
+  \item \textbf{Question.} $x^2-y^2-4x-2y-5=0$.
+\par\smallskip
+\textbf{Réponse.} $x^2 - y^2 - 4x - 2y - 5 = 0 \iff (x-2)^2 - (y+1)^2 = 8$
+        \[
+          \iff (x-y-3)(x+y-1) = 8
+        \]
+        On pose $x-y-3 = d$ et $x+y-1 = 8/d$, où $d \mid 8$. Alors
+        \[
+          x = 2 + \frac{d + 8/d}{2}, \qquad y = -1 + \frac{8/d - d}{2}
+        \]
+        Pour que $x, y \in \ZZ$, $d$ et $8/d$ doivent avoir la même parité, donc $d \in \{\pm 2, \pm 4\}$.
+
+        $\therefore (x, y) \in \{(5,0), (5,-2), (-1,0), (-1,-2)\}$
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Peut-on trouver un inverse de $117$ modulo $368$ ?
+\par\smallskip
+\textbf{Réponse.} $117 \cdot 173 - 55 \cdot 368 = 1$\hfill(Relation de Bézout)
+
+        Alors $117 \cdot 173 \equiv 1 \pmod{368}$.
+        $\therefore 117^{-1} \equiv 173 \pmod{368}$
+
+  \item \textbf{Question.} $\ZZ/368\ZZ$ est-il un corps ?
+\par\smallskip
+\textbf{Réponse.} $368 = 2^4 \cdot 23$ n'est pas premier.
+        $\therefore \ZZ/368\ZZ$ n'est pas un corps
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dresser la table des inverses dans le corps $\ZZ/23\ZZ$.
+\par\smallskip
+\textbf{Réponse.} Dans $\ZZ/23\ZZ$, $0$ n'a pas d'inverse et les autres inverses sont :
+    \[
+      \begin{array}{c|rrrrrrrrrrr}
+        x & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11\\ \hline
+        x^{-1} & 1 & 12 & 8 & 6 & 14 & 4 & 10 & 3 & 18 & 7 & 21
+      \end{array}
+    \]
+    \[
+      \begin{array}{c|rrrrrrrrrrr}
+        x & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22\\ \hline
+        x^{-1} & 2 & 16 & 5 & 20 & 13 & 19 & 9 & 17 & 15 & 11 & 22
+      \end{array}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Résoudre $9x+3\equiv0\pmod{22}$.
+\par\smallskip
+\textbf{Réponse.} $5 \cdot 9 - 2 \cdot 22 = 1$, donc $9^{-1} \equiv 5 \pmod{22}$.
+    \[
+      9x + 3 \equiv 0 \pmod{22} \iff x \equiv -3 \cdot 5 \equiv 7 \pmod{22}
+    \]
+    $\therefore x = 7 + 22k$, où $k \in \ZZ$
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Déterminer $\operatorname{pgcd}(2^{445}+7,15)$.
+\par\smallskip
+\textbf{Réponse.} $2^4 \equiv 1 \pmod{15}$ et $445 = 4 \cdot 111 + 1$, donc
+    \[
+      2^{445} + 7 \equiv (2^4)^{111}2 + 7 \equiv 9 \pmod{15}
+    \]
+    $\therefore \operatorname{pgcd}(2^{445} + 7, 15) = \operatorname{pgcd}(9, 15) = 3$
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $n\geq1$. Montrer que $\operatorname{pgcd}(2n+4,3n+3)\in\{1,2,3,6\}$. Les quatre cas sont-ils possibles ?
+\par\smallskip
+\textbf{Réponse.} Soit $d = \operatorname{pgcd}(2n+4, 3n+3)$
+    \begin{enumproof}
+      \item $3(2n+4) - 2(3n+3) = 6$
+      \item $d \mid 6$\hfill(Combinaison linéaire)
+      \item $\therefore d \in \{1, 2, 3, 6\}$
+    \end{enumproof}
+    Les quatre cas sont possibles :
+    \[
+      \begin{array}{c|c|c|c}
+        n & 2n+4 & 3n+3 & \operatorname{pgcd}\\ \hline
+        1 & 6 & 6 & 6\\
+        2 & 8 & 9 & 1\\
+        3 & 10 & 12 & 2\\
+        4 & 12 & 15 & 3
+      \end{array}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $n\geq1$. Montrer que $3n^2+2n$ et $n+1$ sont premiers entre eux.
+\par\smallskip
+\textbf{Réponse.} $a - (3n-1)b = 3n^2 + 2n - (3n-1)(n+1) = 1$
+
+    Tout diviseur commun de $a$ et $b$ divise $1$.
+    $\therefore \operatorname{pgcd}(a,b) = 1$
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $n\geq1$. Montrer que $n^2+n$ et $2n+1$ sont premiers entre eux.
+\par\smallskip
+\textbf{Réponse.} $-4a + (2n+1)b = -4(n^2+n) + (2n+1)^2 = 1$
+
+    $\therefore \operatorname{pgcd}(a,b) = 1$\hfill(Relation de Bézout)
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $n\geq1$ et $\alpha\neq\beta$ dans $\{1,\ldots,n+1\}$. Montrer que $\alpha n!+1$ et $\beta n!+1$ sont premiers entre eux.
+\par\smallskip
+\textbf{Réponse.} $a = \alpha n! + 1$ et $b = \beta n! + 1$ sont premiers entre eux
+    \begin{enumproof}
+      \item Supposons qu'un nombre premier $p$ divise $a$ et $b$
+      \item $p \mid a-b = (\alpha-\beta)n!$
+      \item Alors $p \mid (\alpha-\beta)$ ou $p \mid n!$\hfill($p$ est premier)
+      \item Comme $1 \leq |\alpha-\beta| \leq n$, on a $p \leq n$ dans les deux cas
+      \item Donc $p \mid n!$ et $a = \alpha n! + 1 \equiv 1 \pmod p$
+      \item Ceci contredit $p \mid a$
+      \item $\therefore \operatorname{pgcd}(a,b) = 1$
+    \end{enumproof}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Tous les éléments de $\ZZ/8\ZZ$ sont-ils inversibles pour la multiplication ?
+\par\smallskip
+\textbf{Réponse.} Non, par exemple $2$ n'est pas inversible car $\operatorname{pgcd}(2,8) = 2 \neq 1$.
+
+  \item \textbf{Question.} $\ZZ/8\ZZ$ est-il un corps ?
+\par\smallskip
+\textbf{Réponse.} $\ZZ/8\ZZ$ n'est pas un corps car $8$ n'est pas premier.
+
+  \item \textbf{Question.} Donner les inverses de tous les éléments inversibles de $\ZZ/8\ZZ$.
+\par\smallskip
+\textbf{Réponse.} Les éléments inversibles sont $1, 3, 5, 7$, chacun étant son propre inverse :
+        \[
+          1^2 \equiv 3^2 \equiv 5^2 \equiv 7^2 \equiv 1 \pmod 8
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On munit $A=\{\alpha+\beta\sqrt2:\alpha,\beta\in\ZZ\}\subseteq\RR$ des lois usuelles et on pose $N(\alpha+\beta\sqrt2)=(\alpha+\beta\sqrt2)(\alpha-\beta\sqrt2)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $N(zz^{\prime})=N(z)N(z^{\prime})$ pour tous $z,z^{\prime}\in A$.
+\par\smallskip
+\textbf{Réponse.} Pour $z = \alpha + \beta\sqrt 2 \in A$, on note $\overline z = \alpha - \beta\sqrt 2$, donc $N(z) = z\overline z = \alpha^2 - 2\beta^2 \in \ZZ$.
+
+Soient $z = \alpha + \beta\sqrt 2$ et $z' = \alpha' + \beta'\sqrt 2$ dans $A$
+        \begin{enumproof}
+          \item $zz' = (\alpha\alpha' + 2\beta\beta') + (\alpha\beta' + \beta\alpha')\sqrt 2 \in A$
+          \item $\overline{zz'} = (\alpha\alpha' + 2\beta\beta') - (\alpha\beta' + \beta\alpha')\sqrt 2 = \overline z\,\overline{z'}$
+          \item $\therefore N(zz') = zz'\overline{zz'} = (z\overline z)(z'\overline{z'}) = N(z)N(z')$
+        \end{enumproof}
+
+  \item \textbf{Question.} Calculer les inverses de $3+2\sqrt2$ et $7+5\sqrt2$, et vérifier leur appartenance à $A$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle (3+2\sqrt 2)^{-1} = \frac{3-2\sqrt 2}{9-8} = 3-2\sqrt 2 \in A$
+
+        $\displaystyle (7+5\sqrt 2)^{-1} = \frac{7-5\sqrt 2}{49-50} = -7+5\sqrt 2 \in A$
+
+  \item \textbf{Question.} Montrer que $z\in A$ est inversible dans $A$ si et seulement si $N(z)\in\{1,-1\}$.
+\par\smallskip
+\textbf{Réponse.} $z$ est inversible dans $A$ si et seulement si $N(z) \in \{1,-1\}$
+        \begin{enumproof}
+          \item ($\Rightarrow$) Si $zw = 1$ avec $w \in A$, alors $N(z)N(w) = N(1) = 1$.
+            Comme ces normes sont entières, $N(z) \in \{1,-1\}$.
+          \item ($\Leftarrow$) Si $N(z) \in \{1,-1\}$, alors $\displaystyle z^{-1} = \frac{\overline z}{N(z)} = \pm\overline z \in A$.
+        \end{enumproof}
+
+  \item \textbf{Question.} $A$ est-il un corps pour les lois usuelles ?
+\par\smallskip
+\textbf{Réponse.} $N(2) = 4 \notin \{1,-1\}$, donc $2 \neq 0$ n'est pas inversible dans $A$.
+
+        $\therefore A$ n'est pas un corps
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $p$ un nombre premier.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Pour $1\leq k\leq p-1$, montrer que $p\mid\binom pk$.
+\par\smallskip
+\textbf{Réponse.} Soit $k \in \{1,\ldots,p-1\}$
+        \begin{enumproof}
+          \item $\displaystyle k!(p-k)!\binom pk = p!$
+          \item $p \nmid k!(p-k)!$ car tous les facteurs sont strictement inférieurs à $p$
+          \item Comme $p$ est premier et $p \mid p!$, $\displaystyle p \mid \binom pk$
+        \end{enumproof}
+
+  \item \textbf{Question.} Pour $a,b\in\ZZ/p\ZZ$, montrer que $(a+b)^p\equiv a^p+b^p\pmod p$.
+\par\smallskip
+\textbf{Réponse.} Par le binôme de Newton et la question 1,
+        \[
+          (a+b)^p = \sum_{k=0}^p \binom pk a^kb^{p-k}
+          \equiv a^p + b^p \pmod p
+        \]
+
+  \item \textbf{Question.} Montrer que $a^p\equiv a\pmod p$ pour tout $a\in\ZZ/p\ZZ$.
+\par\smallskip
+\textbf{Réponse.} Par récurrence sur un représentant $a \in \{0,\ldots,p-1\}$
+        \begin{enumproof}
+          \item $0^p \equiv 0 \pmod p$\hfill(Initialisation)
+          \item Si $a^p \equiv a \pmod p$, alors $(a+1)^p \equiv a^p + 1^p \equiv a+1 \pmod p$\hfill(Question 2)
+          \item $\therefore a^p \equiv a \pmod p$ pour tout $a \in \ZZ/p\ZZ$
+        \end{enumproof}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $a,b,u,v\in\ZZ$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier $(au+bv)^2=(a+b)(au^2+bv^2)+ab(2uv-u^2-v^2)$.
+\par\smallskip
+\textbf{Réponse.} En développant le membre de droite,
+        \begin{align*}
+          (a+b)(au^2+bv^2) + ab(2uv-u^2-v^2)
+          &= a^2u^2 + b^2v^2 + 2abuv\\
+          &= (au+bv)^2
+        \end{align*}
+
+  \item \textbf{Question.} En déduire que si $a,b$ sont premiers entre eux, alors $a+b,ab$ le sont aussi.
+\par\smallskip
+\textbf{Réponse.} Si $\operatorname{pgcd}(a,b) = 1$, alors $\operatorname{pgcd}(a+b,ab) = 1$
+        \begin{enumproof}
+          \item Il existe $u,v \in \ZZ$ tels que $au+bv = 1$\hfill(Bézout)
+          \item Soit $d \geq 1$ un diviseur commun de $a+b$ et $ab$
+          \item $d \mid (a+b)(au^2+bv^2) + ab(2uv-u^2-v^2) = (au+bv)^2 = 1$
+          \item $\therefore d = 1$ et $\operatorname{pgcd}(a+b,ab) = 1$
+        \end{enumproof}
+
+  \item \textbf{Question.} Montrer la réciproque : si $a+b,ab$ sont premiers entre eux, alors $a,b$ le sont aussi.
+\par\smallskip
+\textbf{Réponse.} Si $\operatorname{pgcd}(a+b,ab) = 1$, alors $\operatorname{pgcd}(a,b) = 1$
+        \begin{enumproof}
+          \item Soit $d \geq 1$ un diviseur commun de $a$ et $b$
+          \item $d \mid a+b$ et $d \mid ab$, donc $d \mid \operatorname{pgcd}(a+b,ab) = 1$
+          \item $\therefore d = 1$ et $\operatorname{pgcd}(a,b) = 1$
+        \end{enumproof}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\sqrt2\notin\QQ$.
+\par\smallskip
+\textbf{Réponse.} $\sqrt 2 \notin \QQ$
+        \begin{enumproof}
+          \item Supposons $\sqrt 2 = r/s$, où $r,s \in \NN$, $s \neq 0$ et $\operatorname{pgcd}(r,s) = 1$
+          \item $r^2 = 2s^2$, donc $r$ est pair et s'écrit $r = 2t$
+          \item Alors $4t^2 = 2s^2$, donc $s^2 = 2t^2$ et $s$ est pair
+          \item Ceci contredit $\operatorname{pgcd}(r,s) = 1$
+          \item $\therefore \sqrt 2 \notin \QQ$
+        \end{enumproof}
+
+  \item \textbf{Question.} Pour tout $n\in\NN$, montrer que $(1+\sqrt2)^n=a_n+b_n\sqrt2$ pour un unique couple $(a_n,b_n)\in\NN^2$.
+\par\smallskip
+\textbf{Réponse.} Existence et unicité de $(a_n,b_n) \in \NN^2$
+        \begin{enumproof}
+          \item Pour $n = 0$, $(1+\sqrt 2)^0 = 1$, donc $(a_0,b_0) = (1,0)$
+          \item Si $(1+\sqrt 2)^n = a_n + b_n\sqrt 2$, alors
+            \[
+              (1+\sqrt 2)^{n+1} = (a_n+2b_n) + (a_n+b_n)\sqrt 2
+            \]
+            Donc $a_{n+1} = a_n+2b_n$ et $b_{n+1} = a_n+b_n$ sont dans $\NN$.
+          \item Par récurrence, le couple existe pour tout $n \in \NN$
+          \item Si $a+b\sqrt 2 = a'+b'\sqrt 2$ et $b \neq b'$, alors $\displaystyle \sqrt 2 = \frac{a'-a}{b-b'} \in \QQ$, contradiction
+          \item Donc $b = b'$ puis $a = a'$. $\therefore$ le couple est unique
+        \end{enumproof}
+
+  \item \textbf{Question.} Calculer $a_n^2-2b_n^2$.
+\par\smallskip
+\textbf{Réponse.} La conjugaison donne $(1-\sqrt 2)^n = a_n-b_n\sqrt 2$, donc
+        \[
+          a_n^2 - 2b_n^2 = (a_n+b_n\sqrt 2)(a_n-b_n\sqrt 2)
+          = \big((1+\sqrt 2)(1-\sqrt 2)\big)^n = (-1)^n
+        \]
+
+  \item \textbf{Question.} En déduire que $a_n,b_n$ sont premiers entre eux.
+\par\smallskip
+\textbf{Réponse.} $(-1)^n a_n^2 - 2(-1)^n b_n^2 = 1$\hfill(Question 3)
+
+        C'est une relation de Bézout entre $a_n$ et $b_n$.
+        $\therefore \operatorname{pgcd}(a_n,b_n) = 1$
+
+\end{enumerate}
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

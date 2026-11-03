@@ -1,0 +1,519 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 6}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=6.\arabic*., start=105]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Les ensembles suivants, munis des opérations usuelles, sont-ils des espaces vectoriels sur $\RR$ ?
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $A=\{(x,y,z)\in\RR^3:-x+3y+z=0\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : noyau de $(x,y,z)\mapsto-x+3y+z$.
+
+  \item \textbf{Question.} $B=\{(x,y,z)\in\RR^3:x+y+z=0,\ x-3y=0\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : $B=\RR(3,1,-4)$.
+
+  \item \textbf{Question.} $C=\{(x,y,z)\in\CC^3:x+y+z=0,\ x-3y=0\}$.
+\par\smallskip
+\textbf{Réponse.} Oui sur $\RR$ : $C=\operatorname{Vect}_{\RR}((3,1,-4),i(3,1,-4))$.
+
+  \item \textbf{Question.} $D=\{(x,y,z)\in\RR^3:x+y+z=0\text{ ou }x-3y=0\}$.
+\par\smallskip
+\textbf{Réponse.} Non : $(1,-1,0),(3,1,0)\in D$ mais $(4,0,0)\notin D$.
+
+  \item \textbf{Question.} $E=\{(x,y,z)\in\RR^3:xy\geq0\}$.
+\par\smallskip
+\textbf{Réponse.} Non : $(1,0,0),(0,1,0)\in E$ mais leur différence $(1,-1,0)\notin E$.
+
+  \item \textbf{Question.} $F=\{(x,x+y,x+y+z):(x,y,z)\in\RR^3\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : $F=\RR^3$, car $(a,b,c)$ s'obtient avec $(x,y,z)=(a,b-a,c-b)$.
+
+  \item \textbf{Question.} $G=\{(x,xy,x+y+z):(x,y,z)\in\RR^3\}$.
+\par\smallskip
+\textbf{Réponse.} Non : $(1,1,3),(1,2,3)\in G$, mais $(0,1,0)\notin G$.
+
+  \item \textbf{Question.} $H=\{f:\RR\to\RR:f\text{ est monotone}\}$.
+\par\smallskip
+\textbf{Réponse.} Non : $x\mapsto x^3$ et $x\mapsto-x$ sont monotones, leur somme ne l'est pas.
+
+  \item \textbf{Question.} $I=\{(u_n)\in\RR^{\NN}:(u_n)\text{ est bornée}\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : si $|u_n|\leq M$ et $|v_n|\leq N$, alors $|\lambda u_n+v_n|\leq|\lambda|M+N$.
+
+  \item \textbf{Question.} $J=\{(u_n)\in\RR^{\NN}:u_{n+2}=3u_{n+1}+2\text{ pour tout }n\}$.
+\par\smallskip
+\textbf{Réponse.} Non : la suite nulle ne vérifie pas $u_{n+2}=3u_{n+1}+2$.
+
+  \item \textbf{Question.} $K=\{(u_n)\in\RR^{\NN}:u_{n+2}=3u_{n+1}+2u_n\text{ pour tout }n\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : la récurrence est linéaire et homogène, donc stable par combinaison linéaire.
+
+  \item \textbf{Question.} $L=\{\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\RR^{2\times2}:a+d=0\}$.
+\par\smallskip
+\textbf{Réponse.} Oui : noyau de la trace.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $E=\{(x,y,z)\in\RR^3:2x+y-z=0\}$ et $F=\{(x,x,-x):x\in\RR\}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $E,F$ sont des sous-espaces de $\RR^3$.
+\par\smallskip
+\textbf{Réponse.} $E=\ker((x,y,z)\mapsto2x+y-z)$ et $F=\RR(1,1,-1)$ sont des sous-espaces.
+
+  \item \textbf{Question.} Déterminer $E\cap F$.
+\par\smallskip
+\textbf{Réponse.} Si $(t,t,-t)\in E$, $4t=0$, donc $E\cap F=\{0\}$.
+
+  \item \textbf{Question.} Pour $u=(1,-1,1)$, $v=(3,1,7)$, montrer que $\operatorname{Vect}(u,v)\subseteq E$. A-t-on égalité ?
+\par\smallskip
+\textbf{Réponse.} $u,v\in E$, et ils ne sont pas colinéaires. Comme $\dim E=2$, $E=\operatorname{Vect}(u,v)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $u_1=(1,2,0,1,1)$, $u_2=(0,1,1,1,1)$, $u_3=(1,4,1,2,1)$ dans $\RR^5$, et $E=\operatorname{Vect}(u_1,u_2,u_3)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $(u_1,u_2,u_3)$ est libre.
+\par\smallskip
+\textbf{Réponse.} Le mineur des trois premières coordonnées vaut $-1\neq0$ : la famille est libre.
+
+  \item \textbf{Question.} À quelle condition $v=(v_1,\ldots,v_5)$ appartient-il à $E$ ?
+\par\smallskip
+\textbf{Réponse.} En résolvant sur ces trois coordonnées, on obtient
+        $v\in E\iff v_4=v_1+v_3$ et $v_5=3v_1-v_2+2v_3$.
+
+  \item \textbf{Question.} Trouver un supplémentaire de $E$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{Vect}(e_4,e_5)$ est un supplémentaire : son intersection avec $E$ est nulle et les dimensions font $3+2=5$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $\RR^3$, soient $r=(2,3,-1)$, $s=(1,-1,-2)$, $t=(3,7,0)$, $u=(5,0,-7)$. Montrer que $\operatorname{Vect}(r,s)=\operatorname{Vect}(t,u)$.
+\par\smallskip
+\textbf{Réponse.} On vérifie $t=2r-s$ et $u=r+3s$.
+    Le déterminant des coefficients vaut $7\neq0$, donc
+    $r=(3t+u)/7$ et $s=(-t+2u)/7$.
+    $\therefore F=G$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $m\in\RR$, déterminer les rangs de $\displaystyle A=\begin{pmatrix}1&1&1-m\\m+1&-1&2\\2&-m&3\end{pmatrix}$ et $\displaystyle B=\begin{pmatrix}1&-m&m^2\\m&-m^2&m\\m&1&-m^3\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\det A=m(m-2)(m+2)$ et $\det B=m(m-1)(m+1)(m^2+1)$.
+    Par réduction aux valeurs exceptionnelles,
+    \[
+      \operatorname{rg}A=\begin{cases}2&m\in\{-2,0,2\},\\3&\text{sinon,}\end{cases}\qquad
+      \operatorname{rg}B=\begin{cases}2&m\in\{-1,0,1\},\\3&\text{sinon.}\end{cases}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $F,G$ deux sous-espaces d’un espace vectoriel de dimension finie. Montrer la formule de Grassmann : $\dim(F+G)=\dim F+\dim G-\dim(F\cap G)$.
+\par\smallskip
+\textbf{Réponse.} Complétons une base $(u_1,\ldots,u_r)$ de $F\cap G$ en une base
+    $(u_1,\ldots,u_r,v_1,\ldots,v_p)$ de $F$ et une base $(u_1,\ldots,u_r,w_1,\ldots,w_q)$ de $G$.
+    La famille réunie $(u_i,v_j,w_k)$ engendre $F+G$.
+    Elle est libre : une relation donne $\sum_k\gamma_kw_k\in F\cap G$, donc tous les $\gamma_k$ sont nuls, puis les autres coefficients aussi.
+    \[
+      \therefore\dim(F+G)=r+p+q=\dim F+\dim G-\dim(F\cap G)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $\RR^4$, soient $v_1=(1,2,3,4)$, $v_2=(1,1,1,3)$, $v_3=(2,1,1,1)$, $v_4=(-1,0,-1,2)$, $v_5=(2,3,0,1)$. Pour $F=\operatorname{Vect}(v_1,v_2,v_3)$ et $G=\operatorname{Vect}(v_4,v_5)$, calculer les dimensions de $F,G,F+G,F\cap G$.
+\par\smallskip
+\textbf{Réponse.} Par réduction, $\operatorname{rg}(v_1,v_2,v_3)=3$, $\operatorname{rg}(v_4,v_5)=2$ et $\operatorname{rg}(v_1,\ldots,v_5)=4$.
+    $\therefore\dim F=3$, $\dim G=2$, $\dim(F+G)=4$, et $\dim(F\cap G)=3+2-4=1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a,b,c\in E$, un espace vectoriel sur $K$, et $u=b+c$, $v=a+c$, $w=a+b$. Montrer que $(a,b,c)$ est libre si et seulement si $(u,v,w)$ est libre.
+\par\smallskip
+\textbf{Réponse.} Le passage de $(a,b,c)$ à $(u,v,w)$ a pour matrice
+    $\displaystyle T=\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix}$, de déterminant $2$.
+    Si $\operatorname{car}K\neq2$, ce changement est inversible, donc les deux familles ont le même rang.
+    On retrouve $a=(v+w-u)/2$, puis $b,c$ de même.
+
+    En caractéristique $2$, l'énoncé est faux : $u+v+w=0$, même si $(a,b,c)$ est libre.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $(x_1,\ldots,x_n)$ une famille libre et $y\in\operatorname{Vect}(x_1,\ldots,x_n)$. À quelle condition sur $y$ la famille $(x_1+y,\ldots,x_n+y)$ est-elle libre ?
+\par\smallskip
+\textbf{Réponse.} Écrivons $y=\sum_i\lambda_ix_i$. La matrice des $x_i+y$ dans la base $(x_i)$ est
+    $I_n+\lambda\boldsymbol{1}^\top$, de déterminant $1+\sum_i\lambda_i$.
+    $\therefore F'$ est libre si et seulement si $\sum_i\lambda_i\neq-1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Montrer que $E=\{(x,y,z)\in\RR^3:2x-y+z=0\}$ est un espace vectoriel et en déterminer une base.
+\par\smallskip
+\textbf{Réponse.} $E$ est le noyau d'une forme linéaire, et
+    $(x,y,z)=(x,2x+z,z)=x(1,2,0)+z(0,1,1)$.
+    $\therefore ((1,2,0),(0,1,1))$ est une base de $E$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Montrer que $E=\{(x,y,z)\in\RR^3:x=2y-3z\}$ est un espace vectoriel et en déterminer une base.
+\par\smallskip
+\textbf{Réponse.} $E$ est le noyau de $(x,y,z)\mapsto x-2y+3z$, et
+    $(x,y,z)=y(2,1,0)+z(-3,0,1)$.
+    $\therefore ((2,1,0),(-3,0,1))$ est une base de $E$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $e_1=(1,1,2,2)$, $e_2=(1,1,1,1)$, $e_3=(1,2,3,4)$, $e_4=(1,-1,1,1)$ dans $\CC^4$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $(e_1,e_2,e_3,e_4)$ est une base de $\CC^4$.
+\par\smallskip
+\textbf{Réponse.} $\det(e_1,e_2,e_3,e_4)=2\neq0$, donc c'est une base de $\CC^4$.
+
+  \item \textbf{Question.} Donner les coordonnées de $a=(4,3,2,1)$ dans cette base.
+\par\smallskip
+\textbf{Réponse.} $a=5e_2-e_3$, donc $[a]_{\mathcal B}=(0,5,-1,0)^\top$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Montrer que $\mathcal B=((X-1)^2,X^2,(X+1)^2)$ est une base de $K[X]_{\leq2}$. Décrire les matrices de passage entre $\mathcal B$ et la base canonique $\mathcal C=(1,X,X^2)$, puis les coordonnées de $X^2+X+1$ dans les deux bases.
+\par\smallskip
+\textbf{Réponse.} La matrice dont les colonnes sont $[P_i]_{\mathcal C}$ est
+    \[
+      S=\begin{pmatrix}1&0&1\\-2&0&2\\1&1&1\end{pmatrix},\quad \det S=4,\quad
+      S^{-1}=\begin{pmatrix}1/2&-1/4&0\\-1&0&1\\1/2&1/4&0\end{pmatrix}
+    \]
+    Ainsi $[P]_{\mathcal C}=S[P]_{\mathcal B}$ et $[P]_{\mathcal B}=S^{-1}[P]_{\mathcal C}$, ce qui précise le sens des deux changements de base.
+    Pour $P=X^2+X+1$, $[P]_{\mathcal C}=(1,1,1)^\top$ et $[P]_{\mathcal B}=(1/4,0,3/4)^\top$.
+    On suppose $\operatorname{car}K\neq2$ ; en caractéristique $2$, $P_1=P_3$ et ce n'est pas une base.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Existe-t-il une base de $\CC^{n\times n}$ constituée uniquement de matrices inversibles ?
+\par\smallskip
+\textbf{Réponse.} Oui. Pour $n\geq2$, prenons les $I_n+E_{i,j}$ pour $i\neq j$, les $I_n+E_{i,i}$ pour $i<n$, et $I_n$.
+    Ces $n^2$ matrices sont inversibles.
+    Leurs différences avec $I_n$ donnent tous les $E_{i,j}$ sauf $E_{n,n}$, obtenu par $I_n-\sum_{i<n}E_{i,i}$.
+    Elles engendrent donc $\CC^{n\times n}$ et forment une base.
+    Pour $n=1$, la famille $(1)$ convient.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a=(1,0,2)$, $b=(1,1,2)$, $c=(1,2,2)$, $d=(2,2,2)$. Montrer que $(a,b,c,d)$ engendre $\RR^3$ et en extraire une base.
+\par\smallskip
+\textbf{Réponse.} $\det(a,b,d)=-2\neq0$, donc $(a,b,d)$ est une base de $\RR^3$.
+    $\therefore(a,b,c,d)$ est génératrice.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $r=(1,1,1,1)$, $s=(1,1,-1,-1)$. Montrer que $(r,s)$ est libre et la compléter en une base de $\RR^4$.
+\par\smallskip
+\textbf{Réponse.} $r,s$ ne sont pas colinéaires, donc sont libres.
+    La famille $(r,s,e_2,e_4)$ est libre : les coordonnées $1$ et $3$ annulent les coefficients de $r,s$, puis ceux de $e_2,e_4$.
+    C'est une base de $\RR^4$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Associer à chaque mot le vecteur de $\RR^{26}$ comptant les occurrences de ses lettres. Montrer que les mots de la phrase `` Portez ce vieux whisky au juge blond qui fume et cinq kirs pour sa nièce à la sveltesse plume, car aujourd’hui je m’y consume. '' forment une base de $\RR^{26}$.
+\par\smallskip
+\textbf{Réponse.} Après suppression des accents et séparation des apostrophes, on obtient $26$ mots.
+    On forme la matrice des effectifs des lettres et on vérifie son déterminant avec SageMath :
+\begin{lstlisting}[style=mystyle,language=Python]
+import re
+phrase = ("Portez ce vieux whisky au juge blond qui fume et cinq "
+          "kirs pour sa niece a la sveltesse plume, car "
+          "aujourd'hui je m'y consume.")
+mots = re.findall('[a-z]+', phrase.lower())
+M = matrix(ZZ, [[mot.count(chr(97+i)) for i in range(26)]
+                for mot in mots])
+M.det()
+\end{lstlisting}
+    Le déterminant vaut $-1\neq0$ ; ces $26$ vecteurs forment donc une base de $\RR^{26}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A=\{(1-X)Q(X^2):Q\in\RR{}[X]\}$, $\mathcal P$ l’ensemble des polynômes pairs et $\mathcal I$ celui des polynômes impairs. Montrer que $A$ est un espace vectoriel et que $\RR{}[X]=A\oplus\mathcal P$. Est-ce aussi un supplémentaire de $\mathcal I$ ?
+\par\smallskip
+\textbf{Réponse.} $Q\mapsto(1-X)Q(X^2)$ est linéaire, donc son image $A$ est un sous-espace.
+    Si $(1-X)Q(X^2)$ est pair, sa partie impaire $-XQ(X^2)$ est nulle, donc $Q=0$.
+    Tout $R$ s'écrit $U(X^2)+XV(X^2)$, et
+    \[
+      R=-(1-X)V(X^2)+(U+V)(X^2)
+    \]
+    Donc $\RR{}[X]=A\oplus\mathcal P$.
+    De même, $A\cap\mathcal I=\{0\}$ et
+    $R=(1-X)U(X^2)+X(U+V)(X^2)$, donc $\RR{}[X]=A\oplus\mathcal I$ aussi.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $E=C^0(]-1,1[,\RR)$, soient $F$ les fonctions nulles sur $]-1,0[$ et $G$ celles nulles sur $]0,1[$. Montrer que ce sont des sous-espaces. A-t-on $E=F\oplus G$ ? Sinon, trouver $H$ tel que $E=F\oplus G\oplus H$.
+\par\smallskip
+\textbf{Réponse.} $F,G$ sont des sous-espaces car les conditions d'annulation sont linéaires.
+    Par continuité, leurs éléments s'annulent en $0$ et $F\cap G=\{0\}$.
+    Leur somme est exactement $\{f\in E:f(0)=0\}$, en séparant les parties gauche et droite de $f$.
+    Elle ne contient pas la fonction constante $1$.
+    $\therefore E=F\oplus G\oplus H$, avec $H=\RR\boldsymbol{1}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $F,G$ deux sous-espaces de $E$. Montrer que $\operatorname{Vect}(F\cup G)=F+G$.
+\par\smallskip
+\textbf{Réponse.} $F+G$ est un sous-espace contenant $F\cup G$, donc $\operatorname{Vect}(F\cup G)\subseteq F+G$.
+    Réciproquement, tout $f+g$ est une combinaison linéaire d'éléments de $F\cup G$.
+    $\therefore\operatorname{Vect}(F\cup G)=F+G$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $E$ de dimension finie avec $E=E_1+\cdots+E_n$. Montrer qu’il existe $F_i\subseteq E_i$ tels que $E=F_1\oplus\cdots\oplus F_n$.
+\par\smallskip
+\textbf{Réponse.} Posons $F_1=E_1$. Par récurrence, choisissons dans $E_k$ un supplémentaire $F_k$ de
+    $E_k\cap(F_1+\cdots+F_{k-1})$.
+    Alors $F_1\oplus\cdots\oplus F_k=E_1+\cdots+E_k$.
+    Pour $k=n$, on obtient la décomposition demandée.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $F=\{(x,2x,3x):x\in\RR\}$ et $G=\{(x+y,x+y,y):x,y\in\RR\}$, montrer que $\RR^3=F\oplus G$.
+\par\smallskip
+\textbf{Réponse.} $F=\RR(1,2,3)$ et $G=\operatorname{Vect}((1,1,0),(0,0,1))$.
+    Le déterminant de ces trois vecteurs vaut $-1\neq0$.
+    $\therefore\RR^3=F\oplus G$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $F,G,H$ trois sous-espaces de $E$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Comparer $(F+G)\cap H$ et $(F\cap H)+(G\cap H)$.
+\par\smallskip
+\textbf{Réponse.} $(F\cap H)+(G\cap H)\subseteq(F+G)\cap H$.
+        L'inclusion peut être stricte : dans $\RR^2$, prendre $F=\RR e_1$, $G=\RR e_2$, $H=\RR(e_1+e_2)$.
+
+  \item \textbf{Question.} Montrer leur égalité si $F\subseteq H$.
+\par\smallskip
+\textbf{Réponse.} Si $F\subseteq H$ et $x=f+g\in H$, alors $g=x-f\in G\cap H$.
+        Donc $x\in(F\cap H)+(G\cap H)$, ce qui donne l'égalité.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A,B$ deux sous-espaces de $E$. Donner une condition nécessaire et suffisante pour qu’il existe $X$ tel que $A\oplus X=B\oplus X=E$.
+\par\smallskip
+\textbf{Réponse.} En dimension finie, la condition est $\dim A=\dim B$.
+    Elle est nécessaire en prenant les dimensions de $A\oplus X=B\oplus X=E$.
+
+    Pour la suffisance, posons $C=A\cap B$ et écrivons
+    $A=C\oplus\operatorname{Vect}(a_1,\ldots,a_r)$,
+    $B=C\oplus\operatorname{Vect}(b_1,\ldots,b_r)$.
+    Alors $X_0=\operatorname{Vect}(a_i+b_i:1\leq i\leq r)$ est un supplémentaire commun dans $A+B$.
+    On lui ajoute un supplémentaire de $A+B$ dans $E$.
+
+    Sans hypothèse de dimension finie, la condition correcte est
+    $\dim(A/C)=\dim(B/C)$ ; la même construction avec des bases s'applique.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $P\in\CC{}[X]$ de degré $n$ et $t_0,\ldots,t_n$ des complexes distincts. Montrer que $(P(X+t_i))_{0\leq i\leq n}$ est une base de $\CC{}[X]_{\leq n}$.
+\par\smallskip
+\textbf{Réponse.} Écrivons $P(X)=c_nX^n+\cdots+c_0$, $c_n\neq0$.
+    Si $\sum_{i=0}^n\lambda_iP(X+t_i)=0$, la comparaison des coefficients de $X^n,X^{n-1},\ldots,1$ donne successivement
+    $\sum_i\lambda_it_i^k=0$ pour $k=0,\ldots,n$.
+    La matrice de ce système est de Vandermonde, de déterminant $\prod_{i<j}(t_j-t_i)\neq0$.
+    Donc tous les $\lambda_i$ sont nuls.
+    $\therefore$ les $n+1$ translatés forment une base de $\CC{}[X]_{\leq n}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour une subdivision $a=x_0<\cdots<x_n=b$, soit $F$ l’ensemble des fonctions $[a,b]\to\RR$ affines sur chaque $[x_k,x_{k+1}]$. Montrer que $F$ est un espace vectoriel ; en donner la dimension et une base.
+\par\smallskip
+\textbf{Réponse.} La somme et les multiples de fonctions affines par morceaux restent affines sur chaque intervalle.
+    Chaque fonction est déterminée par ses valeurs aux $n+1$ nœuds.
+    Soit $h_i$ la fonction affine par morceaux telle que $h_i(x_j)=\delta_{i,j}$.
+    Alors $f=\sum_{i=0}^nf(x_i)h_i$.
+    $\therefore(h_0,\ldots,h_n)$ est une base et $\dim F=n+1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in K^{n\times n}$. Montrer que $F=\{M:AM=MA\}$ est un espace vectoriel et le déterminer lorsque $A=\begin{pmatrix}1&-1\\1&-1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $F=\ker(M\mapsto AM-MA)$ est un sous-espace.
+    Pour $A=\begin{pmatrix}1&-1\\1&-1\end{pmatrix}$, résoudre $AM=MA$ donne
+    \[
+      F=\left\{\begin{pmatrix}a&b\\-b&a+2b\end{pmatrix}:a,b\in K\right\}
+      =\operatorname{Vect}(I_2,A)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Déterminer le terme général de la suite complexe $u_0=0$, $u_1=1+4i$, $u_{n+2}=(3-2i)u_{n+1}+(-5+5i)u_n$.
+\par\smallskip
+\textbf{Réponse.} L'équation caractéristique a pour racines $2+i$ et $1-3i$.
+    Donc $u_n=\lambda(2+i)^n+\mu(1-3i)^n$.
+    Les conditions initiales donnent $\lambda+\mu=0$ et $\lambda(1+4i)=1+4i$.
+    $\therefore u_n=(2+i)^n-(1-3i)^n$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $0<\theta<\pi$, déterminer le terme général de $u_0=u_1=1$, $u_{n+2}-2\cos\theta\,u_{n+1}+u_n=0$.
+\par\smallskip
+\textbf{Réponse.} Les racines caractéristiques sont $e^{i\theta}$ et $e^{-i\theta}$.
+    Écrivons $u_n=A\cos(n\theta)+B\sin(n\theta)$.
+    Alors $A=1$ et $B=(1-\cos\theta)/\sin\theta=\tan(\theta/2)$.
+    \[
+      \therefore u_n=\frac{\cos((n-1/2)\theta)}{\cos(\theta/2)}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Déterminer les fonctions $f:\RR_{>0}\to\RR_{>0}$ telles que $f(f(x))=6x-f(x)$ pour tout $x>0$.
+\par\smallskip
+\textbf{Réponse.} Pour $x>0$, posons $u_0=x$ et $u_{n+1}=f(u_n)>0$.
+    La relation impose $u_{n+2}+u_{n+1}-6u_n=0$, donc $u_n=\lambda2^n+\mu(-3)^n$.
+    Si $\mu\neq0$, le terme dominant alterne de signe, contradiction.
+    Ainsi $\mu=0$, $\lambda=x$, et $f(x)=u_1=2x$.
+    Réciproquement, $f(x)=2x$ vérifie l'équation.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $n\geq2$, déterminer les polynômes de $K[X]_{\leq n}$ divisibles par $X+1$ et dont les restes modulo $X+2,\ldots,X+n+1$ sont égaux. Forment-ils un espace vectoriel ? Quelle est sa dimension ?
+\par\smallskip
+\textbf{Réponse.} En caractéristique $0$ (ou $>n$), si $r=P(-2)=\cdots=P(-n-1)$,
+    $P-r$ est divisible par $Q=\prod_{k=2}^{n+1}(X+k)$.
+    Comme $\deg P\leq n$, $P=\lambda Q+r$.
+    La condition $P(-1)=0$ donne $r=-\lambda n!$.
+    \[
+      \therefore P=\lambda\left(\prod_{k=2}^{n+1}(X+k)-n!\right),\quad\lambda\in K
+    \]
+    C'est un espace vectoriel de dimension $1$.
+    Si $\operatorname{car}K=p\leq n$, les points se répètent et le reste commun vaut $0$ ; les solutions sont les multiples de $X^p-X$ de degré au plus $n$, de dimension $n+1-p$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $K\in\RR^{n\times n}$ de rang $r$ et $E=\{X\in\RR^{n\times n}:KXK=0\}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Vérifier que $E$ est un espace vectoriel.
+\par\smallskip
+\textbf{Réponse.} $X\mapsto KXK$ est linéaire, donc $E$ est son noyau.
+
+  \item \textbf{Question.} Calculer sa dimension.
+\par\smallskip
+\textbf{Réponse.} Écrivons $K=PJQ$ avec $P,Q$ inversibles et $J=\operatorname{diag}(I_r,0)$.
+        Pour $Y=QXP$, $KXK=0\iff JYJ=0$, donc les $r^2$ coefficients du bloc supérieur gauche de $Y$ sont nuls.
+        $\therefore\dim E=n^2-r^2$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $A,B\in\CC^{n\times n}$, déterminer le rang et l’éventuel inverse de $M=\begin{pmatrix}A&A\\A&B\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Soustraire le premier bloc de colonnes au second, puis le premier bloc de lignes au second, transforme $M$ en $\operatorname{diag}(A,B-A)$.
+    $\therefore\operatorname{rg}M=\operatorname{rg}A+\operatorname{rg}(B-A)$.
+    Si $A$ et $B-A$ sont inversibles, en posant $C=(B-A)^{-1}$,
+    \[
+      M^{-1}=\begin{pmatrix}A^{-1}+C&-C\\-C&C\end{pmatrix}
+    \]
+    Sinon $M$ n'est pas inversible.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A\in\RR^{3\times2}$, $B\in\RR^{2\times2}$, $C\in\RR^{2\times3}$ telles que $ABC=\begin{pmatrix}1&1&2\\-2&x&1\\1&-2&1\end{pmatrix}$. Déterminer $x\in\RR$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{rg}(ABC)\leq2$, donc son déterminant $13-x$ est nul.
+    $\therefore x=13$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A\in\RR^{m\times n}$, $B\in\RR^{m\times q}$ et $C=[A\ B]$. Montrer que $\operatorname{rg}A=\operatorname{rg}C$ si et seulement s’il existe $P\in\RR^{n\times q}$ tel que $B=AP$.
+\par\smallskip
+\textbf{Réponse.} $\operatorname{rg}A=\operatorname{rg}[A\ B]$ équivaut à ce que chaque colonne de $B$ appartienne à l'espace des colonnes de $A$.
+    Cela équivaut à écrire $B_j=AP_j$ pour chaque colonne, donc $B=AP$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $M\in\CC^{n\times n}$ a rang $1$, montrer que sa partie réelle a rang au plus $2$.
+\par\smallskip
+\textbf{Réponse.} Écrivons $M=uv^\top$ avec $u=a+ib$, $v=c+id$ réels par parties.
+        Alors $P=ac^\top-bd^\top$ et $\operatorname{im}P\subseteq\operatorname{Vect}(a,b)$.
+        $\therefore\operatorname{rg}P\leq2$.
+
+  \item \textbf{Question.} Pour $\theta\in\RR$, déterminer le rang de $A=(\cos((i+j-1)\theta))_{1\leq i,j\leq n}$.
+\par\smallskip
+\textbf{Réponse.} $\cos((i+j-1)\theta)=\cos((i-1)\theta)\cos(j\theta)-\sin((i-1)\theta)\sin(j\theta)$, donc le rang est au plus $2$.
+        Pour $n\geq2$, le mineur supérieur gauche vaut $-\sin^2\theta$.
+        Le rang vaut donc $2$ si $\sin\theta\neq0$, et $1$ sinon.
+        Pour $n=1$, il vaut $0$ si $\cos\theta=0$, et $1$ sinon.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $a,b\in\CC$, déterminer le rang de $A=\begin{pmatrix}1&a&b\\a&1&a\\b&a&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\det A=(b-1)(2a^2-b-1)$.
+    Le rang vaut $3$ si ce produit est non nul.
+    Tous les mineurs d'ordre $2$ s'annulent exactement quand $b=1$ et $a=\pm1$ ; alors le rang vaut $1$.
+    Dans les autres cas singuliers, le rang vaut $2$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $\alpha\in\RR$, déterminer le rang de $A\in\RR^{n\times n}$ définie par $a_{i,j}=(\alpha+i+j-2)^2$.
+\par\smallskip
+\textbf{Réponse.} Les colonnes sont des combinaisons de $(1)_i$, $(i-1)_i$, $((i-1)^2)_i$, donc le rang est au plus $3$.
+    Pour $n\geq3$, le mineur supérieur gauche d'ordre $3$ vaut $-8$, donc le rang vaut $3$.
+    Pour $n=2$, $\det A=-2\alpha^2-4\alpha-1$ : rang $1$ si $\alpha=-1\pm\sqrt2/2$, rang $2$ sinon.
+    Pour $n=1$, rang $0$ si $\alpha=0$, rang $1$ sinon.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A=\begin{pmatrix}A_{1,1}&A_{1,2}\\A_{2,1}&A_{2,2}\end{pmatrix}\in K^{n\times n}$ avec $A_{1,1}\in K^{r\times r}$ et $0<r<n$. Si $\operatorname{rg}A_{1,1}=\operatorname{rg}A=r$, montrer que $A_{2,2}=A_{2,1}A_{1,1}^{-1}A_{1,2}$.
+\par\smallskip
+\textbf{Réponse.} Le bloc $A_{1,1}$ est inversible car son rang est $r$.
+    L'opération par blocs $L_2\leftarrow L_2-A_{2,1}A_{1,1}^{-1}L_1$ donne
+    \[
+      \begin{pmatrix}A_{1,1}&A_{1,2}\\0&A_{2,2}-A_{2,1}A_{1,1}^{-1}A_{1,2}\end{pmatrix}
+    \]
+    Le rang total étant déjà celui du premier bloc, le bloc inférieur droit est nul.
+    $\therefore A_{2,2}=A_{2,1}A_{1,1}^{-1}A_{1,2}$.
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

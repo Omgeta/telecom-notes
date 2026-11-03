@@ -1,0 +1,561 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 8}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=8.\arabic*., start=70]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $E$ euclidien et $f,g:E\to E$ telles que $\langle f(x),y\rangle=\langle x,g(y)\rangle$ pour tous $x,y\in E$. Montrer que $f,g$ sont linéaires.
+\par\smallskip
+\textbf{Réponse.} Pour tous $x,x',y\in E$ et $\lambda\in\RR$,
+    \[
+      \langle f(x+\lambda x')-f(x)-\lambda f(x'),y\rangle
+      =\langle x+\lambda x',g(y)\rangle-\langle x,g(y)\rangle-\lambda\langle x',g(y)\rangle=0
+    \]
+    Le vecteur de gauche est orthogonal à tout $E$, donc nul : $f$ est linéaire.
+    Le même raisonnement en échangeant les deux variables prouve la linéarité de $g$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $c_1,\ldots,c_n$ deux à deux non colinéaires dans un espace euclidien, de normes au plus $1$. Si $\alpha_i\geq0$, $\sum_i\alpha_i=1$ et $\|\sum_i\alpha_i c_i\|=1$, montrer qu’un seul $\alpha_i$ est non nul et vaut $1$.
+\par\smallskip
+\textbf{Réponse.} Par Cauchy-Schwarz,
+    $1=\langle y,y\rangle=\sum_i\alpha_i\langle c_i,y\rangle
+      \leq\sum_i\alpha_i\|c_i\|\leq1$.
+    Si $\alpha_i>0$, l'égalité impose $\|c_i\|=1$ et $\langle c_i,y\rangle=1$, donc $c_i=y$.
+    Comme les $c_i$ sont deux à deux non colinéaires, un seul coefficient est non nul ; sa valeur est $1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour $P,Q\in\RR{}[X]$, on pose $\langle P,Q\rangle=\sum_{k\geq0}P^{(k)}(1)Q^{(k)}(1)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer qu’il s’agit d’un produit scalaire.
+\par\smallskip
+\textbf{Réponse.} La somme est finie pour des polynômes, symétrique et bilinéaire.
+        $\langle P,P\rangle=\sum_k(P^{(k)}(1))^2\geq0$.
+        Si elle est nulle, toutes les dérivées en $1$ sont nulles, donc $P=0$ par Taylor.
+
+  \item \textbf{Question.} Montrer que $((X-1)^n)_{n\in\NN}$ est une base orthogonale.
+\par\smallskip
+\textbf{Réponse.} $((X-1)^n)^{(k)}(1)=n!$ si $k=n$, et $0$ sinon.
+        Donc ces polynômes sont orthogonaux, de normes $n!$, et forment une base par leurs degrés.
+
+  \item \textbf{Question.} Déterminer $(\RR{}[X]_{\leq n})^\perp$.
+\par\smallskip
+\textbf{Réponse.} $\RR{}[X]_{\leq n}^\perp=(X-1)^{n+1}\RR{}[X]$, car l'orthogonalité impose $P^{(k)}(1)=0$ pour $0\leq k\leq n$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Soit $\mathcal B$ une base d’un espace réel de dimension finie non nulle. Montrer qu’il existe un unique produit scalaire rendant $\mathcal B$ orthonormale.
+\par\smallskip
+\textbf{Réponse.} Dans les coordonnées de $\mathcal B$, l'unique possibilité est
+        $\langle x,y\rangle=[x]_{\mathcal B}^\top[y]_{\mathcal B}$.
+        C'est bien un produit scalaire et la base est orthonormale.
+
+  \item \textbf{Question.} Expliciter ce produit scalaire pour la base $((1,2),(3,1))$ de $\RR^2$.
+\par\smallskip
+\textbf{Réponse.} Pour $x=(x_1,x_2)$, $y=(y_1,y_2)$,
+        \[
+          \langle x,y\rangle=\frac15(x_1y_1-x_1y_2-x_2y_1+2x_2y_2)
+        \]
+        La matrice est $P^{-\top}P^{-1}$ avec $P=\begin{pmatrix}1&3\\2&1\end{pmatrix}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour tout $n\in\NN$, montrer que $\sum_{k=0}^n\sqrt{\binom nk}\leq\sqrt{2^n(n+1)}$.
+\par\smallskip
+\textbf{Réponse.} Par Cauchy-Schwarz et le binôme de Newton,
+    \[
+      \left(\sum_{k=0}^n\sqrt{\binom nk}\right)^2
+      \leq\left(\sum_{k=0}^n1\right)\left(\sum_{k=0}^n\binom nk\right)=(n+1)2^n
+    \]
+    En prenant les racines carrées, on obtient l'inégalité demandée.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $f\in C^1([0,1],\RR)$ avec $f(0)=0$. Montrer que $(\int_0^1f(t)dt)^2\leq\frac13\int_0^1f^{\prime}(t)^2dt$.
+\par\smallskip
+\textbf{Réponse.} Par intégration par parties, $\int_0^1f(t)\,dt=\int_0^1(1-t)f'(t)\,dt$ car $f(0)=0$.
+    Cauchy-Schwarz donne
+    \[
+      \left(\int_0^1f(t)\,dt\right)^2
+      \leq\int_0^1(1-t)^2dt\int_0^1(f'(t))^2dt
+      =\frac13\int_0^1(f'(t))^2dt
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Les espaces réels sont munis du produit scalaire canonique.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Projeter $(x,y,z)^\top$ sur l’espace colonne de $\begin{pmatrix}1&0\\0&1\\0&0\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} L'espace colonne est le plan $z=0$ : la projection est $(x,y,0)^\top$.
+
+  \item \textbf{Question.} Donner la matrice de projection orthogonale sur l’espace colonne de $C=\begin{pmatrix}3&6&6\\4&8&8\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} L'espace colonne est $\RR(3,4)^\top$.
+        $\displaystyle P_C=\frac1{25}\begin{pmatrix}9&12\\12&16\end{pmatrix}$.
+
+  \item \textbf{Question.} Calculer la distance de $(6,0,0)^\top$ à l’espace colonne de $\begin{pmatrix}1&0\\0&1\\0&0\end{pmatrix}$, puis de $\begin{pmatrix}0&0\\1&0\\0&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Pour $x=(6,0,0)^\top$, la distance au plan $z=0$ est $0$, et celle au plan $x=0$ est $6$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $\RR^3$ euclidien, calculer la matrice de projection sur $\operatorname{Vect}((1,1,1),(0,1,2))$, puis la projection de $x=(6,0,0)^\top$.
+\par\smallskip
+\textbf{Réponse.} Avec $U=(u_1\ u_2)$, $P=U(U^\top U)^{-1}U^\top$.
+    \[
+      P=\frac16\begin{pmatrix}5&2&-1\\2&2&2\\-1&2&5\end{pmatrix},\qquad
+      \widehat x=P(6,0,0)^\top=(5,2,-1)^\top
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Dans $\RR^4$ euclidien, soient $a=(1,-1,0,0)$, $b=(0,1,-1,0)$, $c=(0,0,1,-1)$ et $d=(1,1,1,1)$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Appliquer Gram-Schmidt à $(a,b,c)$ pour obtenir des vecteurs orthonormés $a^{\prime},b^{\prime},c^{\prime}$.
+\par\smallskip
+\textbf{Réponse.} Gram-Schmidt donne
+        $a'=(1,-1,0,0)/\sqrt2$, $b'=(1,1,-2,0)/\sqrt6$, $c'=(1,1,1,-3)/\sqrt{12}$.
+
+  \item \textbf{Question.} Montrer que $a,b,c$ sont orthogonaux à $d$.
+\par\smallskip
+\textbf{Réponse.} Les coordonnées de chacun de $a,b,c$ ont une somme nulle, donc leur produit scalaire avec $d$ vaut $0$.
+
+  \item \textbf{Question.} Est-ce aussi le cas pour $a^{\prime},b^{\prime},c^{\prime}$ ?
+\par\smallskip
+\textbf{Réponse.} Oui : les vecteurs obtenus sont des combinaisons de $a,b,c$, donc appartiennent encore à $d^\perp$.
+
+  \item \textbf{Question.} Compléter $(a^{\prime},b^{\prime},c^{\prime})$ en une base orthonormée de $\RR^4$. Est-elle unique ?
+\par\smallskip
+\textbf{Réponse.} Compléter par $d/2$. Pour les trois premiers vecteurs fixés, les seuls choix sont $d/2$ et $-d/2$ : la base n'est pas unique.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $\mathcal P=\{(4,-2),(2,-1),(-1,0),(0,1),(0,2)\}$, trouver la droite $y=\alpha x+\beta$ minimisant $\sum_{(x,y)\in\mathcal P}(y-\alpha x-\beta)^2$.
+\par\smallskip
+\textbf{Réponse.} Les équations normales sont
+    \[
+      \begin{pmatrix}21&5\\5&5\end{pmatrix}\begin{pmatrix}\alpha\\\beta\end{pmatrix}
+      =\begin{pmatrix}-10\\0\end{pmatrix}
+    \]
+    $\therefore\alpha=-5/8$, $\beta=5/8$.
+    La droite cherchée est $y=-5x/8+5/8$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Un docteur mesure quatre fois le pouls d’un patient. Quelle valeur finale conserver selon la méthode des moindres carrés ?
+\par\smallskip
+\textbf{Réponse.} Pour des mesures $m_1,\ldots,m_4$, minimiser $\sum_i(m_i-\mu)^2$ donne
+    $4\mu=\sum_i m_i$.
+    $\therefore\widehat\mu=(m_1+\cdots+m_4)/4$ : la moyenne des quatre mesures est l'estimateur des moindres carrés.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Dans $\RR^3$ euclidien, soit $A=\begin{pmatrix}1&1\\2&-1\\-2&4\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Trouver une base orthonormée $(q_1,q_2,q_3)$ avec $\operatorname{Vect}(q_1,q_2)=\operatorname{im}A$.
+\par\smallskip
+\textbf{Réponse.} Gram-Schmidt donne $q_1=(1,2,-2)/3$, $q_2=(2,1,2)/3$.
+        On complète par $q_3=(2,-2,-1)/3$.
+
+  \item \textbf{Question.} Montrer que $q_3\in\ker A^\top$.
+\par\smallskip
+\textbf{Réponse.} $q_3$ est orthogonal aux deux colonnes, donc $A^\top q_3=0$.
+
+  \item \textbf{Question.} Pour $b=(1,2,7)^\top$, résoudre $Ax=b$ au sens des moindres carrés.
+\par\smallskip
+\textbf{Réponse.} $A^\top A=\begin{pmatrix}9&-9\\-9&18\end{pmatrix}$ et $A^\top b=(-9,27)^\top$.
+        Les équations normales donnent $\widehat x=(1,2)^\top$.
+        La projection est $A\widehat x=(3,0,6)^\top$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $A=\begin{pmatrix}1&-2\\1&0\\1&1\\1&3\end{pmatrix}$, donner une base orthonormée de $\operatorname{im}A$ puis y projeter $b=(-4,-3,3,0)^\top$.
+\par\smallskip
+\textbf{Réponse.} Une base orthonormée est $q_1=(1,1,1,1)/2$, $q_2=(-5,-1,1,5)/\sqrt{52}$.
+    Alors $\langle b,q_1\rangle=-2$, $\langle b,q_2\rangle=26/\sqrt{52}$ et
+    \[
+      \operatorname{proj}_{\operatorname{im}A}b
+      =\langle b,q_1\rangle q_1+\langle b,q_2\rangle q_2
+      =(-7/2,-3/2,-1/2,3/2)^\top
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On travaille dans $\RR^4$ euclidien.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Donner une base orthonormale du plan $x+z+t=0$, $x-y+z=0$.
+\par\smallskip
+\textbf{Réponse.} Le plan est engendré par $u=(-1,0,1,0)$ et $v=(-1,-1,0,1)$.
+        Gram-Schmidt donne $u/\sqrt2$ et $(-1,-2,-1,2)/\sqrt{10}$.
+
+  \item \textbf{Question.} Donner une base orthonormale de l’orthogonal du plan $x+y-z+t=0$, $x-2y+3z-t=0$.
+\par\smallskip
+\textbf{Réponse.} L'orthogonal est engendré par les normales $u=(1,1,-1,1)$ et $v=(1,-2,3,-1)$.
+        Comme $u\cdot v=-5$ et $\|u\|^2=4$, une base orthonormale est
+        $u/2$, $(9,-3,7,1)/\sqrt{140}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $C^0([-1,1],\RR)$ avec $\langle f,g\rangle=\int_{-1}^1fg$, appliquer Gram-Schmidt à $(1,t,|t|)$ et donner une base orthonormée de l’espace engendré.
+\par\smallskip
+\textbf{Réponse.} Les fonctions $1$ et $t$ sont orthogonales par parité.
+    On retire de $|t|$ sa projection sur $1$, qui vaut $1/2$.
+    Les normes carrées sont $2$, $2/3$, $1/6$.
+    \[
+      \therefore\left(\frac1{\sqrt2},\sqrt{\frac32}\,t,\sqrt6\left(|t|-\frac12\right)\right)
+    \]
+    est une base orthonormée de $F$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $C^0([-\pi/2,\pi/2],\RR)$ avec $\langle f,g\rangle=\int_{-\pi/2}^{\pi/2}f(t)g(t)\cos t\,dt$, appliquer Gram-Schmidt à $(1,t,|t|)$.
+\par\smallskip
+\textbf{Réponse.} La parité rend $t$ orthogonal à $1$ et à $|t|$.
+    On calcule $\|1\|^2=2$, $\|t\|^2=\pi^2/2-4$ et $\langle|t|,1\rangle=\pi-2$.
+    Après soustraction de la constante $\pi/2-1$, la norme carrée du dernier vecteur vaut $2\pi-6$.
+    \[
+      \therefore\left(\frac1{\sqrt2},\frac{t}{\sqrt{\pi^2/2-4}},
+        \frac{|t|-\pi/2+1}{\sqrt{2\pi-6}}\right)
+    \]
+    est une base orthonormée de $F$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On travaille dans $\RR^m$ euclidien.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Pour $\|q\|=1$, écrire la matrice de projection orthogonale sur $\RR q$.
+\par\smallskip
+\textbf{Réponse.} Pour $\|q\|=1$, $p(x)=\langle q,x\rangle q$, donc $P=qq^\top$.
+
+  \item \textbf{Question.} Soit $A\in\RR^{m\times n}$, $m\geq n$, avec une décomposition $A=QR$, $Q$ orthogonale carrée, $R$ triangulaire supérieure à pivots non nuls. Exprimer la projection sur $\operatorname{im}A$ en fonction des colonnes $q_i$ de $Q$, sous la forme $\sum_{i=1}^r q_iq_i^\top$, et déterminer $r$.
+\par\smallskip
+\textbf{Réponse.} Il faut lire $A=QR$ et utiliser les $n$ premières colonnes de $Q$.
+        Comme les $n$ pivots de $R$ sont non nuls, ces colonnes engendrent $\operatorname{im}A$.
+        Si $Q_n=(q_1\ \cdots\ q_n)$,
+        \[
+          P=Q_nQ_n^\top=\sum_{i=1}^nq_iq_i^\top,\qquad r=n
+        \]
+        Le $QQ^\top$ imprimé avec $Q$ carrée vaut $I_m$ ; il faut donc le remplacer par $Q_nQ_n^\top$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $Q=I-2uu^\top$ avec $\|u\|=1$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $Qu=-u$.
+\par\smallskip
+\textbf{Réponse.} $Qu=u-2u(u^\top u)=-u$.
+
+  \item \textbf{Question.} Que vaut $Qv$ si $u^\top v=0$ ?
+\par\smallskip
+\textbf{Réponse.} Si $u^\top v=0$, alors $Qv=v$.
+
+  \item \textbf{Question.} Interpréter géométriquement l’action de $Q$.
+\par\smallskip
+\textbf{Réponse.} Tout $a$ se décompose en $a=\langle a,u\rangle u+v$, $v\perp u$.
+        $Q$ change le signe de la composante normale : c'est la réflexion d'hyperplan $u^\perp$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $M\in\RR^{n\times n}$ antisymétrique.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $I_n+M$ est inversible.
+\par\smallskip
+\textbf{Réponse.} Si $(I+M)x=0$, multiplier par $x^\top$ donne $\|x\|^2+x^\top Mx=0$.
+        Comme $M^\top=-M$, $x^\top Mx=0$, donc $x=0$.
+        $\therefore I+M$ est inversible.
+
+  \item \textbf{Question.} Montrer que $(I_n-M)(I_n+M)^{-1}$ est orthogonale.
+\par\smallskip
+\textbf{Réponse.} $I-M$ est aussi inversible, et tous les facteurs commutent.
+        Alors $A^\top=(I-M)^{-1}(I+M)$, donc $A^\top A=I$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $\RR^3$ euclidien, calculer la distance de $(1,-2,3)$ à la droite $D$ donnée par $x-z=0$, $3x+2y-3z=0$.
+\par\smallskip
+\textbf{Réponse.} Les équations de $D$ donnent $x=z$ et $y=0$, donc $D=\RR(1,0,1)$.
+    La projection de $(1,-2,3)$ sur $D$ est $(2,0,2)$.
+    $\therefore\operatorname{dist}(x,D)=\|(-1,-2,1)\|=\sqrt6$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer $\min_{a,b\in\RR}\int_0^1(t\ln t-at-b)^2dt$ et donner les valeurs de $a,b$ réalisant ce minimum.
+\par\smallskip
+\textbf{Réponse.} Les équations normales sont
+    $a/3+b/2=-1/9$, $a/2+b=-1/4$.
+    Elles donnent $a=1/6$, $b=-1/3$.
+    Comme $\int_0^1t^2(\ln t)^2dt=2/27$,
+    \[
+      \therefore\min\int_0^1(t\ln t-at-b)^2dt=\frac1{108}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Trouver $(a,b,c,d,e)\in\RR^5$ minimisant $\int_0^{2\pi}(e^{-t}\sin t-a-b\sin t-c\sin2t-d\cos t-e\cos2t)^2dt$.
+\par\smallskip
+\textbf{Réponse.} La famille $(1,\sin t,\sin2t,\cos t,\cos2t)$ est orthogonale, de normes carrées $2\pi,\pi,\pi,\pi,\pi$.
+    Les coefficients de la projection de $e^{-t}\sin t$ sont donc les produits scalaires divisés par ces normes.
+    En posant $h=1-e^{-2\pi}$, on obtient
+    \[
+      \therefore(a,b,c,d,e)=\left(\frac{h}{4\pi},\frac{2h}{5\pi},\frac{h}{5\pi},\frac{h}{5\pi},-\frac{h}{10\pi}\right)
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On note $DG(x_1,\ldots,x_p)=\det(\langle x_i,x_j\rangle)_{1\leq i,j\leq p}$ le déterminant de Gram.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $(b_1,\ldots,b_k)$ est une base de $V$, montrer que $\operatorname{dist}(f,V)=\sqrt{DG(b_1,\ldots,b_k,f)/DG(b_1,\ldots,b_k)}$.
+\par\smallskip
+\textbf{Réponse.} Écrivons $f=p_V(f)+r$ avec $r\perp V$.
+        Soustraire de la dernière ligne et de la dernière colonne de la matrice de Gram les combinaisons correspondant à $p_V(f)$ donne
+        $DG(b_1,\ldots,b_k,f)=DG(b_1,\ldots,b_k)\|r\|^2$.
+        En divisant puis en prenant la racine, on obtient la formule.
+
+  \item \textbf{Question.} Calculer $\inf_{a,b,c\in\RR}\int_0^\infty(x^3+ax^2+bx+c)^2e^{-x}dx$.
+\par\smallskip
+\textbf{Réponse.} Pour $\langle P,Q\rangle=\int_0^\infty P(x)Q(x)e^{-x}dx$, les moments valent $\int_0^\infty x^ke^{-x}dx=k!$.
+        Les équations d'orthogonalité à $1,x,x^2$ donnent
+        $x^3+ax^2+bx+c=x^3-9x^2+18x-6$.
+        Sa norme carrée vaut $36$.
+        $\therefore$ le minimum est $36$, atteint pour $(a,b,c)=(-9,18,-6)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Sur $E=\RR^{n\times n}$, on utilise $\langle A,B\rangle=\operatorname{tr}(A^\top B)$. Soient $\mathcal S$ et $\mathcal A$ les sous-espaces symétrique et antisymétrique.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\mathcal S\perp\mathcal A$.
+\par\smallskip
+\textbf{Réponse.} Si $S^\top=S$ et $A^\top=-A$, alors
+        $\operatorname{tr}(SA)=\operatorname{tr}((SA)^\top)=-\operatorname{tr}(AS)=-\operatorname{tr}(SA)$.
+        Donc $\langle S,A\rangle=0$.
+
+  \item \textbf{Question.} Calculer la distance d’une matrice $M$ à $\mathcal S$.
+\par\smallskip
+\textbf{Réponse.} $M=(M+M^\top)/2+(M-M^\top)/2$ est la décomposition orthogonale.
+        \[
+          \therefore\operatorname{dist}(M,\mathcal S)=\frac12\|M-M^\top\|_F
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On veut obtenir une décomposition $QR$ par réflexions de Householder dans $\RR^n$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} On définit $H_u=I_n-2uu^\top/(u^\top u)$ si $u\neq0$, et $H_0=I_n$.
+\begin{enumerate}[a.]
+            \item \textbf{Question.} Montrer que $H_u$ est symétrique et orthogonale.
+\par\smallskip
+\textbf{Réponse.} Pour $u\neq0$, $P=uu^\top/(u^\top u)$ vérifie $P^\top=P$, $P^2=P$.
+            Donc $H_u^\top=H_u$ et $H_u^2=(I-2P)^2=I$.
+            Le cas $u=0$ est immédiat.
+
+  \item \textbf{Question.} Pour $\|e\|=1$, montrer que $H_{v+\|v\|e}v=-\|v\|e$ et $H_{v-\|v\|e}v=\|v\|e$.
+\par\smallskip
+\textbf{Réponse.} Avec $u=v\pm\|v\|e$, un calcul donne $2u^\top v=u^\top u$.
+            Ainsi $H_uv=v-u=\mp\|v\|e$.
+            Si $u=0$, la même identité finale est directement vraie.
+
+\end{enumerate}
+
+  \item \textbf{Question.} Soit $A\in\RR^{n\times n}$.
+\begin{enumerate}[a.]
+            \item \textbf{Question.} Trouver $H$ de Householder telle que $HA$ ait des zéros sous la diagonale dans sa première colonne.
+\par\smallskip
+\textbf{Réponse.} Pour la première colonne $v$ de $A$, prendre $H=H_{v+\|v\|e_1}$.
+            Alors $Hv=-\|v\|e_1$.
+
+  \item \textbf{Question.} Construire $A^{(1)}=A$, $A^{(k+1)}=H^{(k)}A^{(k)}$, avec $H^{(k)}$ de Householder, jusqu’à obtenir une matrice triangulaire supérieure.
+\par\smallskip
+\textbf{Réponse.} À l'étape $k$, appliquer la construction au segment $k,\ldots,n$ de la colonne $k$ de $A^{(k)}$.
+            Prolonger la réflexion par l'identité sur les $k-1$ premières coordonnées.
+            Les zéros déjà obtenus sont conservés ; $A^{(n+1)}=R$ est triangulaire supérieure (c'est $A^{(n+1)}$, et non $H^{(n+1)}$).
+
+  \item \textbf{Question.} En déduire une décomposition $QR$ et établir le coût asymptotique annoncé $\sim2n^3/3$ (selon la convention de comptage).
+\par\smallskip
+\textbf{Réponse.} $R=H^{(n)}\cdots H^{(1)}A$, donc $A=QR$ avec $Q=H^{(1)}\cdots H^{(n)}$ orthogonale.
+            En appliquant chaque réflexion sous forme de mise à jour de rang $1$, le coût dominant est
+            $4\sum_{r=1}^nr^2\sim4n^3/3$ opérations scalaires, soit $2n^3/3$ paires multiplication-addition.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Reconnaître la transformation de $\RR^3$ de matrice $\displaystyle T=\frac14\begin{pmatrix}3&1&\sqrt6\\1&3&-\sqrt6\\-\sqrt6&\sqrt6&2\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} On vérifie $T^\top T=I_3$ et $\det T=1$ : c'est une rotation.
+    $\ker(T-I)=\RR(1,1,0)$ et $\operatorname{tr}T=2=1+2\cos\theta$.
+    Pour l'axe orienté par $(1,1,0)$, $T_{32}-T_{23}=\sqrt6/2>0$, donc $\sin\theta>0$.
+    $\therefore$ c'est la rotation d'axe $\RR(1,1,0)$ et d'angle $\pi/3$ dans cette orientation.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans $C^0([0,\pi],\RR)$ avec $\langle f,g\rangle=\int_0^\pi fg$, déterminer l’image de $v(t)=\sin t$ par symétrie orthogonale par rapport à $\Pi=\operatorname{Vect}(1,t)$.
+\par\smallskip
+\textbf{Réponse.} La projection $p(t)=a+bt$ vérifie $\int_0^\pi(\sin t-p(t))dt=0$ et
+    $\int_0^\pi t(\sin t-p(t))dt=0$.
+    Avec $\int\sin t=2$ et $\int t\sin t=\pi$, on obtient $a=2/\pi$, $b=0$.
+    La symétrie orthogonale vaut $2p-v$.
+    $\therefore s(v)(t)=4/\pi-\sin t$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour des fonctions continues $f_1,\ldots,f_n:[0,1]\to\RR$, existe-t-il une fonction continue $f$ telle que $\int_0^1f(x)f_i(x)dx=1$ pour chaque $i$ ?
+\par\smallskip
+\textbf{Réponse.} Pas toujours : si $f_1=0$, l'intégrale demandée vaut $0$.
+    La condition nécessaire et suffisante est
+    \[
+      \sum_i\lambda_i f_i=0\ \Longrightarrow\ \sum_i\lambda_i=0
+    \]
+    Nécessité : intégrer la relation contre $f$.
+    Suffisance : cette condition définit une forme linéaire $\ell$ sur $V=\operatorname{Vect}(f_i)$ par $\ell(f_i)=1$.
+    En dimension finie, il existe $f\in V$ tel que $\ell(g)=\langle f,g\rangle$ pour tout $g\in V$.
+    Cette fonction continue convient.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $M\in\RR^{n\times n}$ inversible, de colonnes $m_i$. Montrer l’inégalité d’Hadamard : $|\det M|\leq\prod_{i=1}^n\|m_i\|$.
+\par\smallskip
+\textbf{Réponse.} Dans $M=QR$ obtenue par Gram-Schmidt, $|\det Q|=1$ et
+    $r_{i,i}$ est la norme de la composante de $m_i$ orthogonale aux colonnes précédentes.
+    Ainsi $|r_{i,i}|\leq\|m_i\|$ et
+    $|\det M|=\prod_i|r_{i,i}|\leq\prod_i\|m_i\|$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $E$ euclidien de dimension $n\geq1$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer qu’un projecteur $p$ est orthogonal si et seulement si $\langle p(x),y\rangle=\langle x,p(y)\rangle$ pour tous $x,y$.
+\par\smallskip
+\textbf{Réponse.} Il faut supposer dès le départ que $p$ est un projecteur ($p^2=p$) : l'identité de symétrie seule ne suffit pas, par exemple pour $2I$.
+
+Si $p$ est orthogonal, $\langle p(x),y\rangle=\langle p(x),p(y)\rangle=\langle x,p(y)\rangle$.
+        Réciproquement, pour $x\in\ker p$, $y=p(z)\in\operatorname{im}p$,
+        $\langle x,y\rangle=\langle p(x),z\rangle=0$.
+        Donc noyau et image sont orthogonaux.
+
+  \item \textbf{Question.} Pour un projecteur orthogonal $p$, montrer que $\|p(x)\|^2=\langle p(x),x\rangle$.
+\par\smallskip
+\textbf{Réponse.} $\|p(x)\|^2=\langle x,p^2(x)\rangle=\langle x,p(x)\rangle$.
+
+  \item \textbf{Question.} Si $p$ est de rang $r$ et $(e_i)$ une base orthonormée, montrer que $r=\sum_i\|p(e_i)\|^2$.
+\par\smallskip
+\textbf{Réponse.} Dans une base orthonormale,
+        $\sum_i\|p(e_i)\|^2=\sum_i\langle p(e_i),e_i\rangle=\operatorname{tr}p=r$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A=(a_{i,j})\in\RR^{n\times n}$ orthogonale. Montrer que $\sum_{i=1}^n\sum_{j=1}^na_{i,j}\leq n$.
+\par\smallskip
+\textbf{Réponse.} Posons $\boldsymbol1=(1,\ldots,1)^\top$. Par Cauchy-Schwarz et l'orthogonalité de $A$,
+    \[
+      \sum_{i,j}a_{i,j}=\boldsymbol1^\top A\boldsymbol1
+      \leq\|\boldsymbol1\|\,\|A\boldsymbol1\|=\|\boldsymbol1\|^2=n
+    \]
+    L'égalité est atteinte si et seulement si $A\boldsymbol1=\boldsymbol1$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $A\in\RR^{n\times n}$ telle que $A^2=0$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $\ker(A+A^\top)=\ker A\cap\ker A^\top$.
+\par\smallskip
+\textbf{Réponse.} Si $(A+A^\top)x=0$, alors $Ax=-A^\top x$.
+        Leur produit scalaire vaut $x^\top(A^\top)^2x=0$ car $A^2=0$.
+        Il vaut aussi $-\|Ax\|^2$, donc $Ax=A^\top x=0$.
+        L'autre inclusion est immédiate.
+
+  \item \textbf{Question.} En déduire que $A+A^\top$ est inversible si et seulement si $\operatorname{im}A=\ker A$.
+\par\smallskip
+\textbf{Réponse.} Posons $r=\operatorname{rg}A$.
+        Comme $\operatorname{im}A\subseteq\ker A$, $r\leq n/2$.
+        Si $A+A^\top$ est inversible, la question 1 donne
+        $\ker A\cap(\operatorname{im}A)^\perp=0$, donc $n-r\leq r$.
+        Ainsi $r=n/2$ et $\operatorname{im}A=\ker A$.
+        Réciproquement, cette égalité rend l'intersection nulle, donc $A+A^\top$ est inversible.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a,b$ unitaires dans un espace euclidien de dimension $n\geq2$. Déterminer le maximum et le minimum de $x\mapsto\langle a,x\rangle\langle b,x\rangle$ sur la sphère $\|x\|=1$.
+\par\smallskip
+\textbf{Réponse.} Posons $c=\langle a,b\rangle$. Pour $\|x\|=1$,
+    \[
+      f(x)=\frac14\left(\langle a+b,x\rangle^2-\langle a-b,x\rangle^2\right)
+    \]
+    Comme $a+b\perp a-b$, les valeurs extrêmes sont
+    \[
+      \therefore\max f=\frac{1+c}{2},\qquad\min f=\frac{c-1}{2}
+    \]
+    Si $a\neq\pm b$, elles sont atteintes en $x=\pm(a+b)/\|a+b\|$ et $x=\pm(a-b)/\|a-b\|$.
+    Si $a=b$, les extrêmes sont $1$ sur $\RR a$ et $0$ sur $a^\perp$.
+    Si $a=-b$, ils sont $0$ sur $a^\perp$ et $-1$ sur $\RR a$.
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

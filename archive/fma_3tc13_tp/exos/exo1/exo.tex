@@ -1,0 +1,158 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 1}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=1.\arabic*., start=15]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $f:\RR\to\RR$. Nier les affirmations suivantes de la manière la plus précise possible.
+
+\begin{enumerate}[\arabic*.]
+      \item \textbf{Question.} Pour tout $x\in\RR$, $f(x)\leq1$.
+\par\smallskip
+\textbf{Réponse.} $\exists x \in \RR,\; f(x)>1$.
+
+  \item \textbf{Question.} L'application $f$ est croissante.
+\par\smallskip
+\textbf{Réponse.} $\exists x,x'\in\RR,\;x<x' \text{ et } f(x)>f(x')$.
+
+  \item \textbf{Question.} L'application $f$ est croissante et positive.
+\par\smallskip
+\textbf{Réponse.} $(\exists x<x',\;f(x)>f(x'))\lor(\exists x\in\RR,\;f(x)<0)$.
+
+  \item \textbf{Question.} Il existe $x\in\RR_{\geq0}$ tel que $f(x)\leq0$.
+\par\smallskip
+\textbf{Réponse.} $\forall x\in\RR_{\geq0},\;f(x)>0$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour chaque fonction, dire si elle est injective, surjective, bijective. Déterminer $f^{-1}(\{0\})$, $f^{-1}(\{0,1\})$, $f^{-1}(\NN)$ et l'image de $f$.
+
+\begin{enumerate}[\arabic*.]
+      \item \textbf{Question.} $f_1:\ZZ\to\ZZ$, $n\mapsto2n$.
+\par\smallskip
+\textbf{Réponse.} $f_1$ est injective, mais non surjective : $2n=2m\Rightarrow n=m$, et $1$ n'a pas d'antécédent.\\
+      $f_1^{-1}(\{0\})=\{0\}$, $f_1^{-1}(\{0,1\})=\{0\}$, $f_1^{-1}(\NN)=\NN$, $f_1(\ZZ)=2\ZZ$.
+
+  \item \textbf{Question.} $f_2:\ZZ\to\ZZ$, $n\mapsto-n$.
+\par\smallskip
+\textbf{Réponse.} $f_2$ est bijective car $f_2\circ f_2=\operatorname{id}_{\ZZ}$.\\
+      $f_2^{-1}(\{0\})=\{0\}$, $f_2^{-1}(\{0,1\})=\{0,-1\}$, $f_2^{-1}(\NN)=-\NN$, $f_2(\ZZ)=\ZZ$.
+
+  \item \textbf{Question.} $f_3:\RR\to\RR$, $x\mapsto x^2$.
+\par\smallskip
+\textbf{Réponse.} $f_3$ n'est ni injective ($f_3(1)=f_3(-1)$), ni surjective ($-1$ n'a pas d'antécédent).\\
+      $f_3^{-1}(\{0\})=\{0\}$, $f_3^{-1}(\{0,1\})=\{-1,0,1\}$,\\
+      $f_3^{-1}(\NN)=\{\pm\sqrt n:n\in\NN\}$, $f_3(\RR)=\RR_{\geq0}$.
+
+  \item \textbf{Question.} $f_4:\RR\to\RR_{\geq0}$, $x\mapsto x^2$.
+\par\smallskip
+\textbf{Réponse.} $f_4$ est surjective car $y=f_4(\sqrt y)$ pour tout $y\geq0$, mais non injective.\\
+      $f_4^{-1}(\{0\})=\{0\}$, $f_4^{-1}(\{0,1\})=\{-1,0,1\}$,\\
+      $f_4^{-1}(\NN)=\{\pm\sqrt n:n\in\NN\}$, $f_4(\RR)=\RR_{\geq0}$.
+
+  \item \textbf{Question.} $f_5:\CC\to\CC$, $z\mapsto z^2$.
+\par\smallskip
+\textbf{Réponse.} $f_5$ est surjective car tout complexe possède une racine carrée, mais non injective.\\
+      $f_5^{-1}(\{0\})=\{0\}$, $f_5^{-1}(\{0,1\})=\{-1,0,1\}$,\\
+      $f_5^{-1}(\NN)=\{\pm\sqrt n:n\in\NN\}$, $f_5(\CC)=\CC$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $f:A\to B$, $g:B\to C$, $h:C\to D$. Montrer les implications suivantes.
+
+\begin{enumerate}[\arabic*.]
+      \item \textbf{Question.} Si $g\circ f$ est injective, alors $f$ est injective.
+\par\smallskip
+\textbf{Réponse.} Si $g\circ f$ est injective, alors $f$ est injective
+      \begin{enumproof}
+        \item Soient $x,x'\in A$ tels que $f(x)=f(x')$
+        \item Alors $g(f(x))=g(f(x'))$
+        \item Donc $x=x'$\hfill(Injectivité de $g\circ f$)
+        \item $\therefore f$ est injective
+      \end{enumproof}
+
+  \item \textbf{Question.} Si $g\circ f$ est surjective, alors $g$ est surjective.
+\par\smallskip
+\textbf{Réponse.} Si $g\circ f$ est surjective, alors $g$ est surjective
+      \begin{enumproof}
+        \item Soit $z\in C$. Il existe $x\in A$ tel que $g(f(x))=z$
+        \item Alors $y=f(x)\in B$ vérifie $g(y)=z$
+        \item $\therefore g$ est surjective
+      \end{enumproof}
+
+  \item \textbf{Question.} Si $g\circ f$ et $h\circ g$ sont bijectives, alors $f,g,h$ sont bijectives.
+\par\smallskip
+\textbf{Réponse.} Si $g\circ f$ et $h\circ g$ sont bijectives, alors $f,g,h$ sont bijectives
+      \begin{enumproof}
+        \item $h\circ g$ injective implique $g$ injective\hfill(Question 1)
+        \item $g\circ f$ surjective implique $g$ surjective\hfill(Question 2)
+        \item Donc $g$ est bijective
+        \item $f=g^{-1}\circ(g\circ f)$ et $h=(h\circ g)\circ g^{-1}$ sont des compositions de bijections
+        \item $\therefore f,g,h$ sont bijectives
+      \end{enumproof}
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soit $f:X\to Y$. Sur les ensembles de parties, on définit $\hat f:\mathcal P(X)\to\mathcal P(Y)$, $A\mapsto f(A)$, et $\check f:\mathcal P(Y)\to\mathcal P(X)$, $B\mapsto f^{-1}(B)$.
+
+\begin{enumerate}[\arabic*.]
+      \item \textbf{Question.} Montrer que $f$ est injective si et seulement si $\hat f$ est injective.
+\par\smallskip
+\textbf{Réponse.} $f$ est injective si et seulement si $\hat f$ est injective
+      \begin{enumproof}
+        \item ($\Rightarrow$) Supposons $f$ injective et $f(A)=f(A')$.
+          Pour $x\in A$, il existe $x'\in A'$ tel que $f(x)=f(x')$.
+          Alors $x=x'\in A'$, donc $A\subseteq A'$.
+          De même $A'\subseteq A$, donc $A=A'$.
+        \item ($\Leftarrow$) Si $f(x)=f(x')$, alors $\hat f(\{x\})=\hat f(\{x'\})$.
+          L'injectivité de $\hat f$ donne $\{x\}=\{x'\}$, donc $x=x'$.
+      \end{enumproof}
+
+  \item \textbf{Question.} Montrer que $f$ est surjective si et seulement si $\check f$ est injective.
+\par\smallskip
+\textbf{Réponse.} $f$ est surjective si et seulement si $\check f$ est injective
+      \begin{enumproof}
+        \item ($\Rightarrow$) Supposons $f$ surjective et $f^{-1}(B)=f^{-1}(B')$.
+          Si $y\in B$, choisissons $x\in X$ tel que $f(x)=y$.
+          Alors $x\in f^{-1}(B)=f^{-1}(B')$, donc $y\in B'$.
+          Par symétrie, $B=B'$.
+        \item ($\Leftarrow$) Si $f$ n'est pas surjective, il existe $y\in Y$ sans antécédent.
+          Alors $\check f(\{y\})=\varnothing=\check f(\varnothing)$, alors que $\{y\}\neq\varnothing$.
+          Ceci contredit l'injectivité de $\check f$.
+      \end{enumproof}
+
+\end{enumerate}
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

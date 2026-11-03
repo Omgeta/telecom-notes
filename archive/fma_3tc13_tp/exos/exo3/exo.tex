@@ -1,0 +1,209 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 3}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=3.\arabic*., start=25]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Déterminer la forme échelonnée réduite par lignes de chaque matrice.
+
+\begin{enumerate}[\arabic*.]
+      \item \textbf{Question.} $\displaystyle A=\begin{pmatrix}2&1&-3\\3&2&1\\7&4&-5\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle A\xrightarrow{RREF}\begin{pmatrix}1&0&-7\\0&1&11\\0&0&0\end{pmatrix}$.
+
+  \item \textbf{Question.} $\displaystyle B=\begin{pmatrix}1&1&-1&1\\2&-2&1&-3\\-1&1&1&-2\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle B\xrightarrow{RREF}\begin{pmatrix}1&0&0&-5/6\\0&1&0&-1/2\\0&0&1&-7/3\end{pmatrix}$.
+
+  \item \textbf{Question.} $\displaystyle C=\begin{pmatrix}1&2&-1&1\\1&3&1&1\\-1&1&7&2\\2&1&-8&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle C\xrightarrow{RREF}\begin{pmatrix}1&0&-5&0\\0&1&2&0\\0&0&0&1\\0&0&0&0\end{pmatrix}$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Résoudre dans $\RR$ les systèmes suivants.
+\begin{enumerate}[label=\arabic*.,start=1]
+\item \textbf{Question.} $\displaystyle\begin{cases}x+y+2z=5,\\x-y-z=1,\\x+z=3.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} Par réduction des matrices augmentées :
+
+$\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&0&3\\0&1&0&2\\0&0&1&0\end{pmatrix}$.
+        $\therefore (x,y,z)=(3,2,0)$.
+
+\item \textbf{Question.} $\displaystyle\begin{cases}x-3y+z=1,\\2x+y+z=-1,\\x+11y-z=5.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&4/7&0\\0&1&-1/7&0\\0&0&0&1\end{pmatrix}$.
+        La dernière ligne donne $0=1$. $\therefore$ aucune solution.
+
+\item \textbf{Question.} $\displaystyle\begin{cases}2t+3x+4y+z=3,\\6t+6x+8y+2z=7,\\10t+9x+12y+3z=0.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&0&0&0\\0&1&4/3&1/3&0\\0&0&0&0&1\end{pmatrix}$.
+        $\therefore$ aucune solution.
+
+\end{enumerate}
+\end{minipage}
+\par\medskip
+\begin{minipage}[t]{\linewidth}\raggedright
+\textit{Exercice 3.26 (suite).}\par\smallskip\textbf{Énoncé.} Résoudre dans $\RR$ les systèmes suivants.
+\begin{enumerate}[label=\arabic*.,start=4]
+\item \textbf{Question.} $\displaystyle\begin{cases}2t+2x-3y+6z=5,\\t+y-2z=1,\\-3t+z=2.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&0&-1/3&-2/3\\0&1&0&5/6&17/3\\0&0&1&-5/3&5/3\end{pmatrix}$.
+        \[
+          \therefore(t,x,y,z)=\left(-\frac23+\frac\lambda3,\frac{17}3-\frac{5\lambda}6,
+          \frac53+\frac{5\lambda}3,\lambda\right),\quad\lambda\in\RR
+        \]
+
+\item \textbf{Question.} $\displaystyle\begin{cases}t+x+y-z=2,\\-2t+2x-2y+z=1,\\-2t-x+y+z=-2.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&0&-1/2&1/2\\0&1&0&-1/4&5/4\\0&0&1&-1/4&1/4\end{pmatrix}$.
+        \[
+          \therefore(t,x,y,z)=\left(\frac12,\frac54,\frac14,0\right)
+          +\lambda\left(\frac12,\frac14,\frac14,1\right),\quad\lambda\in\RR
+        \]
+
+\item \textbf{Question.} $\displaystyle\begin{cases}t+x-2y+z=1,\\2x+y-z=2,\\t+3x-y=3,\\2t+4x-3y+z=4.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\xrightarrow{RREF}\begin{pmatrix}1&0&-5/2&3/2&0\\0&1&1/2&-1/2&1\\0&0&0&0&0\\0&0&0&0&0\end{pmatrix}$.
+        \[
+          \therefore(t,x,y,z)=\left(\frac{5\lambda-3\mu}2,1-\frac\lambda2+\frac\mu2,\lambda,\mu\right),
+          \quad\lambda,\mu\in\RR
+        \]
+
+\end{enumerate}
+
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Résoudre et discuter suivant les paramètres réels $a,b,c,m$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $\displaystyle\begin{cases}x-3y+7z=a,\\x+2y-3z=b,\\7x+4y-z=c.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} $\displaystyle [A\mid b]\sim\begin{pmatrix}1&0&1&(2a+3b)/5\\0&1&-2&(b-a)/5\\0&0&0&c-2a-5b\end{pmatrix}$.
+
+        Si $c\neq2a+5b$, aucune solution. Si $c=2a+5b$,
+        \[
+          (x,y,z)=\left(\frac{2a+3b}5-\lambda,\frac{b-a}5+2\lambda,\lambda\right),\quad\lambda\in\RR
+        \]
+
+  \item \textbf{Question.} $\displaystyle\begin{cases}(1-m)x+2y-3z=0,\\-2x-(3+m)y+3z=0,\\x+y-(2+m)z=0.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} Le déterminant vaut $-(m+1)^2(m+2)$.
+        Si $m\notin\{-1,-2\}$, seule solution : $(0,0,0)$.
+
+        Si $m=-1$, $(x,y,z)=\lambda(-1,1,0)$.
+        Si $m=-2$, $(x,y,z)=\lambda(3,-3,1)$, où $\lambda\in\RR$.
+
+  \item \textbf{Question.} $\displaystyle\begin{cases}(4-m)x+2y=-4,\\-x+(1-m)y=m.\end{cases}$
+\par\smallskip
+\textbf{Réponse.} En remplaçant la première ligne par sa somme avec $(4-m)$ fois la seconde,
+        \[
+          x=(1-m)y-m,\qquad (m-2)(m-3)y=-(m-2)^2
+        \]
+        Si $m\notin\{2,3\}$, $(x,y)=\left(\frac2{m-3},-\frac{m-2}{m-3}\right)$.
+
+        Si $m=2$, $(x,y)=(-2,0)+\lambda(-1,1)$, où $\lambda\in\RR$.
+        Si $m=3$, aucune solution.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $n\geq2$. Résoudre $x_i+\sum_{k=1}^nx_k=i$ pour $1\leq i\leq n$.
+\par\smallskip
+\textbf{Réponse.} Posons $S=\sum_{k=1}^n x_k$. Les équations donnent $x_i+S=i$.
+    En sommant, $(n+1)S=\sum_{i=1}^n i=n(n+1)/2$, donc $S=n/2$.
+
+    $\therefore x_i=i-n/2$ pour tout $i\in\{1,\ldots,n\}$.
+    Réciproquement, ces valeurs ont bien pour somme $n/2$ et vérifient le système.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Dans un repère de l'espace, soient $A=(-1,2,1)$, $B=(1,-6,-1)$ et $C=(2,2,2)$. Donner un système paramétrique et une équation cartésienne du plan $(ABC)$.
+\par\smallskip
+\textbf{Réponse.} $\vec{AB}=(2,-8,-2)$ et $\vec{AC}=(3,0,1)$ ne sont pas colinéaires.
+    \[
+      \therefore (x,y,z)=(-1,2,1)+s(2,-8,-2)+t(3,0,1),\quad s,t\in\RR
+    \]
+    Le vecteur $(1,1,-3)$ est orthogonal à $\vec{AB}$ et $\vec{AC}$.
+    Comme $A=(-1,2,1)$ appartient au plan, $-1+2-3+d=0$, donc $d=2$.
+
+    $\therefore x+y-3z+2=0$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Donner une équation paramétrique de la droite $D:\ x+y-3z=-6$, $-2x-4y+3z=-1$.
+\par\smallskip
+\textbf{Réponse.} En éliminant $x$, $2y+3z=13$, puis $x=-25/2+9z/2$.
+    \[
+      \therefore (x,y,z)=\left(-\frac{25}2,\frac{13}2,0\right)+s(9,-3,2),\quad s\in\RR
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Sur une grille $1\leq i\leq m$, $1\leq j\leq n$, les inconnues vérifient $x_{i-1,j}+x_{i+1,j}+x_{i,j-1}+x_{i,j+1}-4x_{i,j}=0$, avec $x_{0,j}=x_{m+1,j}=x_{i,0}=0$ et $x_{i,n+1}=1$ (les coins ne sont pas utilisés).
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Écrire le système sous la forme $Az=b$, en explicitant $A,b$.
+\par\smallskip
+\textbf{Réponse.} On range les inconnues par $k=(i-1)n+j-1$, pour $1\leq i\leq m$, $1\leq j\leq n$.
+        Alors $z_k=x_{i,j}$ et $Az=b$, où $A_{k,k}=-4$, $A_{k,\ell}=1$ si les points sont voisins dans la grille, et $0$ sinon.
+        Enfin, $b_k=-1$ si $j=n$, et $b_k=0$ sinon.
+
+  \item \textbf{Question.} Résoudre avec SageMath et reproduire la représentation par \texttt{matrix\_plot} pour $m=100$, $n=110$.
+\par\smallskip
+\textbf{Réponse.} Avec SageMath (indices de grille commençant à $0$) :
+\begin{lstlisting}[style=mystyle,language=Python]
+m, n = 100, 110
+from scipy.sparse import lil_matrix
+from scipy.sparse.linalg import spsolve
+A = lil_matrix((m*n, m*n))
+b = vector(RDF, m*n)
+for i in range(m):
+    for j in range(n):
+        k = i*n + j
+        A[k,k] = -4
+        for u,v in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+            if 0 <= u < m and 0 <= v < n:
+                A[k,u*n+v] = 1
+        if j == n-1:
+            b[k] = -1
+z = spsolve(A.tocsr(), list(b))
+X = matrix(RDF, m, n, list(z))
+matrix_plot(X)
+\end{lstlisting}
+        Pour $m=100$, $n=110$, on obtient :
+        \[\includegraphics[width=0.55\linewidth]{figures/laplace.pdf}\]
+
+\end{enumerate}
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

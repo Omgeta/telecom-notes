@@ -1,0 +1,455 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\input{preamble}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC13\_TP Poly Exercices 4}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 25-26 S1}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{center}
+{\normalsize{\textbf{\mytitle}}} \\
+{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+\end{center}
+\setlist{topsep=-1em, itemsep=-1em, parsep=2em}
+\setlist[enumerate]{topsep=0.4em,itemsep=0.8em,parsep=0.35em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      Begin                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}[label=4.\arabic*., start=60]
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer l’inverse de $\displaystyle P=\begin{pmatrix}1&2&-1&3&1&2&4\\0&1&2&-1&3&1&2\\0&0&1&2&-1&3&1\\0&0&0&1&2&-1&3\\0&0&0&0&1&2&-1\\0&0&0&0&0&1&2\\0&0&0&0&0&0&1\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} La réduction de $[P\mid I_7]$ donne $[I_7\mid P^{-1}]$, avec
+    \[
+      P^{-1}=\begin{pmatrix}
+        1&-2&5&-15&40&-110&300\\
+        0&1&-2&5&-15&40&-110\\
+        0&0&1&-2&5&-15&40\\
+        0&0&0&1&-2&5&-15\\
+        0&0&0&0&1&-2&5\\
+        0&0&0&0&0&1&-2\\
+        0&0&0&0&0&0&1
+      \end{pmatrix}
+    \]
+    Le produit $PP^{-1}=I_7$ vérifie le résultat.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Existe-t-il $X\in\RR^{3\times3}$ telle que $XA=B$, avec $\displaystyle A=\begin{pmatrix}1&2&-1\\2&-1&-1\\-5&0&3\end{pmatrix}$ et $\displaystyle B=\begin{pmatrix}-2&1&1\\8&-1&-5\\4&3&-3\end{pmatrix}$ ?
+\par\smallskip
+\textbf{Réponse.} Non. Pour $v=(3,1,5)^\top$, on calcule $Av=0$ mais $Bv=(0,-2,0)^\top\neq0$.
+    Si $XA=B$, alors $Bv=XAv=0$, contradiction.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $n\geq1$, $\zeta=e^{2i\pi/n}$, $A_{i,j}=\zeta^{(i-1)(j-1)}$ et $B_{i,j}=\zeta^{(i-1)(1-j)}$ pour $1\leq i,j\leq n$. Calculer $A^2,B^2,AB,BA,A^{-1},B^{-1}$.
+\par\smallskip
+\textbf{Réponse.} Posons $R_{i,j}=1$ si $i+j\equiv2\pmod n$, et $R_{i,j}=0$ sinon.
+    La somme géométrique donne
+    \[
+      \sum_{k=0}^{n-1}\zeta^{k\ell}=\begin{cases}n&n\mid\ell,\\0&n\nmid\ell.\end{cases}
+    \]
+    Ainsi $(A^2)_{i,j}=\sum_{k=0}^{n-1}\zeta^{k(i+j-2)}$ et
+    $(AB)_{i,j}=\sum_{k=0}^{n-1}\zeta^{k(i-j)}$.
+    De même pour $B^2$ et $BA$,
+    \[
+      \therefore A^2=B^2=nR,\quad AB=BA=nI_n,\quad A^{-1}=\frac1nB,\quad B^{-1}=\frac1nA
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On pose $u_{n+1}=(3u_n+2)/(u_n+2)$, $v_0=u_0$, $w_0=1$, $v_{n+1}=3v_n+2w_n$ et $w_{n+1}=v_n+2w_n$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $u_n=v_n/w_n$.
+\par\smallskip
+\textbf{Réponse.} Tant que la suite est définie, $u_n=v_n/w_n$ par récurrence : c'est vrai pour $n=0$, et
+        \[
+          \frac{v_{n+1}}{w_{n+1}}=\frac{3v_n+2w_n}{v_n+2w_n}
+          =\frac{3u_n+2}{u_n+2}=u_{n+1}
+        \]
+
+  \item \textbf{Question.} Trouver $A\in\RR^{2\times2}$ telle que $(v_{n+1},w_{n+1})^\top=A(v_n,w_n)^\top$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle A=\begin{pmatrix}3&2\\1&2\end{pmatrix}$.
+
+  \item \textbf{Question.} Pour $P=\begin{pmatrix}-1&2\\1&1\end{pmatrix}$, calculer $P^{-1}AP$ et en déduire $A^n$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle P^{-1}=\frac13\begin{pmatrix}-1&2\\1&1\end{pmatrix}$ et
+        $\displaystyle P^{-1}AP=\begin{pmatrix}1&0\\0&4\end{pmatrix}$, donc
+        \[
+          A^n=\frac13\begin{pmatrix}1+2\cdot4^n&2\cdot4^n-2\\4^n-1&4^n+2\end{pmatrix}
+        \]
+
+  \item \textbf{Question.} Calculer $v_n,w_n$ et $\lim_{n\to\infty}u_n$.
+\par\smallskip
+\textbf{Réponse.} En appliquant $A^n$ à $(u_0,1)^\top$,
+        \[
+          v_n=\frac{2(u_0+1)4^n+u_0-2}{3},\qquad
+          w_n=\frac{(u_0+1)4^n-u_0+2}{3}
+        \]
+        Si $u_0=-1$, $u_n=-1$ pour tout $n$ et la limite vaut $-1$.
+        Sinon, dès que la suite est définie pour tout $n$, $\lim u_n=2$.
+        Les valeurs initiales exclues sont $u_0=-(4^r+2)/(4^r-1)$ pour $r\geq1$ : elles donnent $w_r=0$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $a,b\in K$ et $M\in K^{n\times n}$, de diagonale $a$, première surdiagonale $b$, et tous les autres coefficients nuls. Calculer $M^k$ pour tout $k\in\NN$.
+\par\smallskip
+\textbf{Réponse.} Soit $N$ la matrice dont la première surdiagonale vaut $1$ et les autres coefficients $0$.
+    Alors $M=aI_n+bN$, $N^n=0$, et
+    \[
+      \therefore M^k=\sum_{r=0}^{\min(k,n-1)}\binom kr a^{k-r}b^rN^r
+    \]
+    Autrement dit, $(M^k)_{i,j}=\binom{k}{j-i}a^{k-j+i}b^{j-i}$ si $0\leq j-i\leq k$, et $0$ sinon.
+    On prend $M^0=I_n$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Calculer les puissances de $K\in\QQ^{n\times n}$ définie par $K_{1,j}=K_{j,1}=1$ pour $j>1$, tous les autres coefficients étant nuls.
+\par\smallskip
+\textbf{Réponse.} En notant $J_{n-1}$ la matrice pleine de $1$,
+    \[
+      K^2=\begin{pmatrix}n-1&0\\0&J_{n-1}\end{pmatrix},\qquad K^3=(n-1)K
+    \]
+    Donc $K^0=I_n$ et, pour $r\geq0$,
+    \[
+      K^{2r+1}=(n-1)^rK,\qquad K^{2r+2}=(n-1)^rK^2
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Pour $\alpha\in\RR$, discuter l’inversibilité et calculer l’inverse lorsqu’il existe.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $\displaystyle A=\begin{pmatrix}\cosh\alpha&\sinh\alpha\\\sinh\alpha&\cosh\alpha\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $\det A=\cosh^2\alpha-\sinh^2\alpha=1$.
+        $\displaystyle\therefore A^{-1}=\begin{pmatrix}\cosh\alpha&-\sinh\alpha\\-\sinh\alpha&\cosh\alpha\end{pmatrix}$.
+
+  \item \textbf{Question.} $\displaystyle B=\begin{pmatrix}\alpha&1&1\\1&\alpha&1\\1&1&\alpha\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} $B=(\alpha-1)I_3+J_3$, où $J_3^2=3J_3$.
+        Alors $\det B=(\alpha-1)^2(\alpha+2)$.
+        Si $\alpha\notin\{1,-2\}$,
+        \[
+          B^{-1}=\frac1{\alpha-1}I_3-\frac1{(\alpha-1)(\alpha+2)}J_3
+        \]
+        Sinon $B$ n'est pas inversible.
+
+  \item \textbf{Question.} $\displaystyle C=\begin{pmatrix}1&2&1\\1&1&\alpha+1\\1&1&-\alpha^2\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Posons $d=\alpha^2+\alpha+1=(\alpha+1/2)^2+3/4>0$.
+        $\det C=d$, donc $C$ est toujours inversible sur $\RR$, avec
+        \[
+          C^{-1}=\frac1d\begin{pmatrix}-d&2\alpha^2+1&2\alpha+1\\d&-\alpha^2-1&-\alpha\\0&1&-1\end{pmatrix}
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} On considère $\displaystyle A=\begin{pmatrix}0&-1&1\\1&2&-3\\1&1&-2\end{pmatrix}$ et $\displaystyle P=\begin{pmatrix}1&1&0\\1&-1&1\\1&0&1\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Montrer que $P$ est inversible et calculer $P^{-1}$.
+\par\smallskip
+\textbf{Réponse.} $\det P=-1\neq0$ et $\displaystyle P^{-1}=\begin{pmatrix}1&1&-1\\0&-1&1\\-1&-1&2\end{pmatrix}$.
+
+  \item \textbf{Question.} Calculer $D=P^{-1}AP$.
+\par\smallskip
+\textbf{Réponse.} $D=P^{-1}AP=\operatorname{diag}(0,1,-1)$.
+
+  \item \textbf{Question.} Calculer $D^n$ pour tout $n\in\NN$.
+\par\smallskip
+\textbf{Réponse.} $D^0=I_3$ et $D^n=\operatorname{diag}(0,1,(-1)^n)$ pour $n\geq1$.
+
+  \item \textbf{Question.} En déduire $A^n$ pour tout $n\in\NN$.
+\par\smallskip
+\textbf{Réponse.} $A^0=I_3$ et, pour $n\geq1$, en posant $s=(-1)^n$,
+        \[
+          A^n=PD^nP^{-1}=\begin{pmatrix}0&-1&1\\-s&-1-s&1+2s\\-s&-s&2s\end{pmatrix}
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $x,y,z\in K$. Calculer $A^k$ pour tout $k\in\NN$, pour la matrice imprimée $\displaystyle A=\begin{pmatrix}x^2&xy&xz\\xy&y^2&yz\\xz&xy&y^2\end{pmatrix}$.
+\par\smallskip
+\textbf{Réponse.} Le corrigé utilise la matrice symétrique $A=vv^\top$, $v=(x,y,z)^\top$ : la dernière ligne est alors $(xz,yz,z^2)$.
+    Pour cette version, $A^2=(v^\top v)A$, donc
+    \[
+      A^0=I_3,\qquad A^k=(x^2+y^2+z^2)^{k-1}A\quad(k\geq1)
+    \]
+    Pour la matrice imprimée, dont la dernière ligne est $(xz,xy,y^2)$, on a exactement
+    \[
+      A=UV,\quad U=\begin{pmatrix}x&0\\y&0\\0&1\end{pmatrix},\quad
+      V=\begin{pmatrix}x&y&z\\xz&xy&y^2\end{pmatrix},\quad
+      C=VU=\begin{pmatrix}x^2+y^2&z\\x^2z+xy^2&y^2\end{pmatrix}
+    \]
+    Ainsi $A^k=UC^{k-1}V$ pour $k\geq1$.
+    Les puissances de $C$ se calculent par $C^0=I_2$, $C^1=C$ et
+    $C^{r+2}=(x^2+2y^2)C^{r+1}-\det(C)C^r$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A,B\in\RR^{n\times n}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Si $\operatorname{tr}(AA^\top)=0$, que peut-on dire de $A$ ?
+\par\smallskip
+\textbf{Réponse.} $\operatorname{tr}(AA^\top)=\sum_{i,j}a_{i,j}^2=0$.
+        Une somme de carrés réels est nulle seulement si chaque terme est nul. $\therefore A=0$.
+
+  \item \textbf{Question.} Si $\operatorname{tr}(XA)=\operatorname{tr}(XB)$ pour tout $X\in\RR^{n\times n}$, que peut-on dire de $A,B$ ?
+\par\smallskip
+\textbf{Réponse.} Pour $X=E_{j,i}$, $\operatorname{tr}(XA)=a_{i,j}$ et $\operatorname{tr}(XB)=b_{i,j}$.
+        $\therefore A=B$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $A,B\in K^{n\times n}$ inversibles. Simplifier au maximum.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} $(2I_n+B^{-1})B+A(B-A^{-1}+2A^{-1}B)-AB$.
+\par\smallskip
+\textbf{Réponse.} $(2I_n+B^{-1})B+A(B-A^{-1}+2A^{-1}B)-AB
+        =2B+I_n+AB-I_n+2B-AB=4B$.
+
+  \item \textbf{Question.} $A(7I_n+A^{-1})-B(5B^{-1}A+B^{-1}+A)+A(B-2I_n)$.
+\par\smallskip
+\textbf{Réponse.} $A(7I_n+A^{-1})-B(5B^{-1}A+B^{-1}+A)+A(B-2I_n)
+        =7A+I_n-5A-I_n-BA+AB-2A=AB-BA$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $h_1,\ldots,h_n\in K\setminus\{0\}$. La matrice $M$ a pour diagonale $1+1/h_i$ et pour autres coefficients $1$. Calculer son inverse lorsqu’il existe.
+\par\smallskip
+\textbf{Réponse.} Posons $H=\operatorname{diag}(h_1,\ldots,h_n)$, $h=(h_1,\ldots,h_n)^\top$ et $s=1+\sum_i h_i$.
+    Alors $M=H^{-1}+\boldsymbol{1}\boldsymbol{1}^\top$.
+    Si $s\neq0$, un produit direct donne
+    \[
+      \therefore M^{-1}=H-\frac{hh^\top}{s},\qquad
+      (M^{-1})_{i,j}=h_i\delta_{i,j}-\frac{h_ih_j}{s}
+    \]
+    Si $s=0$, $Mh=s\boldsymbol{1}=0$ alors que $h\neq0$ : $M$ n'est pas inversible.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\alpha_1,\ldots,\alpha_n\neq0$. La matrice $M$ a pour seuls coefficients non nuls $M_{i,n+1-i}=\alpha_i$. Calculer son inverse lorsqu’il existe.
+\par\smallskip
+\textbf{Réponse.} Soit $R$ la matrice qui renverse l'ordre des coordonnées. Alors $R^2=I_n$ et
+    $M=\operatorname{diag}(\alpha_1,\ldots,\alpha_n)R$.
+    \[
+      \therefore M^{-1}=R\operatorname{diag}(\alpha_1^{-1},\ldots,\alpha_n^{-1})
+    \]
+    Ses seuls coefficients non nuls sont $(M^{-1})_{i,n+1-i}=1/\alpha_{n+1-i}$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $\alpha,\beta,\gamma\in\RR$. On considère $x_1+2x_2-3x_3=\alpha$, $2x_1+6x_2-5x_3=\beta$, $x_1-2x_2+7x_3=\gamma$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Écrire le système sous la forme $Ax=b$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle A=\begin{pmatrix}1&2&-3\\2&6&-5\\1&-2&7\end{pmatrix}$, $b=(\alpha,\beta,\gamma)^\top$.
+
+  \item \textbf{Question.} Écrire et réduire la matrice augmentée ; en déduire les solutions.
+\par\smallskip
+\textbf{Réponse.} La réduction donne $[A\mid b]\sim[I_3\mid x]$, où
+        \[
+          x=\begin{pmatrix}(4\alpha-\beta+\gamma)/3\\(-19\alpha+10\beta-\gamma)/24\\(-5\alpha+2\beta+\gamma)/12\end{pmatrix}
+        \]
+        C'est l'unique solution.
+
+  \item \textbf{Question.} En déduire $A^{-1}$.
+\par\smallskip
+\textbf{Réponse.} $\displaystyle A^{-1}=\frac1{24}\begin{pmatrix}32&-8&8\\-19&10&-1\\-10&4&2\end{pmatrix}$.
+
+  \item \textbf{Question.} Décomposer $A=LU$ et résoudre à nouveau le système avec cette décomposition.
+\par\smallskip
+\textbf{Réponse.} $A=LU$, avec
+        \[
+          L=\begin{pmatrix}1&0&0\\2&1&0\\1&-2&1\end{pmatrix},\quad
+          U=\begin{pmatrix}1&2&-3\\0&2&1\\0&0&12\end{pmatrix}
+        \]
+        On résout $Ly=b$ : $y=(\alpha,\beta-2\alpha,\gamma+2\beta-5\alpha)^\top$.
+        Puis $Ux=y$ donne $x_3=y_3/12$, $x_2=(y_2-x_3)/2$, $x_1=y_1-2x_2+3x_3$, soit le résultat précédent.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $a,b,c,d\in\RR$ et $\displaystyle A=\begin{pmatrix}a&a&a&a\\a&b&b&b\\a&b&c&c\\a&b&c&d\end{pmatrix}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Obtenir une décomposition $LU$ par élimination de Gauss.
+\par\smallskip
+\textbf{Réponse.} En soustrayant chaque ligne précédente, de bas en haut, on obtient
+        \[
+          A=LU,\quad L=\begin{pmatrix}1&0&0&0\\1&1&0&0\\1&1&1&0\\1&1&1&1\end{pmatrix},\quad
+          U=\begin{pmatrix}a&a&a&a\\0&b-a&b-a&b-a\\0&0&c-b&c-b\\0&0&0&d-c\end{pmatrix}
+        \]
+
+  \item \textbf{Question.} Donner les conditions d’inversibilité de $A$.
+\par\smallskip
+\textbf{Réponse.} $\det A=a(b-a)(c-b)(d-c)$.
+        $\therefore A$ est inversible si et seulement si $a\neq0$, $b\neq a$, $c\neq b$, $d\neq c$.
+
+  \item \textbf{Question.} Résoudre $x_1+x_2+x_3+x_4=2$, $x_1+2x_2+2x_3+2x_4=1$, $x_1+2x_2+3x_3+3x_4=2$, $x_1+2x_2+3x_3+4x_4=3$.
+\par\smallskip
+\textbf{Réponse.} Les différences successives donnent
+        $x_4=1$, $x_3+x_4=1$, $x_2+x_3+x_4=-1$, $x_1+x_2+x_3+x_4=2$.
+        $\therefore (x_1,x_2,x_3,x_4)=(3,-2,0,1)$.
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $\alpha\in K$, $A,B\in K^{n\times n}$. Résoudre en $X\in K^{n\times n}$ l’équation $\alpha X+\operatorname{tr}(X)A=B$.
+\par\smallskip
+\textbf{Réponse.} Posons $t=\operatorname{tr}X$. En prenant la trace,
+    $(\alpha+\operatorname{tr}A)t=\operatorname{tr}B$.
+    \begin{enumproof}
+      \item Si $\alpha\neq0$ et $\alpha+\operatorname{tr}A\neq0$, l'unique solution est
+        \[
+          X=\frac1\alpha\left(B-\frac{\operatorname{tr}B}{\alpha+\operatorname{tr}A}A\right)
+        \]
+      \item Si $\alpha\neq0$ et $\alpha+\operatorname{tr}A=0$, il n'y a aucune solution si $\operatorname{tr}B\neq0$.
+        Sinon, les solutions sont $X=(B-tA)/\alpha$, $t\in K$.
+      \item Si $\alpha=0$ et $A\neq0$, il faut $B=tA$ pour un scalaire $t$.
+        Si ce scalaire existe, les solutions sont toutes les matrices de trace $t$ ; sinon, aucune solution.
+      \item Si $\alpha=0$ et $A=0$, toutes les matrices conviennent si $B=0$, et aucune sinon.
+    \end{enumproof}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $M=(m_{i,j})\in\RR^{n\times n}$ telle que $m_{i,i}>\sum_{j\neq i}m_{i,j}$ pour tout $i$. Montrer que $M$ est inversible (hypothèse telle qu’imprimée dans le poly).
+\par\smallskip
+\textbf{Réponse.} L'énoncé imprimé est faux sans valeurs absolues. Par exemple,
+    $\displaystyle M=\begin{pmatrix}1&-1\\-1&1\end{pmatrix}$ vérifie $m_{i,i}>\sum_{j\neq i}m_{i,j}$, mais $\det M=0$.
+
+    Avec l'hypothèse corrigée $|m_{i,i}|>\sum_{j\neq i}|m_{i,j}|$, supposons $Mx=0$ et $x\neq0$.
+    Choisissons $i$ tel que $|x_i|=\max_j|x_j|>0$. Alors
+    \[
+      |m_{i,i}|\,|x_i|=\left|\sum_{j\neq i}m_{i,j}x_j\right|
+      \leq\sum_{j\neq i}|m_{i,j}|\,|x_i|<|m_{i,i}|\,|x_i|
+    \]
+    Contradiction. $\therefore\ker M=\{0\}$, donc $M$ est inversible.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soient $A\in\RR^{m\times n}$, $B\in\RR^{p\times q}$. Si $AXB=0$ pour tout $X\in\RR^{n\times p}$, montrer que $A=0$ ou $B=0$.
+\par\smallskip
+\textbf{Réponse.} Si $A\neq0$ et $B\neq0$, choisissons $a_{i,j}\neq0$ et $b_{k,\ell}\neq0$.
+    Pour $X=E_{j,k}\in\RR^{n\times p}$, $(AXB)_{i,\ell}=a_{i,j}b_{k,\ell}\neq0$, contradiction.
+    $\therefore A=0$ ou $B=0$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in K^{n\times n}$ inversible telle que $A+A^{-1}=3I_n$. Calculer $A^3+A^{-3}$.
+\par\smallskip
+\textbf{Réponse.} $A$ et $A^{-1}$ commutent. Alors
+    \[
+      (A+A^{-1})^3=A^3+A^{-3}+3(A+A^{-1})=27I_n
+    \]
+    $\therefore A^3+A^{-3}=18I_n$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Si $AB=BA$ et $A$ est inversible, montrer que $A^{-1}B=BA^{-1}$.
+\par\smallskip
+\textbf{Réponse.} $AB=BA\Rightarrow A^{-1}ABA^{-1}=A^{-1}BAA^{-1}\Rightarrow BA^{-1}=A^{-1}B$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $n\geq2$, déterminer les matrices de $K^{n\times n}$ qui commutent avec toutes les matrices symétriques.
+\par\smallskip
+\textbf{Réponse.} Si $M$ commute avec chaque $E_{i,i}$, ses coefficients hors diagonale sont nuls.
+    Écrivons donc $M=\operatorname{diag}(d_1,\ldots,d_n)$.
+    En commutant avec $E_{i,j}+E_{j,i}$, on obtient $d_i=d_j$.
+
+    $\therefore M=\lambda I_n$, $\lambda\in K$.
+    Réciproquement, toute matrice scalaire commute avec toutes les matrices.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $A\in K^{n\times n}$ triangulaire supérieure, de diagonale $1$ et de coefficients $-1$ strictement au-dessus de la diagonale. Justifier son inversibilité et calculer son inverse.
+\par\smallskip
+\textbf{Réponse.} Écrivons $A=I_n-N$, où $N$ vaut $1$ strictement au-dessus de la diagonale et $0$ ailleurs.
+    Comme $N^n=0$, $A^{-1}=I_n+N+\cdots+N^{n-1}$.
+    Pour $i<j$, $(N^r)_{i,j}=\binom{j-i-1}{r-1}$ : on choisit les indices intermédiaires.
+    \[
+      \therefore (A^{-1})_{i,j}=\begin{cases}0&i>j,\\1&i=j,\\2^{j-i-1}&i<j.\end{cases}
+    \]
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Soit $\omega\in\RR$. La matrice triangulaire supérieure $M$ vérifie $M_{i,j}=\omega^{j-i}$ pour $j\geq i$. Justifier son inversibilité et calculer son inverse.
+\par\smallskip
+\textbf{Réponse.} Pour $N$ ayant des $1$ sur la première surdiagonale, $N^n=0$ et
+    $M=I_n+\omega N+\cdots+\omega^{n-1}N^{n-1}$.
+    Le produit télescopique donne $(I_n-\omega N)M=I_n$.
+
+    $\therefore M^{-1}=I_n-\omega N$.
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Énoncé.} Soient $U\in K^{m\times n}$ et $V\in K^{n\times m}$.
+
+\begin{enumerate}[\arabic*.]
+        \item \textbf{Question.} Supposer $I_m-UV$ inversible. Calculer $(I_n-VU)(I_n+V(I_m-UV)^{-1}U)$.
+\par\smallskip
+\textbf{Réponse.} Posons $C=(I_m-UV)^{-1}$. Comme $(I_n-VU)V=V(I_m-UV)$,
+        \[
+          AB=(I_n-VU)(I_n+VCU)=I_n-VU+V(I_m-UV)CU=I_n
+        \]
+
+  \item \textbf{Question.} Montrer que $I_m-UV$ est inversible si et seulement si $I_n-VU$ l’est.
+\par\smallskip
+\textbf{Réponse.} Les matrices étant carrées, $AB=I_n$ implique que $A$ est inversible.
+        En échangeant $U$ et $V$, on obtient la réciproque.
+        \[
+          \therefore (I_n-VU)^{-1}=I_n+V(I_m-UV)^{-1}U
+        \]
+
+\end{enumerate}
+\end{minipage}
+
+  \item \begin{minipage}[t]{\linewidth}\raggedright
+\textbf{Question.} Pour $M\in\RR^{n\times n}$, on pose $\sigma(M)=\sum_{i,j}m_{i,j}$. Étant donnée $A\in\RR^{n\times n}$, résoudre $X+X^\top=\sigma(X)A$.
+\par\smallskip
+\textbf{Réponse.} Posons $t=\sigma(X)$. L'équation donne $2t=t\sigma(A)$.
+    Toute matrice antisymétrique $K$ est solution car $\sigma(K)=0$.
+
+    Si $t\neq0$, $A=(X+X^\top)/t$ est symétrique et $\sigma(A)=2$.
+    Dans ce cas, $X=(t/2)A+K$, avec $K^\top=-K$.
+    Réciproquement, ces matrices vérifient l'équation.
+    \[
+      \therefore\mathcal S=\begin{cases}
+        \{\lambda A+K:\lambda\in\RR,\ K^\top=-K\}&A=A^\top\text{ et }\sigma(A)=2,\\
+        \{K:K^\top=-K\}&\text{sinon.}
+      \end{cases}
+    \]
+\end{minipage}
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
