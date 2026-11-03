@@ -1,0 +1,812 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{preamble}
+\input{preamble-cheatsheet}
+\input{letterfonts}
+
+\newcommand{\mytitle}{ECE\_3TC32\_TP Compilation}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 26-27 S1}
+
+\newcommand{\Null}{\operatorname{Null}}
+\newcommand{\Prem}{\operatorname{Premier}}
+\newcommand{\Suiv}{\operatorname{Suivant}}
+\newcommand{\Clo}{\textrm{Clôture}}
+
+\begin{document}
+\raggedright
+\raggedcolumns
+\footnotesize
+\begin{multicols*}{3}
+	\setlength{\premulticols}{1pt}
+	\setlength{\postmulticols}{1pt}
+	\setlength{\multicolsep}{1pt}
+	\setlength{\columnsep}{2pt}
+
+	{\normalsize{\textbf{\mytitle}}}\\
+	{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                      Begin                         %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Introduction}
+
+	Compilateur est un programme qui traduit un "programme" d'un langage à un autre en préservant la sémantique (correct, rapide, optimisant).
+
+	Grandes étapes:
+	\begin{enumerate}[\roman*.]
+		\item Analyse lexicale/Lexing:\\texte $\rightarrow$ tokens via expressions régulières
+		\item Analyse syntaxique/Parsing:\\tokens $\rightarrow$ AST via une grammaire
+		\item Analyse sémantique: variables/fonctions déclarées, types corrects, annotations de l'AST
+		\item Optimisation
+		\item Géneration de code:\\assembleur $\rightarrow$ object $\rightarrow$ binaire
+	\end{enumerate}
+
+	Representation de base-R : $\displaystyle m = \sum^{n-1}_{i=0} b_i \cdot R^i$
+
+	Complément à deux:
+	\begin{enumerate}[\roman*.]
+		\item $b_{N-1}\ldots b_0 = -2^{N-1}b_{N-1}+\sum_{i<N-1}b_i2^i$
+		\item Opposé de $x$: $-x = 2^N - x$
+		\item Intervalle: $-2^{N-1}$ à $2^{N-1}-1$
+		\item Négation: $-x = \sim x+1$
+		\item Débordement: tronquer (calculs dans $\ZZ/2^N\ZZ$)
+		\item \lstinline|+ - *| identiques signé/non signé
+	\end{enumerate}
+
+	Boutisme:
+	\begin{enumerate}[\roman*.]
+		\item Grand-boutien: écriture «naturelle»
+		\item Petit-boutien: octet de poids faible à la basse; $m=o_1o_2 \Rightarrow m=o_1+256\,o_2$
+	\end{enumerate}
+	\vspace{1em}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Unité} & \textbf{Taille} & \textbf{C}                             & \textbf{courant} \\
+		\hline
+		octet/byte (b) & 8 bits          & \texttt{char}                          & 8                \\
+		mot/word (w)   & 2 o             & \texttt{short}                         & 16               \\
+		double (l)     & 4 o             & \texttt{int}                           & 32               \\
+		quad (q)       & 8 o             & \texttt{long}, \texttt{long long}, ptr & 64               \\
+		\hline
+	\end{tabular}
+
+	\section{x86-64}
+	\lstset{style=asm}
+	Modèle:
+	\begin{enumerate}[\roman*.]
+		\item Registres: rapides, peu nombreux
+		\item RAM: grand tableau
+		\item \lstinline|%rip|: adresse de l'instruction courante
+		\item Instruction lit/écrit registres ou RAM, ou \lstinline|syscall|
+	\end{enumerate}
+
+	Syntaxe AT\&T: \lstinline|op source, destination|
+	\begin{enumerate}[\roman*.]
+		\item Registres préfixes par \lstinline|%| (e.g. \lstinline|$r9|)
+		\item Constants préfixes par \lstinline|$| (e.g. \lstinline|$0x2A|) ;\\que les 32 bits signés
+		\item Suffixe de taille: \lstinline|b|=1, \lstinline|w|=2, \lstinline|l|=4, \lstinline|q|=8 octets; obligatoire si ambigu (e.g. \lstinline|movq $42, (%rsp)|)
+	\end{enumerate}
+
+	\subsection{Registres Généraux}
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\textbf{64}               & \textbf{32}  & \textbf{16}  & \textbf{8}                & \textbf{Rôle historique } \\
+		\hline
+		\texttt{rax}              & \texttt{eax} & \texttt{ax}  & \texttt{al} (\texttt{ah}) & Accumulator / retour      \\
+		\texttt{rbx}              & \texttt{ebx} & \texttt{bx}  & \texttt{bl} (\texttt{bh}) & Base / callee-saved       \\
+		\texttt{rcx}              & \texttt{ecx} & \texttt{cx}  & \texttt{cl} (\texttt{ch}) & Counter / arg 4           \\
+		\texttt{rdx}              & \texttt{edx} & \texttt{dx}  & \texttt{dl} (\texttt{dh}) & Data / arg 3              \\
+		\texttt{rsi}              & \texttt{esi} & \texttt{si}  & \texttt{sil}              & Source idx / arg 2        \\
+		\texttt{rdi}              & \texttt{edi} & \texttt{di}  & \texttt{dil}              & Dest. idx / arg 1         \\
+		\texttt{rsp}              & \texttt{esp} & \texttt{sp}  & \texttt{spl}              & Stack Pointer             \\
+		\texttt{rbp}              & \texttt{ebp} & \texttt{bp}  & \texttt{bpl}              & Base Pointer (frame)      \\
+		\texttt{r8}--\texttt{r15} & \texttt{r8d} & \texttt{r8w} & \texttt{r8b}              & libres (r8,r9: args 5,6)  \\
+		\hline
+	\end{tabular}
+
+	Addressage memoire:
+	\begin{enumerate}[\roman*.]
+		\item Schema: \lstinline|offset(base, index, scale)| \\$=$ offset $+$ base $+$ index$\times$scale
+		\item offset: constante 32 bits signée; scale $\in\{1,2,4,8\}$
+		\item \lstinline|mov x(%rip), %rsi|: contenu au label \lstinline|x|
+		\item \lstinline|lea x(%rip), %rsi|: adresse de \lstinline|x|
+	\end{enumerate}
+	Mémoire virtuelle: tableau de $2^{64}$ octets (48 bits utilisés), traduit par pages par l'OS, avec droits R/W/X.
+
+	\colbreak
+	\subsection{Sections et données}
+	\begin{lstlisting}
+.text      # code (executable)
+.data      # donnees initialisees
+.bss       # donnees init 0
+.rodata    # lecture seule
+.globl main  # exporte le symbole l'ELF
+w:  .quad 0x1234567890  # 8o
+x:  .long 12        # 4o 
+y:  .word 12        # 2o
+z:  .byte 12      # 1o
+s:  .ascii "Hello " # 6o
+t:  .asciz "World"  # 6o, avec \0
+\end{lstlisting}
+
+	\subsection{Instructions}
+	Copie:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|mov[bwlq] s, d|: \lstinline|d = s|
+		\item \lstinline|movz[bw][wlq] s, d|: extension par zéros
+		\item \lstinline!movs[bw|bl|bq|wl|wq|lq] s, d!: extension signée
+		\item \lstinline|cqto|: étend le signe de \lstinline|%rax| dans \lstinline|%rdx:%rax| (avant \lstinline|idivq|)
+		\item \lstinline|push s| / \lstinline|pop d|: modifier pile
+	\end{enumerate}
+
+	Arithmétique:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|add s, d| : \lstinline|d += s| / \lstinline|sub s, d|: \lstinline|d -= s|
+		\item \lstinline|inc d| / \lstinline|dec d| / \lstinline|neg d|
+		\item \lstinline|imul s, d|: \lstinline|d *= s| (mod $2^{64}$)
+		\item \lstinline|imul s| : \lstinline|%rdx:%rax = %rax * s|; \lstinline|mul s| non signé
+		\item \lstinline|idiv s|: divise \lstinline|%rdx:%rax| par \lstinline|s|; \lstinline|div s| non signé; \\quotient $\rightarrow$ \lstinline|%rax|, reste $\rightarrow$ \lstinline|%rdx|.
+		\item \lstinline|lea s, d|: \lstinline|d = &s|
+	\end{enumerate}
+
+	Bit-à-bit:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|not d| / \lstinline|and s, d| / \lstinline|or s, d| / \lstinline|xor s, d|
+		\item \lstinline|sal k, d|: \lstinline|d <<= k| / \lstinline|sar k, d|: \lstinline|d >>= k| signé
+		\item \lstinline|shr k, d|: \lstinline|d >>= k| logique
+	\end{enumerate}
+
+	Comparaisons (flags uniquement):
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|cmp s, d|: \lstinline|d - s|
+		\item \lstinline|test s, d|: \lstinline|d & s|
+	\end{enumerate}
+
+	\colbreak
+
+	Flags:
+	\begin{enumerate}[\roman*.]
+		\item \textbf{CF} retenue / \textbf{ZF} nul / \textbf{SF} négatif /\\ \textbf{OF} débordement signé / \textbf{PF} parité
+		\item Modifiés par arithmétique, bit-à-bit, \lstinline|cmp|, \lstinline|test|
+		\item Pas modifiés par \lstinline|mov|, \lstinline|lea|, \lstinline|push|/\lstinline|pop|, \lstinline|jCC|, \lstinline|setCC|
+	\end{enumerate}
+
+	Sauts:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|jmp label| / \lstinline|jmp *%rax|: inconditionnel
+		\item \lstinline|jCC label| / \lstinline|cmovCC s, d|: si CC
+		\item \lstinline|setCC d|: \lstinline|d = CC ? 1 : 0| (\lstinline|d| 8 bits, ex. \lstinline|%al|)
+	\end{enumerate}
+
+	\subsection{Conditions}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{CC}               & \textbf{Sens}          & \textbf{Flags}                      \\
+		\hline
+		\texttt{e} / \texttt{z}   & $d = s$ / nul          & ZF                                  \\
+		\texttt{ne} / \texttt{nz} & $d \neq s$             & $\lnot$ZF                           \\
+		\texttt{s} / \texttt{ns}  & négatif / positif      & SF                                  \\
+		\texttt{p} / \texttt{np}  & parité paire / impaire & PF                                  \\
+		\hline
+		\texttt{g} / \texttt{nle} & $d > s$ signé          & $\lnot$(SF$\oplus$OF)$\land\lnot$ZF \\
+		\texttt{ge} / \texttt{nl} & $d \geq s$ signé       & $\lnot$(SF$\oplus$OF)               \\
+		\texttt{l} / \texttt{nge} & $d < s$ signé          & SF$\oplus$OF                        \\
+		\texttt{le} / \texttt{ng} & $d \leq s$ signé       & (SF$\oplus$OF)$\lor$ZF              \\
+		\hline
+		\texttt{a} / \texttt{nbe} & $d > s$ non signé      & $\lnot$CF$\land\lnot$ZF             \\
+		\texttt{ae} / \texttt{nb} & $d \geq s$ non signé   & $\lnot$CF                           \\
+		\texttt{b} / \texttt{nae} & $d < s$ non signé      & CF                                  \\
+		\texttt{be} / \texttt{na} & $d \leq s$ non signé   & CF$\lor$ZF                          \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{\lstinline|syscall| (Linux)}
+
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\texttt{\%rax} & \textbf{Nom} & \texttt{\%rdi} & \texttt{\%rsi} & \texttt{\%rdx} \\
+		\hline
+		0              & read         & fd             & \texttt{char*} & count          \\
+		1              & write        & fd             & \texttt{char*} & count          \\
+		12             & brk          & brk            &                &                \\
+		60             & exit         & code           &                &                \\
+		\hline
+	\end{tabular}
+
+	avec file descriptors: 0 = stdin, 1 = stdout, 2 = stderr.
+
+	\colbreak
+
+	\section{Mémoire et fonctions}
+	Memoire d'un programme:
+	\begin{enumerate}[\roman*.]
+		\item Statique: \lstinline|.text/.data/.bss/.rodata|,\\chargée depuis l'ELF
+		\item {Tas} (heap): à la demande (\lstinline|malloc|), croît $\uparrow$
+		\item {Pile} (stack): fournie par l'OS, en haut, croît $\downarrow$
+	\end{enumerate}
+
+	Pile:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|push s|: \lstinline|sub $8,%rsp| + \lstinline|mov s,(%rsp)|
+		\item \lstinline|pop d|: \lstinline|mov (%rsp),d| + \lstinline|add $8,%rsp|
+		\item \lstinline|call f|: \lstinline|push| adresse retour + \lstinline|jmp f|
+		\item \lstinline|ret|: \lstinline|pop %rip|
+		\item \lstinline|enter $N|:\\\lstinline|push %rbp| + \lstinline|mov %rsp,%rbp| + \lstinline|sub $N,%rsp|
+		\item \lstinline|leave|: \lstinline|mov %rbp,%rsp| + \lstinline|pop %rbp|
+	\end{enumerate}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Pile (frame)} & \textbf{Adresse}                        \\
+		\hline
+		args 7+ de l'appelant & \texttt{16(\%rbp)}, \texttt{24(\%rbp)}  \\
+		adresse de retour     & \texttt{8(\%rbp)}                       \\
+		ancien \texttt{\%rbp} & $\leftarrow$ \texttt{\%rbp}             \\
+		variables locales     & \texttt{-8(\%rbp)}, \texttt{-16(\%rbp)} \\
+		temporaires           & $\leftarrow$ \texttt{\%rsp} (sommet)    \\
+		\hline
+	\end{tabular}
+
+	\subsection{Convention d'appel (System V)}
+	\begin{enumerate}[\roman*.]
+		\item Arguments: \lstinline|%rdi, %rsi, %rdx, %rcx, %r8, %r9|, puis pile
+		\item Retour: \lstinline|%rax|
+		\item Callee-saved: \lstinline|%rbx, %rbp, %r12|--\lstinline|%r15|
+		\item Caller-saved: \lstinline|%rax, %rcx, %rdx, %rsi, %rdi, %r8|--\lstinline|%r11|
+		\item Variadique (\lstinline|printf|, \lstinline|scanf|): \lstinline|%al| = 0
+		\item Alignement: \lstinline|%rsp| multiple de 16 au \lstinline|call|\\($\equiv 8 \bmod 16$ à l'entrée, aligné après \lstinline|push %rbp|)
+	\end{enumerate}
+
+	\colbreak
+	Squelette:
+	\noindent\begin{minipage}{\linewidth}
+		\begin{lstlisting}
+f:  push %rbp          # frame appelant
+    mov  %rsp, %rbp    # nouvelle frame
+    sub  $16, %rsp     # locales (x16)
+    mov  %rdi, -8(%rbp)  # arg 1
+    ...                # result -> %rax
+    leave
+    ret
+\end{lstlisting}
+	\end{minipage}
+
+	\subsection{libC}
+	\begin{lstlisting}
+    .data
+fmt_d:  .string "%d\n"
+fmt_in: .string "%d"
+    .text
+    .globl main
+main:
+    push %rbp
+    mov  %rsp, %rbp
+    sub  $16, %rsp
+
+    # scanf("%d", &n)
+    lea  -8(%rbp), %rsi 
+    lea  fmt_in(%rip), %rdi
+    xor  %eax, %eax
+    call scanf
+    movslq -8(%rbp), %rsi   # int 4o>8o
+
+    # printf("%d\n", n)
+    lea  fmt_d(%rip), %rdi  
+    xor  %eax, %eax
+    call printf
+    xor  %eax, %eax         # return 0
+    leave
+    ret
+\end{lstlisting}
+	\colbreak
+
+	\section{Rappels de C}
+	C est bas niveau, impératif, à passage par valeur et statiquement typé.
+
+	Types:
+	\begin{enumerate}[\roman*.]
+		\item Fixent la taille (\lstinline|sizeof(T)|) et le comportement
+		\item Modificateurs: \lstinline|signed|, \lstinline|unsigned|, \lstinline|const|
+		\item Constantes: \lstinline|42|, \lstinline|0xA2|, \lstinline|'H'|, \lstinline|42LL|
+	\end{enumerate}
+
+	Stockage:
+	\begin{enumerate}[\roman*.]
+		\item Vie courte: registre
+		\item Globale:\\\lstinline|.data| (init.), \lstinline|.bss| (non init.), \lstinline|.rodata| (\lstinline|const|)
+		\item Locale: pile (une copie par appel)
+	\end{enumerate}
+
+	Valeur gauche: a une adresse, peut être à gauche de \lstinline|=|
+	\begin{enumerate}[\roman*.]
+		\item E.g.: \lstinline|v|, \lstinline|*v|, \lstinline|*(v+2)|, \lstinline|*(f(v))|
+		\item Non: \lstinline|42|, \lstinline|v+42|, \lstinline|f(v)|
+	\end{enumerate}
+
+	Pointeurs:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|T* p|: pointeur vers un \lstinline|T|
+		\item \lstinline|&a|: adresse de la l-value \lstinline|a|
+		\item \lstinline|*p|: objet pointé
+	\end{enumerate}
+
+	Arithmétique de pointeurs (\lstinline|T* p, p1, p2|):
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|p + i| $= p + i \times$ \lstinline|sizeof(T)|
+		\item \lstinline|p1 - p2| $= (p_1 - p_2)\,/$ \lstinline|sizeof(T)|
+	\end{enumerate}
+
+	Tableaux:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|t[i]| $=$ \lstinline|*(t+i)|; \lstinline|&t[0] == t|
+		\item Statique: \lstinline|int t[10];|
+		\item Dynamique: \lstinline|int* t = malloc(10*sizeof(int));|
+		\item Linéarisé: \lstinline|int t[99][88][77]| \\$\Rightarrow$ \lstinline|t[i][j][k]| $=$ \lstinline|*(t + i*88*77 + j*77 + k)|
+	\end{enumerate}
+
+	Chaînes: tableau de \lstinline|char| terminé par \lstinline|'\0'|; \lstinline|"abc"| est un \lstinline|const char*| en \lstinline|.rodata|.
+
+	libC:
+	\begin{enumerate}[\roman*.]
+		\item \lstinline|malloc(n)| / \lstinline|free(p)|
+		\item \lstinline|printf(fmt, ...)| / \lstinline|scanf(fmt, ...)|
+	\end{enumerate}
+	\vspace{-1em}
+	\colbreak
+  \section{Grammaires}
+	Grammaire formelle $G$:
+	\begin{enumerate}[\roman*.]
+		\item Terminaux $\Sigma$ (minuscules): lettres des mots
+		\item Non-terminaux $N$ (majuscules): variables
+		\item Symbole de départ $S$
+		\item Règles $(\Sigma\cup N)^+\rightarrow(\Sigma\cup N)^*$
+	\end{enumerate}
+	Langage $L(G)$: mots de $\Sigma^*$ obtenus depuis $S$ en appliquant les règles.
+ 
+	Notations:
+	\begin{enumerate}[\roman*.]
+		\item $X\rightarrow\alpha$: règle; $\alpha$ est une production de $X$
+		\item $\alpha\Rightarrow\beta$: une étape (un NT remplacé)
+		\item $\alpha\Rightarrow^*\beta$: plusieurs étapes (dérivation)
+		\item $\alpha\Rightarrow_L\beta$: toujours le NT le plus à gauche
+	\end{enumerate}
+ 
+	Décider $w\in L(G)$:
+	\begin{enumerate}[\roman*.]
+		\item Grammaire quelconque: \textbf{indécidable}
+		\item CFG (règles $N\rightarrow(\Sigma\cup N)^*$): $O(n^3|G|)$, trop lent
+		\item LL($k$), LR($k$): \textbf{linéaire} $\Rightarrow$ utilisées en pratique
+	\end{enumerate}
+ 
+	Inclusions:
+	\begin{enumerate}[\roman*.]
+		\item LL(0) $\subset$ LL(1) $\subset$ LL($k$) $\subset$ LR($k$) $\subset$ CFG non ambiguës
+		\item LR(0) $\subset$ SLR(1) $\subset$ LALR(1) $\subset$ LR(1)
+	\end{enumerate}
+ 
+	\subsection{Arbre de dérivation}
+	\begin{enumerate}[\roman*.]
+		\item Racine: $S$\\Nœuds internes: NT\\Feuilles: terminaux
+		\item Enfants de $X$: $s_1\ldots s_k$ pour une règle $X\rightarrow s_1\ldots s_k$
+		\item Mot de l'arbre: feuilles lues de gauche à droite
+		\item $w\in L(G)\iff w$ est le mot d'un arbre
+	\end{enumerate}
+	\textbf{Ambiguë}: un mot a plusieurs arbres (le sens du programme n'est plus unique).
+ 
+	\subsection{Lever l'ambiguïté}
+	Dangling else: rattacher \lstinline|else| au \lstinline|if| le plus imbriqué ($IE$ = \lstinline|if| avec son \lstinline|else|):
+	\begin{gather*}
+		S \rightarrow \text{if } S \mid IE\\
+		IE \rightarrow \text{printf} \mid \text{if } IE \text{ else } S
+	\end{gather*}
+	Précédence: un NT par niveau, du plus faible au plus fort:
+	\begin{gather*}
+		S_0 \rightarrow S_0 + S_1 \mid S_1\\
+		S_1 \rightarrow S_1 * S_2 \mid S_2\\
+		S_2 \rightarrow S_3\,\hat{}\,S_2 \mid S_3\\
+		S_3 \rightarrow \text{int} \mid (S_0)
+	\end{gather*}
+	Le sens de la récursion fixe l'associativité:
+	\begin{enumerate}[\roman*.]
+		\item Récursion gauche ($S_0\rightarrow S_0+S_1$): gauche,\\$1-2-3=(1-2)-3$
+		\item Récursion droite ($S_2\rightarrow S_3\,\hat{}\,S_2$): droite,\\$2\,\hat{}\,3\,\hat{}\,4=2^{(3^4)}$
+	\end{enumerate}
+ 
+	\subsection{Algorithme général (CFG)}
+	\begin{enumerate}[\roman*.]
+		\item Binariser: $X\rightarrow s_1\ldots s_k$ devient\\$X\rightarrow s_1F$, $F\rightarrow s_2\ldots s_k$ ($F$ frais)
+		\item $(i,j,\alpha)\in match$ ssi $\alpha\Rightarrow^*w_i\ldots w_{j-1}$
+		\item $w\in L(G)\iff(0,n,S)\in match$
+	\end{enumerate}
+	$match$: plus petit ensemble contenant:
+	\begin{enumerate}[\roman*.]
+		\item $(i,i,\alpha)$ si $\alpha\rightarrow\epsilon$; $(i,i+1,w_i)$
+		\item $(i,j,\alpha)$ si $\alpha\rightarrow\beta$ et $(i,j,\beta)$
+		\item $(i,j,\alpha)$ si $\alpha\rightarrow\beta\gamma$, $(i,k,\beta)$ et $(k,j,\gamma)$
+	\end{enumerate}
+ 
+  \colbreak
+	\section{LL(1)}
+	Analyse descendante: lecture \textbf{L}eft-to-right, dérivation \textbf{L}eftmost, $k$ symboles d'avance.\\
+	LL(1): \textbf{le prochain symbole suffit à choisir la règle}.
+ 
+	\subsection{Null, Premier, Suivant}
+	Calculés par point fixe (répéter jusqu'à stabilité).
+ 
+	$\Null$: NT $X$ avec $X\Rightarrow^*\epsilon$
+	\begin{enumerate}[\roman*.]
+		\item $X\rightarrow\epsilon$ $\Rightarrow$ $X\in\Null$
+		\item $X\rightarrow Y_1\ldots Y_k$, tous $Y_i\in\Null$ $\Rightarrow$ $X\in\Null$
+		\item Un terminal n'est jamais nul
+	\end{enumerate}
+ 
+	$\Prem(\alpha)$: terminaux qui commencent un mot dérivé de $\alpha$
+	\begin{enumerate}[\roman*.]
+		\item $\Prem(t)=\{t\}$ pour $t$ terminal
+		\item $\Prem(X)=\bigcup_{X\rightarrow\alpha}\Prem(\alpha)$
+		\item $\Prem(\alpha_1\alpha_2\ldots)=\Prem(\alpha_1)$,\\$\cup\ \Prem(\alpha_2\ldots)$ si $\alpha_1\in\Null$
+	\end{enumerate}
+ 
+	$\Suiv(X)$: terminaux qui suivent $X$ ($S\Rightarrow^*\alpha Xt\beta$)
+	\begin{enumerate}[\roman*.]
+		\item $\$\in\Suiv(S)$ (fin de l'entrée)
+		\item Pour chaque $X\rightarrow\alpha Y\beta$: $\Prem(\beta)\subseteq\Suiv(Y)$
+		\item Si de plus $\Null(\beta)$: $\Suiv(X)\subseteq\Suiv(Y)$
+	\end{enumerate}
+ 
+	\subsection{Tester LL(1)}
+	\begin{enumerate}[\roman*.]
+		\item Calculer $\Null$, puis $\Prem$, puis $\Suiv$
+		\item Pour chaque règle $X\rightarrow\alpha$, la mettre dans $M[X,t]$:
+		\begin{itemize}
+			\item pour tout $t\in\Prem(\alpha)$
+			\item pour tout $t\in\Suiv(X)$ si $\Null(\alpha)$
+		\end{itemize}
+		\item LL(1) $\iff$ au plus une règle par case
+	\end{enumerate}
+	Conflits pour $X\rightarrow\alpha\mid\beta$:
+	\begin{enumerate}[\roman*.]
+		\item $\Prem(\alpha)\cap\Prem(\beta)\neq\emptyset$
+		\item $\alpha$ et $\beta$ dérivent toutes deux $\epsilon$
+		\item $\alpha\Rightarrow^*\epsilon$ et $\Prem(\beta)\cap\Suiv(X)\neq\emptyset$
+	\end{enumerate}
+ 
+  \colbreak
+	\subsection{Rendre LL(1)}
+	Problèmes:
+	\begin{enumerate}[\roman*.]
+		\item Récursion gauche: $S\rightarrow S+T$ (boucle infinie)
+		\item Préfixe commun: $S\rightarrow P\mid P+S$ (même $\Prem$)
+	\end{enumerate}
+	Solution: factoriser avec un NT de suite $F_i$.\\
+	$S_0\rightarrow S_1+S_0\mid S_1$, $S_1\rightarrow S_2*S_1\mid S_2$, $S_2\rightarrow$ int devient:
+	\begin{gather*}
+		S_0 \rightarrow S_1F_0 \qquad F_0 \rightarrow +S_0 \mid \epsilon\\
+		S_1 \rightarrow S_2F_1 \qquad F_1 \rightarrow *S_1 \mid \epsilon\\
+		S_2 \rightarrow \text{int}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\Null=\{F_0,F_1\}$
+		\item $\Prem(S_i)=\{\text{int}\}$, $\Prem(F_0)=\{+\}$, $\Prem(F_1)=\{*\}$
+		\item $\Suiv(S_0)=\Suiv(F_0)=\{\$\}$
+		\item $\Suiv(S_1)=\Suiv(F_1)=\{+,\$\}$
+		\item $\Suiv(S_2)=\{*,+,\$\}$
+	\end{enumerate}
+ 
+	\subsection{Descente récursive}
+	\begin{enumerate}[\roman*.]
+		\item Une fonction par NT, qui renvoie l'arbre
+		\item \lstinline|peek()|: regarde le prochain symbole
+		\item \lstinline|eat()|: le consomme
+		\item Règle choisie selon \lstinline|peek()| (table LL(1))
+	\end{enumerate}
+	\noindent\begin{minipage}{\linewidth}
+		\begin{lstlisting}[style=pseudo]
+def s0():          # S0 -> S1 + S0 | S1
+    a = s1()
+    if peek() != '+': return a
+    eat(); return (a, '+', s0())
+def s1():          # S1 -> S2 * S1 | S2
+    a = s2()
+    if peek() != '*': return a
+    eat(); return (a, '*', s1())
+def s2():          # S2 -> int
+    a = peek(); assert a == 'int'
+    eat(); return a
+\end{lstlisting}
+	\end{minipage}
+	Attention: associativité droite ($1-2-3=1-(2-3)$). Pour gauche, une boucle:\\\lstinline|while peek()=='-': eat(); a=(a,'-',s1())|
+	\colbreak
+
+  \section{Lexeur}
+	Rôle: découper le texte en tokens, décrits par des expressions régulières.\\
+	e.g. \lstinline|let x = 42| $\rightarrow$ LET VAR(x) EQ INT(42)
+ 
+	Langages réguliers: CFG avec règles $N\rightarrow\Sigma N\mid\epsilon$\\(= regex = automates).
+ 
+	\subsection{Expressions régulières}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		$r$          & \textbf{Sens} & $L(r)$                                 \\
+		\hline
+		$\emptyset$  & vide          & $\emptyset$                            \\
+		$\epsilon$   & mot vide      & $\{\epsilon\}$                         \\
+		$c$          & caractère     & $\{c\}$                                \\
+		$[c_1-c_2]$  & classe        & $\{c\mid c_1\leq c\leq c_2\}$          \\
+		$r_a|r_b$    & union         & $L(r_a)\cup L(r_b)$                    \\
+		$r_ar_b$     & concaténation & $\{w_aw_b\}$                           \\
+		$r^*$        & $\geq0$ fois  & $\{w_1\ldots w_k\mid k\geq0\}$         \\
+		$r^+$        & $\geq1$ fois  & $\{w_1\ldots w_k\mid k\geq1\}$         \\
+		\hline
+	\end{tabular}
+ 
+	\subsection{Algorithme du lexeur}
+	Entrée: liste ordonnée (regex $e_i$, action $a_i$). Sur $w$:
+	\begin{enumerate}[\roman*.]
+		\item $w$ vide: fin
+		\item Chercher le \textbf{plus long préfixe} reconnu par un $e_i$ (aucun: erreur)
+		\item Égalité: \textbf{plus petit $i$} (\lstinline|let| avant \lstinline|[a-z]+|)
+		\item Exécuter $a_i$ sur le préfixe, recommencer sur le reste
+	\end{enumerate}
+ 
+	Lexeur séparé: décompose le problème, grammaires plus simples.
+ 
+  \colbreak
+	\subsection{Reconnaître une regex}
+	$match(R,i)=\{j\mid w_i\ldots w_{j-1}\in L(R)\}$:
+	\begin{enumerate}[\roman*.]
+		\item $match(\epsilon,i)=\{i\}$
+		\item $match(c,i)=\{i+1\}$ si $w_i=c$
+		\item $match([c_1,c_2],i)=\{i+1\}$ si $c_1\leq w_i\leq c_2$
+		\item $match(R_a|R_b,i)=match(R_a,i)\cup match(R_b,i)$
+		\item $match(R_aR_b,i)=\bigcup_{j\in match(R_a,i)}match(R_b,j)$
+		\item $match(R^*,i)$: point fixe $X=\{i\}\cup\bigcup_{j\in X}match(R,j)$
+	\end{enumerate}
+ 
+	Automate fini déterministe:
+	\begin{enumerate}[\roman*.]
+		\item États $Q$, finaux $F\subseteq Q$, initial $i$
+		\item Transition $\delta:Q\times\Sigma\rightarrow Q$
+		\item $w$ accepté si $q_n\in F$, avec $q_0=i$, $q_{k+1}=\delta(q_k,w_{k+1})$
+	\end{enumerate}
+	En pratique: écrire des regex (lisibles), les compiler en automates (efficaces).
+ 
+	\subsection{ocamllex}
+	\noindent\begin{minipage}{\linewidth}
+		\begin{lstlisting}[style=ocaml]
+rule token = parse
+| ['0'-'9']+ as s
+          { `INT (int_of_string s) }
+| "let"            { `LET }
+| '+'              { `PLUS }
+| [' ' '\t' '\n']+ { token lexbuf }
+| ['a'-'z']['a'-'z' '0'-'9']* as id
+                   { `VAR id }
+| eof              { `EOF }
+\end{lstlisting}
+	\end{minipage}
+ 
+  \colbreak
+	\section{LR}
+	Analyse ascendante: lecture \textbf{L}eft-to-right, dérivation \textbf{R}ightmost construite à l'envers, $k$ symboles d'avance. Plus puissant que LL (récursion gauche OK).
+ 
+	\subsection{Shift-reduce}
+	Une pile de symboles + l'entrée. À chaque étape:
+	\begin{enumerate}[\roman*.]
+		\item Shift: empiler le prochain symbole
+		\item Reduce $A\rightarrow\alpha$: dépiler $\alpha$, empiler $A$
+		\item Accepter / refuser
+	\end{enumerate}
+	L'action est lue dans une \textbf{table LR}: (état de la pile, prochain symbole) $\rightarrow$ action.
+ 
+	\subsection{Analyser avec la table}
+	\begin{enumerate}[\roman*.]
+		\item Pile d'états (débute à $0$) + pile de symboles
+		\item \textsc{Action}[état, symbole]: shift $s$, reduce, accept ou erreur
+		\item Après reduce $X\rightarrow\alpha$: dépiler $|\alpha|$, empiler \textsc{Goto}[état, $X$]
+		\item Arbre: chaque reduce crée le nœud $X$ avec les $|\alpha|$ fils dépilés
+	\end{enumerate}
+	\noindent\begin{minipage}{\linewidth}
+		\begin{lstlisting}[style=pseudo]
+states <- [0] ; symbols <- []
+loop:
+  match action(states.top, input.peek):
+  | Shift(s) ->
+      symbols.push(input.pop())
+      states.push(s)
+  | Reduce(X->a) ->
+      pop |a| de states et symbols
+      symbols.push(X)
+      states.push(goto(states.top, X))
+  | Accept -> return OK
+  | vide   -> erreur de syntaxe
+\end{lstlisting}
+	\end{minipage}
+ 
+  \colbreak
+	\subsection{Construire la table LR(1)}
+	Item LR(1) $[X\rightarrow\alpha\bullet\beta,\ c]$: $\alpha$ déjà reconnu, $\beta$ cherché, le tout suivi de $c$ (LR(0): sans $c$).
+ 
+	Clôture: pour $[X\rightarrow\alpha\bullet Y\beta,c]\in I$, ajouter $[Y\rightarrow\bullet\gamma,d]$ pour toute règle $Y\rightarrow\gamma$ et tout $d\in\Prem(\beta c)$.
+ 
+	Transition: $\delta(I,X)=\Clo$ des $[Y\rightarrow\alpha X\bullet\gamma,c]$ pour $[Y\rightarrow\alpha\bullet X\gamma,c]\in I$.
+ 
+	Méthode:
+	\begin{enumerate}[\roman*.]
+		\item Augmenter: $G\rightarrow S\$$; $I_0=\Clo(\{[G\rightarrow\bullet S\$,\$]\})$
+		\item $\forall I$, $\forall X$ après un $\bullet$: $J=\delta(I,X)$, numéroter si nouveau
+		\item $[A\rightarrow\alpha\bullet a\beta,c]$: \textsc{Action}$[I,a]=$ shift $\delta(I,a)$
+		\item $[A\rightarrow\alpha\bullet,c]$: \textsc{Action}$[I,c]=$ reduce $A\rightarrow\alpha$
+		\item $[G\rightarrow S\bullet,\$]$: \textsc{Action}$[I,\$]=$ accept
+		\item NT $X$: \textsc{Goto}$[I,X]=\delta(I,X)$
+	\end{enumerate}
+ 
+	Conflits (deux actions dans une case $\Rightarrow$ pas LR(1)):
+	\begin{enumerate}[\roman*.]
+		\item Shift/reduce: e.g. $S\rightarrow S+S\mid$ int, sur $+$
+		\item Reduce/reduce
+	\end{enumerate}
+ 
+	\subsection{Exemple LR(1)}
+	$G\rightarrow S\$$, $S\rightarrow CC$ ($r_\alpha$), $C\rightarrow cC$ ($r_\beta$), $C\rightarrow d$ ($r_\gamma$)
+	\begin{enumerate}[\roman*.]
+		\item $I_0=\{[G\rightarrow\bullet S\$,\$],[S\rightarrow\bullet CC,\$],$\\$[C\rightarrow\bullet cC,c/d],[C\rightarrow\bullet d,c/d]\}$
+		\item $I_2=\delta(I_0,C)=\{[S\rightarrow C\bullet C,\$],[C\rightarrow\bullet cC,\$],$\\$[C\rightarrow\bullet d,\$]\}$
+		\item $I_3=\delta(I_0,c)=\{[C\rightarrow c\bullet C,c/d],[C\rightarrow\bullet cC,c/d],$\\$[C\rightarrow\bullet d,c/d]\}$
+	\end{enumerate}
+  	\begin{tabular}{|c|c|c|c|c|c||c|c|c|c|c|}
+		\hline
+		 & $c$ & $d$ & $\$$ & $S$ & $C$ &  & $c$ & $d$ & $\$$ & $C$ \\
+		\hline
+		0 & s3         & s4         &     & 1 & 2 & 5 &            &            & $r_\alpha$ &   \\
+		1 &            &            & acc &   &   & 6 & s6         & s7         &            & 9 \\
+		2 & s6         & s7         &     &   & 5 & 7 &            &            & $r_\gamma$ &   \\
+		3 & s3         & s4         &     &   & 8 & 8 & $r_\beta$  & $r_\beta$  &            &   \\
+		4 & $r_\gamma$ & $r_\gamma$ &     &   &   & 9 &            &            & $r_\beta$  &   \\
+		\hline
+	\end{tabular}
+ 
+	Trace \lstinline|cdd|: \lstinline|0| $\xrightarrow{s}$ \lstinline|03| $\xrightarrow{s}$ \lstinline|034| $\xrightarrow{r_\gamma}$ \lstinline|038| $\xrightarrow{r_\beta}$ \lstinline|02| $\xrightarrow{s}$ \lstinline|027| $\xrightarrow{r_\gamma}$ \lstinline|025| $\xrightarrow{r_\alpha}$ \lstinline|01| acc
+  \vspace{-2em}
+  \colbreak
+  \section{Logique combinatoire}
+	Fonction logique $f(\vec{i})=\vec{o}$; porte: son implémentation
+ 
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		$a$ & $b$ & \textsc{and} & \textsc{or} & \textsc{xor} & \textsc{nand} & $\lnot a$ \\
+		\hline
+		0   & 0   & 0            & 0           & 0            & 1             & 1         \\
+		0   & 1   & 0            & 1           & 1            & 1             & 1         \\
+		1   & 0   & 0            & 1           & 1            & 1             & 0         \\
+		1   & 1   & 1            & 1           & 0            & 0             & 0         \\
+		\hline
+	\end{tabular}
+ 
+	Tout avec NAND:
+	\begin{enumerate}[\roman*.]
+		\item $\lnot a=\textsc{nand}(a,a)$
+		\item $a\land b=\lnot\textsc{nand}(a,b)$
+		\item $a\lor b=\textsc{nand}(\lnot a,\lnot b)$
+		\item $a\oplus b=\textsc{nand}(\textsc{nand}(a,n),\textsc{nand}(b,n))$,\\avec $n=\textsc{nand}(a,b)$
+		\item Mux $o=s\ ?\ i_1:i_0$\\$=\textsc{nand}(\textsc{nand}(\lnot s,i_0),\textsc{nand}(s,i_1))$
+	\end{enumerate}
+ 
+	Additionneurs:
+	\begin{enumerate}[\roman*.]
+		\item Half-adder: $s = a\oplus b$, $r = a\land b$
+		\item Full-adder: $s = a\oplus b\oplus c$,\\$r = (a\land b)\lor(c\land(a\oplus b))$ ($=1$ ssi $a+b+c\geq2$)
+	\end{enumerate}
+ 
+	Bus ($k$ bits):
+	\begin{enumerate}[\roman*.]
+		\item Petit-boutien: $v(\vec{b})=\sum_ib_i2^i$; signe $=b_{k-1}$
+		\item Addition (mod $2^k$): HA sur le bit 0, puis FA en chaîne; mux de bus: un mux par bit
+	\end{enumerate}
+ 
+	\subsection{ALU (16 bits)}
+	Tout est calculé, un arbre de mux sur $op_2op_1op_0$ choisit:
+
+	\begin{tabular}{|c|l|l|}
+		\hline
+		\textbf{op} & $\vec{z}$      & \textbf{Réalisation}    \\
+		\hline
+		0           & $x+y$          & additionneur            \\
+		1           & $\sim x$       & NOT bit à bit           \\
+		2           & $x\ \&\ y$     & AND bit à bit           \\
+		3           & $x+1$          & retenue entrante 1      \\
+		4           & $x-y$          & $x+\sim y+1$            \\
+		5           & $x\oplus y$    & XOR bit à bit           \\
+		6           & $x\mid y$      & OR bit à bit            \\
+		7           & $x-1$          & $x+$\texttt{0xFFFF}     \\
+		\hline
+	\end{tabular}
+ 
+	\colbreak
+	\section{Logique séquentielle}
+	Horloge $\Rightarrow$ instants $t$; état $\vec{u}_t$ ($\vec{u}_0=\vec{0}$): $(\vec{u}_{t+1},\vec{o}_t)=f(\vec{u}_t,\vec{i}_t)$.\\
+	Pas une fonction mathématique; les tables ne déterminent pas le circuit.
+ 
+	Composants:
+	\begin{enumerate}[\roman*.]
+		\item Registre (delay): $o_t=i_{t-1}$, $o_0=0$
+		\item Mémoire 1 bit: $r_t=w_{t-1}\ ?\ v_{t-1}:r_{t-1}$\\$\Rightarrow r=\textsc{delay}(\textsc{mux}(w,r,v))$
+		\item Registre 16 bits: 16 mémoires 1 bit, même $w$
+	\end{enumerate}
+ 
+	\subsection{Mémoire 2 lectures / 1 écriture}
+	Lire $\vec{AL}_i$ ($k$ bits) $\rightarrow\vec{VL}_i$ (16 bits); écrire $\vec{VE}$ en $\vec{AE}$ si $e$.
+ 
+	Récurrence sur $k$:
+	\begin{enumerate}[\roman*.]
+		\item $k=0$: un registre; $\vec{VL}_1=\vec{VL}_2=$ contenu
+		\item $k>0$: $m_0,m_1$ sur $k-1$ bits (sans le bit $a$)
+		\begin{itemize}
+			\item écrire $m_b$ ssi $e\land(AE_a=b)$
+			\item $\vec{VL}_i=\textsc{mux}(AL_{i,a},\ m_0.\vec{VL}_i,\ m_1.\vec{VL}_i)$
+		\end{itemize}
+	\end{enumerate}
+ 
+	RAM (init. à 0) / ROM (case $i$ = tableau$[i]$) / Mixte (ROM programme + RAM données).
+ 
+	\colbreak
+	\section{CPU}
+	Composants:
+	\begin{enumerate}[\roman*.]
+		\item Mémoire RAM/ROM: $2^{12}$ mots de 16 bits
+		\item $2^4=16$ registres de 16 bits; \lstinline|PC|; terminal $80\times24$
+	\end{enumerate}
+ 
+	Instruction (16 bits): \lstinline|OP + 16*(R1 + 16*(R2 + 16*R3))|
+	\begin{enumerate}[\roman*.]
+		\item Bits 0--3: OP / 4--7: $R_1$ (écrit)
+		\item Bits 8--11: $R_2$ / 12--15: $R_3$ (lus)
+	\end{enumerate}
+ 
+	\begin{tabular}{|c|l|l|}
+		\hline
+		\textbf{OP} & \textbf{Nom} & \textbf{Effet}                              \\
+		\hline
+		$\geq8$     & ALU          & $R[R_1]=ALU(OP{-}8,R[R_2],R[R_3])$          \\
+		7           & CST HI       & $R[R_1]=\overline{R_3R_2}\times2^8$         \\
+		6           & CST LOW      & $R[R_1]=\overline{R_3R_2}$                  \\
+		5           & LOAD         & $R[R_1]=RAM[R[R_2]]$                        \\
+		4           & PC           & $R[R_1]=PC$                                 \\
+		3           & OUTPUT       & $Out(R[R_2],R[R_3])$                        \\
+		2           & STORE        & $RAM[R[R_2]]=R[R_3]$                        \\
+		1           & JL           & $PC=R[R_3]$ si $(R[R_2]<0)\oplus R_1[0]$    \\
+		0           & JZ           & $PC=R[R_3]$ si $(R[R_2]=0)\oplus R_1[0]$    \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item $\overline{R_3R_2}=R_2+16R_3$ (8 bits)
+		\item $Out(x,y)$: caractère $y$ en $(x\%80,\ x/80)$
+		\item ALU: add 8, inv 9, et 10, inc 11, sub 12, xor 13, ou 14, dec 15
+		\item $R_1[0]=1$: saut inversé (non nul / non négatif)
+	\end{enumerate}
+ 
+	\subsection{Un cycle}
+	\begin{enumerate}[\roman*.]
+		\item Fetch: $ins=MEM[PC]$; decode OP, $R_1$, $R_2$, $R_3$
+		\item Lire $A=R[R_2]$, $B=R[R_3]$ (toujours, sans risque)
+		\item Calculer $ALU(OP_{0..2},A,B)$ et $D=MEM[A]$
+		\item Écrire $R[R_1]$ si $OP\geq4$; $MEM[A]=B$ si $OP=2$; sortie si $OP=3$
+		\item $PC\leftarrow saut\ ?\ B:PC+1$
+	\end{enumerate}
+ 
+	Exemple (affiche A en boucle):\\
+	\noindent\begin{minipage}{\linewidth}
+		\begin{lstlisting}[style=ocaml]
+ins_cst_low 0 0 ;    (* r0 = 0 *)
+ins_cst_low (int_of_char 'A') 1 ;
+ins_output 0 1 ;     (* Out(r0, r1) *)
+ins_cst_low 2 2 ;    (* r2 = 2 *)
+ins_jump_zero 0 2    (* PC = 2 *)
+\end{lstlisting}
+	\end{minipage}
+ 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                       End                          %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{multicols*}
+\end{document}
