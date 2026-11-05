@@ -4,27 +4,779 @@
 \input{preamble-cheatsheet}
 \input{letterfonts}
 
-\newcommand{\mytitle}{CSC\_3TCXX\_TP Titre}
+\newcommand{\mytitle}{PHY\_3TC20\_TP Optique et Photonique}
 \newcommand{\myauthor}{github/omgeta}
 \newcommand{\mydate}{AU 26-27 S1}
 
+\newcommand{\TF}{\operatorname{TF}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\porte}{\Pi}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ve}[1]{\vec{#1}}
+
 \begin{document}
 \raggedright
+\raggedcolumns
 \footnotesize
 \begin{multicols*}{3}
-\setlength{\premulticols}{1pt}
-\setlength{\postmulticols}{1pt}
-\setlength{\multicolsep}{1pt}
-\setlength{\columnsep}{2pt}
+	\setlength{\premulticols}{1pt}
+	\setlength{\postmulticols}{1pt}
+	\setlength{\multicolsep}{1pt}
+	\setlength{\columnsep}{2pt}
 
-{\normalsize{\textbf{\mytitle}}}\\
-{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                      Begin                         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Section 1}
+	{\normalsize{\textbf{\mytitle}}}\\
+	{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                      Begin                         %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Optique géométrique}
+	\textbf{Idée:} la lumière vue comme des \textbf{rayons} (lignes droites).
+	\begin{enumerate}[\roman*.]
+		\item Valable si les objets sont $\gg$ la longueur d'onde $\lambda$ (taille de «l'ondulation», $\sim$0,5\,µm)
+		\item Sinon: optique ondulatoire (interférences, diffraction)
+	\end{enumerate}
+
+	\textbf{Indice de réfraction} $n$: combien la lumière est ralentie dans un milieu:
+	\begin{enumerate}[\roman*.]
+		\item $c\approx3\cdot10^8$\,m/s: vitesse dans le vide (vitesse maximale)
+		\item $v\leq c$: vitesse dans le milieu
+		\item Milieu \textbf{réfringent}: qui dévie la lumière; plus $n$ est grand, plus il l'est
+	\end{enumerate}
+	\begin{gather*}
+		n=\frac{c}{v}\geq1
+	\end{gather*}
+	\begin{tabular}{|l|l||l|l|}
+		\hline
+		\textbf{Milieu} & $n$      & \textbf{Milieu} & $n$        \\
+		\hline
+		Vide            & 1        & Verres          & 1,4 à 1,9  \\
+		Air             & 1,000292 & Diamant         & 2,4        \\
+		Eau             & 1,33     & Germanium       & $\approx4$ \\
+		\hline
+	\end{tabular}
+
+	\textbf{Chemin optique}: longueur «ressentie» par la lumière:
+	\begin{enumerate}[\roman*.]
+		\item Longueur physique pondérée par $n$ ($n$ peut varier le long du trajet)
+		\item C'est elle qui fixe le temps de trajet
+	\end{enumerate}
+	\begin{gather*}
+		L_{opt}(AB)=\int_{AB}n\,\dd s=n\,L_{phys}\ \text{si $n$ constant}\\
+		t=\frac{L_{opt}}{c}=\frac{n\,L_{phys}}{c}
+	\end{gather*}
+	\textbf{Exemple}: 100\,km
+	\begin{enumerate}[\roman*.]
+		\item Air: $t=\frac{1{,}000292\cdot10^5}{3\cdot10^8}\approx333$\,µs
+		\item Fibre en verre ($n\approx1{,}5$): $t=500$\,µs, soit 5\,µs/km
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Principes}
+	Milieu \textbf{homogène} (même $n$ partout), isotrope (idem dans toutes les directions), infini, permanent:
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Propagation rectiligne}: la lumière va en ligne droite (ombres, faisceau laser dans la fumée)
+		      \begin{itemize}
+			      \item Fermat: le trajet suivi rend la durée de parcours minimale (stationnaire)
+			      \item $n$ constant: $L_{opt}=n\,L_{phys}$ minimal pour une droite
+		      \end{itemize}
+		\item \textbf{Indépendance}: agir sur des rayons ne change pas les autres; des faisceaux croisés ne se perturbent pas
+		\item \textbf{Retour inverse}: le même trajet est valable dans l'autre sens, même si $n$ varie (trajet courbe)
+	\end{enumerate}
+	Limites:
+	\begin{enumerate}[\roman*.]
+		\item Bord d'ombre vu de près: l'éclairement varie (\textbf{diffraction}, §4)
+		\item Interférences: seulement sur un détecteur, qui mesure $|E_1+E_2|^2$ (§3)
+	\end{enumerate}
+
+	\subsection{Snell-Descartes}
+	À un \textbf{dioptre} (surface entre milieux $n$ et $n'$, e.g. air/eau), angles mesurés par rapport à la \textbf{normale} ($\perp$ à la surface):
+	\begin{enumerate}[\roman*.]
+		\item Rayons incident, réfléchi, réfracté et normale sont dans un même plan
+		\item Réflexion: symétrique par rapport à la normale, $i=-r$
+		\item Réfraction (rayon transmis, dévié): $n\sin i=n'\sin i'$
+	\end{enumerate}
+	\textbf{Bâton «cassé»} dans l'eau: les rayons s'écartent de la normale en sortant; l'œil les prolonge tout droit et voit le bout plus haut.
+
+	\textbf{Exemple} (aquarium, laser rouge, $n'=1{,}33$):
+	\begin{enumerate}[\roman*.]
+		\item Normale: $i=i'=0$, pas de déviation
+		\item $i=45^\circ$: réfléchi à $45^\circ$; $\sin i'=\frac{\sin45^\circ}{1{,}33}$, $i'\approx32^\circ$
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Dispersion chromatique}: la vitesse, donc $n$, dépend de la couleur: $v=v(\lambda)$, $n=n(\lambda)$
+	\begin{enumerate}[\roman*.]
+		\item Le prisme sépare les couleurs
+		\item Vide: aucune; air: négligeable ($n_{air}\approx1$)
+	\end{enumerate}
+
+	\subsection{Angle limite, réflexion totale}
+	Comme $|\sin i|\leq1$, deux cas:
+	\begin{enumerate}[\roman*.]
+		\item $n'>n$ (air $\rightarrow$ eau): se rapproche de la normale, toujours réfracté
+		\item $n'<n$ (eau $\rightarrow$ air): s'écarte de la normale; $i'=90^\circ$ à l'angle critique $i_c$
+		\item Si $i>i_c$: plus aucun rayon transmis, tout est réfléchi: \textbf{réflexion totale}
+	\end{enumerate}
+	\begin{gather*}
+		\sin i_c=\frac{n'}{n}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Eau/air: $i_c\approx48{,}8^\circ$; verre (1,5)/air: $i_c\approx41{,}8^\circ$
+		\item Sous l'eau, à angle rasant, la surface est un miroir
+		\item Principe du guidage dans la fibre optique (§5)
+	\end{enumerate}
+
+	\subsection{Lentille convergente}
+	Focale $f$, petits angles (paraxial):
+	\begin{enumerate}[\roman*.]
+		\item Point source au foyer $\Rightarrow$ faisceau de rayons parallèles (\textbf{collimaté})
+		\item Source décalée de $x_0$ dans le plan focal $\Rightarrow$ faisceau incliné de $\theta\approx\tan\theta=x_0/f$
+		\item Vue «onde» (§2): plus épaisse au centre, elle y retarde plus l'onde: sphérique (foyer) $\rightarrow$ plane
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Dessiner la normale; repérer $n$ (départ), $n'$ (arrivée)
+		\item Réflexion: même angle; réfraction: $n\sin i=n'\sin i'$
+		\item Si $n'<n$: vérifier $\sin i>n'/n$ (réflexion totale, pas de rayon transmis)
+		\item Temps de trajet: $t=nL/c$
+	\end{enumerate}
+
+	\colbreak
+	\section{Ondes et analyse spectrale}
+	\textbf{Idée:} la lumière est un champ électrique $\ve E$ (et magnétique $\ve B$) qui oscille et se propage en transportant de l'énergie (Maxwell).
+	\begin{enumerate}[\roman*.]
+		\item Vitesse dans le vide: $c=1/\sqrt{\varepsilon_0\mu_0}$
+		\item Onde \textbf{transverse}: $\ve E\perp\ve B\perp\ve k$ (propagation)
+		\item $\ve B$ se déduit de $\ve E$: on n'étudie que $\ve E$
+	\end{enumerate}
+
+	\begin{tabular}{|l|l|>{\raggedright\arraybackslash}p{3.1cm}|}
+		\hline
+		$T$              & période (s)       & durée d'une oscillation                  \\
+		$\nu=1/T$        & fréquence (Hz)    & oscillations/s (= couleur)               \\
+		$\omega=2\pi\nu$ & pulsation (rad/s) & idem, en radians                         \\
+		$\lambda$        & longueur d'onde   & période dans l'espace                    \\
+		$k=2\pi/\lambda$ & nombre d'onde     & $\ve k$: sens de propagation             \\
+		$E_0$, $\varphi$ & amplitude, phase  & max. du champ, position sur la sinusoïde \\
+		\hline
+	\end{tabular}
+
+	Relations:
+	\begin{enumerate}[\roman*.]
+		\item Vide: $\lambda_0=c/\nu$; milieu $n$: $\lambda=\lambda_0/n$, $k=\omega n/c$
+		\item Vitesse de phase: $v_\phi=\omega/k=c/n$
+		\item D'un milieu à l'autre, $\nu$ ne change pas, $\lambda$ si
+	\end{enumerate}
+
+	\subsection{Onde plane}
+	Se propage selon $z$, $\ve E$ oscille selon $x$:
+	\begin{gather*}
+		E_x=E_0\cos\Big(\omega t-\frac{2\pi z}{\lambda}-\phi_0\Big)=\mathrm{Re}\big[E(\ve r)\,e^{i\omega t}\big]
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Notation complexe: $E(\ve r)=E_0e^{-i(\ve k\cdot\ve r+\phi_0)}$, \textbf{amplitude complexe}
+		\item Plan $z=$cte: même phase: \textbf{plan d'onde}, $\perp\ve k$
+		\item Les rayons de l'optique géométrique sont $\parallel\ve k$
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Polarisation}: direction d'oscillation de $\ve E$
+	\begin{enumerate}[\roman*.]
+		\item Rectiligne (fixe), circulaire ou elliptique ($\ve E$ tourne)
+		\item Non polarisée: aléatoire (soleil)
+	\end{enumerate}
+
+	\textbf{Intensité}: un détecteur, trop lent pour suivre $\sim10^{14}$\,Hz, mesure l'énergie moyenne:
+	\begin{gather*}
+		I=\tfrac12\varepsilon_0cE_0^2\ \propto\ |E|^2=EE^*
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Un facteur de phase global (module 1) est invisible
+		\item On choisit donc $t=0$, $z=0$, $\phi_0=0$
+	\end{enumerate}
+
+	Ondes utiles (dans le plan $z=0$):
+	\begin{enumerate}[\roman*.]
+		\item Plane $\parallel Oz$: $E(x,y)\propto1$
+		\item Inclinée de $\theta$: $E\propto e^{-ik_0x\sin\theta}\approx e^{-ik_0x\theta}$
+		\item Source $(x_0,y_0)$ au foyer d'une lentille: $E\propto e^{+ik_0(xx_0+yy_0)/f}$
+		\item Sphérique: $E=\frac{E_0}{r}e^{i(\omega t-kr)}$, $I\propto1/r^2$; loin et près de l'axe, quasi plane
+	\end{enumerate}
+	Spectre: visible 0,4 (violet) à 0,8\,µm (rouge); télécoms 0,8, 1,3, \textbf{1,55\,µm}.
+
+	\subsection{Analyse de Fourier}
+	\textbf{Idée:} tout signal est une somme de sinusoïdes; la \textbf{TF} donne la quantité de chaque fréquence: le \textbf{spectre}. Outil de la diffraction (§4).
+
+	Série de Fourier ($\omega=2\pi/T$): moyenne $+$ harmoniques:
+	\begin{gather*}
+		f(t)=A_0+\sum_{n\geq1}A_n\cos n\omega t+B_n\sin n\omega t
+	\end{gather*}
+	TF: signal non périodique, spectre continu:
+	\begin{gather*}
+		F(\nu)=\TF[f]=\int_{-\infty}^{+\infty}f(t)e^{-2i\pi\nu t}\dd t\\
+		f(t)=\TF^{-1}[F]=\int_{-\infty}^{+\infty}F(\nu)e^{+2i\pi\nu t}\dd\nu
+	\end{gather*}
+	Espaces duaux: $t\leftrightarrow\nu$; en optique $x\leftrightarrow u$ (fréq. spatiale).
+
+	\colbreak
+	Propriétés:
+	\begin{enumerate}[\roman*.]
+		\item Linéarité
+		\item Échelle: $\TF[f(at)]=\frac{1}{|a|}F(\frac{\nu}{a})$: étroit $\Leftrightarrow$ large
+		\item Translation: $\TF[f(t-\tau)]=e^{-2i\pi\nu\tau}F(\nu)$: un déphasage
+		\item Parseval: $\int|f|^2=\int|F|^2$ (même énergie)
+		\item $\TF[\TF[f]](x)=f(-x)$
+	\end{enumerate}
+
+	\begin{tabular}{|l|l|}
+		\hline
+		$f(\xi)$                          & $F(\Xi)=\TF[f]$                                      \\
+		\hline
+		$\delta(\xi)$ / $1$               & $1$ / $\delta(\Xi)$                                  \\
+		$\delta(\xi-\xi_0)$               & $e^{-2i\pi\xi_0\Xi}$                                 \\
+		$e^{2i\pi\xi\Xi_0}$               & $\delta(\Xi-\Xi_0)$                                  \\
+		$\cos(2\pi\xi\Xi_0)$              & $\tfrac12[\delta(\Xi+\Xi_0)+\delta(\Xi-\Xi_0)]$      \\
+		$\sin(2\pi\xi\Xi_0)$              & $\tfrac{i}{2}[\delta(\Xi+\Xi_0)-\delta(\Xi-\Xi_0)]$  \\
+		$\sum_n\delta(\xi-nL)$ (peigne)   & $\frac1L\sum_n\delta(\Xi-\frac nL)$                  \\
+		$\porte(\xi/L)$ (porte $L$)       & $L\sinc(\pi\Xi L)$                                   \\
+		$\mathrm{tri}(\xi)$               & $\sinc^2(\pi\Xi)$                                    \\
+		$e^{-\pi\xi^2/L^2}$               & $L\,e^{-\pi L^2\Xi^2}$                               \\
+		$\mathrm{Circ}(r/D)$ (disque $D$) & $\frac{\pi D^2}{4}\frac{2J_1(\pi\rho D)}{\pi\rho D}$ \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Porte $\porte(t)=1$ si $|t|<\frac12$ (une fente); $\sinc x=\frac{\sin x}{x}$
+		\item Dirac $\delta$: pic fin d'aire 1 (un point, une fréquence pure)
+		\item Troncature: durée finie $\Rightarrow$ spectre élargi; rien n'est monochromatique
+	\end{enumerate}
+
+	\textbf{Exemple}: fente $\porte(x/L)$, égale à 1 sur $[-\frac L2,\frac L2]$:
+	\begin{gather*}
+		F(u)=\int_{-L/2}^{L/2}e^{-2i\pi ux}\dd x=L\sinc(\pi uL)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Max $F(0)=L$; zéros en $u=\pm\frac1L,\pm\frac2L,\ldots$
+		\item $|F|^2\propto\sinc^2$: figure de diffraction d'une fente (§4)
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Phase $\ve k\cdot\ve r$ (plane) ou $kr$ (sphérique)
+		\item Poser $t=0$, $z=0$, $\phi_0=0$; puis $I\propto|E|^2$
+	\end{enumerate}
+
+	\colbreak
+	\section{Interférences}
+	\textbf{Idée:} quand deux ondes se superposent, on additionne les \textbf{champs}, pas les intensités. Selon leur décalage, elles se renforcent ou s'annulent: «lumière $+$ lumière $=$ obscurité».
+
+	\textbf{Intuitivement}: une onde $E_0$ séparée en deux parcourt deux chemins $z_1$, $z_2$, puis est recombinée:
+	\begin{enumerate}[\roman*.]
+		\item En phase ($\Delta\phi=2m\pi$): $E_1+E_2=E_0$, \textbf{constructives}
+		\item En opposition: $E_1+E_2=E_1(1+e^{i\pi})=0$, \textbf{destructives}
+	\end{enumerate}
+
+	\subsection{Deux ondes d'une même source}
+	Champs $E_1\ve e_1$, $E_2\ve e_2$ ($\ve e_i$: polarisations); Maxwell est linéaire, on somme, et $I\propto|E_1\ve e_1+E_2\ve e_2|^2$:
+	\begin{gather*}
+		I=I_1+I_2+\underbrace{2(\ve e_1\cdot\ve e_2)\sqrt{I_1I_2}\cos\Delta\phi}_{\text{terme d'interférence}}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Polarisations parallèles (coplanaires): $\ve e_1\cdot\ve e_2=1$, problème scalaire
+		\item Polarisations $\perp$: $\ve e_1\cdot\ve e_2=0$, pas d'interférence, $I=I_1+I_2$
+	\end{enumerate}
+
+	\textbf{Différence de marche} $\delta$: différence des chemins optiques entre séparation et recombinaison (même source: même phase de départ):
+	\begin{gather*}
+		\delta=n(z_2-z_1),\qquad\Delta\phi=\frac{2\pi\delta}{\lambda}
+	\end{gather*}
+	Tout le travail est de calculer $\delta$: c'est de la géométrie!
+	\begin{enumerate}[\roman*.]
+		\item Constructives (frange brillante): $\delta=m\lambda$, $m$ entier; $I_{max}=(\sqrt{I_1}+\sqrt{I_2})^2$
+		\item Destructives (frange sombre): $\delta=(m+\frac12)\lambda$; $I_{min}=(\sqrt{I_1}-\sqrt{I_2})^2$
+		\item Même intensité $I_0$: $I=2I_0(1+\cos\Delta\phi)$, entre 0 et $4I_0$
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Contraste} (netteté des franges), vaut 1 si $I_1=I_2$:
+	\begin{gather*}
+		C=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}=\frac{2\sqrt{I_1I_2}}{I_1+I_2}
+	\end{gather*}
+	\textbf{Interfrange}: d'une frange brillante à la suivante, $\delta$ varie de $\lambda$ ($\approx0{,}5$\,µm). Deux ondes planes à angle $\theta$: $\dfrac{\lambda}{2\sin(\theta/2)}$.
+
+	\subsection{Cohérence: quand voit-on des franges?}
+	Chaque atome émet un \textbf{train d'onde} de durée $\tau$ (durée de vie), puis d'autres: la phase de départ est \textbf{aléatoire}.
+
+	Le détecteur moyenne sur son temps d'intégration $T_D$ (bande passante $BP=1/T_D$):
+	\begin{gather*}
+		I=I_1+I_2+2\sqrt{I_1I_2}\,\langle\cos\Delta\phi\rangle_{T_D}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Incohérentes} (deux sources différentes): $\Delta\phi$ aléatoire, $\langle\cos\Delta\phi\rangle=0$, $I=I_1+I_2$ (pas de franges avec les reflets d'une pièce)
+		\item \textbf{Cohérentes}: une même onde séparée en deux
+		      \begin{itemize}
+			      \item Division d'amplitude: lame semi-réfléchissante (Michelson), laser séparé en deux
+			      \item Division du front d'onde: trous d'Young
+		      \end{itemize}
+		\item Couleurs différentes: pas d'interférence; on somme les intensités des franges de chaque $\lambda$
+	\end{enumerate}
+
+	\textbf{Longueur de cohérence} $L_c$: longueur d'un train d'onde (aucune source n'est monochromatique, $\Delta\nu$: largeur spectrale):
+	\begin{gather*}
+		L_c=c\,\tau_c=\frac{c}{\Delta\nu}=\frac{\lambda^2}{\Delta\lambda}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Les trains n'interfèrent que s'ils se recouvrent: le contraste baisse quand $\delta$ augmente
+		\item $\delta>L_c$: plus de franges, les intensités s'ajoutent
+		\item Plus facile avec un laser ($L_c$ grande) qu'en lumière blanche ($L_c\sim$\,µm)
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Lumière blanche}: l'interfrange dépend de $\lambda$
+	\begin{enumerate}[\roman*.]
+		\item $\delta=0$: toutes les couleurs brillantes au même endroit: frange blanche
+		\item $\delta$ petit: les franges se décalent: couleurs (\textbf{teintes de Newton})
+		\item $\delta$ grand: brouillage, \textbf{blanc d'ordre supérieur}
+	\end{enumerate}
+
+	\subsection{Lame mince (pétrole, bulle)}
+	Lame $n$, épaisseur $e$, angle $i_0$ ($i$ dedans): les deux réflexions (dessus, dessous) interfèrent à l'infini:
+	\begin{gather*}
+		\delta=\underbrace{n(AB+BC)}_{2ne/\cos i}-\underbrace{AD}_{2e\tan i\sin i_0}=2ne\cos i
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Avec $\sin i_0=n\sin i$; une réflexion ajoute un déphasage $\pi$
+		\item Brillant si $2ne\cos i=m\lambda$: en lumière blanche, chaque angle d'observation sélectionne une couleur: \textbf{irisations}
+		\item Visibles seulement si $e\lesssim L_c$: pétrole ($\sim0{,}1$\,µm) oui; baignoire, flaque non
+	\end{enumerate}
+
+	\subsection{Anti-reflet}
+	Couche $n_{AR}$ sur verre: deux réflexions (air/couche, couche/verre) \textbf{égales et opposées} s'annulent:
+	\begin{enumerate}[\roman*.]
+		\item Même amplitude: $r=\frac{n_2-n_1}{n_2+n_1}$ égal sur les deux dioptres $\Rightarrow$ $n_{AR}=\sqrt{n_{verre}}$ (1,69: 1,3)
+		\item Opposition de phase: l'aller-retour dans la couche ajoute $\lambda/2$ $\Rightarrow$ $e=\frac{\lambda}{4n_{AR}}$
+		\item Exact pour une seule $\lambda$: on choisit le jaune (éblouissant), d'où les verres bleutés
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Vérifier la cohérence: même source, $\delta<L_c$, polarisations non $\perp$
+		\item Calculer $\delta$ (géométrie, chemins optiques $nL$)
+		\item $\Delta\phi=2\pi\delta/\lambda$, puis $I=I_1+I_2+2\sqrt{I_1I_2}\cos\Delta\phi$
+	\end{enumerate}
+
+	\colbreak
+	\section{Diffraction}
+	\textbf{Idée:} une onde qui traverse une ouverture s'étale (d'autant plus que l'ouverture est petite): interférence d'une infinité d'ondes, dont la figure est la TF de l'ouverture.
+
+	\textbf{Huygens-Fresnel}: chaque point $M$ de l'ouverture $D$ réémet une onde sphérique (source secondaire); toutes cohérentes, elles interfèrent en $P$ ($r=MP$):
+	\begin{gather*}
+		U(P)=\frac{1}{i\lambda}\iint_DU_0(M)\frac{e^{-ikr}}{r}\dd s
+	\end{gather*}
+	\textbf{Transmittance} $t(x,y)$: ce que l'écran laisse passer
+	\begin{enumerate}[\roman*.]
+		\item $t=0$: opaque; $t=1$: transparent
+		\item Épaisseur ou indice variables: phase, $t=t_D\,e^{-i\phi_D}$
+		\item Champ juste après l'écran: $U_0=E_{inc}\,t$
+	\end{enumerate}
+
+	\subsection{Fraunhofer: diffraction à l'infini}
+	Écran d'observation à distance $L$:
+	\begin{enumerate}[\roman*.]
+		\item Fresnel (distance finie): $r\approx L+\frac{(X-x)^2+(Y-y)^2}{2L}$
+		\item Fraunhofer (à l'infini, $L\gg\pi(x^2+y^2)/\lambda$): il reste une TF
+	\end{enumerate}
+	\begin{gather*}
+		U(u,v)\propto\iint E_{inc}\,t\;e^{-2i\pi(ux+vy)}\dd x\dd y=\TF[E_{inc}\,t]
+	\end{gather*}
+	$(u,v)$: \textbf{fréquences spatiales}, liées à la direction d'observation (angle $\theta_X\approx X/L$):
+	\begin{gather*}
+		u=\frac{X}{\lambda L}=\frac{\theta_X}{\lambda},\qquad v=\frac{Y}{\lambda L}=\frac{\theta_Y}{\lambda}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Éclairage par une onde plane $\parallel Oz$: figure $T(u,v)\propto\TF[t(x,y)]$
+		\item «L'infini» est proche pour les petits objets: $L>100\pi r^2/\lambda$ (µm: quelques cm; cm: km)
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Lentille: une TF optique}
+	Voir «l'infini» à distance finie: objet au plan focal objet $(x,y)$, figure au plan focal image $(X,Y)$. \textbf{Méthode}:
+	\begin{enumerate}[\roman*.]
+		\item Écrire $t(x,y)$: portes, Diracs, convolutions (motif $*$ positions, $\times$ porte pour limiter)
+		\item Champ après l'écran: $E_{inc}\,t$
+		\item $T(u,v)=\TF[E_{inc}\,t]$ (table, $\TF[f*g]=\TF f\cdot\TF g$)
+		\item $u=X/\lambda f$, $v=Y/\lambda f$ (ou $X/\lambda L$), puis $|T(X,Y)|^2$
+	\end{enumerate}
+
+	\subsection{Lire une figure de diffraction}
+	\begin{enumerate}[\roman*.]
+		\item Échelle: $\TF[t(ax,by)]=\frac{1}{|ab|}T(\frac ua,\frac vb)$: petite ouverture $\Rightarrow$ grande figure
+		\item Carré de côté $A$: $|T|^2\propto\sinc^2\!\big(\frac{\pi AX}{\lambda f}\big)\sinc^2\!\big(\frac{\pi AY}{\lambda f}\big)$
+		\item Fente fine verticale $\rightarrow$ trait horizontal (étalement $\perp$ à la fente)
+		\item Disque $D$: anneaux d'Airy, 1\textsuperscript{er} zéro à $\theta=1{,}22\,\lambda/D$ (limite la résolution)
+		\item Déplacer l'objet: facteur de phase $e^{-2i\pi(ua+vb)}$, intensité inchangée
+	\end{enumerate}
+
+	\subsection{Convolution}
+	Construire des objets complexes à partir de simples:
+	\begin{gather*}
+		(f*g)(x)=\int f(x')g(x-x')\dd x'\\
+		\TF[f*g]=\TF[f]\cdot\TF[g],\quad\TF[f\cdot g]=\TF[f]*\TF[g]
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Commutative, associative, distributive
+		\item $f(x)*\delta(x-a)=f(x-a)$: \textbf{translater} (recopier le motif en $a$)
+		\item $f*\sum_n\delta(x-na)=\sum_nf(x-na)$: \textbf{périodiser}
+		\item $f(x)\cdot\delta(x-a)=f(a)\delta(x-a)$: \textbf{pondérer}
+		\item Multiplier par une porte: \textbf{limiter}; en 2D, ne pas convoluer $x$ avec $y$
+	\end{enumerate}
+
+	\colbreak
+	Ex. bifente (Young), fentes de largeur $\ell$ distantes de $a$:
+	\begin{gather*}
+		t=\porte(\tfrac x\ell)*[\delta(x-\tfrac a2)+\delta(x+\tfrac a2)]\\
+		T=\ell\sinc(\pi u\ell)\cdot2\cos(\pi ua)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Franges en $\cos^2$: viennent de l'écart $a$ des fentes
+		\item Enveloppe $\sinc^2$: vient de la largeur $\ell$ d'une fente
+	\end{enumerate}
+
+	\subsection{Fréquences spatiales}
+	Une fréquence spatiale $=$ un nombre de variations par unité de longueur (traits/mm d'un réseau).
+	\begin{enumerate}[\roman*.]
+		\item $T(0,0)\propto\iint E_{inc}\,t$: valeur moyenne (fond continu), au centre
+		\item Basses fréquences (près de l'axe): variations lentes, contraste
+		\item Hautes fréquences (loin de l'axe): détails fins, contours
+	\end{enumerate}
+	Réseau sinusoïdal infini $t=\frac12(1+\cos\frac{2\pi x}{a})\mathbf1(y)$:
+	\begin{gather*}
+		T\propto\Big(\delta(u)+\tfrac12\delta(u+\tfrac1a)+\tfrac12\delta(u-\tfrac1a)\Big)\delta(v)
+	\end{gather*}
+	3 taches:
+	\begin{enumerate}[\roman*.]
+		\item Centrale: la moyenne
+		\item Latérales en $u=\pm1/a$: la période (pas petit $\Rightarrow$ taches écartées)
+		\item Réseau tronqué par $\porte(x/A)$: chaque Dirac devient $A\sinc(\pi uA)$
+	\end{enumerate}
+
+	\subsection{Filtrage: montage 4f}
+	Deux lentilles $f$: objet $\xrightarrow{\TF}$ plan de Fourier $\xrightarrow{\TF}$ image retournée ($\TF[\TF[f]]=f(-x)$). Un masque dans le plan de Fourier coupe des fréquences:
+	\begin{enumerate}[\roman*.]
+		\item Passe-bas (petit trou): coupe les détails $\Rightarrow$ image floue
+		\item Passe-haut (pastille opaque au centre): coupe le fond continu $\Rightarrow$ contours seuls
+		\item Détramage, visualisation de phase
+	\end{enumerate}
+
+	\colbreak
+	\section{Fibre optique}
+	\textbf{Idée:} un fil de verre qui guide la lumière sur des km par réflexion totale (99\% des données, $\sim$300 câbles sous-marins).
+	\begin{enumerate}[\roman*.]
+		\item Vision rayons: quels angles passent, à quelle vitesse
+		\item Vision ondes: les \textbf{modes}
+	\end{enumerate}
+
+	Structure (silice dopée):
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Cœur} d'indice $n_c$: $\sim$9\,µm (monomode) ou 50--62,5\,µm (multimode)
+		\item \textbf{Gaine} d'indice $n_g<n_c$: 125\,µm
+		\item Protection: 250\,µm
+	\end{enumerate}
+
+	\subsection{Guidage par réflexion totale}
+	Un rayon qui frappe la gaine au-delà de l'angle critique reste piégé (RTI); $\theta/2$: angle du rayon avec l'axe:
+	\begin{gather*}
+		i_c=\sin^{-1}\frac{n_g}{n_c},\qquad\frac{\theta_c}{2}=\frac\pi2-i_c=\cos^{-1}\frac{n_g}{n_c}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Guidé si $\theta/2<\theta_c/2$
+		\item E.g. $i_c=85{,}3^\circ$, $\theta_c/2=4{,}7^\circ$: rayons quasi $\parallel$ axe
+	\end{enumerate}
+	\textbf{Cône d'acceptance}: angles d'entrée (depuis l'air) qui seront guidés; Snell-Descartes à l'entrée donne l'ouverture numérique:
+	\begin{gather*}
+		\sin i_{0,max}=n_c\sin\frac{\theta_c}{2}=\sqrt{n_c^2-n_g^2}
+	\end{gather*}
+
+	\textbf{Profil d'indice}: comment $n$ varie dans la section du cœur ($a$ rayon du cœur, $\Delta$ écart d'indice):
+	\begin{gather*}
+		n^2(x)=n_0^2\big[1-2\Delta(\tfrac xa)^\alpha\big]\ (|x|<a),\quad n_0^2[1-2\Delta]\ \text{sinon}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\alpha=1$: triangle;\\$\alpha=2$: parabole;\\$\alpha=\infty$: saut d'indice
+		\item Trajectoires: dents de scie (saut), sinusoïdes (parabolique)
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Dispersion intermodale}
+	\begin{enumerate}[\roman*.]
+		\item Les rayons inclinés parcourent un chemin plus long que le rayon axial
+		\item Ils arrivent plus tard: une impulsion s'étale
+		\item Les bits successifs se chevauchent: débit maximal limité pour une longueur donnée
+	\end{enumerate}
+	Écart d'arrivée, saut d'indice, longueur $L$:
+	\begin{gather*}
+		\Delta t=\frac{Ln_c}{c}\Big(\frac{1}{\cos(\theta_c/2)}-1\Big)=\frac{Ln_c}{c}\,\frac{n_c-n_g}{n_g}
+	\end{gather*}
+	Solutions:
+	\begin{enumerate}[\roman*.]
+		\item Gradient d'indice: $n$ plus faible au bord, donc lumière plus rapide au bord: les trajets longs rattrapent leur retard (saut: 50\,ns/km, 5\,Mb/s; parabolique: 0,25\,ns/km, 1\,Gb/s)
+		\item Fibre monomode: une seule trajectoire permise
+	\end{enumerate}
+
+	Applications:
+	\begin{enumerate}[\roman*.]
+		\item Télécoms, imagerie (endoscope), lasers à fibre
+		\item Capteurs distribués:
+		      \begin{itemize}
+			      \item OTDR: rétrodiffusion Rayleigh sur des défauts $d\ll\lambda$, sensible aux vibrations
+			      \item Brillouin: décalage Doppler $\sim$11\,GHz, sensible aux contraintes
+		      \end{itemize}
+	\end{enumerate}
+
+	\subsection{Modes: guide plan à miroirs}
+	\textbf{Idée:} tous les angles $<\theta_c/2$ ne sont pas permis: l'onde doit interférer constructivement avec elle-même après deux réflexions. Seuls certains angles survivent: chacun est un \textbf{mode}.
+
+	Modèle simplifié:
+	\begin{enumerate}[\roman*.]
+		\item Rayons dans un plan $\Rightarrow$ guide plan d'épaisseur $D=2a$
+		\item Miroirs parfaits: déphasage $\pi$ par réflexion
+		\item Onde polarisée selon $y$
+	\end{enumerate}
+
+	\colbreak
+	Condition de phase entre les points $A$, $B$, $C$ du trajet: $n_c(AC-AB)=m\lambda$, d'où
+	\begin{gather*}
+		\sin\frac{\theta_m}{2}=m\frac{\lambda}{2Dn_c},\quad m=1,2,\ldots
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Angles \textbf{quantifiés}; un mode garde sa répartition transverse (et sa polarisation) tout le long de $z$
+		\item Les ondes montante et descendante ($\pm k_x$) interfèrent: $I(x)\propto\cos^2$ ou $\sin^2(k_{x,m}x)$, $m$ lobes
+		\item Nombre de modes ($\sin<1$): $m<\dfrac{2Dn_c}{\lambda}$
+		\item $k_{x,m}=k_0\sin\frac{\theta_m}{2}=\dfrac{m\pi}{Dn_c}$; selon $z$: $\gamma_m=k_0\cos\frac{\theta_m}{2}$ (cte de propagation)
+		\item Équation de dispersion: $\gamma_m^2=\dfrac{\omega^2}{c^2}-\Big(\dfrac{m\pi}{Dn_c}\Big)^2$: chaque mode a sa vitesse
+	\end{enumerate}
+
+	\subsection{Guide diélectrique (vraie fibre)}
+	Gaine au lieu de miroirs: un mode est guidé s'il respecte aussi la réflexion totale, $\theta_m/2<\theta_c/2$:
+	\begin{gather*}
+		m<\frac{2Dn_c}{\lambda}\sin\Big(\cos^{-1}\frac{n_g}{n_c}\Big)=\frac{2D}{\lambda}\sqrt{n_c^2-n_g^2}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Longueur d'onde de coupure: le mode $m$ existe si $\lambda<\lambda_{c,m}=\dfrac{2Dn_c}{m}\sin(\cos^{-1}\frac{n_g}{n_c})$
+		\item Monomode si $\lambda_{c,2}<\lambda<\lambda_{c,1}$: pour y arriver, réduire $D$ ou $\theta_c$ ($n_g$ proche de $n_c$)
+		\item Correction: le mode fondamental n'est jamais coupé (une partie de l'onde, évanescente, pénètre dans la gaine)
+	\end{enumerate}
+
+	Maxwell: $E=E(x)e^{i(\omega t-\gamma z)}$, $\dfrac{\partial^2E}{\partial x^2}+\Big(\dfrac{\omega^2n^2}{c^2}-\gamma^2\Big)E=0$: oscillante dans le cœur, évanescente dans la gaine.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $\theta_c/2=\cos^{-1}(n_g/n_c)$; ouverture $\sqrt{n_c^2-n_g^2}$
+		\item Modes: compter les $m$ avec $\frac{m\lambda}{2Dn_c}<\sin\frac{\theta_c}{2}$
+		\item Monomode: $\lambda_{c,2}<\lambda<\lambda_{c,1}$
+	\end{enumerate}
+
+	\colbreak
+	\section{Laser et sources de lumière}
+	\textbf{Idée:} comment la matière émet la lumière; le laser, source à part (fine, directive, cohérente).
+
+	Un atome n'a que des niveaux d'énergie discrets $E_a<E_b$. Passer de $E_b$ à $E_a$ émet un \textbf{photon} $\nu$ ($h$: cte de Planck):
+	\begin{gather*}
+		h\nu=E_b-E_a
+	\end{gather*}
+	Sources de lumière:
+	\begin{enumerate}[\roman*.]
+		\item Thermique (soleil, ampoule): incohérent, spectre continu. Planck $\rho_\nu=\frac{8\pi h\nu^3}{c^3}\frac{1}{e^{h\nu/k_BT}-1}$; plus chaud $\Rightarrow$ plus bleu
+		\item Luminescence (émission spontanée): LED, incohérent, spectre moyen
+		\item Émission stimulée: laser, amplificateur optique
+	\end{enumerate}
+
+	\subsection{Les trois transitions}
+	$N_a$, $N_b$: nombre d'atomes (populations) dans chaque niveau; $\rho_\nu$: énergie lumineuse disponible.
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Spontanée}: l'atome excité se désexcite seul, au hasard: $\dd N_b=-A_{ba}N_b\dd t$, $N_b=N_{b0}e^{-t/\tau}$; durée de vie $\tau=1/A_{ba}$ (Er: 14\,ms; semi-conducteur: ns)
+		\item \textbf{Absorption}: un photon est absorbé, l'atome monte: $\dd N_b'=+B_{ab}\rho_\nu N_a\dd t$
+		\item \textbf{Émission induite}: un photon fait descendre l'atome, qui émet un photon \textbf{clone} (même fréquence, direction, phase): $\dd N_b''=-B_{ba}\rho_\nu N_b\dd t$
+	\end{enumerate}
+	Spectre de l'émission spontanée: le champ décroît, $E(t)=E_0e^{-t/2\tau}e^{-i\omega_0t}$, donc sa TF est une \textbf{lorentzienne} de largeur $\sim1/\tau$:
+	\begin{gather*}
+		S(\omega)=|\TF[E]|^2=\frac{E_0^2}{(1/2\tau)^2+(\omega-\omega_0)^2}
+	\end{gather*}
+
+	\colbreak
+	À l'équilibre thermique:
+	\begin{enumerate}[\roman*.]
+		\item Einstein: $B_{ab}=B_{ba}$, $\dfrac{A_{ba}}{B_{ba}}=\dfrac{8\pi h\nu^3}{c^3}$
+		\item Boltzmann: $\dfrac{N_b}{N_a}=e^{-h\nu/k_BT}\ll1$: plus d'atomes en bas
+		\item Donc un milieu absorbe plus qu'il n'amplifie
+	\end{enumerate}
+
+	\subsection{Amplification}
+	Intensité après une distance $z$ ($\alpha$: atténuation):
+	\begin{gather*}
+		I(z)=I(0)e^{-\alpha z},\qquad\alpha\propto(N_a-N_b)
+	\end{gather*}
+	Amplifier ($\alpha<0$) exige une \textbf{inversion de population} $N_b>N_a$, obtenue en apportant de l'énergie: le \textbf{pompage}.
+	\begin{enumerate}[\roman*.]
+		\item Optique: avec 3 ou 4 niveaux (Nd-YAG, fibres dopées)
+		\item Électrique: courant dans une jonction PN (LED, laser à semi-conducteur)
+		\item Collisionnel (He-Ne, 633\,nm), chimique
+	\end{enumerate}
+	Amplificateur de gain $G$:
+	\begin{enumerate}[\roman*.]
+		\item $E_{out}=\sqrt Ge^{i\varphi}E_{in}$
+		\item Bruit: l'émission spontanée est aussi amplifiée (ASE)
+	\end{enumerate}
+
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Ampli} & \textbf{EDFA} (fibre Er) & \textbf{SOA} (SC) \\
+		\hline
+		Pompage        & optique 980\,nm          & électrique        \\
+		Gain           & 1525--1565\,nm           & élevé             \\
+		$\tau$         & 14\,ms                   & $\sim$ns          \\
+		Débit          & transparent              & distorsions       \\
+		Taille         & fibre (/100\,km)         & qq mm             \\
+		\hline
+	\end{tabular}
+
+	\subsection{Cavité Fabry-Perot}
+	Deux miroirs face à face:
+	\begin{enumerate}[\roman*.]
+		\item Seules les longueurs d'onde qui reviennent en phase après un aller-retour sont transmises
+		\item Miroirs $R=r^2$, $T=t^2$ (en intensité); milieu $n$, longueur $e$
+		\item Déphasage sur un aller-retour: $\varphi=\frac{2\pi}{\lambda_0}2ne$
+	\end{enumerate}
+
+	\colbreak
+	Somme des ondes transmises (suite géométrique):
+	\begin{gather*}
+		\psi_t=T\psi_0\frac{e^{i\varphi/2}}{1-Re^{i\varphi}},\qquad I_t=\frac{I_{max}}{1+M\sin^2(\varphi/2)}\\
+		M=\frac{4R}{(1-R)^2},\qquad I_{max}=I_0\frac{T^2}{(1-R)^2}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Fonction d'Airy: pics fins (modes) aux $\varphi=2k\pi$, espacés de l'intervalle spectral libre $ISL=\dfrac{c}{2ne}$
+		\item Largeur des pics: $\Delta\varphi_{1/2}=\dfrac{4}{\sqrt M}=\dfrac{2(1-R)}{\sqrt R}$, $\Delta\lambda_{1/2}=\dfrac{\lambda_0^2}{2\pi\,2ne}\Delta\varphi_{1/2}$: plus $R$ est grand, plus ils sont fins
+	\end{enumerate}
+
+	\subsection{Laser}
+	Laser $=$ milieu amplificateur dans une cavité: une onde spontanée est amplifiée à chaque passage. L'oscillation démarre au-dessus d'un \textbf{seuil}:
+	\begin{enumerate}[\roman*.]
+		\item Condition de gain: gain sur un aller-retour $=$ pertes (miroirs, absorption)
+		\item Condition de phase: $\varphi_{aller-retour}=2k\pi$ $\Rightarrow$ seules les fréquences des modes de la cavité (espacées de $c/2ne$, sous la courbe de gain) oscillent: a priori plusieurs modes
+	\end{enumerate}
+
+	Propriétés du faisceau:
+	\begin{enumerate}[\roman*.]
+		\item Cohérence spatiale: un seul mode, très focalisable
+		\item Impulsions ultra-courtes (fs), spectre alors large; souvent polarisé
+		\item Cohérence temporelle: spectre fin, $L_c=c/\Delta\nu$ grande:
+	\end{enumerate}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Source} & \textbf{Largeur} & $L_c$       \\
+		\hline
+		Lumière blanche & 0,4--0,8\,µm     & $\sim$1\,µm \\
+		He-Ne           & 1,5\,GHz         & 0,2\,m      \\
+		Laser           & 1\,MHz           & 300\,m      \\
+		CO$_2$          & 10\,kHz          & 30\,km      \\
+		\hline
+	\end{tabular}
+
+	\colbreak
+	\section{Holographie}
+	\textbf{Idée:} enregistrer aussi la phase de la lumière pour restituer le relief.
+	\begin{enumerate}[\roman*.]
+		\item Vision 3D: deux yeux (deux angles de vue) et la phase (qui code les distances)
+		\item Photo: n'enregistre que l'intensité $|A|^2$ sous un seul angle: pas de 3D
+		\item \textbf{Hologramme} (Gabor, 1948): objet + onde de référence cohérente interfèrent; la phase devient une variation d'intensité, enregistrable sur une plaque
+	\end{enumerate}
+
+	\subsection{Enregistrement}
+	\begin{enumerate}[\roman*.]
+		\item Onde de référence (plane): $A_r=a_re^{i\varphi_r}$, $\varphi_r=\ve k\cdot\ve r$
+		\item Onde objet: $A_0=a_0e^{i\varphi_0}$
+		\item La plaque reçoit leur somme et enregistre l'intensité:
+	\end{enumerate}
+	\begin{gather*}
+		I=|A_r+A_0|^2=|a_r|^2+|a_0|^2\\
+		+a_r^*a_0e^{-i(\varphi_r-\varphi_0)}+a_ra_0^*e^{i(\varphi_r-\varphi_0)}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Les deux derniers termes contiennent la phase de l'objet
+		\item Plaque développée linéaire: transmittance $t\propto I$
+	\end{enumerate}
+
+	\subsection{Relecture}
+	On réclaire la plaque avec la référence: $A=A_r\,t$ contient trois ondes (ordres):
+	\begin{enumerate}[\roman*.]
+		\item Ordre 0: $A_r(I_r+I_0)$: la référence transmise
+		\item Ordre $-1$: $|a_r|^2A_0$: \textbf{l'onde objet elle-même}, image virtuelle à la place de l'objet, orthoscopique (relief correct)
+		\item Ordre $+1$: $a_r^2e^{2i\varphi_r}A_0^*$: onde conjuguée, \textbf{image réelle} pseudoscopique (relief inversé)
+	\end{enumerate}
+	Chaque morceau de plaque contient tout l'objet.
+
+	\colbreak
+	Exemples:
+	\begin{enumerate}[\roman*.]
+		\item Objet à l'infini (onde plane d'angle $\theta$), référence $\parallel Oz$: l'hologramme est un réseau sinusoïdal; ordres à $0$ et $\pm\theta$
+		\item Point source à $d$ sur l'axe (hologramme élémentaire: un objet est une somme de points): anneaux; ordre $-1$ diverge depuis $-d$ (virtuel), $+1$ converge en $+d$ (réel); images confondues sur l'axe
+		\item \textbf{Hors-axe} (référence inclinée de $\theta$, objet $f$): $A\propto a_r(I_r+|f|^2)+a_rfe^{-ikx\sin\theta}+a_r^2f^*e^{+ikx\sin\theta}$: les images partent dans des directions différentes, donc séparées
+	\end{enumerate}
+
+	\subsection{Transmission ou réflexion}
+	Deux ondes planes à angle $\theta$ dans le matériau inscrivent des franges de période $\Lambda$ (indice $e$: écriture, $r$: relecture):
+
+	\begin{tabular}{|l|l|l|}
+		\hline
+		                  & \textbf{Transmission}                & \textbf{Réflexion}                   \\
+		\hline
+		Ondes             & même côté                            & opposées                             \\
+		Franges           & $\perp$ plaque                       & $\parallel$ plaque                   \\
+		Période $\Lambda$ & $\dfrac{\lambda_e}{2\sin(\theta/2)}$ & $\dfrac{\lambda_e}{2\cos(\theta/2)}$ \\[6pt]
+		Épaisseur         & quelconque                           & $\gg\Lambda$ (Bragg)                 \\
+		L. blanche        & flou, irisé                          & net, monochrome                      \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Transmission (réseau): Bragg $\sin i-\sin\frac\theta2=k\frac{\lambda_r}{\Lambda}$; si $\lambda_r=\lambda_e$, $\sin i=(2k+1)\sin\frac\theta2$. Chaque couleur sort à un angle différent: relire en lumière monochromatique
+		\item Réflexion (empilement de miroirs): ne renvoie que $\lambda_{\text{réfl}}=\lambda_e\dfrac{\cos i}{\cos(\theta/2)}$, donc visible en lumière blanche (Denisyuk)
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Contraintes}
+	\begin{enumerate}[\roman*.]
+		\item Laser: différence de chemins objet/référence $<L_c$; continu (objets fixes) ou impulsionnel (ns, objets mobiles)
+		\item Plaques: grains très fins (franges $\sim\lambda/2$), donc peu sensibles (pose de quelques s); réponse linéaire (bien choisir le temps de pose); épaisses pour la réflexion
+		\item Stabilité $\ll\lambda/4$ pendant la pose (vibrations, convection, dilatation)
+	\end{enumerate}
+	Montages:
+	\begin{enumerate}[\roman*.]
+		\item Transmission: ondes mutuellement cohérentes, du même côté de la plaque; même référence à l'écriture et à la relecture
+		\item Réflexion, \textbf{Denisyuk} (1962): un seul faisceau, la plaque sert de séparatrice; très réaliste, visible en lumière blanche
+	\end{enumerate}
+	Applications:
+	\begin{enumerate}[\roman*.]
+		\item Œuvres d'art: hologrammes couleur en lumière blanche
+		\item Photo-inscription: réseaux de Bragg fibrés (filtres, compensation de dispersion par réseaux chirpés), affichage tête haute (HUD)
+		\item Sécurité: quasi impossible à copier (hologrammes arc-en-ciel)
+		\item Interférométrie holographique: vibrations, contraintes, défauts
+		\item Mémoire holographique (stockage de masse)
+		\item Holographie numérique (écran SLM): interfrange $\geq2$ pixels $\Rightarrow$ $\theta_{max}=2\arcsin\big(\frac{\lambda}{2n\cdot2L_{pixel}}\big)$, $\approx2^\circ$ pour 6\,µm
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $I=|A_r+A_0|^2$ développé, $t\propto I$
+		\item Relecture $A_r\,t$: identifier ordres 0, $-1$ (objet), $+1$ (conjugué)
+		\item Période $\Lambda$ selon transmission ($\sin$) ou réflexion ($\cos$)
+	\end{enumerate}
+
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                       End                          %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{multicols*}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                       End                          %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
