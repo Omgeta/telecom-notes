@@ -1,0 +1,885 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{preamble}
+\input{preamble-cheatsheet}
+\input{letterfonts}
+
+\newcommand{\mytitle}{FMA\_3TC14\_TP Probabilités}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 26-27 S1}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\ind}{\mathbf{1}}
+
+\begin{document}
+\raggedright
+\raggedcolumns
+\footnotesize
+\begin{multicols*}{3}
+	\setlength{\premulticols}{1pt}
+	\setlength{\postmulticols}{1pt}
+	\setlength{\multicolsep}{1pt}
+	\setlength{\columnsep}{2pt}
+
+	{\normalsize{\textbf{\mytitle}}}\\
+	{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                      Begin                         %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Événements}
+	\textbf{Idée:} on modélise une expérience aléatoire par un \textbf{univers} $\Omega$ (ensemble des résultats), des \textbf{événements} (parties de $\Omega$) et une \textbf{probabilité} $\PP$.
+	\begin{enumerate}[\roman*.]
+		\item Dé: $\Omega=\{1,\dots,6\}$; deux pièces: $\{P,F\}^2$; appels: $\N$; durée de vie: $\R_+$
+		\item $\Omega$ au plus dénombrable: toutes les parties sont des événements; $\R$, $\R^d$: seulement les \textbf{boréliens} (engendrés par les intervalles)
+	\end{enumerate}
+
+	\subsection{Mesure de probabilité}
+	$\PP:\mathcal A\to[0,1]$ avec $\PP(\Omega)=1$ et, pour $(A_j)$ \textbf{deux à deux disjoints},
+	\begin{gather*}
+		\PP\Big(\bigcup_jA_j\Big)=\sum_j\PP(A_j)\quad\text{($\sigma$-additivité)}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\PP(\emptyset)=0$, $\PP(A^c)=1-\PP(A)$
+		\item $A\subset B\Rightarrow\PP(A)\leq\PP(B)$
+		\item $A_n\uparrow A\Rightarrow\PP(A_n)\uparrow\PP(A)$; $A_n\downarrow A\Rightarrow\PP(A_n)\downarrow\PP(A)$
+		\item $\Omega$ dénombrable: $\PP$ caractérisée par les singletons, $\PP(A)=\sum_{i\in A}\PP(\{i\})$
+		\item Sur $\R$: caractérisée par les intervalles (ou par $\PP(]-\infty,x])$)
+	\end{enumerate}
+	\textbf{Uniforme} ($|\Omega|=n$): $\PP(A)=\dfrac{|A|}{n}=\dfrac{\text{cas favorables}}{\text{cas possibles}}$
+
+	\textbf{Crible de Poincaré}:
+	\begin{gather*}
+		\PP(A\cup B)=\PP(A)+\PP(B)-\PP(A\cap B)\\
+		\PP\Big(\bigcup_{j=1}^nA_j\Big)=\sum_{k=1}^n(-1)^{k+1}\!\!\sum_{j_1<\dots<j_k}\!\!\PP(A_{j_1}\cap\dots\cap A_{j_k})
+	\end{gather*}
+
+	\colbreak
+	\subsection{Conditionnement}
+	$\PP(B)\neq0$:
+	\begin{gather*}
+		\PP(A\mid B)=\frac{\PP(A\cap B)}{\PP(B)}\\
+		\PP(A\cap B)=\PP(A\mid B)\PP(B)=\PP(B\mid A)\PP(A)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\PP(\cdot\mid B)$ est une probabilité ($\PP(A^c\mid B)=1-\PP(A\mid B)$)
+		\item Chaîne: $\PP(A_1\cap\dots\cap A_n)=\PP(A_1)\PP(A_2\mid A_1)\cdots\PP(A_n\mid A_1\cap\dots\cap A_{n-1})$
+	\end{enumerate}
+	\textbf{Probabilités totales}: $(A_i)$ partition de $\Omega$:
+	\begin{gather*}
+		\PP(B)=\sum_i\PP(B\mid A_i)\PP(A_i)
+	\end{gather*}
+	\textbf{Bayes} (a priori $\PP(A_i)$ $\to$ a posteriori $\PP(A_i\mid B)$):
+	\begin{gather*}
+		\PP(A_i\mid B)=\frac{\PP(B\mid A_i)\PP(A_i)}{\sum_j\PP(B\mid A_j)\PP(A_j)}
+	\end{gather*}
+
+	\subsection{Indépendance}
+	\begin{gather*}
+		A\perp\!\!\!\perp B\iff\PP(A\cap B)=\PP(A)\PP(B)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Si $\PP(B)>0$: $\iff\PP(A\mid B)=\PP(A)$
+		\item $A\perp\!\!\!\perp B\Rightarrow A^c\perp\!\!\!\perp B$, $A\perp\!\!\!\perp B^c$, $A^c\perp\!\!\!\perp B^c$
+		\item \textbf{Mutuellement} indépendants: $\PP(\bigcap_kA_{j_k})=\prod_k\PP(A_{j_k})$ pour \textbf{toute} sous-famille finie
+		\item Deux à deux $\not\Rightarrow$ mutuellement. Ex: 2 dés, $A$=«1er pair», $B$=«2e pair», $C$=«somme paire»: deux à deux indépendants, mais $\PP(A\cap B\cap C)=\frac14\neq\frac18$
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Nommer les événements, traduire chaque donnée: «$x\,\%$ des $A$ sont $B$» $=\PP(B\mid A)$; «$x\,\%$ sont $A$ et $B$» $=\PP(A\cap B)$
+		\item Arbre: branches = conditionnelles, feuilles = intersections
+		\item «Sachant ce qu'on a observé»: Bayes; «au moins un»: complémentaire
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Exemples (TD, CC)}
+	\textbf{Test} (1\,\% malades, faux positifs 1\,\%, faux négatifs 2\,\%):
+	\begin{gather*}
+		\PP(M\mid +)=\frac{0{,}98\cdot0{,}01}{0{,}98\cdot0{,}01+0{,}01\cdot0{,}99}\approx0{,}50
+	\end{gather*}
+	Maladie rare: un positif sur deux seulement est malade. Vaccination: $\PP(D\mid V)=\frac{\PP(V\mid D)\PP(D)}{\PP(V)}=\frac{0{,}6\cdot0{,}1}{0{,}9}\approx6{,}7\,\%$.
+
+	\textbf{Bertrand} (or-or, argent-argent, or-argent): $\PP(C\mid\text{or})=\frac{\frac12\cdot\frac13}{\frac12}=\frac13$, pas $\frac12$.
+
+	\textbf{Vélo/bus} (CC 24-25): $\PP(V\mid B)=0{,}9$, $\PP(V\mid B^c)=0{,}6$, $\PP(B)=p$:
+	\begin{enumerate}[\roman*.]
+		\item $\PP(V)=0{,}9p+0{,}6(1-p)=0{,}6+0{,}3p$
+		\item $\PP(V)=0{,}72\Rightarrow p=0{,}4$
+		\item $\PP(B\mid V)=\frac{0{,}9\cdot0{,}4}{0{,}72}=\frac12$; $\PP(B\mid V^c)=\frac{0{,}1\cdot0{,}4}{0{,}28}=\frac17$
+	\end{enumerate}
+
+	\textbf{Pommes}: $\PP(P\mid A)=0{,}2$, $\PP(A\mid P)=0{,}1$, $\PP(A\cup P)=0{,}7$:
+	\begin{enumerate}[\roman*.]
+		\item $\PP(A\cap P)=0{,}2\PP(A)=0{,}1\PP(P)\Rightarrow\PP(P)=2\PP(A)$
+		\item $\PP(A\cup P)=\PP(A)+2\PP(A)-0{,}2\PP(A)=2{,}8\PP(A)$
+		\item $\PP(A)=0{,}25$, $\PP(P)=0{,}5$
+	\end{enumerate}
+
+	\textbf{Calendrier} (CC 25-26): $\PP(N)=\frac13$, $\PP(L\cap F)=\frac14$, $\PP(L\mid F)=\frac12$:
+	\begin{enumerate}[\roman*.]
+		\item $\PP(F\mid L)=\frac{1/4}{2/3}=\frac38$
+		\item $\PP(F)=\frac{\PP(L\cap F)}{\PP(L\mid F)}=\frac12$
+		\item $\PP(F\mid N)=\frac{\PP(F)-\PP(L\cap F)}{\PP(N)}=\frac{1/4}{1/3}=\frac34$
+	\end{enumerate}
+
+	\textbf{QCM} 10 questions, 4 choix: $X\sim\mathcal B(10,\frac14)$, $\PP(X\geq5)\approx7{,}8\,\%$.
+
+	\subsection{Dénombrement}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Tirer $k$ parmi $n$}       & \textbf{Nombre}                 \\
+		\hline
+		ordonné, avec remise           & $n^k$                           \\
+		ordonné, sans remise           & $\frac{n!}{(n-k)!}$             \\
+		non ordonné, sans remise       & $\binom nk=\frac{n!}{k!(n-k)!}$ \\
+		permutations de $n$            & $n!$                            \\
+		\hline
+	\end{tabular}
+
+	\textbf{Anniversaires} ($n$ élèves, tous différents): $p_n=\frac{365!}{(365-n)!\,365^n}=\prod_{k<n}(1-\frac k{365})$, $p_{23}\approx0{,}49$.
+
+
+	\colbreak
+	\section{Variables aléatoires}
+	\textbf{Variable aléatoire}: $X:\Omega\to E$ telle que $(X\in A)=\{\omega:X(\omega)\in A\}$ soit un événement. Sa \textbf{loi} est la mesure image:
+	\begin{gather*}
+		\PP_X(A)=\PP(X\in A)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Discrète}: loi $=(\PP(X=x))_{x\in E}$, $\sum_x\PP(X=x)=1$
+	\end{enumerate}
+
+	\subsection{Fonction de répartition}
+	\begin{gather*}
+		F_X(x)=\PP(X\leq x)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Croissante, continue à droite, $F(-\infty)=0$, $F(+\infty)=1$; caractérise la loi
+		\item $\PP(a<X\leq b)=F(b)-F(a)$; $\PP(X>x)=1-F(x)$
+		\item Saut: $\PP(X=x)=F(x)-F(x^-)$; $F$ continue en $x$ $\Rightarrow\PP(X=x)=0$
+		\item Discrète: $F$ en escalier; mixte possible (ex. $\min(\mathcal E(\lambda),T)$: atome $e^{-\lambda T}$ en $T$)
+	\end{enumerate}
+
+	\subsection{Densité}
+	$X$ à densité $f_X\geq0$, $\int f_X=1$:
+	\begin{gather*}
+		\PP(X\in A)=\int_Af_X(x)\,\dd x,\quad F_X(x)=\int_{-\infty}^xf_X\\
+		f_X=F_X'\ \text{(là où $F_X$ est dérivable)}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\PP(X=x)=0$; $f_X(x)$ peut dépasser 1
+		\item Densité: $f\geq0$, $\int f=1$ (constante $c$); support $\{f>0\}$
+	\end{enumerate}
+
+	\subsection{Loi d'une fonction $Y=g(X)$}
+	\textbf{Méthode de la FdR} (toujours valable):
+	\begin{enumerate}[\roman*.]
+		\item Écrire $F_Y(y)=\PP(g(X)\leq y)$, résoudre en $X$
+		\item Dériver: $f_Y=F_Y'$
+	\end{enumerate}
+	\textbf{Formule} ($g$ strictement monotone, $C^1$):
+	\begin{gather*}
+		f_Y(y)=f_X\big(g^{-1}(y)\big)\,\big|(g^{-1})'(y)\big|
+	\end{gather*}
+	\textbf{Affine}: $Y=aX+b$, $a\neq0$: $f_Y(y)=\frac1{|a|}f_X\big(\frac{y-b}a\big)$. Ex: $X\sim\mathcal U[0,1]$, $a>0$: $Y\sim\mathcal U[b,a+b]$.
+
+	\colbreak
+	\subsection{Lois discrètes usuelles}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Loi}           & $\PP(X=k)$                          & $\E$ & $\Var$ \\
+		\hline
+		$\mathcal B(p)$        & $p$ si $k=1$, $1-p$ si 0            & $p$  & $p(1-p)$ \\
+		$\mathcal B(n,p)$      & $\binom nkp^k(1-p)^{n-k}$, $k\leq n$ & $np$ & $np(1-p)$ \\
+		$\mathcal G(p)$        & $(1-p)^{k-1}p$, $k\geq1$            & $\frac1p$ & $\frac{1-p}{p^2}$ \\
+		$\mathcal P(\lambda)$  & $e^{-\lambda}\frac{\lambda^k}{k!}$, $k\geq0$ & $\lambda$ & $\lambda$ \\
+		$\mathcal U\{1..n\}$   & $\frac1n$                           & $\frac{n+1}2$ & $\frac{n^2-1}{12}$ \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Binomiale: nombre de succès en $n$ essais indépendants
+		\item Géométrique: rang du premier succès; $\PP(X>k)=(1-p)^k$; sans mémoire
+		\item Poisson: événements rares, $\mathcal B(n,\frac\lambda n)\to\mathcal P(\lambda)$
+	\end{enumerate}
+
+	\subsection{Lois à densité usuelles}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Loi}             & $f(x)$                                            & $\E$ & $\Var$ \\
+		\hline
+		$\mathcal U[a,b]$        & $\frac1{b-a}\ind_{[a,b]}$                         & $\frac{a+b}2$ & $\frac{(b-a)^2}{12}$ \\
+		$\mathcal E(\lambda)$    & $\lambda e^{-\lambda x}\ind_{\R_+}$               & $\frac1\lambda$ & $\frac1{\lambda^2}$ \\
+		$\Gamma(a,\lambda)$      & $\frac{\lambda^a}{\Gamma(a)}x^{a-1}e^{-\lambda x}\ind_{\R_+}$ & $\frac a\lambda$ & $\frac a{\lambda^2}$ \\
+		$\mathcal N(m,\sigma^2)$ & $\frac1{\sigma\sqrt{2\pi}}e^{-\frac{(x-m)^2}{2\sigma^2}}$ & $m$ & $\sigma^2$ \\
+		$\mathcal C(c)$          & $\frac{c}{\pi(c^2+x^2)}$                          & --- & --- \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Exponentielle: $F(x)=1-e^{-\lambda x}$, $\PP(X>x)=e^{-\lambda x}$, \textbf{sans mémoire}: $\PP(X>t+s\mid X>t)=\PP(X>s)$
+		\item $\Gamma(a)=\int_0^\infty t^{a-1}e^{-t}\dd t$, $\Gamma(a+1)=a\Gamma(a)$, $\Gamma(n+1)=n!$, $\Gamma(\frac12)=\sqrt\pi$; $\Gamma(1,\lambda)=\mathcal E(\lambda)$
+		\item Gaussienne: $\int e^{-x^2/2}=\sqrt{2\pi}$; $Z=\frac{X-m}\sigma\sim\mathcal N(0,1)$; symétrique: $2m-X\sim X$
+		\item Cauchy: pas d'espérance ($\int\frac{|x|}{1+x^2}=\infty$)
+		\item Rayleigh: $xe^{-x^2/2}\ind_{\R_+}$; Pareto: $\frac{\lambda a^\lambda}{z^{\lambda+1}}\ind_{z\geq a}$
+	\end{enumerate}
+	$\Phi(x)=\PP(Z\leq x)$, $Z\sim\mathcal N(0,1)$; $\Phi(-x)=1-\Phi(x)$:
+
+	\begin{tabular}{|l|l|l|l|l|l|l|}
+		\hline
+		$x$       & 1     & 1,645 & 1,96  & 2     & 2,326 & 2,576 \\
+		$\Phi(x)$ & 0,841 & 0,95  & 0,975 & 0,977 & 0,99  & 0,995 \\
+		\hline
+	\end{tabular}
+
+	\colbreak
+	\subsection{Vecteurs aléatoires}
+	$X=(X_1,\dots,X_n)$, $F_X(x)=\PP(X_1\leq x_1,\dots,X_n\leq x_n)$; densité $f_X$ sur $\R^n$:
+	\begin{gather*}
+		\PP(X\in A)=\int_Af_X(x)\,\dd x_1\cdots\dd x_n
+	\end{gather*}
+	\textbf{Lois marginales}: intégrer les autres variables:
+	\begin{gather*}
+		f_X(x)=\int_\R f_{(X,Y)}(x,y)\,\dd y,\quad f_Y(y)=\int_\R f_{(X,Y)}(x,y)\,\dd x
+	\end{gather*}
+	Les marginales ne déterminent pas la loi du couple (sauf indépendance).
+
+	\subsection{Exemples (TD)}
+	\textbf{Cauchy}: émission isotrope vers une plaque à distance $d$, $\theta\sim\mathcal U]-\frac\pi2,\frac\pi2[$, $X=d\tan\theta$:
+	\begin{gather*}
+		F_X(x)=\PP\big(\theta\leq\arctan\tfrac xd\big)=\frac12+\frac1\pi\arctan\frac xd\\
+		f_X(x)=\frac{d}{\pi(d^2+x^2)}
+	\end{gather*}
+	\textbf{Couple} $f=ce^{-\frac{x^2+y^2}2}\ind_{x>y}$:
+	\begin{enumerate}[\roman*.]
+		\item $\iint e^{-\frac{x^2+y^2}2}=2\pi$, la moitié sur $\{x>y\}$: $c=\frac1\pi$
+		\item Support: demi-plan $\{x>y\}$
+		\item $f_X(x)=2\varphi(x)\Phi(x)$, $f_Y(y)=2\varphi(y)(1-\Phi(y))$ ($\varphi$: densité $\mathcal N(0,1)$)
+	\end{enumerate}
+	\textbf{Exponentielle} (CC 25-26): $F=1-e^{-\lambda x}$:
+	\begin{enumerate}[\roman*.]
+		\item $f=F'=\lambda e^{-\lambda x}\ind_{x\geq0}$
+		\item IPP: $\E[X]=\int_0^\infty x\lambda e^{-\lambda x}=[-xe^{-\lambda x}]_0^\infty+\int_0^\infty e^{-\lambda x}=\frac1\lambda$
+		\item $Y=-\frac1\lambda\ln U$, $U\sim\mathcal U[0,1]$: $\PP(Y\leq y)=\PP(U\geq e^{-\lambda y})=1-e^{-\lambda y}$: $Y\sim\mathcal E(\lambda)$ (simulation)
+		\item Pareto $Z=ae^X$: $\PP(Z\leq z)=1-(\frac az)^\lambda$ ($z\geq a$); $\E[Z]=\frac{a\lambda}{\lambda-1}$ si $\lambda>1$, sinon $+\infty$
+	\end{enumerate}
+
+	\textbf{Méthode}: loi de $g(X)$ par la FdR, préciser le support; reconnaître une loi usuelle à sa densité.
+
+	\colbreak
+	\section{Moments}
+	\textbf{Espérance} (moyenne pondérée par la loi):
+	\begin{gather*}
+		\E[X]=\int_\Omega X\,\dd\PP=\sum_xx\,\PP(X=x)\ \text{ou}\ \int xf_X(x)\,\dd x
+	\end{gather*}
+	\textbf{Théorème de transfert} (pas besoin de la loi de $g(X)$):
+	\begin{gather*}
+		\E[g(X)]=\sum_xg(x)\PP(X=x)=\int g(x)f_X(x)\,\dd x
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Défini si $g\geq0$ (valeur dans $[0,+\infty]$) ou si $\E[|g(X)|]<\infty$ (intégrable)
+		\item Linéaire: $\E[aX+bY]=a\E[X]+b\E[Y]$ (\textbf{toujours}, même dépendantes)
+		\item Positive: $X\geq0\Rightarrow\E[X]\geq0$; $X\geq0$ et $\E[X]=0\Rightarrow X=0$ p.s.
+		\item $\E[\ind_A]=\PP(A)$; $\E[c]=c$
+		\item Même loi $\Rightarrow$ même espérance; réciproque si $\E[f(X)]=\E[f(Y)]$ pour toute $f$ continue bornée
+	\end{enumerate}
+	\textbf{Variables positives}:
+	\begin{gather*}
+		\E[X]=\int_0^\infty\PP(X>t)\,\dd t,\quad X\in\N:\ \E[X]=\sum_{k\geq1}\PP(X\geq k)
+	\end{gather*}
+
+	\subsection{Variance, covariance}
+	\begin{gather*}
+		\Var(X)=\E\big[(X-\E X)^2\big]=\E[X^2]-\E[X]^2\\
+		\Var(aX+b)=a^2\Var(X),\quad\sigma_X=\sqrt{\Var X}\\
+		\Cov(X,Y)=\E[XY]-\E[X]\E[Y]\\
+		\Var(X+Y)=\Var X+\Var Y+2\Cov(X,Y)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\Var X=0\iff X$ constante p.s.
+		\item Indépendantes $\Rightarrow\Cov=0$, $\Var(\sum X_i)=\sum\Var X_i$; \textbf{réciproque fausse}
+		\item Corrélation $\rho=\frac{\Cov(X,Y)}{\sigma_X\sigma_Y}\in[-1,1]$
+		\item Moment d'ordre $p$: $\E[|X|^p]$; $L^2\subset L^1$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Inégalités}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Cauchy-Schwarz}: $|\E[XY]|\leq\sqrt{\E[X^2]\E[Y^2]}$
+		\item \textbf{Hölder} ($\frac1p+\frac1q=1$): $|\E[XY]|\leq\E[|X|^p]^{\frac1p}\E[|Y|^q]^{\frac1q}$
+		\item \textbf{Jensen} ($\varphi$ convexe): $\varphi(\E[X])\leq\E[\varphi(X)]$; ex. $\E[X]^2\leq\E[X^2]$, $|\E X|\leq\E|X|$; $\ln$ concave: $\E[\ln X]\leq\ln\E[X]$ (stricte si $X$ non constante)
+		\item \textbf{Markov}: $\PP(|X|\geq\eta)\leq\dfrac{\E[|X|^p]}{\eta^p}$
+		\item \textbf{Bienaymé-Tchebychev}: $\PP(|X-\E X|\geq\eta)\leq\dfrac{\Var X}{\eta^2}$
+	\end{enumerate}
+
+	\subsection{Calculs types}
+	\begin{enumerate}[\roman*.]
+		\item Géométrique: $\sum_{k\geq1}kq^{k-1}=\frac1{(1-q)^2}$, $\sum_{k\geq0}q^k=\frac1{1-q}$
+		\item Poisson: $\sum_{k\geq0}\frac{a^k}{k!}=e^a$; $\E[X(X-1)]=\lambda^2$
+		\item Binomiale: $X=\sum_{i=1}^n\mathcal B(p)$ indépendantes, d'où $np$, $np(1-p)$
+		\item Gamma: $\E[X^k]=\frac{\Gamma(a+k)}{\lambda^k\Gamma(a)}$, d'où $\frac a\lambda$, $\frac{a(a+1)}{\lambda^2}$, $\Var=\frac a{\lambda^2}$
+		\item Gaussienne: moments impairs centrés nuls; $\E[Z^2]=1$, $\E[Z^4]=3$
+		\item Densité paire, intégrable: $\E[X]=0$
+		\item Somme d'indicatrices: $N=\sum\ind_{A_i}\Rightarrow\E[N]=\sum\PP(A_i)$
+	\end{enumerate}
+
+	\subsection{Exemples (TD, CC)}
+	\textbf{Rayleigh} $f=xe^{-x^2/2}\ind_{\R_+}$:
+	\begin{enumerate}[\roman*.]
+		\item $\int_0^\infty xe^{-x^2/2}=[-e^{-x^2/2}]_0^\infty=1$
+		\item $\E[X]=\int_0^\infty x^2e^{-x^2/2}=\frac12\sqrt{2\pi}=\sqrt{\frac\pi2}\approx1{,}25$
+		\item $\PP(X\geq x)=e^{-x^2/2}$, $\PP(X\geq\E X)=e^{-\pi/4}\approx0{,}46$
+		\item $Y=X^2$: $\PP(Y\leq y)=1-e^{-y/2}$, $Y\sim\mathcal E(\frac12)$; $\E[X^2]=2$, $\Var X=2-\frac\pi2\approx0{,}43$
+		\item $\PP(|X-\E X|\geq1)\approx0{,}11\leq\Var X=0{,}43$ (Tchebychev vérifiée)
+	\end{enumerate}
+	\colbreak
+	\textbf{Céréales} (CC 25-26), $c$ cartes, $j$ déjà possédées:
+	\begin{enumerate}[\roman*.]
+		\item Nouvelle carte: $X\sim\mathcal B(\frac{c-j}c)$
+		\item $N_j\sim\mathcal G(\frac{c-j}c)$, $\E[N_j]=\frac c{c-j}$
+		\item $N_{total}=\sum_{j=0}^{c-1}N_j$, $\E=c\sum_{k=1}^c\frac1k\approx c\ln c$
+	\end{enumerate}
+
+
+	\textbf{Jeu de dé} (CC 24-25): on relance tant qu'on veut, arrêt forcé sur 1; score = dernier lancer. Stratégie «s'arrêter dès $\geq i$» (ou 1):
+	\begin{enumerate}[\roman*.]
+		\item $X_n\sim\mathcal U\{1..6\}$ i.i.d.; arrêt avec probabilité $q_i=\frac{8-i}6$ à chaque lancer
+		\item $\{N=k\}=\{X_1,..,X_{k-1}\notin S\}\cap\{X_k\in S\}$, $S$ ensemble d'arrêt: $N\sim\mathcal G(q_i)$, $\E[N]=\frac6{8-i}$
+		\item $X_N$ uniforme sur $S$ (probabilités totales + série géométrique)
+	\end{enumerate}
+	\begin{tabular}{|l|l|l|l|l|l|}
+		\hline
+		$i$             & 6   & 5   & 4   & 3    & 2   \\
+		\hline
+		$S\setminus\{1\}$ & 6 & 5,6 & 4..6 & 3..6 & tous \\
+		$\E[G_i]$       & 3,5 & 4   & 4   & 3,8  & 3,5 \\
+		$\E[N]$         & 3   & 2   & 1,5 & 1,2  & 1   \\
+		$\E[G_i-N]$     & 0,5 & 2   & 2,5 & 2,6  & 2,5 \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Sans coût: s'arrêter à 4 ou 5 ($\E=4$)
+		\item Avec $-1$ par lancer: s'arrêter dès 3 ($\E=2{,}6$)
+	\end{enumerate}
+
+	\textbf{Jeu d'argent} (mise d'une fraction $c$, gain $\times X$, $\E[X]=1$):
+	\begin{enumerate}[\roman*.]
+		\item $C_{n+1}=C_n(1-c+cX_n)$, $\E[C_n]=C_0$ (jeu «équitable»)
+		\item $\frac1n\ln C_n=\frac1n\ln C_0+\frac1n\sum\ln Y_i\to\E[\ln Y_0]$ p.s. (LGN)
+		\item Jensen strict: $\E[\ln Y_0]<\ln\E[Y_0]=0\Rightarrow C_n\to0$ p.s.
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $\E[g(X)]$: transfert direct, inutile de chercher la loi de $g(X)$
+		\item Décomposer en somme (indicatrices, Bernoulli, géométriques) puis linéarité
+		\item Variance: $\E[X^2]$ (ou $\E[X(X-1)]$); vérifier l'intégrabilité
+		\item Majorer une probabilité de déviation: Markov/Tchebychev
+	\end{enumerate}
+
+	\colbreak
+	\section{Indépendance et conditionnement}
+	$X$, $Y$ \textbf{indépendantes} si $(X\in A)\perp\!\!\!\perp(Y\in B)$ pour tous $A$, $B$. Critères équivalents:
+	\begin{enumerate}[\roman*.]
+		\item $\PP(X=i,Y=j)=\PP(X=i)\PP(Y=j)$, ou $\PP(X\leq a,Y\leq b)=\PP(X\leq a)\PP(Y\leq b)$
+		\item $\E[f(X)g(Y)]=\E[f(X)]\E[g(Y)]$ pour toutes $f,g$ bornées
+		\item Densités: $f_{(X,Y)}(x,y)=f_X(x)f_Y(y)$; si $f_{(X,Y)}=f_1(x)f_2(y)$ (produit, support pavé) alors indépendantes
+		\item Fonctions caractéristiques: $\E[e^{i(tX+sY)}]=\varphi_X(t)\varphi_Y(s)$
+	\end{enumerate}
+	\begin{enumerate}[\roman*.]
+		\item $X\perp\!\!\!\perp Y\Rightarrow f(X)\perp\!\!\!\perp g(Y)$; support non rectangulaire ($\ind_{x>y}$): dépendantes
+	\end{enumerate}
+
+	\subsection{Somme de variables indépendantes}
+	\begin{gather*}
+		\PP(X+Y=n)=\sum_k\PP(X=k)\PP(Y=n-k)\\
+		f_{X+Y}(z)=(f_X*f_Y)(z)=\int f_X(x)f_Y(z-x)\,\dd x
+	\end{gather*}
+	\begin{tabular}{|l|l|}
+		\hline
+		$X$, $Y$ indépendantes           & $X+Y$                           \\
+		\hline
+		$\mathcal B(n,p)$, $\mathcal B(m,p)$ & $\mathcal B(n+m,p)$         \\
+		$\mathcal P(\lambda)$, $\mathcal P(\mu)$ & $\mathcal P(\lambda+\mu)$ \\
+		$\mathcal N(m,\sigma^2)$, $\mathcal N(r,\nu^2)$ & $\mathcal N(m+r,\sigma^2+\nu^2)$ \\
+		$\Gamma(a,\lambda)$, $\Gamma(b,\lambda)$ & $\Gamma(a+b,\lambda)$     \\
+		\hline
+	\end{tabular}
+
+	\subsection{Min, max}
+	$X_1,\dots,X_n$ indépendantes:
+	\begin{gather*}
+		\PP(\min X_i>t)=\prod\PP(X_i>t)\\ \PP(\max X_i\leq t)=\prod F_{X_i}(t)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\min(\mathcal E(\alpha),\mathcal E(\beta))\sim\mathcal E(\alpha+\beta)$
+		\item $X,Y\sim\mathcal U[0,1]$: $U=\min$, $F_U(u)=1-(1-u)^2$, $\E U=\frac13$; $V=\max$, $F_V=v^2$, $\E V=\frac23$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Changement de variables dans $\R^n$}
+	$Y=\psi(X)$, $\psi$ bijection $C^1$ (difféomorphisme) d'un ouvert $U$ sur $V$:
+	\begin{gather*}
+		f_Y(y)=f_X\big(\psi^{-1}(y)\big)\,\big|\det J_{\psi^{-1}}(y)\big|\ind_V(y)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Méthode fonction test: $\E[h(Y)]=\int h(\psi(x))f_X(x)\dd x$, poser $y=\psi(x)$, $\dd x=|\det J_{\psi^{-1}}|\dd y$
+		\item Polaires: $\dd x\,\dd y=r\,\dd r\,\dd\theta$; $\dim Y<n$: compléter puis marginaliser
+	\end{enumerate}
+	\textbf{Disque uniforme} $f=\frac1\pi\ind_{x^2+y^2\leq1}$, $(R,\Theta)$ polaires:
+	\begin{enumerate}[\roman*.]
+		\item $f_{(R,\Theta)}=\frac r\pi\ind_{[0,1]}(r)\ind_{[-\pi,\pi]}(\theta)$ = produit: indépendantes
+		\item $f_R=2r\ind_{[0,1]}$ ($F_R=r^2$), $\Theta\sim\mathcal U[-\pi,\pi]$
+		\item Simulation: $R=\sqrt{U_1}$, $\Theta=2\pi U_2-\pi$ (pas $R=U_1$!)
+	\end{enumerate}
+
+	\subsection{Conditionnement}
+	\textbf{$Y$ discrète}, $\PP(Y=i)>0$:
+	\begin{gather*}
+		\PP(X=j\mid Y=i)=\frac{\PP(X=j,Y=i)}{\PP(Y=i)}\\
+		\E[f(X)\mid Y=i]=\sum_jf(j)\PP(X=j\mid Y=i)
+	\end{gather*}
+	\textbf{Densité} $f(x,y)$:
+	\begin{gather*}
+		f_{X\mid Y=y}(x)=\frac{f(x,y)}{f_Y(y)}=\frac{f(x,y)}{\int f(x',y)\,\dd x'}\\
+		\E[h(X)\mid Y=y]=\int h(x)f_{X\mid Y=y}(x)\,\dd x
+	\end{gather*}
+	$\E[X\mid Y]$: variable aléatoire, fonction de $Y$:
+	\begin{gather*}
+		\E\big[\E[X\mid Y]\big]=\E[X]\\ \E[f(X)g(Y)]=\E\big[\E[f(X)\mid Y]g(Y)\big]
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $X\perp\!\!\!\perp Y\Rightarrow\E[X\mid Y]=\E[X]$; $\PP(X\in A)=\sum_i\PP(X\in A\mid Y=i)\PP(Y=i)$
+		\item Somme aléatoire (Wald): $N\perp\!\!\!\perp(X_k)$ i.i.d.: $\E\big[\sum_{k=1}^NX_k\big]=\E[N]\E[X_1]$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Exemples (TD, CC)}
+	\textbf{Poisson} (CC 25-26), $X\sim\mathcal P(\lambda)\perp\!\!\!\perp Y\sim\mathcal P(\mu)$, $Z=X+Y$:
+	\begin{enumerate}[\roman*.]
+		\item $\varphi_X(t)=\sum_k e^{-\lambda}\frac{(\lambda e^{it})^k}{k!}=e^{\lambda(e^{it}-1)}$
+		\item $\varphi_Z=\varphi_X\varphi_Y\Rightarrow Z\sim\mathcal P(\lambda+\mu)$
+		\item $X\mid Z=n\sim\mathcal B\big(n,\frac\lambda{\lambda+\mu}\big)$
+		\item $N\mid X\sim\mathcal B(X,p)$ (amincissement): $N\sim\mathcal P(\lambda p)$
+	\end{enumerate}
+	\textbf{Not seven}: $S$ somme de 2 dés, $\PP(S=k)=\frac{6-|7-k|}{36}$, $\E S=7$:
+	\begin{enumerate}[\roman*.]
+		\item $\tau$ (premier 7) $\sim\mathcal G(\frac16)$, $\E\tau=6$
+		\item $\E[S\mid S\neq7]=7$, $\E[G]=\E[\tau-1]\cdot7=35$
+		\item $\E[X_{n+1}\mid X_n=i]=\frac56(i+7)>i\iff i<35$: rejouer tant que le gain $<35$
+	\end{enumerate}
+	\textbf{Absence de mémoire}: $\PP(X>t+s\mid X>t)=\frac{e^{-\lambda(t+s)}}{e^{-\lambda t}}=e^{-\lambda s}$.
+
+	\textbf{Triangle} $O,(X,0),(0,Y)$, $X,Y\sim\mathcal U[0,1]$: $\mathcal A=\frac{XY}2$, $\E\mathcal A=\frac18$,
+	\begin{gather*}
+		\PP(\mathcal A\leq\tfrac18)=\PP(XY\leq\tfrac14)=\tfrac14+\int_{1/4}^1\tfrac{\dd x}{4x}=\tfrac14+\tfrac{\ln4}4\approx0{,}60
+	\end{gather*}
+	\textbf{Castor et Pollux} (arrivées $\mathcal U[0,60]$, attente $\leq10$): rencontre $\PP(|X-Y|\leq10)=1-(\frac{50}{60})^2=\frac{11}{36}$ (dessin: carré moins deux triangles).
+
+	\textbf{Processus de Poisson}: $T_n=\sum_1^nX_i$, $X_i\sim\mathcal E(\lambda)$: $T_n\sim\Gamma(n,\lambda)$; $N_t=\max\{n:T_n\leq t\}\sim\mathcal P(\lambda t)$.
+
+	\textbf{Pile ou face} (CC 23-24): $S_k\sim\mathcal B(k,p)$; $S_k\perp\!\!\!\perp X_{k+1}$ (fonctions de lancers disjoints); $\PP(S_{k+1}=l\mid S_k=m)=p$ si $l=m+1$, $1-p$ si $l=m$.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Indépendance: factoriser la densité \textbf{et} le support
+		\item Somme: convolution, ou mieux fonctions caractéristiques (§5)
+		\item Min/max: passer par $\PP(\min>t)$, $\PP(\max\leq t)$
+		\item Problèmes géométriques ($\mathcal U$ sur un domaine): rapport d'aires, dessin
+	\end{enumerate}
+
+	\colbreak
+	\section{Transformées}
+	\subsection{Fonction génératrice}
+	$X$ à valeurs dans $\N$, $s\in[-1,1]$:
+	\begin{gather*}
+		G_X(s)=\E[s^X]=\sum_{n\geq0}\PP(X=n)s^n
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $G_X(1)=1$; série entière de rayon $\geq1$
+		\item $\PP(X=n)=\frac{G_X^{(n)}(0)}{n!}$: $G_X$ caractérise la loi
+		\item $G_X'(1)=\E[X]$, $G_X''(1)=\E[X(X-1)]$; $\Var X=G''(1)+G'(1)-G'(1)^2$
+		\item $X\perp\!\!\!\perp Y\Rightarrow G_{X+Y}=G_XG_Y$
+		\item Somme aléatoire, $N\perp\!\!\!\perp(X_k)$ i.i.d.: $G_{\sum_1^NX_k}=G_N\circ G_X$
+	\end{enumerate}
+
+	\subsection{Fonction caractéristique}
+	\begin{gather*}
+		\varphi_X(t)=\E[e^{itX}]=\int e^{itx}\,\dd\PP_X(x)\\
+		\varphi_X(t)=\E[e^{i\,t\cdot X}]\ \ (X\in\R^n,\ t\cdot X=\textstyle\sum t_jX_j)
+	\end{gather*}
+	Transformée de Fourier de la loi; existe toujours ($|e^{itX}|=1$).
+	\begin{enumerate}[\roman*.]
+		\item $\varphi_X(0)=1$, $|\varphi_X|\leq1$, continue, $\varphi_X(-t)=\overline{\varphi_X(t)}$
+		\item \textbf{Caractérise la loi}: $\varphi_X=\varphi_Y\Rightarrow X\sim Y$
+		\item $\E|X|^k<\infty\Rightarrow\varphi_X\in C^k$, $\E[X^k]=i^{-k}\varphi_X^{(k)}(0)$
+		\item $\varphi_{aX+b}(t)=e^{itb}\varphi_X(at)$
+		\item $X\perp\!\!\!\perp Y\Rightarrow\varphi_{X+Y}=\varphi_X\varphi_Y$
+		\item Indépendance $\iff\varphi_{(X,Y)}(t,s)=\varphi_X(t)\varphi_Y(s)$
+		\item Loi symétrique ($X\sim-X$) $\iff\varphi_X$ réelle
+		\item Convergence en loi $\iff\varphi_{X_n}\to\varphi_X$ (§7)
+	\end{enumerate}
+	\textbf{Gaussienne} (dériver sous $\int$ puis IPP: $\varphi'=-t\varphi$):
+	\begin{gather*}
+		\varphi_{\mathcal N(m,\sigma^2)}(t)=\exp\Big(itm-\frac{\sigma^2t^2}2\Big)
+	\end{gather*}
+
+	\colbreak
+	\subsection{Tables}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Loi}          & $G_X(s)$                       & $\varphi_X(t)$                             \\
+		\hline
+		$\mathcal B(p)$       & $1-p+ps$                       & $1-p+pe^{it}$                              \\
+		$\mathcal B(n,p)$     & $(1-p+ps)^n$                   & $(1-p+pe^{it})^n$                          \\
+		$\mathcal G(p)$       & $\frac{ps}{1-(1-p)s}$          & $\frac{pe^{it}}{1-(1-p)e^{it}}$            \\
+		$\mathcal P(\lambda)$ & $e^{\lambda(s-1)}$             & $e^{\lambda(e^{it}-1)}$                    \\
+		\hline
+	\end{tabular}
+
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Loi}             & $\varphi_X(t)$                                \\
+		\hline
+		$\mathcal U[a,b]$        & $\frac{e^{itb}-e^{ita}}{it(b-a)}$             \\
+		$\mathcal U[-a,a]$       & $\frac{\sin at}{at}$                          \\
+		$\mathcal E(\lambda)$    & $\frac{\lambda}{\lambda-it}$                  \\
+		$\Gamma(a,\lambda)$      & $\big(\frac{\lambda}{\lambda-it}\big)^a$      \\
+		$\mathcal N(m,\sigma^2)$ & $e^{itm-\sigma^2t^2/2}$                       \\
+		$\mathcal C(c)$          & $e^{-c|t|}$                                   \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Calcul discret: $\sum_kp_ke^{itk}$, reconnaître une série géométrique/exponentielle
+		\item Calcul à densité: $\int e^{itx}f(x)\dd x$; ex. $\int_0^\infty\lambda e^{-(\lambda-it)x}\dd x=\frac\lambda{\lambda-it}$
+	\end{enumerate}
+
+	\subsection{Méthode (loi d'une somme)}
+	\begin{enumerate}[\roman*.]
+		\item Calculer $\varphi$ (ou $G$) de chaque terme
+		\item Multiplier (indépendance)
+		\item Reconnaître la transformée d'une loi connue $\Rightarrow$ c'est la loi (caractérisation)
+	\end{enumerate}
+	\textbf{Ex}: $\mathcal N(m,\sigma^2)+\mathcal N(r,\nu^2)$: $e^{itm-\frac{\sigma^2t^2}2}e^{itr-\frac{\nu^2t^2}2}=e^{it(m+r)-\frac{(\sigma^2+\nu^2)t^2}2}$.
+
+	\colbreak
+	\subsection{Exemples (TD)}
+	\textbf{Géométrique $\to$ exponentielle}: $Y_h\sim\mathcal G(\rho_h)$, $\rho_h=1-e^{-\lambda h}$, $Z_h=hY_h$:
+	\begin{gather*}
+		\varphi_{Z_h}(t)=\frac{\rho_he^{ith}}{1-(1-\rho_h)e^{ith}}\xrightarrow[h\to0]{}\frac{\lambda}{\lambda-it}
+	\end{gather*}
+	($\rho_h\sim\lambda h$, $1-e^{-\lambda h}e^{ith}\sim(\lambda-it)h$): $Z_h\to\mathcal E(\lambda)$ en loi; version continue du temps d'attente.
+
+	\textbf{Somme géométrique d'exponentielles}: $N\sim\mathcal G(p)\perp\!\!\!\perp X_k\sim\mathcal E(\lambda)$ i.i.d., conditionner par $N$:
+	\begin{gather*}
+		\varphi(t)=\sum_{n\geq1}p(1-p)^{n-1}\Big(\frac\lambda{\lambda-it}\Big)^n=\frac{p\lambda}{p\lambda-it}
+	\end{gather*}
+	donc $\sum_{k=1}^NX_k\sim\mathcal E(p\lambda)$.
+
+	\textbf{Binomiale par génératrice}: $G_{\mathcal B(p)}^n=(1-p+ps)^n=G_{\mathcal B(n,p)}$, d'où $\mathcal B(n,p)+\mathcal B(m,p)=\mathcal B(n+m,p)$.
+
+	\textbf{Moments par $G$}: $\mathcal P(\lambda)$: $G'(1)=\lambda$, $G''(1)=\lambda^2$, $\Var=\lambda^2+\lambda-\lambda^2=\lambda$. $\mathcal G(p)$: $G'(1)=\frac1p$.
+
+	\textbf{Moments par $\varphi$}: $\mathcal E(\lambda)$: $\varphi'(0)=\frac{i}{\lambda}\Rightarrow\E X=\frac1\lambda$; $\varphi''(0)=-\frac2{\lambda^2}\Rightarrow\E X^2=\frac2{\lambda^2}$.
+
+	\subsection{Transformée de Laplace}
+	$X\geq0$: $L_X(s)=\E[e^{-sX}]$, $s\geq0$; mêmes propriétés (caractérise la loi, produit pour la somme, $\E[X]=-L'(0)$). $\mathcal E(\lambda)$: $\frac\lambda{\lambda+s}$; $\Gamma(a,\lambda)$: $(\frac\lambda{\lambda+s})^a$.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Valeurs entières: génératrice (plus simple); sinon $\varphi$
+		\item Somme de $N$ termes aléatoires: conditionner par $N$ ($\E[\cdot\mid N=n]$), puis sommer
+		\item Limite en loi: limite de $\varphi_{X_n}(t)$ pour $t$ fixé, reconnaître
+		\item «Refaire les calculs» en CC: écrire la série/l'intégrale explicitement
+	\end{enumerate}
+
+	\colbreak
+	\section{Vecteurs gaussiens}
+	\textbf{Gaussienne réelle} $\mathcal N(m,\sigma^2)$ ($\sigma=0$: constante $m$, «gaussienne dégénérée»):
+	\begin{gather*}
+		\varphi(t)=e^{itm-\sigma^2t^2/2},\quad X=m+\sigma Z,\ Z\sim\mathcal N(0,1)
+	\end{gather*}
+	\textbf{Vecteur gaussien}: $X\in\R^n$ tel que \textbf{toute combinaison linéaire} $t\cdot X=\sum t_jX_j$ soit gaussienne réelle.
+	\begin{enumerate}[\roman*.]
+		\item Composantes gaussiennes $\not\Rightarrow$ vecteur gaussien; gaussiennes \textbf{indépendantes} $\Rightarrow$ vecteur gaussien
+	\end{enumerate}
+
+	\subsection{Moyenne, covariance}
+	\begin{gather*}
+		m=\E[X],\quad\Gamma_X=\big(\Cov(X_i,X_j)\big)_{i,j}\\ \Gamma_X=\E[(X-m)(X-m)^T]
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\Gamma_X$ \textbf{symétrique positive}: $t^T\Gamma t=\Var(t\cdot X)\geq0$; diagonale = variances; $\Gamma_{12}^2\leq\Gamma_{11}\Gamma_{22}$
+		\item Loi entièrement déterminée par $(m,\Gamma)$: $X\sim\mathcal N(m,\Gamma)$
+	\end{enumerate}
+	\begin{gather*}
+		\varphi_X(t)=\exp\Big(i\,t\cdot m-\frac12t^T\Gamma_Xt\Big)\\
+		t\cdot X\sim\mathcal N\big(t\cdot m,\ t^T\Gamma_Xt\big)
+	\end{gather*}
+
+	\subsection{Transformation affine}
+	$A$ matrice $r\times n$, $B\in\R^r$:
+	\begin{gather*}
+		Y=AX+B\sim\mathcal N\big(Am+B,\ A\Gamma_XA^T\big)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Toujours gaussien, pour \textbf{toute} matrice constante $A$
+		\item Exemple $n=2$: $aX+bY\sim\mathcal N\big(am_X+bm_Y,\ a^2\sigma_X^2+b^2\sigma_Y^2+2ab\sigma_{XY}\big)$
+		\item $(X+Y,X-Y)$: $A=\begin{pmatrix}1&1\\1&-1\end{pmatrix}$, $\Cov(X+Y,X-Y)=\sigma_X^2-\sigma_Y^2$
+	\end{enumerate}
+
+	\subsection{Représentation canonique}
+	$\Gamma_X=AA^T$ ($A$ symétrique positive: diagonaliser $\Gamma=O\,\mathrm{diag}(\lambda_i)O^T$, $A=O\,\mathrm{diag}(\sqrt{\lambda_i})O^T$; ou Cholesky):
+	\begin{gather*}
+		X\overset{loi}=m+AY,\quad Y\sim\mathcal N(0,I_n)
+	\end{gather*}
+
+	\colbreak
+	\subsection{Densité}
+	Si $\Gamma_X$ est \textbf{inversible} ($\det\Gamma>0$):
+	\begin{gather*}
+		f_X(x)=\frac1{\sqrt{(2\pi)^n\det\Gamma_X}}\exp\Big(-\frac12(x-m)^T\Gamma_X^{-1}(x-m)\Big)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Définie sur $\R^n$, à valeurs dans $\R_+^*$
+		\item $\Gamma$ non inversible (rang $r<n$): $X$ vit dans un sous-espace affine de dimension $r$, \textbf{pas de densité}
+		\item $\mathcal N(0,I_2)$: $f=\frac1{2\pi}e^{-\frac{x_1^2+x_2^2}2}$
+		\item $n=2$, $\rho=\frac{\sigma_{XY}}{\sigma_X\sigma_Y}$: $\det\Gamma=\sigma_X^2\sigma_Y^2(1-\rho^2)$; inverse $\frac1{\det}\begin{pmatrix}\sigma_Y^2&-\sigma_{XY}\\-\sigma_{XY}&\sigma_X^2\end{pmatrix}$
+	\end{enumerate}
+
+	\subsection{Indépendance}
+	$X=(Y,Z)$ \textbf{vecteur gaussien}:
+	\begin{gather*}
+		Y\perp\!\!\!\perp Z\iff\Cov(Y_k,Z_l)=0\ \forall k,l
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Composantes indépendantes $\iff\Gamma$ diagonale
+		\item Faux si le couple n'est pas gaussien (contre-exemple ci-dessous)
+		\item $\mathcal N(0,\sigma^2I)$ est invariante par rotation
+	\end{enumerate}
+
+	\subsection{Contre-exemple (TD)}
+	$X\sim\mathcal N(0,1)\perp\!\!\!\perp Y=\pm1$ ($\frac12$ chacun), $Z=XY$:
+	\begin{enumerate}[\roman*.]
+		\item $Z\sim\mathcal N(0,1)$ (symétrie de $X$)
+		\item $\Cov(X,Z)=\E[X^2]\E[Y]=0$: non corrélées
+		\item Si $(X,Z)$ était gaussien: $\mathcal N(0,I_2)$, donc indépendantes
+		\item Mais $X+Z=X(1+Y)$ vaut 0 avec probabilité $\frac12$: pas gaussienne, donc $(X,Z)$ \textbf{n'est pas} un vecteur gaussien
+		\item $|Z|=|X|$: $X$ et $Z$ \textbf{dépendantes} bien que non corrélées
+	\end{enumerate}
+
+	\subsection{Rotation}
+	$X\sim\mathcal N(0,\Gamma)$, $R_\theta$ rotation: $R_\theta X\sim\mathcal N(0,R_\theta\Gamma R_\theta^T)$. Même loi $\forall\theta$ $\iff\Gamma R_\theta=R_\theta\Gamma$ $\iff\Gamma=\sigma^2I_2$.
+
+	\colbreak
+	\subsection{Exemples (TD, CC)}
+	\textbf{TD}: $m=(-1,3)$, $\Gamma=\begin{pmatrix}1&1\\1&4\end{pmatrix}$, $Z=-2X+Y$:
+	\begin{gather*}
+		\E Z=2+3=5,\quad\Var Z=4\cdot1+4-2\cdot2\cdot1=4\\ Z\sim\mathcal N(5,4)
+	\end{gather*}
+	\textbf{TD}: $(X_1,X_2)\sim\mathcal N(0,I)$: $X_1+X_2$ et $X_1-X_2$ non corrélées (et gaussiennes ensemble) donc indépendantes; $\sin(X_1-X_2)$ indépendante de $X_1+X_2$.
+
+	\textbf{CC 23-24}: $X\sim\mathcal N(0,I_2)$:
+	\begin{enumerate}[\roman*.]
+		\item $U=1+X_1+2X_2\sim\mathcal N(1,5)$
+		\item $Y=AX$, $A=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix}$: $\Gamma_Y=AA^T=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix}$, $\det=0$: pas de densité ($Y_1=Y_2$)
+		\item $Y_1+Y_2=X_1+X_2\sim\mathcal N(0,2)$; $Y_1-Y_2=0$
+	\end{enumerate}
+	\textbf{CC 25-26}: $m=(1,0)$, $\Gamma=\begin{pmatrix}2&1\\t&2\end{pmatrix}$:
+	\begin{enumerate}[\roman*.]
+		\item $\Gamma$ symétrique: $t=1$
+		\item $\det\Gamma=3>0$: densité sur $\R^2$, à valeurs dans $\R_+^*$
+		\item $\Cov(X,Y)=1\neq0$: dépendantes
+		\item $Z=3X+2Y+1$: $\E Z=4$, $\Var Z=9\cdot2+4\cdot2+2\cdot3\cdot2\cdot1=38$, $Z\sim\mathcal N(4,38)$
+		\item $A(X,Y)^T$ gaussien pour toute matrice constante $A$
+	\end{enumerate}
+	\textbf{Densité}: $X\sim\mathcal N(0,I_2)$, $Z=\frac{X_2^2}{X_1^2}$: on écrit $Z=\frac{U}{1-U}$ avec $U=\frac{X_2^2}{X_1^2+X_2^2}$ puis changement de variable 1D.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Montrer «gaussien»: écrire $AX+B$ avec $X$ gaussien, ou toute combinaison linéaire gaussienne
+		\item Loi d'une combinaison linéaire: calculer moyenne et variance seulement ($t^T\Gamma t$)
+		\item Indépendance: calculer les covariances (si vecteur gaussien!)
+		\item Densité: vérifier $\det\Gamma\neq0$
+		\item $\Gamma$ valide: symétrique, diagonale $\geq0$, $\det\geq0$
+	\end{enumerate}
+
+	\colbreak
+	\section{Convergences}
+	\textbf{Presque sûre}: $X_n\to X$ p.s. si $\PP(\{\omega:X_n(\omega)\to X(\omega)\})=1$.
+
+	\textbf{En loi} ($X_n\xrightarrow{\mathcal L}X$), définitions équivalentes:
+	\begin{enumerate}[\roman*.]
+		\item $\E[f(X_n)]\to\E[f(X)]$ pour toute $f$ continue bornée
+		\item $\PP(X_n\in A)\to\PP(X\in A)$ si $\PP(X\in\partial A)=0$; réel: $F_{X_n}(x)\to F_X(x)$ aux points de continuité de $F_X$
+		\item $\varphi_{X_n}(t)\to\varphi_X(t)$ pour tout $t$ (\textbf{Lévy})
+	\end{enumerate}
+	\begin{enumerate}[\roman*.]
+		\item p.s. $\Rightarrow$ en loi (convergence dominée); réciproque fausse ($X_n=X\sim\mathcal N(0,1)$ tend en loi vers $-X$, pas p.s.)
+		\item En loi: convergence des lois, pas des variables
+		\item Aussi: en probabilité ($\PP(|X_n-X|>\varepsilon)\to0$), dans $L^p$ ($\E|X_n-X|^p\to0$); p.s. ou $L^p$ $\Rightarrow$ proba $\Rightarrow$ loi
+	\end{enumerate}
+
+	\subsection{Loi des grands nombres}
+	$(X_n)$ i.i.d., $\E|X_1|<\infty$:
+	\begin{gather*}
+		\bar X_n=\frac1n\sum_{j=1}^nX_j\xrightarrow[n\to\infty]{\text{p.s.}}\E[X_1]
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Fréquence empirique $\frac1n\sum\ind_{X_j\in A}\to\PP(X_1\in A)$
+		\item Faible (Tchebychev): $\PP(|\bar X_n-m|\geq\varepsilon)\leq\frac{\sigma^2}{n\varepsilon^2}$
+		\item Monte-Carlo: $\frac1n\sum g(U_j)\to\int_0^1g$
+		\item Cauchy: pas de LGN ($\bar X_n\sim\mathcal C(1)$ pour tout $n$)
+	\end{enumerate}
+
+	\subsection{Théorème central limite}
+	$(X_n)$ i.i.d., $\E[X_1^2]<\infty$, $m=\E X_1$, $\sigma^2=\Var X_1$:
+	\begin{gather*}
+		\frac{\sqrt n}{\sigma}\big(\bar X_n-m\big)=\frac{S_n-nm}{\sigma\sqrt n}\xrightarrow{\mathcal L}\mathcal N(0,1)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item En pratique: $S_n\approx\mathcal N(nm,n\sigma^2)$, $\bar X_n\approx\mathcal N(m,\frac{\sigma^2}n)$
+		\item Erreur de la LGN en $\frac\sigma{\sqrt n}$
+		\item Intervalle de confiance à 95\,\%: $\bar X_n\pm1{,}96\frac\sigma{\sqrt n}$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Approximations}
+	\begin{enumerate}[\roman*.]
+		\item $\mathcal B(n,p)\approx\mathcal N(np,np(1-p))$ si $np$, $n(1-p)$ grands ($\gtrsim10$)
+		\item $\mathcal B(n,p)\approx\mathcal P(np)$ si $n$ grand, $p$ petit
+		\item $\mathcal P(\lambda)\approx\mathcal N(\lambda,\lambda)$ si $\lambda$ grand
+		\item Correction de continuité (discret $\to$ continu): $\PP(S\leq k)\approx\Phi\big(\frac{k+\frac12-nm}{\sigma\sqrt n}\big)$
+	\end{enumerate}
+
+	\subsection{Exemples (TD, CC)}
+	\textbf{Surbooking}: 328 sièges, 400 réservations, présence 0,8:
+	\begin{enumerate}[\roman*.]
+		\item $S\sim\mathcal B(400;0{,}8)$, $\E S=320$, $\Var S=64$, $\sigma=8$
+		\item $\PP(\text{au moins $k$ refusés})=\PP(S\geq328+k)$
+		\item $k=1$: $\PP(S\geq329)\approx1-\Phi\big(\frac{328{,}5-320}{8}\big)=1-\Phi(1{,}06)\approx0{,}14$
+		\item $\PP(S_n\leq328)\geq0{,}98$: $\frac{328{,}5-0{,}8n}{0{,}4\sqrt n}\geq2{,}054\Rightarrow n\leq390$
+	\end{enumerate}
+	\textbf{AR(1)}: $X_{n+1}=\theta X_n+W_{n+1}$, $W_n\sim\mathcal N(0,\sigma^2)$ i.i.d.:
+	\begin{enumerate}[\roman*.]
+		\item $X_n$ fonction de $W_1..W_n$ donc $\perp\!\!\!\perp W_{n+1}$
+		\item $\E X_n=0$, $\E X_n^2=\sigma^2\frac{1-\theta^{2n}}{1-\theta^2}$, $X_n$ gaussienne
+		\item $|\theta|<1$: $\varphi_{X_n}(t)\to e^{-\frac{\sigma^2t^2}{2(1-\theta^2)}}$, $X_n\xrightarrow{\mathcal L}\mathcal N\big(0,\frac{\sigma^2}{1-\theta^2}\big)$
+	\end{enumerate}
+	\textbf{Norme $\infty$} (CC 23-24), $Z\sim\mathcal U([-R,R]^2)$, $R=12$:
+	\begin{enumerate}[\roman*.]
+		\item $\PP(\|Z\|_\infty\leq r)=\frac{(2r)^2}{(2R)^2}=\frac{r^2}{R^2}$, densité $\frac{2r}{R^2}$
+		\item LGN: $\frac1n\sum\|Z_j\|_\infty\to\E\|Z\|_\infty=\frac{2R}3=8$
+		\item $W$=distance au milieu d'un bord: $\E W=\frac{13R}{12}=13$, $\E W^2=\frac{17R^2}{12}$, $\Var W=\frac{35R^2}{144}=35$
+		\item Point de collecte au \textbf{centre} (distance moyenne $8<13$)
+	\end{enumerate}
+	\textbf{Jeu d'argent}: $C_n\to0$ p.s. via LGN sur $\ln C_n$ (§3).
+
+	\colbreak
+	\subsection{Simulation}
+	On dispose de $U_1,U_2,\dots$ i.i.d. $\mathcal U[0,1]$ (\texttt{rand}).
+
+	\textbf{Inversion}: $F$ continue strictement croissante:
+	\begin{gather*}
+		X=F^{-1}(U)\ \text{a pour FdR}\ F\\ \PP(F^{-1}(U)\leq x)=\PP(U\leq F(x))=F(x)
+	\end{gather*}
+	En général, inverse généralisée $F^{-1}(u)=\inf\{x:F(x)\geq u\}$.
+	\begin{enumerate}[\roman*.]
+		\item $\mathcal E(\lambda)$: $-\frac1\lambda\ln U$ (car $1-U\sim U$)
+		\item Cauchy: $c\tan(\pi(U-\frac12))$
+		\item Pareto: $aU^{-1/\lambda}$
+	\end{enumerate}
+	\textbf{Discrète} (valeurs $x_1,\dots,x_n$, probabilités $p_i$): découper $[0,1]$ en intervalles de longueurs $p_i$:
+	\begin{gather*}
+		X=x_i\ \text{si}\ U\in\Big[\sum_{j<i}p_j,\ \sum_{j\leq i}p_j\Big[
+	\end{gather*}
+	\textbf{Box-Muller}: $\sqrt{-2\ln U_1}\cos(2\pi U_2)$ et $\sqrt{-2\ln U_1}\sin(2\pi U_2)$: deux $\mathcal N(0,1)$ indépendantes.
+
+	\textbf{Vecteur gaussien} $\mathcal N(m,\Gamma)$: $m+AY$, $AA^T=\Gamma$ (Cholesky), $Y\sim\mathcal N(0,I)$.
+
+	\textbf{Uniforme sur un domaine}: polaires (disque: $R=\sqrt{U_1}$), ou rejet (tirer dans un carré englobant, garder si dans le domaine).
+
+	\textbf{Indépendance}: simuler chaque composante avec des $U_i$ différents.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Moyenne empirique d'i.i.d.: LGN (limite = espérance)
+		\item Probabilité sur une somme de beaucoup de termes: TCL, centrer-réduire, table de $\Phi$
+		\item Convergence en loi: FdR ou $\varphi$, limite à $t$ fixé
+		\item Produit de variables: passer au $\ln$ pour avoir une somme
+		\item Vérifier les hypothèses: i.i.d., $\E|X|<\infty$ (LGN), $\E X^2<\infty$ (TCL)
+	\end{enumerate}
+
+	\colbreak
+	\section{Intégration et Fourier}
+	\subsection{Intégrale de Lebesgue}
+	\begin{enumerate}[\roman*.]
+		\item Étagées $\sum\alpha_i\ind_{A_i}\mapsto\sum\alpha_i\mu(A_i)$, puis limites croissantes; $\int X\dd\PP=\E[X]$; $=$ Riemann quand il existe
+		\item Défini à un ensemble de mesure nulle près: $X=Y$ p.s.; $X\geq0$ et $\E X=0\Rightarrow X=0$ p.s.
+		\item $L^1$ (norme $\E|X|$, Banach), $L^2$ (produit scalaire $\E[XY]$, Hilbert)
+	\end{enumerate}
+
+	\textbf{Convergence monotone}: $0\leq f_n\uparrow f$ p.p.:
+	\begin{gather*}
+		\int f_n\,\dd\mu\uparrow\int f\,\dd\mu
+	\end{gather*}
+	\textbf{Convergence dominée}: $f_n\to f$ p.p. et $|f_n|\leq g$, $\int g<\infty$:
+	\begin{gather*}
+		\lim\int f_n\,\dd\mu=\int f\,\dd\mu
+	\end{gather*}
+	\textbf{Fubini-Tonelli} ($f\geq0$): on peut toujours échanger l'ordre. \textbf{Fubini}: si $\iint|f|<\infty$, idem:
+	\begin{gather*}
+		\int_E\!\Big(\int_Ff\,\dd\nu\Big)\dd\mu=\int_F\!\Big(\int_Ef\,\dd\mu\Big)\dd\nu
+	\end{gather*}
+	\textbf{Sous le signe $\int$}: $F(t)=\int f(x,t)\,\dd\mu(x)$:
+	\begin{enumerate}[\roman*.]
+		\item Continue si $t\mapsto f(x,t)$ continue et $|f(x,t)|\leq G(x)$, $\int G<\infty$
+		\item Dérivable, $F'(t)=\int\partial_tf(x,t)\,\dd\mu$ si $|\partial_tf(x,t)|\leq G(x)$ intégrable
+	\end{enumerate}
+	\subsection{Convolution}
+	\begin{gather*}
+		(f*g)(x)=\int_\R f(y)g(x-y)\,\dd y
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Commutative, associative (Fubini); régularisante: $(f*g)'=f'*g$
+		\item Densité d'une somme indépendante: $f_{X+Y}=f_X*f_Y$
+		\item $\ind_{[0,1]}*\ind_{[0,1]}$: triangle sur $[0,2]$, $\min(x,2-x)^+$
+		\item $f_\alpha=e^{-\alpha x}\ind_{\R_+}$: $f_\alpha*f_\beta=\frac{e^{-\beta x}-e^{-\alpha x}}{\alpha-\beta}\ind_{\R_+}$ ($\alpha\neq\beta$); $xe^{-\alpha x}$ si $\alpha=\beta$
+		\item $g_a=\frac a{a^2+x^2}$: $g_a*g_b=\pi g_{a+b}$ (Cauchy: $\mathcal C(a)+\mathcal C(b)=\mathcal C(a+b)$)
+	\end{enumerate}
+
+
+	\subsection{Distributions}
+	Classe $\mathcal S$: $C^\infty$ à décroissance rapide (ex. $e^{-x^2/2}$; pas $e^{-|x|}$, ni $\frac1{1+x^{18}}$). Distribution $T$: forme linéaire continue sur $\mathcal S$; une fonction $\varphi$ s'identifie à $f\mapsto\int\varphi f$.
+	\begin{enumerate}[\roman*.]
+		\item Dirac: $\delta_{x_0}(f)=f(x_0)$; $f*\delta_0=f$, $\delta_a*\delta_b=\delta_{a+b}$, $\delta_a*f=f(a+\cdot)$
+		\item Dérivée: $T'(f)=-T(f')$; $\delta_{x_0}'(f)=-f'(x_0)$; $\delta_0'*T=T'$
+		\item Heaviside $H=\ind_{\R_+}$: $H'=\delta_0$; $(e^{-x}H)'=\delta_0-e^{-x}H$; $|x|'=2H-1$
+		\item $C^1$ par morceaux: $f'=\sum\Delta f(x_i)\,\delta_{x_i}+f'_{\text{classique}}$ (sauts $\to$ Diracs)
+	\end{enumerate}
+
+	\subsection{Transformée de Fourier}
+	\begin{gather*}
+		\hat f(\xi)=\int_\R f(x)e^{-2i\pi\xi x}\,\dd x
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $\mathcal S\to\mathcal S$; auto-adjointe: $\int\hat fg=\int f\hat g$
+		\item $\hat{\hat f}=\check f$ ($\check f(x)=f(-x)$): inversion
+		\item \textbf{Parseval}: $\int|f|^2=\int|\hat f|^2$; s'étend à $L^2$
+		\item $\widehat{f*g}=\hat f\,\hat g$
+		\item Translation: $\widehat{f(\cdot-a)}=e^{-2i\pi a\xi}\hat f$; $\widehat{e^{2i\pi a\cdot}f}=\hat f(\cdot-a)$
+		\item Distributions: $\hat T(f)=T(\hat f)$; $\hat\delta_0=1$, $\hat\delta_a=e^{-2i\pi a\xi}$
+		\item $\widehat{e^{-\pi x^2}}=e^{-\pi\xi^2}$; lien probas: $\varphi_X(t)=\hat f_X(-\frac t{2\pi})$
+	\end{enumerate}
+	\textbf{EDO}: $ay''+by'+cy=f$: $y=y_0*f$, $(a\delta_0''+b\delta_0'+c\delta_0)*y_0=\delta_0$.
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                       End                          %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{multicols*}
+\end{document}
