@@ -10,7 +10,9 @@ Most of these materials were made for revision and open-book exams. Completed mo
 
 |                                      |                                      |                                      |
 | :----------------------------------- | :----------------------------------- | :----------------------------------- |
-| [`Placeholder`](archive/placeholder) | [`Placeholder`](archive/placeholder) | [`Placeholder`](archive/placeholder) |
+| [`csc_3tc34_tp`](csc_3tc34_tp/fiche/fiche.pdf) | [`ece_3tc21_tp`](ece_3tc21_tp/fiche/fiche.pdf) | [`ece_3tc32_tp`](archive/ece_3tc32_tp/fiche/fiche.pdf) |
+| [`eco_3tc41_tp`](archive/eco_3tc41_tp/fiche/fiche.pdf) | [`fma_3tc13_tp`](archive/fma_3tc13_tp/fiche/fiche.pdf) | [`fma_3tc14_tp`](fma_3tc14_tp/fiche/fiche.pdf) |
+| [`phy_3tc20_tp`](phy_3tc20_tp/fiche/fiche.pdf) | | |
 
 Depending on the module, folders may contain:
 
