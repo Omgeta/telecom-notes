@@ -4,27 +4,742 @@
 \input{preamble-cheatsheet}
 \input{letterfonts}
 
-\newcommand{\mytitle}{CSC\_3TCXX\_TP Titre}
+\newcommand{\mytitle}{ECE\_3TC21\_TP Propagation et Antennes}
 \newcommand{\myauthor}{github/omgeta}
 \newcommand{\mydate}{AU 26-27 S1}
 
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ve}[1]{\vec{#1}}
+\newcommand{\ROS}{\mathrm{ROS}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\dv}{\operatorname{div}}
+
 \begin{document}
 \raggedright
+\raggedcolumns
 \footnotesize
 \begin{multicols*}{3}
-\setlength{\premulticols}{1pt}
-\setlength{\postmulticols}{1pt}
-\setlength{\multicolsep}{1pt}
-\setlength{\columnsep}{2pt}
+	\setlength{\premulticols}{1pt}
+	\setlength{\postmulticols}{1pt}
+	\setlength{\multicolsep}{1pt}
+	\setlength{\columnsep}{2pt}
 
-{\normalsize{\textbf{\mytitle}}}\\
-{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                      Begin                         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Section 1}
+	{\normalsize{\textbf{\mytitle}}}\\
+	{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                      Begin                         %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Systèmes RF et rappels}
+	\textbf{Idée:} un système sans fil émet/reçoit l'information par une onde électromagnétique (OEM) rayonnée/captée par des \textbf{antennes}.
+	\begin{enumerate}[\roman*.]
+		\item Signaux \textbf{RF}: environ 100\,MHz à 100\,GHz (BF: 1--100\,kHz)
+		\item Mobile, Wi-Fi, GPS, Bluetooth: $<6$\,GHz; satellites 1--40\,GHz; militaire 1--100\,GHz
+		\item Spectre RF quasi entièrement attribué: \textbf{saturé}
+	\end{enumerate}
+	\begin{gather*}
+		\lambda=\frac{c}{f}=\frac{\lambda_0}{\sqrt{\varepsilon_r}},\quad c=3\cdot10^8\text{\,m/s}
+	\end{gather*}
+	\begin{tabular}{|l|l||l|l|}
+		\hline
+		$f$     & $\lambda_0$ & $f$     & $\lambda_0$ \\
+		\hline
+		1\,kHz  & 300\,km     & 2,5\,GHz & 12\,cm      \\
+		100\,MHz & 3\,m       & 10\,GHz & 3\,cm       \\
+		1\,GHz  & 30\,cm      & 100\,GHz & 3\,mm      \\
+		\hline
+	\end{tabular}
+
+	\textbf{Pourquoi la RF?}
+	\begin{enumerate}[\roman*.]
+		\item Taille d'antenne $\propto\lambda\propto1/f$ ($\sim\lambda/2$): petite, intégrable
+		\item Propagation correcte (murs, vitres, végétation), mais affaiblissement $\nearrow$ avec $f$
+		\item Grandes bandes disponibles loin de 0\,Hz: \textbf{haut débit}
+	\end{enumerate}
+
+	\textbf{Spécificité RF}: dimensions des pistes, câbles, composants $\sim\lambda$ ou plus $\Rightarrow$ théorie des \textbf{lignes} (§2), facteur de réflexion, adaptation (§3), paramètres S (§4).
+	\begin{enumerate}[\roman*.]
+		\item On mesure des \textbf{puissances} (analyseur de spectre, wattmètre), pas $V$/$I$
+		\item \textbf{VNA} (analyseur de réseaux vectoriel): mesure les paramètres S; étalonnage obligatoire avant chaque usage
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Affaiblissement}: le problème fondamental; remèdes: \textbf{amplification} et \textbf{adaptation}.
+	\begin{enumerate}[\roman*.]
+		\item Câble: pertes (Joule, effet de peau, $\varepsilon$) $\nearrow$ avec $f$: 0,05\,dB/m à 10\,MHz, 0,64 à 1\,GHz, 1,6 à 6\,GHz, 6,4 à 67\,GHz
+		\item Espace libre (FSPL) bien pire, en $f^2d^2$ (§6):
+	\end{enumerate}
+	\begin{gather*}
+		\mathrm{FSPL}_{dB}=20\log\frac{4\pi df}{c}=20\log d+20\log f-147{,}5
+	\end{gather*}
+	\textbf{Exemple}: $d=100$\,m: 52,5\,dB à 100\,MHz, 72,5\,dB à 1\,GHz (100$\times$ plus atténué)
+
+	\subsection{Chaîne d'émission/réception}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{TX}: bits $\to$ MOD $\to$ DAC (signal BF) $\to$ mélangeur (+ oscillateur local LO, transpose vers RF) $\to$ \textbf{PA} (amplificateur de puissance) $\to$ antenne
+		\item \textbf{RX}: antenne $\to$ \textbf{LNA} (faible bruit) $\to$ mélangeur (RF$\to$BF) $\to$ ADC $\to$ DEMOD $\to$ bits
+	\end{enumerate}
+
+	\subsection{Décibels}
+	Rapport de puissances: $G_{dB}=10\log\frac{P_2}{P_1}$; puissance absolue:
+	\begin{gather*}
+		P_{dBm}=10\log\frac{P}{1\,\text{mW}},\quad P_{dBW}=10\log\frac{P}{1\,\text{W}}\\
+		P_{dBm}=P_{dBW}+30
+	\end{gather*}
+	\begin{tabular}{|l|l||l|l|}
+		\hline
+		$\times2$  & $+3$\,dB  & 1\,mW   & 0\,dBm, $-30$\,dBW \\
+		$\times4$  & $+6$\,dB  & 100\,mW & 20\,dBm            \\
+		$\times10$ & $+10$\,dB & 1\,W    & 30\,dBm, 0\,dBW    \\
+		$\times100$ & $+20$\,dB & 0,5\,W & 27\,dBm           \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item dB$\pm$dB = dB; dBm$\pm$dB = dBm; dBm$-$dBm = dB; jamais dBm$+$dBm
+		\item Tension/champ: $20\log$ (ex. $|\Gamma|_{dB}=20\log|\Gamma|$)
+		\item Wi-Fi: TX max 20\,dBm; RX $-30$ (excellent) à $-90$\,dBm
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $\lambda$ dans le bon milieu: $\lambda_0/\sqrt{\varepsilon_r}$
+		\item Produits de gains/pertes: passer en dB/dBm
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Rappels OEM (hors contrôle)}
+	Milieu \textbf{MLHI}: linéaire ($\varepsilon,\mu$ indépendants de l'amplitude), homogène, isotrope.
+	\begin{gather*}
+		\ve D=\varepsilon\ve E,\quad\ve B=\mu\ve H,\quad\ve j=\sigma\ve E\\
+		\varepsilon=\varepsilon_0\varepsilon_r,\ \varepsilon_0=8{,}854\cdot10^{-12}\text{\,F/m};\ \mu=\mu_0=4\pi\cdot10^{-7}\text{\,H/m}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Pertes diélectriques: $\varepsilon=\varepsilon'-j\varepsilon''$, $\tan\delta=\varepsilon''/\varepsilon'$ (Téflon $5\cdot10^{-4}$, air 0)
+		\item Optique: $n=\sqrt{\varepsilon_r}$; diélectrique: $\mu_r=1$
+	\end{enumerate}
+
+	\textbf{Maxwell} (diélectrique parfait: $\rho=0$, $\ve j=0$):
+	\begin{gather*}
+		\rot\ve E=-\mu_0\frac{\partial\ve H}{\partial t},\quad\rot\ve H=\varepsilon\frac{\partial\ve E}{\partial t}\\
+		\dv\ve E=0,\quad\dv\ve H=0
+	\end{gather*}
+	\textbf{OPPM} (onde plane progressive monochromatique) selon $Oz$:
+	\begin{gather*}
+		\ve E(z,t)=\ve E_+e^{j(\omega t-kz)},\quad\ve H=\frac{1}{\eta}\,\ve u_z\wedge\ve E\\
+		\Delta\ve E+\omega^2\mu_0\varepsilon\ve E=0\ \text{(Helmholtz)}\\
+		k=\omega\sqrt{\mu_0\varepsilon_0\varepsilon_r}=\frac{2\pi}{\lambda},\quad v_\varphi=\frac{\omega}{k}=\frac{c}{\sqrt{\varepsilon_r}}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{TEM}: $\ve E\perp\ve H\perp\ve k$, trièdre direct, pas de composante longitudinale
+		\item Vitesse de groupe $v_g=\dd\omega/\dd k$ (énergie, information); non dispersif: $v_g=v_\varphi$; dispersif: $v_g<v_\varphi$, $v_gv_\varphi=c^2/\varepsilon_r$
+		\item Impédance d'onde: $\eta=\frac{|E|}{|H|}=\sqrt{\frac{\mu}{\varepsilon}}=\frac{\eta_0}{\sqrt{\varepsilon_r}}$, $\eta_0=377\,\Omega$
+	\end{enumerate}
+	\textbf{Poynting} (densité surfacique de puissance, W/m²):
+	\begin{gather*}
+		\langle\ve\Pi\rangle=\tfrac12\Re(\ve E\wedge\ve H^*),\quad P=\frac{E_+^2}{2\eta}S
+	\end{gather*}
+	\textbf{Zones}: champ proche (Rayleigh, Fresnel) puis \textbf{champ lointain} (Fraunhofer) au-delà de $2D^2/\lambda$ ($D$: plus grande dimension de l'antenne): onde sphérique en $1/r$, localement plane.
+
+
+	\colbreak
+	\section{Lignes de transmission}
+	\textbf{Idée:} dès qu'une connexion mesure $\sim\lambda$, tension et courant se \textbf{propagent} (ondes) le long de la ligne.
+	\begin{enumerate}[\roman*.]
+		\item 1 conducteur: guide d'onde ($>30$\,GHz, radar, satellite; pertes min., forte puissance)
+		\item 2 conducteurs + diélectrique $\varepsilon_r$ ($\mu_r=1$): \textbf{coaxial} (TEM, blindé) et \textbf{microstrip} (quasi-TEM, champ en partie dans l'air: rayonne)
+	\end{enumerate}
+
+	\subsection{Modèle RLGC}
+	Tronçon $\dd z\to0$, éléments \textbf{distribués} (par mètre): $R$ ($\Omega$/m) pertes métalliques; $L$ (H/m) champ magnétique du courant; $C$ (F/m) champ électrique entre conducteurs; $G$ (S/m) pertes diélectriques. \textbf{Sans pertes}: $R=G=0$.
+
+	Coaxial (rayons $a$ intérieur, $b$ extérieur):
+	\begin{gather*}
+		L=\frac{\mu}{2\pi}\ln\frac ba,\quad C=\frac{2\pi\varepsilon}{\ln(b/a)}
+	\end{gather*}
+
+	\subsection{Équations des télégraphistes}
+	Kirchhoff sur un tronçon, régime harmonique:
+	\begin{gather*}
+		-\frac{\dd V}{\dd z}=(R+j\omega L)I,\quad-\frac{\dd I}{\dd z}=(G+j\omega C)V\\
+		\frac{\dd^2V}{\dd z^2}-\gamma^2V=0,\quad\frac{\dd^2I}{\dd z^2}-\gamma^2I=0\\
+		\gamma=\sqrt{(R+j\omega L)(G+j\omega C)}=\alpha+j\beta
+	\end{gather*}
+	$\alpha$ (Np/m): \textbf{atténuation}; $\beta$ (rad/m): \textbf{déphasage}. Sans pertes: $\gamma=j\beta$,
+	\begin{gather*}
+		\beta=\omega\sqrt{LC}=\frac{2\pi}{\lambda},\quad v_\varphi=\frac1{\sqrt{LC}}=\frac{c}{\sqrt{\varepsilon_r}}
+	\end{gather*}
+	\textbf{Solutions}: onde \textbf{incidente} (vers la charge, $z>0$) + onde \textbf{réfléchie}:
+	\begin{gather*}
+		V(z)=V_0^+e^{-\gamma z}+V_0^-e^{+\gamma z}\\
+		I(z)=\frac{V_0^+}{Z_C}e^{-\gamma z}-\frac{V_0^-}{Z_C}e^{+\gamma z}
+	\end{gather*}
+
+	\colbreak
+	\subsection{Impédance caractéristique}
+	\begin{gather*}
+		Z_C=\frac{V^+(z)}{I^+(z)}=-\frac{V^-(z)}{I^-(z)}=\sqrt{\frac{R+j\omega L}{G+j\omega C}}\\
+		\text{sans pertes: }Z_C=\sqrt{\frac LC}\ \text{(réelle)},\quad\text{coaxial: }Z_C=\frac{60}{\sqrt{\varepsilon_r}}\ln\frac ba
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Constante le long de la ligne; pas «matérielle»: répartition de la puissance de l'onde progressive entre $V^+$ et $I^+$; impédance vue d'une ligne \textbf{infinie}
+		\item \textbf{50\,$\Omega$} standard: compromis pertes min. (77\,$\Omega$) / puissance max. (30\,$\Omega$). Téflon, $a=1{,}4$, $b=4{,}9$\,mm: $\approx52\,\Omega$
+	\end{enumerate}
+
+	\subsection{Facteur de réflexion}
+	Convention: charge $Z_L$ en $z=0$, générateur côté $z<0$; on se place à $z=-l$.
+	\begin{gather*}
+		\Gamma_L=\Gamma(0)=\frac{V_0^-}{V_0^+}=\frac{Z_L-Z_C}{Z_L+Z_C},\quad Z_L=Z_C\frac{1+\Gamma_L}{1-\Gamma_L}\\
+		\Gamma(z)=\Gamma_Le^{+2j\beta z}\Rightarrow\Gamma(-l)=\Gamma_Le^{-2j\beta l}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item CC ($Z_L=0$): $\Gamma=-1$; CO ($Z_L=\infty$): $\Gamma=+1$; adapté ($Z_L=Z_C$): $\Gamma=0$
+		\item $|\Gamma|\leq1$ (charge passive); sans pertes, $|\Gamma|$ constant le long de la ligne, seule la phase tourne
+	\end{enumerate}
+
+	\subsection{Puissance (ligne sans pertes)}
+	\begin{gather*}
+		P(z)=\tfrac12\Re[V(z)I^*(z)]=\frac{|V_0^+|^2}{2Z_C}\big(1-|\Gamma|^2\big)\\
+		P_L=P_{inc}\big(1-|\Gamma_L|^2\big),\quad P_{ref}=|\Gamma_L|^2P_{inc}
+	\end{gather*}
+	$P_{inc}=|V_0^+|^2/2Z_C$: puissance incidente (celle du générateur s'il est adapté).
+
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		$|\Gamma|_{dB}$ & $|\Gamma|$ & ROS  & $P_{ref}$ \\
+		\hline
+		$-6$          & 0,50       & 3    & 25\,\%     \\
+		$-9{,}5$      & 0,33       & 2    & 11\,\%     \\
+		$-10$         & 0,32       & 1,92 & 10\,\%     \\
+		$-15{,}6$     & 0,17       & 1,4  & 2,8\,\%    \\
+		$-20$         & 0,10       & 1,22 & 1\,\%      \\
+		\hline
+	\end{tabular}
+
+	\colbreak
+	\subsection{Impédance ramenée}
+	Impédance vue à la distance $l$ de la charge (sans pertes):
+	\begin{gather*}
+		Z(-l)=\frac{V(-l)}{I(-l)}=Z_C\frac{Z_L+jZ_C\tan\beta l}{Z_C+jZ_L\tan\beta l}
+	\end{gather*}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Cas}             & $Z(-l)$                    \\
+		\hline
+		$Z_L=Z_C$                & $Z_C$ (tout $l$)           \\
+		$Z_L=0$ (CC)             & $jZ_C\tan\beta l$          \\
+		$Z_L=\infty$ (CO)        & $-jZ_C\cot\beta l$         \\
+		$l=\lambda/2$            & $Z_L$ (périodicité)        \\
+		$l=\lambda/4$            & $Z_C^2/Z_L$ (transformateur) \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item $\lambda/4$: CC$\leftrightarrow$CO; capacité $C\to$ inductance $L_{eq}=Z_C^2C$; inductance $L\to$ capacité $C_{eq}=L/Z_C^2$
+		\item Tronçon CC/CO: réactance pure réglable par $l$ (stub, §3)
+		\item Démonstration: $V$, $I$ en $-l$, factoriser $V_0^+$, remplacer $\Gamma_L$, puis $e^{\pm j\beta l}\to\cos,\sin$
+	\end{enumerate}
+
+	\subsection{Ondes stationnaires}
+	Si $Z_L\neq Z_C$: incidente + réfléchie $\Rightarrow$ \textbf{onde stationnaire}: $|V(z)|$ présente des ventres ($V^+$, $V^-$ en phase: $V_{max}=|V^+|+|V^-|$) et des nœuds (opposition: $V_{min}=|V^+|-|V^-|$) fixes; ventre$\to$ventre: $\lambda/2$, ventre$\to$nœud: $\lambda/4$.
+	\begin{gather*}
+		\ROS=\frac{V_{max}}{V_{min}}=\frac{1+|\Gamma|}{1-|\Gamma|},\quad|\Gamma|=\frac{\ROS-1}{\ROS+1}
+	\end{gather*}
+	$1\leq\ROS<\infty$; adapté: 1; CC/CO: $\infty$. Anglais: VSWR.
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $\lambda=\lambda_0/\sqrt{\varepsilon_r}$, $\beta=2\pi/\lambda$; $l$ en fraction de $\lambda$
+		\item $\Gamma_L=\frac{Z_L-Z_C}{Z_L+Z_C}$, puis ROS, $|\Gamma|_{dB}$, $P_{ref}=|\Gamma|^2P_{inc}$
+		\item Impédance ailleurs: $Z(-l)$ (cas $\lambda/4$, $\lambda/2$, CC, CO d'abord)
+		\item Onde progressive seule: $Z(z)=Z_C$ partout, toute la puissance va dans la charge
+	\end{enumerate}
+
+	\colbreak
+	\section{Adaptation d'impédance}
+	\textbf{But:} transmettre le maximum de la puissance du générateur ($Z_G$) à la charge $Z_L$ (ampli, filtre, antenne\dots): supprimer l'onde réfléchie (puissance perdue, risque de destruction de composants, batterie).
+	\begin{enumerate}[\roman*.]
+		\item Hypothèse du cours: générateur adapté $Z_G=Z_C$ (50\,$\Omega$)
+		\item On insère un quadripôle $Q_{match}$ \textbf{sans pertes} (éléments réactifs: $L$, $C$ ou tronçons de ligne) tel que l'impédance vue $Z_E=Z_C$, soit $\Gamma_E=0$
+		\item $Z_L$ doit avoir une \textbf{partie réelle}: une charge purement réactive ne peut absorber de puissance, donc pas d'adaptation possible
+		\item Solutions à \textbf{bande étroite} (valables autour d'une $f$)
+		\item BF: «adaptation» = $Z_{in}$ grande pour ne pas écraser une tension; RF: transfert de puissance
+	\end{enumerate}
+
+	\subsection{Ligne quart d'onde}
+	Ligne $\lambda/4$ d'impédance $Z'_C$ entre la ligne et $Z_L$:
+	\begin{gather*}
+		Z_E=\frac{Z_C'^2}{Z_L}=Z_C\ \Rightarrow\ Z'_C=\sqrt{Z_LZ_C}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $Z_L$ \textbf{réelle} uniquement ($Z'_C$ réelle)
+		\item Longueur: $l=\lambda/4$ avec $\lambda$ \textbf{dans le matériau} ($\varepsilon_r$)
+		\item $Z_L$ complexe: d'abord annuler sa partie imaginaire (réactance $-jX$ en série, ou tronçon de ligne $Z_C$ de longueur $l'$ qui la rend réelle), puis $\lambda/4$
+	\end{enumerate}
+	\textbf{Exemple} (TD1): $Z_L=100\,\Omega$, 2\,GHz, $\varepsilon_r=2{,}1$:
+	\begin{enumerate}[\roman*.]
+		\item Sans adaptation: $\Gamma_L=\frac13$, ROS$=2$, 11\,\% réfléchi (88,9\,mW reçus sur 20\,dBm)
+		\item $Z'_C=\sqrt{100\cdot50}=70{,}7\,\Omega$
+		\item $\lambda=\frac{0{,}15}{\sqrt{2{,}1}}=10{,}35$\,cm, $l=25{,}9$\,mm
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Exemple} (TD1): antenne $R=50\,\Omega\parallel C=10$\,pF à 2\,GHz.
+	\begin{enumerate}[\roman*.]
+		\item $Y=\frac1R+jC\omega$: ajouter $L\parallel$ avec $L\omega=\frac1{C\omega}$ annule la susceptance $\Rightarrow Y=1/50$
+		\item $L=\frac1{\omega^2C}=0{,}63$\,nH
+		\item Avec un condensateur: $C'$ au bout d'une ligne $\lambda/4$ (50\,$\Omega$) $\equiv$ inductance $Z_C^2C'$: $C'=L/Z_C^2=0{,}25$\,pF
+	\end{enumerate}
+
+	\subsection{Stub}
+	\textbf{Stub}: tronçon de ligne sans pertes (même $Z_C$, $\beta$) en \textbf{parallèle} sur la ligne, terminé par CC ou CO, à la distance $d$ de la charge, de longueur $d'$.
+	\begin{enumerate}[\roman*.]
+		\item Éléments en parallèle: raisonner en \textbf{admittance}
+		\item Condition: $Y_E=Y_{Z_L}(-d)+Y_{stub}(d')=Y_C=\frac1{Z_C}$
+		\item $d$ annule $\Re$: $\Re\,Y_{Z_L}(-d)=Y_C$; $d'$ annule $\Im$
+	\end{enumerate}
+	\begin{gather*}
+		Y_{Z_L}(-d)=\frac1{Z_C}\,\frac{Z_C+jZ_L\tan\beta d}{Z_L+jZ_C\tan\beta d}\\
+		\text{CC: }Y_{stub}=\frac{1}{jZ_C\tan\beta d'},\quad\text{CO: }Y_{stub}=\frac{j\tan\beta d'}{Z_C}
+	\end{gather*}
+	\textbf{$Z_L$ réelle}, $r=Z_L/Z_C$, $t=\tan\beta d$:
+	\begin{gather*}
+		y=Z_CY_{Z_L}=\frac{r(1+t^2)+jt(r^2-1)}{r^2+t^2}\\
+		\Re y=1\Rightarrow\tan\beta d=\pm\sqrt r\\
+		\Im y=b=\pm\frac{r-1}{\sqrt r}
+	\end{gather*}
+	Annuler $b$ avec le stub:
+	\begin{gather*}
+		\text{CC: }\tan\beta d'=\frac1b=\pm\frac{\sqrt r}{r-1}\\
+		\text{CO: }\tan\beta d'=-b=\mp\frac{r-1}{\sqrt r}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Même signe $\pm$ que pour $d$
+		\item $d$, $d'$ définis modulo $\lambda/2$: prendre l'angle dans $[0,\pi[$, puis $l=\frac{\text{angle}}{2\pi}\lambda$
+		\item On garde $d$, $d'$ courts (lignes imparfaites); choix CC/CO selon les longueurs obtenues (donné en contrôle)
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Éléments localisés (réseau en L)}
+	Deux réactances pures $jX_S$ (série) et $jX_P$ (parallèle), pas de résistance (pas de dissipation):
+	\begin{enumerate}[\roman*.]
+		\item $Z_L>Z_C$: $jX_P$ \textbf{parallèle} sur $Z_L$, puis $jX_S$ en série
+		\item $Z_L<Z_C$: $jX_S$ \textbf{série} avec $Z_L$, puis $jX_P$ en parallèle
+		\item $X_S$ et $X_P$ de signes opposés: 2 solutions ($L$ série/$C$ parallèle ou l'inverse)
+		\item Choix des composants selon les valeurs réalisables
+	\end{enumerate}
+	\textbf{$Z_L=R_L>Z_E$} (on veut $Z_E$, ici 50\,$\Omega$):
+	\begin{gather*}
+		X_P=\pm R_L\sqrt{\frac{Z_E}{R_L-Z_E}},\quad X_S=\mp\sqrt{Z_E(R_L-Z_E)}
+	\end{gather*}
+	\textbf{$Z_L=R_L<Z_E$}:
+	\begin{gather*}
+		X_S=\pm\sqrt{R_L(Z_E-R_L)},\quad X_P=\mp Z_E\sqrt{\frac{R_L}{Z_E-R_L}}
+	\end{gather*}
+	Méthode: écrire $Z_E=jX_S+\frac{R_L\,jX_P}{R_L+jX_P}$ (ou $\frac1{Z_E}=\frac1{jX_P}+\frac1{R_L+jX_S}$), séparer réel et imaginaire.
+	\begin{gather*}
+		X>0:\ L=\frac{X}{\omega};\qquad X<0:\ C=\frac{1}{\omega|X|}
+	\end{gather*}
+	\textbf{Exemple} (1\,GHz, $\omega=6{,}28\cdot10^9$):
+
+	\begin{tabular}{|l|l|l|}
+		\hline
+		                & $Z_L=200\,\Omega$     & $Z_L=35\,\Omega$     \\
+		\hline
+		$|X_P|$         & 115,5\,$\Omega$       & 76,4\,$\Omega$       \\
+		$|X_S|$         & 86,6\,$\Omega$        & 22,9\,$\Omega$       \\
+		\hline
+		Sol. 1          & $L_P=18{,}4$\,nH      & $C_P=2{,}08$\,pF     \\
+		                & $C_S=1{,}84$\,pF      & $L_S=3{,}65$\,nH     \\
+		\hline
+		Sol. 2          & $C_P=1{,}38$\,pF      & $L_P=12{,}2$\,nH     \\
+		                & $L_S=13{,}8$\,nH      & $C_S=6{,}95$\,pF     \\
+		\hline
+	\end{tabular}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item $Z_L$ réelle? $\lambda/4$ direct; sinon annuler $\Im$ d'abord
+		\item Stub: admittances, $\Re$ par $d$, $\Im$ par $d'$
+		\item Réseau en L: comparer $R_L$ à 50\,$\Omega$ pour placer $X_P$ côté grande résistance
+		\item Vérifier: recalculer $Z_E$, doit valoir 50\,$\Omega$
+	\end{enumerate}
+
+	\colbreak
+	\section{Paramètres S}
+	\textbf{Idée:} en hyperfréquence, CC/CO larges bandes, sources de courant et mesures de tension sont impossibles: on caractérise un multipôle par des \textbf{ondes de puissance} entrantes/sortantes (mesurables).
+	\begin{enumerate}[\roman*.]
+		\item Matrice $Z$ (BF): $Z_{11}=V_1/i_1$ avec accès 2 en CO, donc inutilisable en RF
+		\item Paramètres S: accès fermés sur l'\textbf{impédance de référence} $Z_0$ (réelle, en général $Z_0=Z_C=50\,\Omega$)
+	\end{enumerate}
+
+	\subsection{Ondes de puissance}
+	À l'accès $k$: $V_k=V_k^++V_k^-$, $I_k=\frac{1}{Z_0}(V_k^+-V_k^-)$.
+	\begin{gather*}
+		a_k=\frac{V_k+Z_0I_k}{2\sqrt{Z_0}}=\frac{V_k^+}{\sqrt{Z_0}},\quad b_k=\frac{V_k-Z_0I_k}{2\sqrt{Z_0}}=\frac{V_k^-}{\sqrt{Z_0}}\\
+		P_k^+=\frac{|V_k^+|^2}{2Z_0}=\tfrac12|a_k|^2,\quad P_k^-=\tfrac12|b_k|^2
+	\end{gather*}
+	$a$, $b$ complexes: gardent la phase, donc dépendent du \textbf{plan de référence}.
+
+	\subsection{Matrice S}
+	\begin{gather*}
+		(b)=S\,(a):\quad b_i=\sum_jS_{ij}a_j\\
+		\begin{cases}
+			b_1=S_{11}a_1+S_{12}a_2 \\
+			b_2=S_{21}a_1+S_{22}a_2
+		\end{cases}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Complexes, dépendent de $f$, du plan de référence et de $Z_0$
+		\item Multipôle linéaire, régime harmonique; $N$ accès: matrice $N\times N$
+	\end{enumerate}
+	\textbf{Dipôle} (1 accès, ex. antenne):
+	\begin{gather*}
+		S_{11}=\frac{b_1}{a_1}=\frac{V_1^-}{V_1^+}=\Gamma_1
+	\end{gather*}
+
+	\colbreak
+	\textbf{Quadripôle}: alimenter un accès, fermer l'autre sur $Z_0$ (pas de réflexion: onde entrante nulle):
+	\begin{gather*}
+		S_{11}=\frac{b_1}{a_1}\Big|_{a_2=0}=\Gamma_1,\quad S_{21}=\frac{b_2}{a_1}\Big|_{a_2=0}=T_{21}\\
+		S_{22}=\frac{b_2}{a_2}\Big|_{a_1=0}=\Gamma_2,\quad S_{12}=\frac{b_1}{a_2}\Big|_{a_1=0}=T_{12}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $S_{ii}$: \textbf{réflexion} à l'accès $i$
+		\item $S_{21}$: \textbf{transmission directe} (1$\to$2); $S_{12}$: inverse
+		\item Mesure au \textbf{VNA}: générateur adapté sur un accès, autres accès sur charges adaptées
+	\end{enumerate}
+
+	\subsection{Propriétés}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Adapté} (accès $i$) & $S_{ii}=0$ (pratique: $<-10$\,dB) \\
+		\textbf{Réciproque}       & $S_{ij}=S_{ji}$ ($S=S^T$)                   \\
+		\textbf{Symétrique}       & réciproque et $S_{ii}=S_{jj}$               \\
+		\textbf{Passif}           & tous $|S_{ij}|\leq1$                        \\
+		\textbf{Actif}            & au moins un $|S_{ij}|>1$                    \\
+		\textbf{Sans pertes}      & $\sum_i|S_{ij}|^2=1$ (colonnes)             \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Non réciproque: ampli, isolateur, circulateur; unilatéral: $S_{12}=0$
+	\end{enumerate}
+
+	\subsection{Puissances}
+	Accès 2 fermé sur $Z_0$, $P_{inc1}=\frac12|a_1|^2$:
+	\begin{gather*}
+		P_{entr\acute ee}=P_{inc1}(1-|S_{11}|^2)\\
+		P_{charge}=|S_{21}|^2P_{inc1},\quad G=|S_{21}|^2\\
+		G_{dB}=20\log|S_{21}|,\quad|S_{11}|_{dB}=20\log|S_{11}|
+	\end{gather*}
+	Pertes d'insertion $=-20\log|S_{21}|$; pertes par retour (return loss) $=-20\log|S_{11}|$.
+
+	\colbreak
+	\subsection{Exemples (TD3)}
+	\textbf{Ligne} sans pertes, longueur $l$, $Z_C=Z_0=50\,\Omega$:
+	\begin{enumerate}[\roman*.]
+		\item Fermée sur $Z_0$: $Z_E=Z_C$, $\Gamma_E=0\Rightarrow S_{11}=0$
+		\item $S_{21}=\frac{V_2}{V_1}$ (car $a_2=0$, $b_1=0$): $S_{21}=e^{-j\beta l}$, simple retard de phase
+		\item Symétrique: $S_{22}=0$, $S_{12}=S_{21}$
+	\end{enumerate}
+	\begin{gather*}
+		S_{ligne}=\begin{pmatrix}0&e^{-j\beta l}\\e^{-j\beta l}&0\end{pmatrix}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Si $Z_0\neq Z_C$: $S_{11},S_{22}\neq0$, $|S_{21}|<1$
+	\end{enumerate}
+
+	\textbf{Dispositif T}: $S=\begin{pmatrix}0{,}6&0\\14e^{j135^\circ}&0\end{pmatrix}$
+	\begin{enumerate}[\roman*.]
+		\item 2 accès; $S_{12}\neq S_{21}$: non réciproque; $|S_{21}|=14>1$: actif
+		\item $|S_{11}|_{dB}=20\log0{,}6=-4{,}4$\,dB $>-10$\,dB: pas adapté en entrée
+		\item $S_{12}=0$, gain: \textbf{amplificateur}; $G=14^2=196=22{,}9$\,dB
+		\item $P_{entr\acute ee}=(1-0{,}36)P_{inc1}=0{,}64\,P_{inc1}$
+	\end{enumerate}
+
+	\textbf{Circulateur} $S=\begin{pmatrix}0&0&1\\1&0&0\\0&1&0\end{pmatrix}$:
+	\begin{enumerate}[\roman*.]
+		\item 3 accès; $S_{ii}=0$: adapté; $S_{21}\neq S_{12}$: non réciproque; $|S_{ij}|\leq1$: passif (et sans pertes)
+		\item $b_2=a_1$, $b_3=a_2$, $b_1=a_3$: $1\to2\to3\to1$, l'onde ne tourne que dans un sens
+		\item \textbf{Radar monostatique} (une antenne TX/RX): émetteur sur 1, antenne sur 2, récepteur sur 3; l'écho entre en 2, sort en 3, isolé de l'émetteur
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Lire $|S|$: linéaire ou dB ($20\log$)?
+		\item Diagonale $\to$ adaptation; $S$ vs $S^T$ $\to$ réciprocité; $|S|>1$ $\to$ actif
+		\item Fonction: ampli ($|S_{21}|>1$), atténuateur ($|S_{21}|<1$), isolateur, circulateur
+		\item Puissance: $\times(1-|S_{11}|^2)$ entrée, $\times|S_{21}|^2$ charge
+	\end{enumerate}
+
+	\colbreak
+	\section{Antennes}
+	\textbf{Antenne}: convertit une onde \textbf{guidée} (coaxial, microstrip, guide d'onde) en onde \textbf{rayonnée}, et inversement.
+	\begin{enumerate}[\roman*.]
+		\item Rayonnement: charges \textbf{accélérées}, seules les sources variables dans le temps rayonnent
+		\item Contraintes: bande(s) de fréquence, taille ($\sim\lambda/2$: 43\,cm à 700\,MHz), environnement (température, puissance)
+	\end{enumerate}
+	Trois caractéristiques à l'émission:
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Impédance d'entrée}: adaptation au générateur
+		\item \textbf{Diagramme de rayonnement}: répartition spatiale de la puissance
+		\item \textbf{Polarisation}: orientation du champ $\ve E$
+	\end{enumerate}
+
+	\subsection{Impédance d'entrée, bande passante}
+	\begin{gather*}
+		Z_{ant}=R_{ant}+jX_{ant},\quad\Gamma_{ant}=\frac{Z_{ant}-Z_C}{Z_{ant}+Z_C}=S_{11}\\
+		P_{ant}=(1-|\Gamma_{ant}|^2)P_{gen},\quad P_{ray}=e_{ray}P_{ant}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $e_{ray}\in\,]0,1[$: efficacité de rayonnement (pertes métalliques, diélectriques)
+		\item $Z_{ant}$ dépend de $f$ et de l'environnement: $\Gamma=0$ impossible sur toute la bande
+		\item \textbf{Bande passante} (en adaptation): $|\Gamma_{ant}|_{dB}<-10$\,dB (mobile: $-6$\,dB), ou $\ROS<2$ ($\Leftrightarrow-9{,}5$\,dB)
+	\end{enumerate}
+	\textbf{Exemple} (autonomie TD4): cahier des charges 3,1--5\,GHz:
+	\begin{enumerate}[\roman*.]
+		\item ROS$<2$: lire la plage où $|\Gamma|<-9{,}5$\,dB, doit contenir 3,1--5\,GHz
+		\item ROS$<1{,}4$: seuil $|\Gamma|=\frac{0{,}4}{2{,}4}=0{,}17=-15{,}6$\,dB, bande plus étroite
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Diagramme de rayonnement}
+	Tracé en \textbf{champ lointain} ($r>2D^2/\lambda$), coordonnées sphériques $(r,\theta,\varphi)$.
+	\begin{gather*}
+		p(r,\theta,\varphi)=\|\langle\ve\Pi\rangle\|=\tfrac12\|\Re(\ve E\wedge\ve H^*)\|\\
+		P_{ray}=\int_0^{2\pi}\!\!\int_0^\pi p\,r^2\sin\theta\,\dd\theta\,\dd\varphi,\quad p_{iso}=\frac{P_{ray}}{4\pi r^2}
+	\end{gather*}
+	\textbf{Directivité}, \textbf{gain} (référence: antenne \textbf{isotrope}, uniforme dans tout l'espace):
+	\begin{gather*}
+		D(\theta,\varphi)=\frac{p}{P_{ray}/4\pi r^2},\quad G(\theta,\varphi)=\frac{p}{P_{ant}/4\pi r^2}=e_{ray}D\\
+		D_{dBi}=10\log D
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $D$ ne peut pas être $>1$ partout: concentrer dans une direction se paie ailleurs
+		\item Représentations: 3D (qualitatif), coupes polaires ou cartésiennes; normalisé: max à 0\,dB
+		\item \textbf{Lobe principal} entre les deux minima autour du max; \textbf{lobes secondaires} de part et d'autre (niveau absolu, ou relatif au max)
+		\item \textbf{Ouverture à $-3$\,dB} $\theta_{3dB}$: plage où $G\geq G_{max}-3$\,dB (mi-puissance)
+		\item \textbf{Rapport avant/arrière}: $G_{avant}-G_{arri\grave ere}$ (dB)
+		\item Omnidirectionnel (max identique dans un plan) $\neq$ isotrope
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Polarisation}
+	Direction de $\ve E$; propagation selon $Oz$:
+	\begin{gather*}
+		\ve E=E_{0x}e^{j(\omega t-kz)}\ve u_x+E_{0y}e^{j(\omega t-kz+\varphi)}\ve u_y
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Rectiligne}: $\varphi=0$ ou $\pi$ (ou une composante nulle): l'extrémité de $\ve E$ décrit une droite
+		\item \textbf{Circulaire}: $\varphi=\pm\pi/2$ et $E_{0x}=E_{0y}$: un cercle
+		      \begin{itemize}
+			      \item $\varphi=-\pi/2$: \textbf{droite} (sens horaire pour un observateur qui voit l'onde s'éloigner)
+			      \item $\varphi=+\pi/2$: \textbf{gauche}
+		      \end{itemize}
+		\item \textbf{Elliptique}: cas général
+		\item \textbf{Copolaire}: composante voulue; \textbf{croisée}: indésirable, à minimiser
+		\item Antennes TX et RX doivent avoir la même polarisation (rectilignes: brins parallèles)
+	\end{enumerate}
+	\textbf{Désadaptation de polarisation} (perte en réception):
+
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{TX / RX}                       & \textbf{Perte}              \\
+		\hline
+		rectiligne / rectiligne, angle $\psi$ & $\cos^2\psi$ \\
+		rectiligne / circulaire               & $\frac12$ ($-3$\,dB)        \\
+		circulaire droite / gauche            & totale                      \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Brins croisés ($\psi=90^\circ$): rien n'est reçu
+		\item Circulaire: insensible à la rotation de l'antenne (satellites)
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Antennes filaires}
+	\textbf{Dipôle demi-onde}: 2 brins de $\lambda/4$ alimentés au centre.
+	\begin{gather*}
+		E_\theta=-j\,\frac{60I_0}{r}\,\frac{\cos(\frac\pi2\cos\theta)}{\sin\theta}e^{j(\omega t-kr)},\quad H_\varphi=\frac{E_\theta}{Z_0}\\
+		D(\theta)=1{,}64\left(\frac{\cos(\frac\pi2\cos\theta)}{\sin\theta}\right)^2
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $Z_{in}=73+j42\,\Omega$; polarisation rectiligne $\parallel$ au dipôle
+		\item $D_{max}=1{,}64=2{,}15$\,dBi en $\theta=\pi/2$; nul selon l'axe ($\theta=0,\pi$)
+		\item Indépendant de $\varphi$: \textbf{omnidirectionnel} dans le plan $\perp$ au dipôle; diagramme en «tore»; mêmes coupes $\varphi=0^\circ$ et $90^\circ$ (symétrie de révolution)
+		\item Champs transverses, en $1/r$
+	\end{enumerate}
+	\textbf{Monopôle $\lambda/4$} au-dessus d'un plan de masse:
+	\begin{enumerate}[\roman*.]
+		\item Principe des images: équivaut à un dipôle demi-onde dans le demi-espace supérieur
+		\item Directivité $+3$\,dB (toute la puissance dans un demi-espace)
+		\item Plan fini: forme modifiée, symétrie de révolution conservée
+		\item Usages ($\lambda/2$, $\lambda/4$): diffusion (TNT, radio), point-multipoint (Wi-Fi)
+	\end{enumerate}
+	\textbf{Dipôle replié}: 2 dipôles $\lambda/2$ reliés aux extrémités, proches: plus large bande.
+
+	\textbf{Éléments parasites}: dipôles non alimentés, couplés: un peu plus long $\to$ \textbf{réflecteur}, plus court $\to$ \textbf{directeur}.
+
+	\textbf{Yagi(-Uda)}: dipôle replié + 1 réflecteur + $N$ directeurs: directive, large bande (TV)
+	\begin{enumerate}[\roman*.]
+		\item $Z_{in}=75\,\Omega$; gain 4\,dB (1 directeur) à 20\,dB (20 directeurs)
+		\item $\theta_{3dB}$: 60$^\circ$ (faible gain) à 25$^\circ$ (fort gain); AV/AR $>25$\,dB
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Ouvertures rayonnantes}
+	Ouverture de surface $A$ éclairée par une onde (Huygens: sources secondaires):
+	\begin{gather*}
+		D_{max}=\frac{4\pi A}{\lambda^2}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Cornet}: transition guide d'onde $\to$ espace libre; grand gain, faibles pertes, large bande
+		\item \textbf{Réflecteur parabolique} (source au foyer): gain élevé, couverture modelable, multi-spots; encombrant
+		      \begin{itemize}
+			      \item Centrée: la source masque une partie du faisceau
+			      \item Offset: meilleur rendement (TV satellite), réflecteur presque vertical
+			      \item Cassegrain: second réflecteur hyperbolique, compact, plus directive
+		      \end{itemize}
+	\end{enumerate}
+	Disque de diamètre $D_o$, efficacité $\eta$:
+	\begin{gather*}
+		D_{max}=\left(\frac{\pi D_o}{\lambda}\right)^2,\quad G=\eta D_{max},\quad\theta_{3dB}\approx70\frac{\lambda}{D_o}\ (^\circ)
+	\end{gather*}
+	\textbf{Exemple} 11\,GHz, $\eta=60\,\%$ ($-2{,}2$\,dB):
+
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		$D_o$  & $D_{max}$  & $G$     & $\theta_{3dB}$ \\
+		\hline
+		1,8\,m & 46,3\,dBi & 44,1\,dB & 1$^\circ$      \\
+		1,2\,m & 42,8\,dBi & 40,6\,dB & 1,6$^\circ$    \\
+		\hline
+	\end{tabular}
+
+	\subsection{Réseaux et antennes imprimées}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Réseau}: plusieurs éléments, amplitudes/phases réglées (déphaseurs, diviseurs) pour augmenter le gain et \textbf{dépointer}: faisceau conformé, balayage électronique, adaptatif
+		\item \textbf{Patch} (microruban): élément métallique + substrat + plan de masse; faible coût, encombrement, masse, conformable, intégrable; mais bande étroite, puissance limitée (claquage), gain $\sim6$\,dB; alimentation par microstrip ou coaxial
+		\item \textbf{Monopôle imprimé}: sans plan de masse sous l'élément, se comporte comme une antenne filaire, omnidirectionnel
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Réflecteur plan (TD4, TD5)}
+	Source à la hauteur $h$ d'un réflecteur de coefficient $\Gamma$: l'onde réfléchie a parcouru $2h$ de plus:
+	\begin{gather*}
+		\phi_R=2kh+\arg\Gamma,\quad\frac{p_{axe}}{p_{direct}}=\left|1+\Gamma e^{-2jkh}\right|^2
+	\end{gather*}
+	\textbf{Métallique} ($\Gamma=-1$): facteur $4\sin^2(kh)$
+	\begin{enumerate}[\roman*.]
+		\item Max pour $h=\lambda/4$: ondes en phase dans l'axe, antenne devenue directive (rayonnement arrière supprimé)
+		\item Mieux que sans réflecteur si $\sin kh>\frac12$: $\frac\lambda{12}<h<\frac{5\lambda}{12}$, soit $\frac{c}{12h}<f<\frac{5c}{12h}$
+		\item Inconvénient: $h\sim\lambda/4$, épais à basse fréquence; à $h\to0$ le réflecteur court-circuite l'antenne
+	\end{enumerate}
+	\textbf{Conducteur magnétique artificiel} (métamatériau, AMC: $\Gamma=+1$, impédance de surface infinie): facteur $4\cos^2(kh)$
+	\begin{enumerate}[\roman*.]
+		\item Réflexion en phase: fonctionne pour $h\to0$, pas de fréquence basse théorique; $f<\frac{c}{6h}$
+		\item Avantage: antenne \textbf{mince} et unidirectionnelle (gain augmenté), impossible avec un métal
+	\end{enumerate}
+
+	\subsection{Méthode (lecture de fiche technique)}
+	\begin{enumerate}[\roman*.]
+		\item Courbe $|\Gamma|_{dB}(f)$: bande où la courbe est sous le seuil ($-10$\,dB ou ROS)
+		\item Diagrammes: identifier le plan de coupe ($\varphi=0^\circ$: plan $xOz$; $\varphi=90^\circ$: $yOz$; $\theta=90^\circ$: $xOy$)
+		\item Lire $G_{max}$, direction du max/min, $\theta_{3dB}$ (points à $G_{max}-3$\,dB), lobes secondaires, AV/AR
+		\item Plaque métallique à $\lambda/4$: diagramme concentré d'un côté, $G_{max}\nearrow$
+		\item Application: omni $\to$ diffusion/mobile; directive $\to$ point à point, satellite
+	\end{enumerate}
+
+	\colbreak
+	\section{Bilan de liaison et propagation}
+	\textbf{But:} prévoir la puissance reçue $P_R$ et la comparer à la \textbf{sensibilité} $P_{R,min}$ du récepteur (sinon signal inexploitable); en déduire portée, puissance d'émission, taille des antennes.
+
+	\subsection{Équation de Friis}
+	Liaison en espace libre, sans obstacle, antennes à la distance $d$, $e_{ray}=1$:
+	\begin{gather*}
+		p(d)=\frac{P_E}{4\pi d^2}G_E,\quad P_R=p\cdot S
+	\end{gather*}
+	\textbf{Surface équivalente} $S$ (surface de captation; $\leq$ ouverture physique):
+	\begin{gather*}
+		G_R=\frac{4\pi}{\lambda^2}S,\quad L_{FS}=\left(\frac{4\pi d}{\lambda}\right)^2\\
+		\boxed{P_R=P_EG_EG_R\left(\frac{\lambda}{4\pi d}\right)^2}\\
+		P_{R,dBm}=P_{E,dBm}+G_{E,dB}+G_{R,dB}-L_{FS,dB}\\
+		L_{FS,dB}=20\log d_{km}+20\log f_{MHz}+32{,}45
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $L_{FS}$ ($=$ PL, path loss): $+6$\,dB quand $d$ ou $f$ double
+		\item Gains pris \textbf{dans la direction de la liaison} (lire le diagramme à l'angle concerné)
+		\item Ajouter si besoin: désadaptation $-10\log(1-|\Gamma|^2)$, câbles, polarisation, pluie, gaz
+	\end{enumerate}
+
+	\subsection{PIRE}
+	\textbf{Puissance isotrope rayonnée équivalente} (EIRP): l'émission; plafonnée par les normes.
+	\begin{gather*}
+		\mathrm{PIRE}=P_EG_E\ \text{(W)}\\ P_{R,dBW}=\mathrm{PIRE}_{dBW}+G_{R,dB}-L_{FS,dB}
+	\end{gather*}
+	\textbf{Exemple} (TD4) deux dipôles, $d=100$\,m, $P_E=0{,}5$\,W, 2,5\,GHz: dipôles \textbf{parallèles}, chacun face à l'autre dans son plan de max; $\lambda=12$\,cm, $L_{FS}=80{,}4$\,dB, $P_R=27+2{,}15+2{,}15-80{,}4\approx-49$\,dBm. Rotation de $30^\circ$: relire $G_R$ à $30^\circ$.
+
+	\colbreak
+	\subsection{Exemple satellite (TD4)}
+	\textbf{Satellite géostationnaire}: $d=36\,000$\,km, 12\,GHz, $P_E=100$\,W (20\,dBW), $G_E=42$\,dB, $P_R=2\cdot10^{-11}$\,W ($-107$\,dBW) pour TEB $10^{-6}$:
+	\begin{enumerate}[\roman*.]
+		\item $\lambda=2{,}5$\,cm, $L_{FS}=205{,}2$\,dB
+		\item $G_R=-107-20-42+205{,}2=36{,}2$\,dB
+		\item $S=\frac{P_R\,4\pi d^2}{P_EG_E}=\frac{G_R\lambda^2}{4\pi}=0{,}21$\,m²
+	\end{enumerate}
+
+	\subsection{Facteurs de propagation}
+	Réalité: absorption, réflexion, diffraction, diffusion, réfraction $\Rightarrow$ Friis optimiste.
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Gaz} (dB/km): pics H$_2$O à 22,3; 183,3; 323\,GHz; O$_2$ à 60 et 118,74\,GHz; choix de $f$ selon portée longue ou communication discrète
+		\item \textbf{Pluie}: atténuation $\nearrow$ avec $f$ et l'intensité; significative au-delà de 5\,GHz, prépondérante au-delà de 10\,GHz. Atténuation $=$ affaiblissement linéique $\times$ longueur du trajet sous la pluie; prévoir une marge
+		\item \textbf{Sol}: conducteur sous $f_{transition}$ (mer $\sim$1\,GHz), diélectrique au-delà; image de l'antenne. \textbf{Diffraction} par une arête: liaison possible sans visibilité
+	\end{enumerate}
+
+	\subsection{Ellipsoïde de Fresnel}
+	Visibilité directe radio $\neq$ optique: un obstacle proche de la ligne de visée diffracte, l'onde diffractée interfère avec l'onde directe. Règle: dégager le \textbf{premier ellipsoïde de Fresnel} (foyers: antennes; différence de trajet $\lambda/2$).
+	\begin{gather*}
+		\sqrt{d_1^2+r^2}+\sqrt{d_2^2+r^2}-(d_1+d_2)\approx\frac{r^2}2\Big(\frac1{d_1}+\frac1{d_2}\Big)=\frac\lambda2\\
+		R_F=\sqrt{\lambda\frac{d_1d_2}{d_1+d_2}}\quad(d_1,d_2\gg r)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Max à mi-distance; $R_F\searrow$ quand $f\nearrow$ (vers l'optique)
+		\item 1\,km, 2\,GHz, mi-chemin: 6\,m; TDF 8\,GHz, 57,6\,km: 23,2\,m
+	\end{enumerate}
+
+	\colbreak
+	\textbf{Exemple} (TD4): antennes à $h_A=20$\,m, $d=10$\,km, 2,5\,GHz, sol plan:
+	\begin{enumerate}[\roman*.]
+		\item $d_1=d_2=5$\,km: $R_F=\sqrt{0{,}12\cdot2500}=17{,}3$\,m $<20$\,m: sol hors ellipsoïde
+		\item Obstacle à $d_1=3$, $d_2=7$\,km: $R_F=15{,}9$\,m $\Rightarrow h_{max}=20-15{,}9=4{,}1$\,m
+		\item $P_E=5$\,W (37\,dBm), $G=20$\,dB chacune: $L_{FS}=120{,}4$\,dB, $P_R=-43{,}4$\,dBm $=46$\,nW
+	\end{enumerate}
+
+	\subsection{Modèles empiriques}
+	Milieu urbain/rural sans visibilité directe, multi-trajets: modèles issus de mesures (Hata, Okumura-Hata, 3GPP\dots).
+
+	\textbf{Okumura-Hata rural} ($h_m\leq1{,}5$\,m; $f$ en MHz, $h_{bs}$ en m, $d$ en km):
+	\begin{gather*}
+		PL=69{,}55+26{,}16\log f-13{,}82\log h_{bs}\\
+		+(44{,}9-6{,}55\log h_{bs})\log d\\
+		-4{,}78(\log f)^2+18{,}33\log f-40{,}94
+	\end{gather*}
+	\textbf{Exemple} GSM: 948\,MHz, $d=20$\,km, $h_{bs}=130$\,m, $P_E=8$\,W (39\,dBm), $G_E=14$, $G_R=0$\,dB:
+	\begin{enumerate}[\roman*.]
+		\item Hata: $PL=129{,}9$\,dB, $P_R=-76{,}8$\,dBm
+		\item Friis: $L_{FS}=118{,}0$\,dB, $P_R=-65{,}0$\,dBm (optimiste de 12\,dB)
+		\item Distance Friis équivalente: $d'=d\cdot10^{(129{,}9-118{,}0)/20}=78{,}5$\,km
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item Tout en dB: $P$ (dBm), $G$ (dB), $L$ (dB); $\lambda$ d'abord
+		\item $P_R=P_E+G_E+G_R-L$; comparer à la sensibilité, la marge restante absorbe pluie et gaz
+		\item Inconnue $G_R$ ou $S$: isoler dans Friis puis $S=G\lambda^2/4\pi$
+		\item Dégagement: $R_F$ au point de l'obstacle, comparer à la hauteur libre
+	\end{enumerate}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                       End                          %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{multicols*}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                       End                          %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
