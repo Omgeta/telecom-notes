@@ -1,0 +1,813 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{preamble}
+\input{preamble-cheatsheet}
+\input{letterfonts}
+\usepackage{bussproofs}
+
+\newcommand{\mytitle}{CSC\_3TC34\_TP Logique et fondements de l'informatique}
+\newcommand{\myauthor}{github/omgeta}
+\newcommand{\mydate}{AU 26-27 S1}
+
+\newcommand{\cN}{\mathbb{N}}
+\newcommand{\dv}{{\downarrow}}
+\newcommand{\uv}{{\uparrow}}
+\newcommand{\ff}{\varphi}
+\newcommand{\code}[1]{\langle\!\langle #1\rangle\!\rangle}
+\newcommand{\inj}[1]{\iota_{#1}}
+\newcommand{\vd}{\vdash}
+\newcommand{\tto}{\dashrightarrow}
+\newcommand{\rul}[3]{\dfrac{#1}{#2}\,{\scriptstyle #3}}
+\providecommand{\ind}{\mathbf{1}}
+\providecommand{\R}{\mathbb{R}}
+
+\begin{document}
+\raggedright
+\raggedcolumns
+\footnotesize
+\begin{multicols*}{3}
+	\setlength{\premulticols}{1pt}
+	\setlength{\postmulticols}{1pt}
+	\setlength{\multicolsep}{1pt}
+	\setlength{\columnsep}{2pt}
+
+	{\normalsize{\textbf{\mytitle}}}\\
+	{\footnotesize{\mydate\hspace{2pt}\textemdash\hspace{2pt}\myauthor}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                      Begin                         %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Fonctions récursives}
+	\textbf{Idée:} ce qu'un algorithme peut ou ne peut pas faire (ressources finies mais illimitées, efficacité ignorée).
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Church-Turing}: générales récursives = $\lambda$-calcul = machines de Turing (équivalences constructives)
+		\item Codage de Gödel: tout est entier; $\langle m,n\rangle=m+\frac12(m+n)(m+n+1)$, listes $\code{a_0,\dots}$
+	\end{enumerate}
+	\textbf{Partielles} $f:\cN^k\tto\cN$: $f(n)\dv$ défini (termine), $f(n)\uv$ non défini (boucle); $f(n)\dv=g(m)$: définis et égaux; \textbf{totale}: définie partout; un argument $\uv$ rend le tout $\uv$.
+
+	\subsection{Primitives récursives (PR)}
+	Plus petite classe contenant projections, constantes, successeur, stable par composition et \textbf{récursion primitive}:
+	\begin{gather*}
+		f(x,0)=g(x),\quad f(x,z+1)=h(x,f(x,z),z)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item = \textbf{boucles bornées} a priori: toujours totales
+		\item $+$, $\times$, $x^z$, $\max(u-v,0)$, $u\%v$, $\lfloor u/v\rfloor$, tests, $\langle m,n\rangle$: p.r.; Ackermann: calculable, \textbf{pas} p.r.
+		\item Numérotation $\psi_e$: $e$ = code (intention), $\psi_e$ = fonction (extension)
+		\item \textbf{Pas d'universalité}: $(e,x)\mapsto\psi_e(x)$ pas p.r. (diagonale $u(e,x)+1$)
+	\end{enumerate}
+
+	\subsection{Générales récursives ($\mathcal R$)}
+	PR + \textbf{opérateur $\mu$}: $\mu g(x)$ = plus petit $z$ avec $g(z,x)=0$ et $g(i,x)\dv>0$ pour $i<z$ (boucle \texttt{while} non bornée).
+	\begin{enumerate}[\roman*.]
+		\item Fonctions \textbf{partielles}; numérotation $\ff_e^{(k)}$, $\ff_e:=\ff_e^{(1)}$; récursive = calculable
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Théorèmes fondamentaux}
+	\textbf{Universalité}: $\exists u$, $\ff_u^{(2)}(e,x)=\ff_e(x)$ (interpréteur).
+
+	\textbf{Forme normale} (Kleene): $T$ prédicat p.r., $U$ p.r.:
+	\begin{gather*}
+		\ff_e(x)=U\big(\mu n.\,T(n,e,x)\big)
+	\end{gather*}
+	$T(n,e,x)$: «$n$ code un arbre de calcul de $\ff_e(x)$» (vérification p.r.); $\ff_e(x)\dv\iff\exists n.T(n,e,x)$.
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Lancement en parallèle}: $\mu n.(T(n,e_1,x)\vee T(n,e_2,x))$ termine ssi $\ff_{e_1}(x)\dv$ ou $\ff_{e_2}(x)\dv$
+	\end{enumerate}
+
+	\textbf{s-m-n}: $s_{m,n}$ \textbf{p.r.} telle que
+	\begin{gather*}
+		\ff^{(n)}_{s_{m,n}(e,x_1..x_m)}(y_1..y_n)=\ff_e^{(m+n)}(x_1..x_m,y_1..y_n)
+	\end{gather*}
+
+	\textbf{Récursion de Kleene} (astuce de Quine): $h:\cN^{k+1}\tto\cN$ récursive $\Rightarrow\exists e$:
+	\begin{gather*}
+		\ff_e^{(k)}(x)=h(e,x)
+	\end{gather*}
+	Un programme peut utiliser son propre code. Preuve: $s=s_{1,k}$, $(t,x)\mapsto h(s(t,t),x)=\ff_c(t,x)$, $e:=s(c,c)$.
+
+	\textbf{Point fixe} (Kleene-Rogers): $F$ calculable totale $\Rightarrow\exists e$, $\ff_e=\ff_{F(e)}$.
+
+	\subsection{Exemple: prédiction impossible (CC 25-26)}
+	Pas d'algorithme total $f$ avec $f(e)=0$ si $\ff_e(0)\dv=0$, $1$ si $\ff_e(0)\dv\neq0$, arbitraire sinon.
+	\begin{enumerate}[\roman*.]
+		\item Par Kleene, $e$: ignore son argument, calcule $f(e)$, renvoie 1 si $f(e)=0$, sinon 0 (termine toujours)
+		\item $f(e)=0\Rightarrow\ff_e(0)=1\Rightarrow f(e)=1$; $f(e)\neq0\Rightarrow\ff_e(0)=0\Rightarrow f(e)=0$: contradiction
+		\item Conséquence: l'arbre de Kleene $K$ (décidable, p.r., infini) n'a \textbf{aucune branche infinie calculable}, bien que Kőnig en donne une: Kőnig non constructif
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Problème de l'arrêt}
+	$H=\{(e,x):\ff_e(x)\dv\}$ \textbf{indécidable}.
+
+	\textbf{Preuve} (diagonale): si $h=\ind_H$ calculable, $v(e)=42$ si $h(e,e)=0$, $\uv$ sinon; $v=\ff_c$:
+	\begin{enumerate}[\roman*.]
+		\item $\ff_c(c)\dv\Rightarrow h(c,c)=1\Rightarrow v(c)\uv=\ff_c(c)$: absurde
+		\item $\ff_c(c)\uv\Rightarrow h(c,c)=0\Rightarrow v(c)\dv$: absurde
+	\end{enumerate}
+	\begin{enumerate}[\roman*.]
+		\item $H$ est semi-décidable (exécuter), $\complement H$ ne l'est pas
+		\item Aussi indécidables: $\{e:\ff_e(e)\dv\}$, $\{e:\ff_e(0)\dv\}$ (via s-m-n)
+	\end{enumerate}
+
+	\subsection{Machines de Turing}
+	États $Q=\{0..m-1\}$ (0 = arrêt), symboles $\{0,1\}$, programme $\delta:(Q\setminus\{0\})\times\Sigma\to Q\times\Sigma\times\{L,R\}$; configuration (état, bande finie, position).
+	\begin{enumerate}[\roman*.]
+		\item Entrée $01^{x_1}01^{x_2}0\cdots$ (unaire), sortie $01^y0$
+		\item Configuration après $n$ étapes: p.r.; MT $\equiv$ récursives
+		\item Arrêt depuis bande vierge indécidable (réduction)
+	\end{enumerate}
+
+	\subsection{Méthode (rédiger un algorithme)}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{p.r.}: n'utiliser que des boucles bornées (calculer la borne d'abord)
+		\item \textbf{Calculable}: boucles non bornées, universalité («exécuter $\ff_e(x)$»)
+		\item Plusieurs recherches: \textbf{en parallèle} (entrelacer $n=0,1,2,\dots$), jamais en séquence si l'une peut boucler
+		\item Auto-référence: «par Kleene, $e$ connaît son propre code»
+	\end{enumerate}
+
+	\colbreak
+	\section{Décidabilité et $\lambda$-calcul}
+	\begin{enumerate}[\roman*.]
+		\item $A\subseteq\cN^k$ \textbf{décidable} (récursive): $\ind_A$ calculable (répond oui/non)
+		\item \textbf{Semi-décidable} (calculablement/récursivement énumérable): $n\mapsto1$ si $n\in A$, $\uv$ sinon calculable (répond oui/…)
+	\end{enumerate}
+	\begin{gather*}
+		A\ \text{décidable}\iff A\ \text{et}\ \complement A\ \text{semi-décidables}
+	\end{gather*}
+	($\Leftarrow$: lancement en parallèle des deux semi-algorithmes.)
+
+	\textbf{Caractérisations du semi-décidable} $B$:
+	\begin{enumerate}[\roman*.]
+		\item $B=\{m:\ff_e(m)\dv\}$ (domaine d'une calculable)
+		\item $B=f(A)$, $A$ décidable, $f$ totale calculable
+		\item $B=\emptyset$ ou $B=f(\cN)$, $f$ totale calculable («énumérable»)
+		\item $B=\{m:\exists n.\,R(n,m)\}$, $R$ décidable (projection)
+	\end{enumerate}
+
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Stabilité}  & \textbf{Décid.} & \textbf{Semi-déc.} \\
+		\hline
+		$\cup$, $\cap$ finies & oui            & oui (parallèle)    \\
+		complémentaire        & oui            & \textbf{non}       \\
+		projection $\exists$  & \textbf{non}   & oui                \\
+		image calculable      & non            & oui                \\
+		\hline
+	\end{tabular}
+
+	\subsection{Théorème de Rice}
+	$\mathcal F\subseteq\mathcal R^{(1)}$ ensemble de fonctions partielles calculables:
+	\begin{gather*}
+		\{e:\ff_e\in\mathcal F\}\ \text{décidable}\Rightarrow\mathcal F=\emptyset\ \text{ou}\ \mathcal F=\mathcal R^{(1)}
+	\end{gather*}
+	Aucune propriété non triviale de la \textbf{fonction} calculée (extension) n'est décidable sur le programme.
+	\begin{enumerate}[\roman*.]
+		\item Indécidables: $\{e:\ff_e(0)\dv\}$, $\{e:\ff_e\ \text{totale}\}$, $\{e:\ff_e=\ff_{e_0}\}$, $\{e:\ff_e(n)\dv\Rightarrow\ff_e(n)=0\}$
+		\item Ne s'applique pas aux propriétés du \textbf{programme} («$e$ a moins de 100 états», «s'arrête en $\leq n$ étapes»: décidables)
+		\item Preuve (Kleene): $f\in\mathcal F$, $g\notin\mathcal F$; $h(e,x)=g(x)$ si $e\in\Phi^{-1}(\mathcal F)$, $f(x)$ sinon; point fixe $\ff_e=h(e,\cdot)$: contradiction
+		\item Preuve (réduction): o.p.s. $\uv\notin\mathcal F$, $f=\ff_a\in\mathcal F$; $b(e,x)$: «simuler $\ff_e(x)$, puis renvoyer $\ff_a(m)$»; $\ff_{b(e,x)}\in\mathcal F\iff(e,x)\in H$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Réductions}
+	\textbf{Many-to-one}: $A\leq_mB$ s'il existe $\rho$ totale calculable avec $m\in A\iff\rho(m)\in B$.
+	\begin{enumerate}[\roman*.]
+		\item $A\leq_mB$, $B$ décidable (resp. semi-déc.) $\Rightarrow A$ aussi
+		\item $H\leq_mD\Rightarrow D$ indécidable (méthode standard)
+	\end{enumerate}
+	\textbf{Turing}: $A\leq_TB$ si $A$ est décidable par un algorithme pouvant interroger librement (un nombre fini de fois) l'oracle «$n\in B$?».
+	\begin{enumerate}[\roman*.]
+		\item $\leq_m\Rightarrow\leq_T$; $\complement B\leq_TB$ toujours, mais $\complement H\not\leq_mH$
+		\item Degrés de Turing: $\mathbf0$ (décidables), $\mathbf0'$ (degré de $H$)
+	\end{enumerate}
+
+	\subsection{Méthode (statut d'un ensemble)}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Décidable}: algorithme qui termine toujours (souvent recherche bornée); p.r. si toutes les boucles sont bornées
+		\item \textbf{Semi-décidable}: recherche non bornée d'un témoin $n$ (arbre de calcul, nombre d'étapes), ou exécution
+		\item \textbf{Non décidable}: Rice (si propriété de la fonction), réduction de $H$, ou diagonale par Kleene
+		\item \textbf{Non semi-décidable}: le complémentaire est semi-décidable mais l'ensemble n'est pas décidable (ex. $\complement H$, $\{e:\ff_e(0)\uv\}$)
+	\end{enumerate}
+
+	\subsection{$\lambda$-calcul: termes}
+	Variable, application $(PQ)$, abstraction $\lambda v.E$.
+	\begin{enumerate}[\roman*.]
+		\item $xyz=((xy)z)$; $\lambda uv.E=\lambda u.\lambda v.E$; $\lambda x.xy=\lambda x.(xy)$
+		\item Variable liée/libre; terme clos: sans variable libre
+		\item \textbf{$\alpha$-conversion}: renommer les liées ($\lambda x.x\equiv\lambda y.y$) sans capture ($\lambda y.xy\not\equiv\lambda x.xx$)
+	\end{enumerate}
+	\textbf{$\beta$-réduction}: un \textbf{redex} $(\lambda v.E)T\to E[v\backslash T]$ (substitution sans capture).
+	\begin{enumerate}[\roman*.]
+		\item $(\lambda x.xx)y\to yy$; $(\lambda xy.x)z\to\lambda y.z$; $(\lambda xy.x)y\to\lambda y_1.y$ (renommer!)
+		\item $\Omega=(\lambda x.xx)(\lambda x.xx)\to\Omega$
+		\item \textbf{Forme normale}: aucun redex
+	\end{enumerate}
+
+	\colbreak
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Faiblement normalisable}: une suite de réductions termine; \textbf{fortement}: toutes
+		\item $(\lambda uz.z)\Omega$: faiblement ($\to\lambda z.z$) mais pas fortement normalisable
+		\item \textbf{Church-Rosser} (confluence): $T\twoheadrightarrow T_1$, $T\twoheadrightarrow T_2\Rightarrow\exists T''$, $T_1,T_2\twoheadrightarrow T''$; forme normale unique
+		\item \textbf{Redex extérieur gauche} (le $\lambda$ le plus à gauche): stratégie déterministe, normalise tout terme faiblement normalisable
+	\end{enumerate}
+
+	\subsection{Entiers de Church}
+	$\overline n:=\lambda fx.f^{\circ n}(x)$: $\overline0=\lambda fx.x$, $\overline1=\lambda fx.fx$, $\overline2=\lambda fx.f(fx)$.
+
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Fonction}       & \textbf{Terme}                 \\
+		\hline
+		$n+1$                   & $\lambda mfx.f(mfx)$           \\
+		$m+n$                   & $\lambda mnfx.nf(mfx)$         \\
+		$mn$                    & $\lambda mnf.n(mf)$            \\
+		$m^n$                   & $\lambda mn.nm$                \\
+		$p=0\ ?\ m:n$           & $\lambda mnp.p(\lambda y.n)m$  \\
+		couple, proj.           & $\lambda rsa.ars$, $\lambda p.p(\lambda rs.r)$ \\
+		\hline
+	\end{tabular}
+
+	$f$ représentée par $t$: $t\,\overline{x_1}\cdots\overline{x_k}\twoheadrightarrow_{\text{lft}}\overline y$ si $f(x)\dv=y$, ne termine pas si $f(x)\uv$.
+
+	Exemple: $(\lambda mfx.f(mfx))\overline n\to\lambda fx.f(\overline nfx)\twoheadrightarrow\lambda fx.f(f^{\circ n}x)=\overline{n+1}$.
+
+	\subsection{Combinateur $Y$}
+	\begin{gather*}
+		Y:=\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))\\
+		Yg\twoheadrightarrow g(Yg)\ \text{(point fixe, non normalisable)}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{let rec h = E}: $Y(\lambda h.E)$ se comporte comme $E[h\backslash Y(\lambda h.E)]$
+		\item Implémente $\mu$: $Y(\lambda hz\vec x.T(vz\vec x)z(h(Az)\vec x))\,\overline0$
+		\item Donc: $\lambda$-calcul $\equiv$ fonctions récursives
+	\end{enumerate}
+
+	\subsection{Méthode ($\lambda$-calcul)}
+	\begin{enumerate}[\roman*.]
+		\item Parenthéser explicitement avant de réduire
+		\item Réduire toujours le redex extérieur gauche, renommer en cas de conflit
+	\end{enumerate}
+
+	\colbreak
+	\section{Typage et Curry-Howard}
+	\textbf{Idée:} affecter un type aux termes pour contraindre leur usage. Un système de typage décidable qui garantit la terminaison ne peut pas exprimer son propre interpréteur, ni avoir $t\cong(t\to t)$: aucun terme de type vide.
+
+	\subsection{$\lambda$-calcul simplement typé ($\lambda_\to$)}
+	Types: variables $\alpha,\beta,\dots$ et $\sigma\to\tau$ ($\rho\to\sigma\to\tau=\rho\to(\sigma\to\tau)$). Termes annotés (Church): $\lambda(v:\sigma).E$.
+
+	Contexte $\Gamma=x_1:\sigma_1,\dots,x_k:\sigma_k$; jugement $\Gamma\vd E:\tau$.
+	\begin{gather*}
+		\rul{}{\Gamma,x:\sigma\vd x:\sigma}{\text{Var}}\qquad
+		\rul{\Gamma\vd P:\sigma\to\tau\quad\Gamma\vd Q:\sigma}{\Gamma\vd PQ:\tau}{\text{App}}\\
+		\rul{\Gamma,v:\sigma\vd E:\tau}{\Gamma\vd\lambda(v:\sigma).E:\sigma\to\tau}{\text{Abs}}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Le terme détermine l'arbre de dérivation: vérification et calcul du type \textbf{faciles} (type unique)
+		\item Inverse aussi facile: arbre de dérivation (types seuls) $\to$ terme
+		\item Difficile: typer un terme non annoté (Hindley-Milner, hors programme); \textbf{habitation} d'un type (= prouvabilité)
+		\item Affaiblissement, renommage; substitution: $\Gamma,v:\sigma\vd E:\tau$ et $\Gamma\vd T:\sigma\Rightarrow\Gamma\vd E[v\backslash T]:\tau$
+		\item \textbf{Subject reduction}: la $\beta$-réduction préserve le type
+		\item \textbf{Normalisation forte} (Turing, Tait, Girard): toute suite de $\beta$-réductions d'un terme typé termine (aussi avec $\times,+,1,0$; admis)
+		\item Polymorphisme implicite: substituer un type à une variable de type donne encore un terme correct
+	\end{enumerate}
+	\textbf{Exemple}: $\vd\lambda(f:\beta\to\alpha\to\gamma).\lambda(x:\alpha).\lambda(y:\beta).fyx:(\beta\to\alpha\to\gamma)\to\alpha\to\beta\to\gamma$
+	\begin{enumerate}[\roman*.]
+		\item Contexte $\Gamma=f,x,y$; $\Gamma\vd fy:\alpha\to\gamma$ (App), $\Gamma\vd fyx:\gamma$ (App), puis 3 Abs
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Types enrichis}
+	\begin{gather*}
+		\rul{\Gamma\vd t_1:\tau_1\quad\Gamma\vd t_2:\tau_2}{\Gamma\vd\langle t_1,t_2\rangle:\tau_1\times\tau_2}{}\quad
+		\rul{\Gamma\vd t:\tau_1\times\tau_2}{\Gamma\vd\pi_it:\tau_i}{}\\
+		\rul{\Gamma\vd t:\tau_i}{\Gamma\vd\inj i^{(\tau_1,\tau_2)}t:\tau_1+\tau_2}{}\quad
+		\rul{}{\Gamma\vd\bullet:1}{}\quad
+		\rul{\Gamma\vd r:0}{\Gamma\vd\text{exfalso}^{(\tau)}r:\tau}{}\\
+		\rul{\Gamma\vd r:\sigma_1+\sigma_2\quad\Gamma,v_i:\sigma_i\vd t_i:\tau}{\Gamma\vd(\text{match }r\text{ with }\inj1v_1\mapsto t_1,\inj2v_2\mapsto t_2):\tau}{}
+	\end{gather*}
+	Réductions (élimination des \textbf{détours} Intro+Élim):
+	\begin{gather*}
+		(\lambda v.e)t\leadsto e[v\backslash t],\quad\pi_i\langle t_1,t_2\rangle\leadsto t_i\\
+		\text{match }\inj is\text{ with}\dots\leadsto t_i[v_i\backslash s]
+	\end{gather*}
+
+	\subsection{Correspondance de Curry-Howard}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Programmes}            & \textbf{Preuves}             \\
+		\hline
+		type                           & proposition                  \\
+		terme de type $\tau$           & preuve de $\tau$             \\
+		$\sigma\to\tau$                & $P\Rightarrow Q$             \\
+		$\sigma\times\tau$             & $P\wedge Q$                  \\
+		$\sigma+\tau$                  & $P\vee Q$                    \\
+		$1$ / $0$                      & $\top$ / $\bot$              \\
+		$\sigma\to0$                   & $\neg P$                     \\
+		variable du contexte           & hypothèse                    \\
+		abstraction $\lambda$          & $\Rightarrow$Int (hyp. déchargée) \\
+		application                    & $\Rightarrow$Élim (modus ponens) \\
+		$\langle,\rangle$ / $\pi_i$    & $\wedge$Int / $\wedge$Élim   \\
+		$\inj i$ / match               & $\vee$Int / $\vee$Élim       \\
+		exfalso                        & $\bot$Élim                   \\
+		$\beta$-réduction              & élimination des détours      \\
+		normalisation forte            & cohérence ($\nvdash\bot$)    \\
+		$\prod_v$ / $\sum_v$           & $\forall$ / $\exists$        \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item Exige la terminaison: pas d'appels récursifs (preuves circulaires, paradoxe de Curry)
+		\item Logique \textbf{intuitionniste}: pas de terme de type $((\alpha\to0)\to0)\to\alpha$ ni $\alpha+(\alpha\to0)$
+		\item Preuves non uniques: $\overline0_\alpha,\overline1_\alpha,\overline2_\alpha$ prouvent tous $(A\Rightarrow A)\Rightarrow A\Rightarrow A$
+		\item Négation $\sigma\to0$: «témoignage de vacuité» de $\sigma$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Catalogue de $\lambda$-termes de preuve}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Formule}                                        & \textbf{Terme}                                     \\
+		\hline
+		$A\Rightarrow A$                                        & $\lambda u.u$                                      \\
+		$A\Rightarrow B\Rightarrow A$ (K)                       & $\lambda uv.u$                                     \\
+		S: $(A{\Rightarrow}B{\Rightarrow}C){\Rightarrow}(A{\Rightarrow}B){\Rightarrow}A{\Rightarrow}C$ & $\lambda xyz.xz(yz)$ \\
+		$(A\Rightarrow B)\Rightarrow(B\Rightarrow C)\Rightarrow A\Rightarrow C$ & $\lambda fgx.g(fx)$         \\
+		$(B\Rightarrow A\Rightarrow C)\Rightarrow A\Rightarrow B\Rightarrow C$ & $\lambda fxy.fyx$           \\
+		$A\Rightarrow(A\Rightarrow B)\Rightarrow B$             & $\lambda uf.fu$                                    \\
+		$A\wedge B\Rightarrow B\wedge A$                        & $\lambda u.\langle\pi_2u,\pi_1u\rangle$            \\
+		$A\Rightarrow A\wedge A$                                & $\lambda u.\langle u,u\rangle$                     \\
+		$(A\wedge B\Rightarrow C)\Rightarrow A\Rightarrow B\Rightarrow C$ & $\lambda fxy.f\langle x,y\rangle$ \\
+		$(A\Rightarrow B\Rightarrow C)\Rightarrow A\wedge B\Rightarrow C$ & $\lambda fz.f(\pi_1z)(\pi_2z)$   \\
+		$A\Rightarrow B\Rightarrow A\wedge B$                   & $\lambda uv.\langle u,v\rangle$                    \\
+		$A\Rightarrow\neg\neg A$                                & $\lambda uh.hu$                                    \\
+		$(A\Rightarrow B)\Rightarrow\neg B\Rightarrow\neg A$    & $\lambda fhu.h(fu)$                                \\
+		$\neg\neg\neg A\Rightarrow\neg A$                       & $\lambda hu.h(\lambda k.ku)$                       \\
+		$\neg(A\wedge\neg A)$                                   & $\lambda p.(\pi_2p)(\pi_1p)$                       \\
+		$\bot\Rightarrow C$                                     & $\lambda r.\text{exfalso}\,r$                      \\
+		\hline
+	\end{tabular}
+
+	Avec $\vee$:
+	\begin{enumerate}[\roman*.]
+		\item $A\vee B\Rightarrow B\vee A$: $\lambda u.\text{match }u\text{ with }\inj1v\mapsto\inj2v,\ \inj2v\mapsto\inj1v$
+		\item $(A\vee A)\Rightarrow A$: $\lambda u.\text{match }u\text{ with }\inj1v\mapsto v,\ \inj2v\mapsto v$
+		\item $(A\Rightarrow C)\Rightarrow(B\Rightarrow C)\Rightarrow A\vee B\Rightarrow C$: $\lambda fgu.\text{match }u\text{ with }\inj1a\mapsto fa,\ \inj2b\mapsto gb$
+		\item $\neg(A\vee B)\Rightarrow\neg A$: $\lambda hu.h(\inj1u)$; $\neg(A\vee B)\Rightarrow\neg A\wedge\neg B$: $\lambda h.\langle\lambda a.h(\inj1a),\lambda b.h(\inj2b)\rangle$
+		\item $\neg A\wedge\neg B\Rightarrow\neg(A\vee B)$: $\lambda pu.\text{match }u\text{ with }\inj1a\mapsto\pi_1p\,a,\ \inj2b\mapsto\pi_2p\,b$
+		\item $\neg\neg(A\vee\neg A)$: $\lambda h.h(\inj2(\lambda a.h(\inj1a)))$
+		\item $(A\vee\neg A)\Rightarrow\neg\neg A\Rightarrow A$: $\lambda zu.\text{match }z\text{ with }\inj1v\mapsto v,\ \inj2w\mapsto\text{exfalso}(uw)$
+	\end{enumerate}
+
+	\subsection{Méthode (terme $\leftrightarrow$ formule)}
+	\begin{enumerate}[\roman*.]
+		\item Terme $\to$ formule: type de chaque variable liée = hypothèse; type du corps = conclusion; \texttt{fun (H:A) (H2:B) => e} prouve $A\Rightarrow B\Rightarrow$(type de $e$)
+		\item Formule $\to$ terme: un $\lambda$ par hypothèse ($\Rightarrow$), puis appliquer les hypothèses pour atteindre la conclusion; $\neg A$: c'est $A\Rightarrow\bot$, donc encore un $\lambda$
+	\end{enumerate}
+
+	\colbreak
+	\section{Calcul propositionnel intuitionniste}
+	Formules: variables $A,B,\dots$, $\Rightarrow$, $\wedge$, $\vee$, $\top$, $\bot$; $\neg P:=P\Rightarrow\bot$.
+	\begin{enumerate}[\roman*.]
+		\item Priorités: $\neg>\wedge>\vee>\Rightarrow$; $P\Rightarrow Q\Rightarrow R=P\Rightarrow(Q\Rightarrow R)$
+		\item Séquent $P_1,\dots,P_r\vd Q$: «sous les hypothèses $P_i$, on a $Q$»; théorème: $\vd P$
+	\end{enumerate}
+
+	\subsection{Déduction naturelle}
+	Axiome: $\Gamma,Q\vd Q$. Hypothèses \textbf{déchargées} entre crochets.
+	\begin{gather*}
+		\rul{\Gamma,P\vd Q}{\Gamma\vd P\Rightarrow Q}{\Rightarrow\text{I}}\quad
+		\rul{\Gamma\vd P\Rightarrow Q\quad\Gamma\vd P}{\Gamma\vd Q}{\Rightarrow\text{E}}\\
+		\rul{\Gamma\vd Q_1\quad\Gamma\vd Q_2}{\Gamma\vd Q_1\wedge Q_2}{\wedge\text{I}}\quad
+		\rul{\Gamma\vd Q_1\wedge Q_2}{\Gamma\vd Q_i}{\wedge\text{E}_i}\\
+		\rul{\Gamma\vd Q_i}{\Gamma\vd Q_1\vee Q_2}{\vee\text{I}_i}\quad
+		\rul{\Gamma\vd P_1\vee P_2\quad\Gamma,P_1\vd Q\quad\Gamma,P_2\vd Q}{\Gamma\vd Q}{\vee\text{E}}\\
+		\rul{}{\Gamma\vd\top}{\top\text{I}}\quad
+		\rul{\Gamma\vd\bot}{\Gamma\vd Q}{\bot\text{E}}\quad
+		\rul{\Gamma,\neg Q\vd\bot}{\Gamma\vd Q}{\text{Abs (classique)}}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item Pas d'élimination de $\top$, pas d'introduction de $\bot$
+		\item $\neg$Int = $\Rightarrow$I: supposer $A$, déduire $\bot$, conclure $\neg A$ (valable)
+		\item $\neg$Élim = $\Rightarrow$E: de $\neg A$ et $A$ tirer $\bot$
+		\item Raisonnement \textbf{par l'absurde} (supposer $\neg A$, déduire $\bot$, conclure $A$): \textbf{classique} seulement; intuitionnistement on obtient $\neg\neg A$
+	\end{enumerate}
+
+	\subsection{Arbre de preuve}
+	\begin{prooftree}
+		\AxiomC{$A\wedge B\vd A\wedge B$}
+		\RightLabel{\scriptsize$\wedge$E$_2$}
+		\UnaryInfC{$A\wedge B\vd B$}
+		\AxiomC{$A\wedge B\vd A\wedge B$}
+		\RightLabel{\scriptsize$\wedge$E$_1$}
+		\UnaryInfC{$A\wedge B\vd A$}
+		\RightLabel{\scriptsize$\wedge$I}
+		\BinaryInfC{$A\wedge B\vd B\wedge A$}
+		\RightLabel{\scriptsize$\Rightarrow$I}
+		\UnaryInfC{$\vd A\wedge B\Rightarrow B\wedge A$}
+	\end{prooftree}
+
+	\colbreak
+	\subsection{Présentation drapeau}
+	Numéroter les lignes, ouvrir une boîte par hypothèse, justifier chaque ligne. Ex. $(A\Rightarrow B)\Rightarrow\neg B\Rightarrow\neg A$:
+
+	\begin{tabular}{l@{\ }l@{\ }l}
+		(1) & \fbox{$A\Rightarrow B$}           & hyp.                       \\
+		(2) & \ \fbox{$\neg B$}                 & hyp.                       \\
+		(3) & \ \ \fbox{$A$}                    & hyp.                       \\
+		(4) & \ \ \ $B$                         & $\Rightarrow$E (1),(3)     \\
+		(5) & \ \ \ $\bot$                      & $\Rightarrow$E (2),(4)     \\
+		(6) & \ \ $\neg A$                      & $\Rightarrow$I de (3) dans (5) \\
+		(7) & \ $\neg B\Rightarrow\neg A$       & $\Rightarrow$I de (2) dans (6) \\
+		(8) & $(A\Rightarrow B)\Rightarrow\neg B\Rightarrow\neg A$ & $\Rightarrow$I de (1) dans (7) \\
+	\end{tabular}
+
+	Terme: $\lambda(f:A\Rightarrow B).\lambda(h:\neg B).\lambda(u:A).h(fu)$.
+
+	$\vee$E en drapeau: «$\vee$Élim sur (1) de (2) dans (3) et de (4) dans (5)», deux boîtes ouvertes par les deux cas.
+
+	\subsection{Interprétation BHK}
+	Un témoignage de:
+	\begin{enumerate}[\roman*.]
+		\item $P\wedge Q$: un de $P$ et un de $Q$
+		\item $P\vee Q$: un de $P$ ou un de $Q$, \textbf{et lequel}
+		\item $P\Rightarrow Q$: un moyen de transformer un témoignage de $P$ en un de $Q$
+		\item $\top$: trivial; $\bot$: n'existe pas
+		\item $\forall x.P(x)$: transforme tout $x$ en témoignage de $P(x)$
+		\item $\exists x.P(x)$: un $x_0$ et un témoignage de $P(x_0)$
+	\end{enumerate}
+
+	\subsection{Intuitionniste vs classique}
+	\begin{enumerate}[\roman*.]
+		\item Classique = intuitionniste + tiers exclu (ou absurde, ou $\neg\neg A\Rightarrow A$, ou Peirce)
+		\item Intuitionniste: preuves constructives, extraction d'algorithme, propriété de la disjonction
+		\item \textbf{Propriété de la disjonction}: $\vd Q_1\vee Q_2\Rightarrow\vd Q_1$ ou $\vd Q_2$; donc $\nvdash A\vee\neg A$
+		\item Le calcul propositionnel intuitionniste est \textbf{décidable} (propriété de la sous-formule)
+		\item Glivenko: $P$ prouvable classiquement ssi $\neg\neg P$ prouvable intuitionnistement
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Théorèmes intuitionnistes}
+	\begin{enumerate}[\roman*.]
+		\item $(A\Rightarrow B\Rightarrow C)\Leftrightarrow(A\wedge B\Rightarrow C)$
+		\item $(A\Rightarrow B)\wedge(A\Rightarrow C)\Leftrightarrow(A\Rightarrow B\wedge C)$
+		\item $(A\Rightarrow C)\wedge(B\Rightarrow C)\Leftrightarrow(A\vee B\Rightarrow C)$
+		\item $A\wedge(B\vee C)\Leftrightarrow(A\wedge B)\vee(A\wedge C)$; idem $\vee$ sur $\wedge$
+		\item $\neg A\wedge\neg B\Leftrightarrow\neg(A\vee B)$
+		\item $\neg A\vee\neg B\Rightarrow\neg(A\wedge B)$ (seul ce sens)
+		\item $A\Rightarrow\neg\neg A$; $\neg\neg\neg A\Leftrightarrow\neg A$
+		\item $(A\Rightarrow B)\Rightarrow(\neg B\Rightarrow\neg A)$
+		\item $\neg A\vee B\Rightarrow(A\Rightarrow B)$ (seul ce sens)
+		\item $(\neg\neg A\wedge\neg\neg B)\Leftrightarrow\neg\neg(A\wedge B)$
+		\item $(\neg\neg A\Rightarrow\neg\neg B)\Leftrightarrow\neg\neg(A\Rightarrow B)$
+		\item $\neg(A\wedge\neg A)$; $\neg\neg(A\vee\neg A)$
+		\item $(A\vee\neg A)\Rightarrow(\neg\neg A\Rightarrow A)$
+	\end{enumerate}
+
+	\subsection{Non-théorèmes intuitionnistes}
+	Valables classiquement, pas intuitionnistement:
+	\begin{enumerate}[\roman*.]
+		\item $A\vee\neg A$ (tiers exclu)
+		\item $\neg\neg A\Rightarrow A$ (double négation)
+		\item $((A\Rightarrow B)\Rightarrow A)\Rightarrow A$ (Peirce)
+		\item $\neg(A\wedge B)\Rightarrow\neg A\vee\neg B$ (De Morgan)
+		\item $(A\Rightarrow B)\Rightarrow\neg A\vee B$
+		\item $(\neg B\Rightarrow\neg A)\Rightarrow(A\Rightarrow B)$
+		\item $(A\Rightarrow B)\vee(B\Rightarrow A)$ (Dummett)
+		\item $\neg A\vee\neg\neg A$ (tiers exclu faible)
+		\item $(\neg\neg A\Rightarrow A)\Rightarrow A\vee\neg A$
+		\item $((\neg\neg A\Rightarrow A)\Rightarrow A\vee\neg A)\Rightarrow\neg\neg A\vee\neg A$ (Scott)
+		\item $((A\Rightarrow B)\Rightarrow B)\wedge((B\Rightarrow A)\Rightarrow A)\Rightarrow A\vee B$
+	\end{enumerate}
+	Tester d'abord la table de vérité.
+
+	\subsection{Méthode (prouver une formule)}
+	\begin{enumerate}[\roman*.]
+		\item Introduire les hypothèses ($\Rightarrow$I)
+		\item But $\wedge$: deux sous-preuves; but $\vee$: choisir le côté (souvent après un $\vee$E)
+		\item Hyp. $\vee$: $\vee$E; but $\neg A$: supposer $A$, viser $\bot$
+	\end{enumerate}
+
+	\colbreak
+	\section{Sémantiques}
+	\textbf{Sémantique}: ensemble de modèles où chaque formule a une valeur.
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Correcte}: tout théorème est valide dans tout modèle
+		\item \textbf{Complète}: toute formule valide partout est un théorème
+		\item \textbf{Usage}: trouver un modèle où $\varphi$ n'est pas valide $\Rightarrow$ par correction, $\varphi$ n'est pas démontrable
+	\end{enumerate}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Sémantique} & \textbf{Correcte} & \textbf{Complète} \\
+		\hline
+		Booléenne       & oui              & classique \\
+		Kripke          & oui              & oui (tous cadres)  \\
+		Ouverts         & oui              & oui (même $\R^n$)  \\
+		Réalisabilité   & oui              & non                \\
+		Pb. finis (Medvedev) & oui         & non                \\
+		\hline
+	\end{tabular}
+
+	\subsection{Sémantique des ouverts}
+	$X$ espace topologique (en pratique $\R$), valeurs = ouverts:
+	\begin{gather*}
+		\dot\top=X,\quad\dot\bot=\emptyset,\quad U\dot\wedge V=U\cap V,\quad U\dot\vee V=U\cup V\\
+		U\dot\Rightarrow V=\mathrm{int}\big((X\setminus U)\cup V\big)\\
+		\dot\neg U=\mathrm{int}(X\setminus U),\quad\dot\neg\dot\neg U=\mathrm{int}(\overline U)
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item $U\dot\Rightarrow V$: plus grand ouvert $W$ avec $U\cap W\subseteq V$; $=X$ ssi $U\subseteq V$
+		\item $\dot\neg U$: plus grand ouvert disjoint de $U$
+		\item $\varphi$ valide ssi $\dot\varphi=X$ pour tous ouverts (Tarski)
+		\item Toujours vérifier que chaque valeur est \textbf{ouverte}; attention aux points frontière (souvent 0)
+	\end{enumerate}
+	\textbf{Valeurs utiles sur $\R$}:
+	\begin{enumerate}[\roman*.]
+		\item $U=]0,+\infty[$: $\dot\neg U=]-\infty,0[$, $\dot\neg\dot\neg U=U$, $U\dot\vee\dot\neg U=\R\setminus\{0\}$
+		\item $U=\R\setminus\{0\}$: $\dot\neg U=\emptyset$, $\dot\neg\dot\neg U=\R$, $\dot\neg\dot\neg U\dot\Rightarrow U=U\neq\R$
+		\item $U=]0,1[$: $\dot\neg U=]-\infty,0[\cup]1,+\infty[$, $U\dot\vee\dot\neg U=\R\setminus\{0,1\}$
+		\item $U=]-\infty,0[$, $V=]0,+\infty[$: $U\dot\Rightarrow V=V$, $V\dot\Rightarrow U=U$, $U\cap V=\emptyset$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Sémantique de Kripke}
+	Cadre: ensemble ordonné $(W,\leq)$ de \textbf{mondes}. Affectation $p:W\to\{0,1\}$ \textbf{croissante} (permanente: vrai en $w$ $\Rightarrow$ vrai en tout $w'\geq w$).
+	\begin{enumerate}[\roman*.]
+		\item $(q_1\dot\wedge q_2)(w)=1$ ssi les deux valent 1 en $w$; $\dot\vee$: l'un des deux
+		\item $(q_1\dot\Rightarrow q_2)(w)=1$ ssi $\forall w'\geq w$, $q_1(w')=1\Rightarrow q_2(w')=1$
+		\item $\dot\neg p(w)=1$ ssi $p=0$ dans tout $w'\geq w$
+		\item $\dot\neg\dot\neg p(w)=1$ ssi $\forall w'\geq w$, $\exists w''\geq w'$, $p(w'')=1$
+		\item $\varphi$ validée par le modèle: vaut 1 dans \textbf{tout} monde
+		\item Correcte et complète; singleton = booléenne
+	\end{enumerate}
+	\textbf{Cadre $u\leq v$}, $p$ vrai seulement en $v$:
+	\begin{enumerate}[\roman*.]
+		\item $\dot\neg p=0$ partout, $\dot\neg\dot\neg p=1$ partout
+		\item $p\dot\vee\dot\neg p$: 0 en $u$ $\Rightarrow$ tiers exclu non prouvable
+		\item $\dot\neg\dot\neg p\dot\Rightarrow p$: 0 en $u$ $\Rightarrow$ double négation
+		\item $q\equiv0$: $p\dot\Rightarrow q=0$ partout, $(p\dot\Rightarrow q)\dot\Rightarrow p=1$, Peirce vaut 0 en $u$
+	\end{enumerate}
+	\textbf{Cadre $u\leq v$, $u\leq w$} ($v$, $w$ incomparables), $p$ vrai seulement en $v$, $q$ seulement en $w$:
+	\begin{enumerate}[\roman*.]
+		\item $p\dot\Rightarrow q$, $q\dot\Rightarrow p$: 0 en $u$ $\Rightarrow$ Dummett vaut 0 en $u$
+		\item $\dot\neg(p\dot\wedge q)=1$ partout, $\dot\neg p\dot\vee\dot\neg q=0$ en $u$ $\Rightarrow$ De Morgan
+		\item $\dot\neg p\dot\vee\dot\neg\dot\neg p=0$ en $u$ $\Rightarrow$ tiers exclu faible
+		\item $(p\dot\Rightarrow q)\dot\Rightarrow q=1$ partout (et symétrique), $p\dot\vee q=0$ en $u$ $\Rightarrow$ CC 24-25
+	\end{enumerate}
+
+	\subsection{Réalisabilité propositionnelle}
+	Valeurs = parties de $\cN$, $\Phi_e$ = $e$-ième fonction récursive:
+	\begin{enumerate}[\roman*.]
+		\item $P\dot\wedge Q=\{\langle m,n\rangle:m\in P,n\in Q\}$; $P\dot\vee Q=\{\langle0,m\rangle:m\in P\}\cup\{\langle1,n\rangle:n\in Q\}$
+		\item $P\dot\Rightarrow Q=\{e:\forall m\in P.\,\Phi_e(m)\dv\in Q\}$; $\dot\top=\cN$, $\dot\bot=\emptyset$
+		\item $\dot\neg P=\cN$ si $P=\emptyset$, $\emptyset$ sinon
+		\item $\varphi$ réalisable: un \textbf{même} $n$ réalise $\varphi$ pour toutes parties $P_i$
+		\item Correcte: réalisateur extrait du $\lambda$-terme
+		\item $A\vee\neg A$, $\neg\neg A\Rightarrow A$: non réalisables
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Exemple complet: formule de Scott (CC 25-26)}
+	$((\neg\neg A\Rightarrow A)\Rightarrow A\vee\neg A)\Rightarrow\neg\neg A\vee\neg A$ sur $\R$ avec
+	\begin{gather*}
+		U=]0,+\infty[\setminus\{1,\tfrac12,\tfrac14,\dots\}=]1,\infty[\cup]\tfrac12,1[\cup]\tfrac14,\tfrac12[\cup\cdots
+	\end{gather*}
+	(ouvert: réunion d'intervalles ouverts)
+	\begin{enumerate}[\roman*.]
+		\item $\dot\neg U=]-\infty,0[$, $\dot\neg\dot\neg U=]0,+\infty[$
+		\item $\dot\neg\dot\neg U\dot\Rightarrow U=U\cup]-\infty,0[$ (0 exclu: tout voisinage de 0 contient des $2^{-n}$)
+		\item $U\dot\vee\dot\neg U=U\cup]-\infty,0[$: même ouvert
+		\item Donc $(\dots)\dot\Rightarrow(\dots)=\R$
+		\item $\dot\neg\dot\neg U\dot\vee\dot\neg U=\R\setminus\{0\}$; formule entière: $\R\setminus\{0\}\neq\R$: non démontrable
+	\end{enumerate}
+
+	\subsection{Exemple: CC 24-25}
+	$((A\Rightarrow B)\Rightarrow B)\wedge((B\Rightarrow A)\Rightarrow A)\Rightarrow A\vee B$, $U=]-\infty,0[$, $V=]0,\infty[$:
+	\begin{enumerate}[\roman*.]
+		\item $U\dot\Rightarrow V=V$, donc $(U\dot\Rightarrow V)\dot\Rightarrow V=\R$; symétriquement $\R$
+		\item $U\dot\vee V=\R\setminus\{0\}$: formule $=\R\setminus\{0\}$, non démontrable
+		\item Classiquement prouvable (table de vérité: si $A,B$ faux, $(A\Rightarrow B)\Rightarrow B$ est faux)
+	\end{enumerate}
+
+	\subsection{Méthode (montrer qu'une formule n'est pas démontrable)}
+	\begin{enumerate}[\roman*.]
+		\item Table de vérité: si faux pour une affectation, non prouvable même classiquement
+		\item Sinon, \textbf{ouverts de $\R$}: $]0,\infty[$, $\R\setminus\{0\}$, ou $]-\infty,0[$ et $]0,\infty[$
+		\item Ou \textbf{Kripke}: cadre $u\leq v$ (une variable) ou $u\leq v,w$ (deux), variables vraies seulement aux mondes maximaux
+		\item Calculer chaque sous-formule (vérifier ouverture/croissance)
+		\item Conclure: «la valeur n'est pas $X$ tout entier (resp. vaut 0 en $u$), donc par correction de la sémantique, la formule n'est pas démontrable»
+	\end{enumerate}
+
+	\colbreak
+	\section{Quantificateurs et arithmétique}
+	$\forall$, $\exists$ = $\wedge$, $\vee$ «en famille»: Curry-Howard $\prod_v\sigma(v)$ (fonction dépendante) et $\sum_v\sigma(v)$ (couple dépendant).
+
+	\subsection{Règles}
+	\begin{gather*}
+		\rul{\Gamma,v:I\vd Q}{\Gamma\vd\forall v.Q}{\forall\text{I}}\quad
+		\rul{\Gamma\vd\forall v.Q\quad\Gamma\vd t:I}{\Gamma\vd Q[v\backslash t]}{\forall\text{E}}\\
+		\rul{\Gamma\vd t:I\quad\Gamma\vd Q[v\backslash t]}{\Gamma\vd\exists v.Q}{\exists\text{I}}\quad
+		\rul{\Gamma\vd\exists v.P\quad\Gamma,v:I,P\vd Q}{\Gamma\vd Q}{\exists\text{E}}
+	\end{gather*}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Frais}: $v$ n'apparaît libre dans aucune hypothèse en cours (ni dans $Q$ pour $\exists$E)
+		\item $\forall$I: «soit $v$ arbitraire… donc $\forall v.Q(v)$»; $\forall$E: «en particulier $Q(t)$»
+		\item $\exists$I: «pour ce $t$, $Q(t)$, donc $\exists v.Q$»; $\exists$E: «soit $v$ tel que $P(v)$…»
+	\end{enumerate}
+	\textbf{Termes}:
+	\begin{enumerate}[\roman*.]
+		\item $\forall$I: $\lambda(v:I).s$; $\forall$E: $ft$
+		\item $\exists$I: $\langle t,z\rangle$; $\exists$E: $\text{match }z\text{ with }\langle v,h\rangle\mapsto s$
+	\end{enumerate}
+
+	\subsection{Logique du premier ordre}
+	Variables d'individus (type unique $I$, non écrit), variables de prédicats $n$-aires $A(x_1,\dots,x_n)$; on ne quantifie que sur les individus.
+	\begin{enumerate}[\roman*.]
+		\item $I$ pas supposé habité: $\nvdash\exists x.\top$, $\nvdash\forall x.A(x)\Rightarrow\exists x.A(x)$; mais $\vd\forall z.\exists x.\top$ ($\lambda z.\langle z,\bullet\rangle$)
+		\item Pour former $t:I$, il faut une variable du contexte
+		\item Convention: $\forall$, $\exists$ moins prioritaires que les connecteurs
+	\end{enumerate}
+	\textbf{Égalité}: réflexivité $\forall x.x=x$ et schéma de substitution $\forall x\forall y.(x=y\Rightarrow P(x)\Rightarrow P(y))$.
+	\begin{enumerate}[\roman*.]
+		\item Symétrie: $\lambda xyu.\text{subst}_{(\lambda s.s=x)}\,x\,y\,u\,(\text{refl}\,x)$
+		\item Transitivité: $\lambda xyzuv.\text{subst}_{(\lambda s.x=s)}\,y\,z\,v\,u$
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Théorèmes du premier ordre}
+	\begin{enumerate}[\roman*.]
+		\item $(\exists x.\forall y.B(x,y))\Rightarrow\forall y'.\exists x'.B(x',y')$:\\ $\lambda u.\lambda y'.\text{match }u\text{ with }\langle x,v\rangle\mapsto\langle x,vy'\rangle$ (réciproque fausse)
+		\item $(\forall x.(A(x)\Rightarrow C))\Rightarrow(\exists x.A(x))\Rightarrow C$:\\ $\lambda fp.\text{match }p\text{ with }\langle x,w\rangle\mapsto fxw$
+		\item $((\exists x.A(x))\Rightarrow C)\Rightarrow\forall x.(A(x)\Rightarrow C)$: $\lambda gxu.g\langle x,u\rangle$
+		\item D'où $(\forall x.\neg A(x))\Leftrightarrow\neg\exists x.A(x)$
+		\item $(\exists x.\neg A(x))\Rightarrow\neg\forall x.A(x)$: $\lambda pf.\text{match }p\text{ with }\langle x,w\rangle\mapsto w(fx)$ (réciproque classique seulement)
+		\item $(\forall x.A(x))\Rightarrow(\exists x.\top)\Rightarrow\exists x.A(x)$: $\lambda fp.\text{match }p\text{ with }\langle x,u\rangle\mapsto\langle x,fx\rangle$
+		\item $(\forall x.P(x))\vee(\forall x.Q(x))\Rightarrow\forall x.(P(x)\vee Q(x))$ (CC 25-26):\\ $\lambda h.\lambda x.\text{match }h\text{ with }\inj1g\mapsto\inj1(gx),\ \inj2g\mapsto\inj2(gx)$
+		\item $(C\wedge\forall x.B(x))\Rightarrow\forall x.(C\wedge B(x))$: $\lambda p.\lambda x.\langle\pi_1p,(\pi_2p)x\rangle$
+		\item Classique seulement: $\neg\forall x.A(x)\Rightarrow\exists x.\neg A(x)$
+	\end{enumerate}
+
+	\subsection{Arithmétique de Heyting / Peano}
+	HA (intuitionniste) et PA (classique): mêmes axiomes. Termes: $0$, $Sn$, $+$, $\times$, $\triangle$ (puissance).
+	\begin{enumerate}[\roman*.]
+		\item $\forall n.\neg(Sn=0)$; $\forall mn.(Sm=Sn\Rightarrow m=n)$
+		\item \textbf{Récurrence} (schéma): $P(0)\Rightarrow(\forall n.(P(n)\Rightarrow P(Sn)))\Rightarrow\forall n.P(n)$
+		\item $m+0=m$, $m+Sn=S(m+n)$; $m\times0=0$, $m\times Sn=m\times n+m$; $m\triangle0=S0$, $m\triangle Sn=(m\triangle n)\times m$
+		\item Curry-Howard: la récurrence est une \textbf{récursion primitive} dépendante
+		\item Ex.: $\forall n.(n=0\vee\neg n=0)$ prouvable dans HA par récurrence
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Propriétés de HA}
+	\begin{enumerate}[\roman*.]
+		\item Propriété de la \textbf{disjonction} et de l'\textbf{existence} (témoin explicite)
+		\item \textbf{Extraction}: HA $\vd\forall m.\exists n.Q(m,n)\Rightarrow$ il existe $\ff_e$ totale avec $\forall m.Q(m,\ff_e(m))$
+		\item $\ff_e(i)\dv$ formalisable: $\exists n.T(n,e,i)$
+		\item $\forall e\forall i.(\ff_e(i)\dv\vee\neg\ff_e(i)\dv)$: prouvable dans PA, \textbf{pas} dans HA (sinon on extrairait un algorithme pour l'arrêt)
+		\item Traduction double négation: PA $\vd P\iff$ HA $\vd P^{\text{CPS}}$
+	\end{enumerate}
+
+	\subsection{Démontrabilité}
+	\begin{enumerate}[\roman*.]
+		\item \textbf{Vérifier une preuve}: décidable (même p.r.): prédicat $\text{Pf}(n,k)$
+		\item \textbf{Être un théorème}: $\exists n.\text{Pf}(n,k)$, seulement \textbf{semi-décidable} (parcourir les preuves)
+		\item Si $\ff_e(i)\dv$, la trace d'exécution donne une preuve de $\ff_e(i)\dv$ dans HA; une boucle infinie explicite est aussi prouvable
+	\end{enumerate}
+
+	\subsection{Théorème de Gödel}
+	Programme $g$ (par Kleene): cherche en parallèle une preuve de «$g$ termine» et de «$g$ ne termine pas»; si la 1\textsuperscript{re}: boucle infinie; si la 2\textsuperscript{e}: termine.
+	\begin{enumerate}[\roman*.]
+		\item Supposons Consis(PA) ($\text{PA}\nvdash\bot$)
+		\item Preuve de non-terminaison trouvée $\Rightarrow g$ termine $\Rightarrow$ prouvable $\Rightarrow\bot$
+		\item Preuve de terminaison trouvée $\Rightarrow$ boucle explicite $\Rightarrow$ prouvable $\Rightarrow\bot$
+		\item Donc $g$ ne termine pas, \textbf{non prouvable} dans PA; et PA $\nvdash$ Consis(PA)
+	\end{enumerate}
+	\textbf{Généralisation}: toute $T$ à preuves vérifiables, formalisant $\ff_e(i)\dv$: si Consis($T$), $T$ incomplète, $T\nvdash$ Consis($T$) (PA, ZFC, Rocq…).
+	\begin{enumerate}[\roman*.]
+		\item L'ensemble des théorèmes est semi-décidable \textbf{non décidable} (même argument diagonal)
+	\end{enumerate}
+
+	\colbreak
+	\section{Rocq (Coq)}
+	\textbf{Idée:} assistant de preuve fondé sur Curry-Howard (calcul des constructions inductives): \texttt{Prop} pour les propositions, \texttt{Type} pour les données; une preuve est un terme, une tactique construit ce terme. Noms des tactiques exigibles.
+
+	\subsection{Logique: tactique $\leftrightarrow$ règle}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{But / hyp.}   & \textbf{Tactique}                  & \textbf{Règle} \\
+		\hline
+		but $\to$, $\neg$, $\forall$ & \texttt{intros H}         & $\Rightarrow$I,$\forall$I \\
+		hyp. $H:A\to B$        & \texttt{apply H}                   & $\Rightarrow$E \\
+		but $\wedge$, $\leftrightarrow$ & \texttt{split}            & $\wedge$I \\
+		hyp. $A\wedge B$       & \texttt{destruct H as (H1,H2)}     & $\wedge$E \\
+		but $A\vee B$          & \texttt{left} / \texttt{right}     & $\vee$I \\
+		hyp. $A\vee B$         & \texttt{destruct H as [H1|H2]}     & $\vee$E \\
+		but $\exists x,P\,x$   & \texttt{exists t}                  & $\exists$I \\
+		hyp. $\exists x,P\,x$  & \texttt{destruct H as (x,Hx)}      & $\exists$E \\
+		but = hypothèse        & \texttt{assumption}                & Ax \\
+		terme connu            & \texttt{exact t}                   & \\
+		hyp. \texttt{False}    & \texttt{contradiction}             & $\bot$E \\
+		but $\to$ \texttt{False} & \texttt{exfalso}                & $\bot$E \\
+		lemme                  & \texttt{assert (H:P)}              & coupure \\
+		\hline
+	\end{tabular}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{\~{}A} est \texttt{A -> False}: \texttt{intros} sur un but $\neg A$ donne but \texttt{False}; \texttt{apply H2} avec \texttt{H2 : \~{}B} transforme le but \texttt{False} en \texttt{B}
+		\item \texttt{apply H in H'}: raisonnement en avant
+		\item Imbriqué: \texttt{destruct H as ((H1,H2),H3)}
+		\item \texttt{contradiction} aussi si $H$ et $\neg H$ sont dans le contexte
+	\end{enumerate}
+
+	\subsection{Termes de preuve Rocq}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{fun (H1:A) (H2:B) => H2} : $A\to B\to B$
+		\item \texttt{fun (H1:A) (H2:\~{}A) => H2 H1} : $A\to\neg\neg A$
+		\item \texttt{fun H1 H2 H3 => H1 H3 H2} avec \texttt{H1:A->B->C}, \texttt{H2:B}, \texttt{H3:A} : $(A\to B\to C)\to B\to A\to C$
+		\item \texttt{fun (H1:A->B) (H2:B->C) (H3:A) => H2 (H1 H3)} : $(A\to B)\to(B\to C)\to A\to C$
+		\item \texttt{conj}, \texttt{or\_introl}/\texttt{or\_intror}, \texttt{ex\_intro}, \texttt{match}: constructeurs et éliminations
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Types inductifs}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{split}, \texttt{left}, \texttt{right}: appliquer un constructeur (unique, 1\textsuperscript{er}, 2\textsuperscript{e})
+		\item \texttt{destruct x}: analyse de cas sur les constructeurs (récupère les arguments)
+		\item \texttt{induction n as [|n IHn]}: récurrence (principe engendré par le type); donne \texttt{IHn}
+		\item \texttt{injection H as H'}: de $C\,a=C\,b$ tirer $a=b$ (constructeurs injectifs); ex. \texttt{S n = S m} $\to$ \texttt{n = m}
+		\item \texttt{discriminate}: hypothèse $C_1\ldots=C_2\ldots$ avec constructeurs différents: absurde, prouve tout
+		\item \texttt{inversion}: analyse de cas sur un prédicat inductif
+	\end{enumerate}
+
+	\subsection{Calcul et égalité}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{simpl}: simplifie (calcule) lisiblement; \texttt{S n + 0} $\to$ \texttt{S (n + 0)}
+		\item \texttt{unfold f}: déplie une définition; \texttt{lazy}: réductions données
+		\item \texttt{rewrite H} / \texttt{rewrite <- H}: remplace le membre gauche (droit) de l'égalité $H$
+		\item \texttt{reflexivity}: deux membres identiques à calcul près
+		\item \texttt{symmetry}, \texttt{transitivity t}
+		\item \texttt{f\_equal}: \texttt{S (n+0) = S n} $\to$ \texttt{n+0 = n}
+		\item \texttt{lia}: arithmétique linéaire automatique
+		\item Toutes acceptent \texttt{in H} ou \texttt{in *}
+	\end{enumerate}
+
+	\subsection{\texttt{rewrite} ou \texttt{apply} un lemme?}
+	Lemme \texttt{L : forall n, n * 0 = 0}:
+	\begin{enumerate}[\roman*.]
+		\item \texttt{rewrite L}: le but doit \textbf{contenir un sous-terme} de la forme \texttt{?n * 0}; \texttt{rewrite <- L}: un sous-terme \texttt{0}
+		\item \texttt{apply L}: le but entier doit être \textbf{convertible} (à calcul près) à \texttt{?n * 0 = 0}
+		\item \texttt{n * 0 = 0 + 0}: les deux (\texttt{0+0} se calcule en \texttt{0})
+		\item \texttt{(n+m) * 0 = n*0 + m*0}: \texttt{rewrite} seulement
+		\item Avec \texttt{add\_0\_r : n + 0 = n}: \texttt{n + 0 = 0 + n} se réduit à \texttt{n + 0 = n}: les deux
+	\end{enumerate}
+
+	\colbreak
+	\subsection{Définitions}
+\begin{verbatim}
+Inductive jour : Type :=
+ | lundi | mardi | mercredi | jeudi
+ | vendredi | samedi | dimanche.
+Definition suivant (j:jour) : jour :=
+ match j with lundi => mardi
+ | ... | dimanche => lundi end.
+Lemma dim : suivant dimanche = lundi.
+Proof. simpl. reflexivity. Qed.
+Lemma neq : forall j, suivant j <> j.
+Proof. intros j H. destruct j;
+  simpl in H; discriminate. Qed.
+
+Inductive arbre : Type :=
+ | feuille : arbre
+ | noeud : nat -> arbre -> arbre -> arbre.
+Fixpoint miroir (a:arbre) : arbre :=
+ match a with
+ | feuille => feuille
+ | noeud v g d =>
+     noeud v (miroir d) (miroir g)
+ end.
+Lemma miroir_inv : forall a,
+  miroir (miroir a) = a.
+Proof. induction a; simpl.
+ - reflexivity.
+ - rewrite IHa1, IHa2. reflexivity.
+Qed.
+\end{verbatim}
+
+	\subsection{Exemples d'états (CC)}
+	\begin{enumerate}[\roman*.]
+		\item \texttt{H:(A/\textbackslash B)/\textbackslash C} $\to$ \texttt{H1:A/\textbackslash B}, \texttt{H2:C}: \texttt{destruct H as (H1,H2)}
+		\item But \texttt{P <-> Q} $\to$ deux buts \texttt{P->Q}, \texttt{Q->P}: \texttt{split}
+		\item \texttt{H1:B} $\vd$ \texttt{A\textbackslash/B} $\to$ fini: \texttt{right. assumption.}
+		\item But \texttt{\~{}A} $\to$ \texttt{H3:A} $\vd$ \texttt{B} (avec \texttt{H2:\~{}B}): \texttt{intros H3. apply H2.}
+	\end{enumerate}
+
+	\subsection{Méthode}
+	\begin{enumerate}[\roman*.]
+		\item But: intro du connecteur; hyp.: \texttt{destruct}/\texttt{apply}; récursif: \texttt{induction}
+	\end{enumerate}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%                       End                          %
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{multicols*}
+\end{document}
